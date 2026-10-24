@@ -42,10 +42,11 @@ Software simulations never change the equipment test status. Two agents agreeing
 | S-002 | Claude feasibility report | AI: Claude (Anthropic) | 2026-10-23 | Not yet | Awaiting import; contents not available to agents |
 | S-003 | ChatGPT critique | AI: ChatGPT (OpenAI) | Unknown | Not yet | Awaiting import; contents not available to agents |
 | S-004 | Owner's review decisions and cable purchase confirmation | Owner | 2026-10-24 | [docs/briefs/2026-10-24-review-decisions.md](docs/briefs/2026-10-24-review-decisions.md) | Review decisions, purchase details and total price supplied by the owner |
+| S-009 | Owner's webcam menu-guard requirement, with answers to three follow-up questions | Owner | 2026-10-24 | [docs/briefs/2026-10-24-webcam-menu-guard.md](docs/briefs/2026-10-24-webcam-menu-guard.md) | Archived word for word |
 
 ## 2. Claims
 
-The initial claims come from the owner's brief (S-001); the cable purchase is owner-reported in S-004. None of the equipment capabilities has been tested. A purchase record does not establish compatibility.
+The initial claims come from the owner's brief (S-001); the cable purchase is owner-reported in S-004; the webcam claims follow from the owner's menu-guard requirement (S-009). None of the equipment capabilities has been tested. A purchase record does not establish compatibility.
 
 | ID | Claim | Provenance | Equipment test status | Tests | Notes |
 |---|---|---|---|---|---|
@@ -57,6 +58,8 @@ The initial claims come from the owner's brief (S-001); the cable purchase is ow
 | C-006 | Software can adjust the TV's picture settings through network remote commands on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-007 (superseded) | Superseded by D-006 — network control is out of scope. Retained as history, not an active dependency; compatibility was never demonstrated. |
 | C-007 | A numerical optimisation engine, using the TV's own controls in a closed loop, can bring the picture close to Rec.709, D65 and BT.1886. | Owner (S-001: project objective) | Not tested | T-001, T-008 | Depends on C-002 to C-005 and on which controls the TV offers, under the Ex-Link-only decision D-006. The optimiser can be developed in simulation first; that will not change this status. |
 | C-008 | The owner purchased a DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT on 24 October 2026 at 21:00 (Europe/London), for £15.99 in total including delivery. | Owner (S-004) | N/A | — | Purchase record only. The product title and specifications are owner-reported; delivery status is unknown. Cable and TV compatibility remain untested (T-006). [Owner-supplied product link](https://www.amazon.co.uk/dp/B07XXWVH69). |
+| C-015 | The owner's webcam, once positioned, can reliably show whether a menu bar is visible in the lower portion of the TV screen while patches are being measured. | None yet — the owner's requirement (S-009) relies on it | Not tested | T-010 | No detection method chosen yet. Detection can first be developed on recorded or synthetic pictures (software only); that will not change this status. |
+| C-016 | The owner has a webcam to use for the menu guard. | Owner (S-009) | N/A | — | Model, connection and position not yet recorded (Q-007). No purchase needed, so the budget is unchanged. |
 
 ## 3. Decisions
 
@@ -69,6 +72,8 @@ The initial claims come from the owner's brief (S-001); the cable purchase is ow
 | D-005 | Working conventions that go beyond the owner's wording, listed below. | Proposed by Claude Code | 2026-10-24 | Proposed — takes effect if the owner merges the setup pull request |
 | D-006 | Use Samsung Ex-Link only for TV control. Network remote control is out of scope. Record the selected cable and completed purchase (C-008); this is neither approval for another purchase nor authorisation for any physical test. | Owner (S-004) | 2026-10-24 | In force — supersedes D-003's interface choice; C-006 and T-007 retained as superseded history. Ex-Link and cable compatibility remain untested. |
 | D-007 | Apply the two approved review corrections: the PR safety checklist must prohibit unauthorised equipment operation and require links to the approved plan and results where applicable; read-only reviews may finish with findings without a new PR, and the author records unresolved disagreements. | Owner (S-004) | 2026-10-24 | In force — amends the proposed workflow under D-005. |
+| D-008 | Webcam menu guard: a webcam observes the TV throughout profiling, and no observation of a patch may be taken when any menu bar is visible in the lower portion of the screen at any point. The exact extent of the "lower portion" is to be set after a webcam test (T-010) shows where the TV's menu bars appear (Q-008). | Owner (S-009) | 2026-10-24 | In force — a requirement for the final program; not yet built or tested (C-015) |
+| D-009 | How D-008 is applied: the working details listed below. | Proposed by Claude Code | 2026-10-24 | Proposed in the pull request that adds it; in force once the owner merges that pull request, except any item the owner rejects |
 
 **D-005 in detail.** Each item can be accepted or rejected separately. D-007 records the owner's approved amendments to the review and finish workflow; it does not approve the other proposed conventions.
 
@@ -83,6 +88,15 @@ The initial claims come from the owner's brief (S-001); the cable purchase is ow
 9. **Privacy:** no credentials, network addresses or serial numbers are committed; private settings live in `local/` or `*.local.*` files, which git ignores; no vendor software, vendor calibration data or downloaded tools are committed.
 10. **Records and routine:** the ledger's format and ID scheme, the `docs/` layout, the start-and-finish checklist in AGENTS.md section 4, and the owner's setup brief archived word for word in `docs/briefs/`.
 11. **Precedence:** the owner's instructions in a current conversation override AGENTS.md, which is then updated by pull request; conflicts inside AGENTS.md go to the owner.
+
+**D-009 in detail.** Claude Code's proposals for applying the owner's menu guard (D-008). Each item can be accepted or rejected separately; none of them narrows D-008.
+
+1. **Fail safe:** if the webcam cannot confirm that the lower portion is clear (for example no picture, camera disconnected, view blocked, picture too dark or too bright, or pictures out of date), no reading is taken.
+2. **Whole reading window:** the lower portion is watched from just before a reading starts until it ends. A menu bar seen at any moment in that window means the reading is discarded and repeated once the screen is clear again. How long "just before" lasts is part of Q-008.
+3. **Seeing, not assuming:** the guard decides from what the webcam shows, never from what the software expects the TV to be showing (for example, "no command was sent, so no menu can be open").
+4. **Nothing silent:** every blocked or discarded reading is logged with its time and reason. A reading taken while the guard was not satisfied is never kept.
+5. **Privacy:** webcam pictures can show the owner's room and people. They stay in the private `local/` folder and are never committed, unless the owner has checked and approved a specific picture as evidence.
+6. **Equipment rule:** the webcam is treated like the TV and the meter. No agent turns it on or captures pictures from it outside an authorised test plan; software-only work uses recorded or synthetic pictures.
 
 ## 4. Disagreements
 
@@ -109,6 +123,7 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 | T-006 | Whether the selected cable is compatible with the TV's Ex-Link connection and whether the TV responds to commands on its firmware | TV, PC and the owner-purchased DSD TECH USB RS232 to 3.5mm cable (C-008); delivery status unknown | Physical test — needs authorisation | C-005 | No plan yet; no physical test authorised. Cable specifications and compatibility are not verified. |
 | T-007 | Whether the TV responds to network remote commands, and whether these can reach picture settings | TV, PC, home network | Historical test candidate only | C-006 (superseded) | Superseded — out of scope under D-006; not authorised and not an active dependency |
 | T-008 | Whether a full closed-loop calibration run improves accuracy on this TV using Ex-Link | All | Physical test — needs authorisation | C-007 | No plan yet; depends on T-001 to T-006 only |
+| T-010 | Where the TV's menu bars appear on screen, to set the "lower portion" boundary (Q-008), and whether the owner's webcam, as positioned, reliably shows them while patterns are displayed | Webcam, TV, PC; menus shown on the TV | Physical test — needs authorisation | C-015 | No plan yet |
 
 ## 6. Open questions
 
@@ -119,6 +134,8 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 | Q-003 | Which Python version and Windows packaging approach? | Affects how the owner installs and runs the application. | Owner, on a proposal in a later pull request | Open |
 | Q-004 | Should `main` be protected in GitHub's settings so that it can change only through pull requests? | Would enforce rule 1 automatically. Changing settings needs the owner's approval, and whether GitHub offers this for a private repository may depend on the account's plan (not yet checked). | Owner | Open |
 | Q-005 | How will Codex review pull requests — directly on GitHub, or with the owner passing its review on? | Decides the exact review steps in [docs/workflow.md](docs/workflow.md). | Owner | Open |
+| Q-007 | Which webcam will be used (model and connection), and where will it be placed so that it sees the lower part of the screen clearly without getting in the meter's way? | The menu guard (D-008) depends on a clear, steady view of the screen. | Owner | Open — the owner has a webcam (C-016); details not yet recorded |
+| Q-008 | Exactly which part of the screen counts as the "lower portion", and how long before a reading must it already be clear? | D-008 leaves the boundary to be set after T-010 shows where the TV's menu bars appear; the timing affects D-009 item 2. | Owner, after T-010 | Open |
 
 ## 7. Hardware budget
 
