@@ -1,0 +1,103 @@
+# .gitignore: files that git must never store in this repository.
+# Lines starting with "#" are comments. A trailing "/" means a folder.
+# To keep an ignored file deliberately, ask the owner first (see AGENTS.md).
+
+# --- Private settings and credentials: never commit ---
+# Keep anything private or machine-specific (the TV's network address,
+# pairing tokens, Wi-Fi details, API keys) in the local/ folder or in a
+# file whose name contains ".local.", for example settings.local.toml.
+local/
+*.local.*
+.env
+.env.*
+!.env.example
+*.token
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+credentials.*
+
+# --- Logs: can contain network addresses or device serial numbers ---
+# To keep evidence from a log, copy a checked extract into docs/tests/.
+*.log
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing, coverage, type-checking and linting caches
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.hypothesis/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+.ipynb_checkpoints/
+.cache/
+
+# --- Downloaded or built programs: record where to get them instead ---
+Argyll_V*/
+*.exe
+*.msi
+*.dll
+
+# --- Temporary files ---
+tmp/
+temp/
+scratch/
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+~$*
+.~lock.*#
+
+# --- Operating-system clutter ---
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+.DS_Store
+.AppleDouble
+._*
+.Trash-*
+.directory
+
+# --- Editors, and AI agents' personal settings ---
+.vscode/
+.idea/
+.claude/settings.local.json
+CLAUDE.local.md
