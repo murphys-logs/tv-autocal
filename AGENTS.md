@@ -40,6 +40,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 - **Do not recommend commercial calibration packages.**
 - **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using **Samsung Ex-Link only**. The owner's later decision D-006 in [LEDGER.md](LEDGER.md#3-decisions) supersedes the original brief's alternative of network remote commands.
 - **Selected cable:** the owner reports purchasing the DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT (S-004). Purchase details and the remaining budget are in the ledger; purchase does not authorise any physical test.
+- **Required webcam gate:** the owner will place a webcam observing the TV. No patch measurement may start while a menu bar is visible in the lower portion of the screen; any reading affected at any point must be rejected. Record D-008 and follow the [proposed measurement-gate specification](docs/webcam-measurement-gate.md), which distinguishes the owner requirement from unvalidated implementation details. Camera uncertainty must not be treated as permission to measure.
 - **Not yet demonstrated:** whether the selected cable and Ex-Link interface work with the owner's TV and firmware. Treat this as an open question to be tested, never as a premise.
 
 ## 4. Starting and finishing a task

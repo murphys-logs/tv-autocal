@@ -21,10 +21,13 @@ The first priority is accurate **SDR** (standard dynamic range) video:
 **Closed-loop, TV-side calibration** means the software adjusts the TV's own controls (such as its colour and white-balance settings) and checks every change with the meter, instead of altering the picture on the PC:
 
 1. The PC shows a known test colour on the TV.
-2. The meter measures what the TV actually displays, and the reading is corrected for this TV's type of light.
-3. The software compares the measurement with the target.
-4. It works out which TV setting to change, and by how much, and sends that change to the TV.
-5. Steps 1–4 repeat until the error is small enough or the TV can do no better.
+2. A webcam checks the TV's lower screen area. The program waits while a menu bar is visible or the view is uncertain.
+3. The meter measures what the TV actually displays while the webcam continues checking. If a menu appears or the webcam view becomes unreliable at any point, the entire reading is discarded and a fresh reading is required after the view clears and settles. Only an eligible reading is corrected for this TV's type of light.
+4. The software compares the measurement with the target.
+5. It works out which TV setting to change, and by how much, and sends that change to the TV.
+6. Steps 1–5 repeat until the error is small enough or the TV can do no better.
+
+The [webcam measurement gate](docs/webcam-measurement-gate.md) is a required final-program feature (D-008). Its detector, timing and reliability have not been implemented or validated.
 
 ## Equipment
 
@@ -37,6 +40,7 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 | Computer | Windows PC |
 | AV receiver | Denon AVC-X3800H |
 | Selected Ex-Link cable | DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT — purchase reported by the owner; compatibility not tested |
+| Menu observation | Webcam the owner plans to provide; model and suitability unknown |
 
 ## Constraints
 
@@ -50,6 +54,7 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 | Part | Job | Status |
 |---|---|---|
 | Measurement (ArgyllCMS) | Takes readings from the Spyder5 | Not yet tried with this meter on this PC |
+| Webcam measurement gate | Blocks readings during a lower-screen menu or uncertain view; rejects any reading affected during acquisition | Required by D-008; not implemented or tested |
 | Spectral correction | Corrects the meter's readings for this TV's type of light | No validated correction identified yet |
 | Test-pattern generator | Shows exact, known colours on the TV | Not built; signal path not yet confirmed |
 | Optimisation engine | Works out which setting to change, and by how much | Not built; can be developed in simulation first |

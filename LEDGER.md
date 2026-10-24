@@ -42,10 +42,11 @@ Software simulations never change the equipment test status. Two agents agreeing
 | S-002 | Claude feasibility report | AI: Claude (Anthropic) | 2026-10-23 | Not yet | Awaiting import; contents not available to agents |
 | S-003 | ChatGPT critique | AI: ChatGPT (OpenAI) | Unknown | Not yet | Awaiting import; contents not available to agents |
 | S-004 | Owner's review decisions and cable purchase confirmation | Owner | 2026-10-24 | [docs/briefs/2026-10-24-review-decisions.md](docs/briefs/2026-10-24-review-decisions.md) | Review decisions, purchase details and total price supplied by the owner |
+| S-009 | Webcam observation and lower-screen menu exclusion requirement | Owner | 2026-10-24 | [Verbatim brief](docs/briefs/2026-10-24-webcam-measurement-gate.md) | Required final-program feature; no equipment-test authorisation |
 
 ## 2. Claims
 
-The initial claims come from the owner's brief (S-001); the cable purchase is owner-reported in S-004. None of the equipment capabilities has been tested. A purchase record does not establish compatibility.
+The initial claims come from the owner's brief (S-001); the cable purchase is owner-reported in S-004 and the webcam requirement in S-009. Proposed implementation details are labelled separately. None of the equipment capabilities has been tested. A purchase record does not establish compatibility.
 
 | ID | Claim | Provenance | Equipment test status | Tests | Notes |
 |---|---|---|---|---|---|
@@ -55,8 +56,11 @@ The initial claims come from the owner's brief (S-001); the cable purchase is ow
 | C-004 | A controlled test-pattern generator on the PC can show exact, known colours on the TV. | Owner (S-001: intended architecture) | Not tested | T-002, T-005 | That the signal must not be altered on the way — by graphics settings, Windows colour management or the receiver — is Claude Code's reading of "controlled". |
 | C-005 | Software can adjust the TV's picture settings through Samsung Ex-Link on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-001, T-006 | S-001: compatibility "has not yet been demonstrated". Ex-Link is the only control route in scope under D-006; the selected cable does not establish compatibility. |
 | C-006 | Software can adjust the TV's picture settings through network remote commands on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-007 (superseded) | Superseded by D-006 — network control is out of scope. Retained as history, not an active dependency; compatibility was never demonstrated. |
-| C-007 | A numerical optimisation engine, using the TV's own controls in a closed loop, can bring the picture close to Rec.709, D65 and BT.1886. | Owner (S-001: project objective) | Not tested | T-001, T-008 | Depends on C-002 to C-005 and on which controls the TV offers, under the Ex-Link-only decision D-006. The optimiser can be developed in simulation first; that will not change this status. |
+| C-007 | A numerical optimisation engine, using the TV's own controls in a closed loop, can bring the picture close to Rec.709, D65 and BT.1886. | Owner (S-001: project objective) | Not tested | T-001, T-008 | Depends on C-002 to C-005 and on which controls the TV offers, under the Ex-Link-only decision D-006. D-008 also requires the webcam gate (C-017) before readings can be used. The optimiser can be developed in simulation first; that will not change this status. |
 | C-008 | The owner purchased a DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT on 24 October 2026 at 21:00 (Europe/London), for £15.99 in total including delivery. | Owner (S-004) | N/A | — | Purchase record only. The product title and specifications are owner-reported; delivery status is unknown. Cable and TV compatibility remain untested (T-006). [Owner-supplied product link](https://www.amazon.co.uk/dp/B07XXWVH69). |
+| C-015 | The owner plans to place a webcam observing the TV and requires exclusion of patch observations whenever any menu bar is visible in the lower screen area at any point. | Owner (S-009) | N/A | — | Requirement D-008; no claim about webcam ownership, model, detection performance or implementation. |
+| C-016 | Proposed gate: block on visible menus or unknown camera state, monitor the whole meter acquisition interval, reject affected readings and allow only a fresh reading after a clear settling interval. Hold results until relevant camera frames are processed. | AI: Codex (OpenAI), [design proposal](docs/webcam-measurement-gate.md) interpreting S-009 | N/A | T-010 | Not implemented. Cancellation, timing, detection, privacy and recovery policies are proposed details; limits remain Q-007. |
+| C-017 | A webcam and detector can provide sufficiently reliable menu detection and temporal coverage to satisfy D-008 on the owner's setup. | AI: Codex (OpenAI), capability hypothesis requiring validation; S-009 states the requirement only | Not tested | T-010 (software only), T-011 | No reliability claim is established. Finite sampling, missed detections and latency must be assessed; software simulation cannot establish physical performance. |
 
 ## 3. Decisions
 
@@ -69,6 +73,7 @@ The initial claims come from the owner's brief (S-001); the cable purchase is ow
 | D-005 | Working conventions that go beyond the owner's wording, listed below. | Proposed by Claude Code | 2026-10-24 | Proposed — takes effect if the owner merges the setup pull request |
 | D-006 | Use Samsung Ex-Link only for TV control. Network remote control is out of scope. Record the selected cable and completed purchase (C-008); this is neither approval for another purchase nor authorisation for any physical test. | Owner (S-004) | 2026-10-24 | In force — supersedes D-003's interface choice; C-006 and T-007 retained as superseded history. Ex-Link and cable compatibility remain untested. |
 | D-007 | Apply the two approved review corrections: the PR safety checklist must prohibit unauthorised equipment operation and require links to the approved plan and results where applicable; read-only reviews may finish with findings without a new PR, and the author records unresolved disagreements. | Owner (S-004) | 2026-10-24 | In force — amends the proposed workflow under D-005. |
+| D-008 | The final program must include a webcam observing the TV and exclude patch observations when any menu bar is visible in the lower portion of the screen at any point. | Owner (S-009) | 2026-10-24 | Required product scope. [Proposed behaviour](docs/webcam-measurement-gate.md) specifies start blocking and whole-reading rejection; feature not implemented or tested. No purchase or equipment-test authorisation. |
 
 **D-005 in detail.** Each item can be accepted or rejected separately. D-007 records the owner's approved amendments to the review and finish workflow; it does not approve the other proposed conventions.
 
@@ -97,7 +102,7 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 
 ## 5. Outstanding tests
 
-**None of these has a written plan, and none is authorised. No agent may carry out any of them** ([AGENTS.md section 7](AGENTS.md#7-equipment-safety-rule-6)). An "owner check" means the owner looks something up for themselves, without a meter and without any agent operating the equipment.
+**The physical-test candidates below have no written plan and none is authorised. No agent may carry them out** ([AGENTS.md section 7](AGENTS.md#7-equipment-safety-rule-6)). An "owner check" means the owner looks something up for themselves, without a meter and without any agent operating the equipment. T-010 is separately labelled software-only; its proposed checks neither operate equipment nor authorise T-011.
 
 | ID | What it would establish | Equipment involved | Kind | For | Status |
 |---|---|---|---|---|---|
@@ -108,7 +113,9 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 | T-005 | Whether test patterns reach the TV exactly as generated | PC, receiver, TV; possibly the Spyder5 | Physical test — needs authorisation | C-004 | No plan yet |
 | T-006 | Whether the selected cable is compatible with the TV's Ex-Link connection and whether the TV responds to commands on its firmware | TV, PC and the owner-purchased DSD TECH USB RS232 to 3.5mm cable (C-008); delivery status unknown | Physical test — needs authorisation | C-005 | No plan yet; no physical test authorised. Cable specifications and compatibility are not verified. |
 | T-007 | Whether the TV responds to network remote commands, and whether these can reach picture settings | TV, PC, home network | Historical test candidate only | C-006 (superseded) | Superseded — out of scope under D-006; not authorised and not an active dependency |
-| T-008 | Whether a full closed-loop calibration run improves accuracy on this TV using Ex-Link | All | Physical test — needs authorisation | C-007 | No plan yet; depends on T-001 to T-006 only |
+| T-008 | Whether a full closed-loop calibration run improves accuracy on this TV using Ex-Link and the required webcam gate | All, including webcam | Physical test — needs authorisation | C-007 | No plan yet; depends on T-001 to T-006 and webcam-gate checks T-010, T-011. Network-control test T-007 remains out of scope. |
+| T-010 | Whether the proposed webcam gate blocks or rejects readings for menus, camera uncertainty, incomplete coverage and late results | None; synthetic images/events, fake meter and clock | Software-only proposal; not an equipment test | C-016, C-017 | Planned in [webcam-gate specification](docs/webcam-measurement-gate.md#proposed-software-only-checks--t-010); not implemented or executed |
+| T-011 | Whether the webcam/detector and timing integration detect lower-screen menu interference throughout real meter acquisitions on the owner's setup | Webcam, TV, PC and meter as required by a future plan | Physical validation — needs authorisation | C-017 | No plan yet; no physical test authorised. Q-007 must define validation criteria. |
 
 ## 6. Open questions
 
@@ -119,6 +126,7 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 | Q-003 | Which Python version and Windows packaging approach? | Affects how the owner installs and runs the application. | Owner, on a proposal in a later pull request | Open |
 | Q-004 | Should `main` be protected in GitHub's settings so that it can change only through pull requests? | Would enforce rule 1 automatically. Changing settings needs the owner's approval, and whether GitHub offers this for a private repository may depend on the account's plan (not yet checked). | Owner | Open |
 | Q-005 | How will Codex review pull requests — directly on GitHub, or with the owner passing its review on? | Decides the exact review steps in [docs/workflow.md](docs/workflow.md). | Owner | Open |
+| Q-007 | What camera view, timing coverage, detector performance and settling criteria are needed to satisfy the owner's menu-exclusion requirement? | Webcam sampling alone cannot be assumed to catch arbitrarily brief menus. Define and validate region coverage, exposure/capture timing, latency, uncertain states and missed-detection limits before declaring the feature complete. | Agents propose an implementation and evidence; owner authorises any physical validation or change to the requirement | Open; no numeric thresholds or webcam capability established |
 
 ## 7. Hardware budget
 
