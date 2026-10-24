@@ -32,14 +32,16 @@ Rule 1 was addressed to Claude Code; Codex follows it with `codex/` branches (se
 
 The rest of this file explains how agents apply these rules. It was drafted by Claude Code in the setup pull request and can be changed only by a reviewed pull request. Where it goes further than the owner's wording, the difference is listed under decision D-005 in [LEDGER.md](LEDGER.md#3-decisions).
 
-## 3. Project scope (from the owner's brief)
+## 3. Project scope (from the owner's briefs)
 
 - **Goal:** a free, open-source Windows Python application for closed-loop, TV-side colour calibration of the owner's Samsung UE49KS7000UXXU, using the owner's existing Datacolor Spyder5 colorimeter, Windows PC and Denon AVC-X3800H receiver.
 - **Priority:** SDR Rec.709, D65 and BT.1886. HDR investigation is secondary.
 - **Budget:** additional hardware must not exceed £25 in total.
 - **Do not recommend commercial calibration packages.**
-- **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using Samsung Ex-Link or network remote commands.
-- **Not yet demonstrated:** whether these interfaces work with the owner's TV firmware. Treat this as an open question to be tested, never as a premise.
+- **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using **Samsung Ex-Link only**. The owner's later decision D-006 in [LEDGER.md](LEDGER.md#3-decisions) supersedes the original brief's alternative of network remote commands.
+- **Selected cable:** the owner reports purchasing the DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT (S-004). Purchase details and the remaining budget are in the ledger; purchase does not authorise any physical test.
+- **Not yet demonstrated:** whether the selected cable and Ex-Link interface work with the owner's TV and firmware. Treat this as an open question to be tested, never as a premise.
+- **Webcam menu guard (D-008):** a webcam observes the TV throughout profiling, and no observation of a patch may be taken when any menu bar is visible in the lower portion of the screen at any point. The exact boundary is set after a webcam test (Q-008); how the guard is applied is listed under D-009 in [LEDGER.md](LEDGER.md#3-decisions).
 
 ## 4. Starting and finishing a task
 
@@ -52,10 +54,14 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 
 ### Before you finish
 
+For tasks proposing repository file changes:
+
 1. Update [LEDGER.md](LEDGER.md) with new or changed claims, decisions, disagreements, tests and questions.
 2. Check that links between files work and that every ledger ID you mention exists.
 3. Open a pull request and fill in every section of the [template](.github/PULL_REQUEST_TEMPLATE.md).
 4. Tell the owner plainly what you did, what you did not do, what is untested, what needs their decision, and whether the pull request is ready for independent review — and by which agent.
+
+For review-only tasks, finish by reporting findings and unresolved disagreements in the review or to the owner. A review alone does not require a ledger edit or another pull request. The pull-request author records unresolved disagreements in the ledger as part of the proposed changes.
 
 ## 5. Branches, pull requests and review (rules 1, 2 and 4)
 
@@ -91,9 +97,10 @@ No agent may operate the owner's equipment on its own initiative. Agents running
 - open or change anything in the TV's service menu, including by sending remote-control key sequences;
 - run anything that communicates with the Spyder5, including ArgyllCMS measurement commands such as `spotread`, `dispcal` or `dispread`;
 - send commands to the Denon receiver, or search the home network for devices;
+- turn on the owner's webcam or capture pictures from it;
 - display test patterns on the TV for measurement.
 
-**Allowed without authorisation:** software-only work, including simulated meters and TVs, replaying recorded data, and tests that need no hardware.
+**Allowed without authorisation:** software-only work, including simulated meters and TVs, replaying recorded data (including recorded or synthetic webcam pictures), and tests that need no hardware.
 
 **Physical tests** follow [docs/tests/README.md](docs/tests/README.md):
 
@@ -120,7 +127,7 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 
 ## 9. Disagreements (rule 9)
 
-- If you disagree with the other agent, an earlier report or a ledger entry, say so plainly and record it in the ledger's Disagreements section: each position, who holds it, the evidence each relies on, and what test or source could settle it.
+- If you disagree with the other agent, an earlier report or a ledger entry, say so plainly. For tasks proposing file changes, record it in the ledger's Disagreements section: each position, who holds it, the evidence each relies on, and what test or source could settle it. For review-only tasks, report it in the review; the pull-request author records unresolved disagreements in the ledger (section 4).
 - State the other side's position fairly, and never weaken it when editing the ledger.
 - A disagreement stays open until evidence settles it or the owner decides. Do not force agreement.
 
@@ -136,6 +143,7 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 - Never commit passwords, tokens (including TV pairing tokens), API keys, IP or MAC addresses, Wi-Fi details, device serial numbers or other personal information.
 - Keep private or machine-specific settings in the `local/` folder, or in files whose names contain `.local.` (for example `settings.local.toml`). Git ignores both. If the format needs documenting, commit an example file with made-up values.
 - Log files (`*.log`) are ignored because they can contain private details. Copy only checked, relevant extracts into the repository.
+- Webcam pictures can show the owner's room and people. Keep them in `local/`, and never commit one unless the owner has checked and approved that specific picture as evidence.
 - Do not commit vendor software, calibration data extracted from vendor software, or downloaded tools such as ArgyllCMS. Record where to obtain them instead.
 
 ## 12. Where things go
