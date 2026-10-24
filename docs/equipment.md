@@ -1,6 +1,6 @@
 # Equipment
 
-What the owner has said about the equipment, and what still needs confirming. The original equipment comes from the owner's brief (S-001), the cable and purchase details from S-004, and the planned webcam from S-009, all in the ledger's [sources](../LEDGER.md#1-sources). Nothing has been tested yet. [LEDGER.md](../LEDGER.md) is the formal record: if this page and the ledger ever differ, the ledger wins and this page should be corrected.
+What the owner has said about the equipment, and what still needs confirming. The original equipment comes from the owner's brief (S-001); the selected cable and purchase details come from the owner's later confirmation (S-004); the webcam comes from the owner's menu-guard requirement (S-009). All are in the ledger's [sources](../LEDGER.md#1-sources). Nothing has been tested yet. [LEDGER.md](../LEDGER.md) is the formal record: if this page and the ledger ever differ, the ledger wins and this page should be corrected.
 
 ## TV — the display to calibrate
 
@@ -16,13 +16,6 @@ What the owner has said about the equipment, and what still needs confirming. Th
 - **Works with ArgyllCMS on the owner's PC:** not tested — T-003
 - **Spectral correction for this TV:** none identified or validated — T-004, Q-001
 
-## Webcam — required menu observation
-
-- **Owner's plan:** place a webcam observing the TV being profiled (S-009, C-015).
-- **Purpose:** prevent patch readings while any lower-screen menu bar is visible; reject a reading if a bar appears at any point (D-008).
-- **Model, availability, frame rate and placement:** unknown. No additional purchase is proposed.
-- **Detection and timing suitability:** not tested — C-017, T-011, Q-007. See the [measurement-gate proposal](webcam-measurement-gate.md).
-
 ## Computer
 
 - **Type:** Windows PC
@@ -32,6 +25,12 @@ What the owner has said about the equipment, and what still needs confirming. Th
 
 - **Model:** Denon AVC-X3800H
 - **Whether it sits in the video path between the PC and the TV, and its video settings:** unknown — T-002
+
+## Webcam — screen monitor
+
+- **Owned:** yes, reported by the owner (S-009, C-016). Model, connection and position not yet recorded — Q-007
+- **Purpose:** the menu guard (D-008) — no reading while a menu bar is visible in the lower part of the screen
+- **Whether it reliably shows the TV's menu bars during measurement:** not tested — T-010
 
 ## Additional hardware
 

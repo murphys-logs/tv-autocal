@@ -40,8 +40,8 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 - **Do not recommend commercial calibration packages.**
 - **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using **Samsung Ex-Link only**. The owner's later decision D-006 in [LEDGER.md](LEDGER.md#3-decisions) supersedes the original brief's alternative of network remote commands.
 - **Selected cable:** the owner reports purchasing the DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT (S-004). Purchase details and the remaining budget are in the ledger; purchase does not authorise any physical test.
-- **Required webcam gate:** the owner will place a webcam observing the TV. No patch measurement may start while a menu bar is visible in the lower portion of the screen; any reading affected at any point must be rejected. Record D-008 and follow the [proposed measurement-gate specification](docs/webcam-measurement-gate.md), which distinguishes the owner requirement from unvalidated implementation details. Camera uncertainty must not be treated as permission to measure.
 - **Not yet demonstrated:** whether the selected cable and Ex-Link interface work with the owner's TV and firmware. Treat this as an open question to be tested, never as a premise.
+- **Webcam menu guard (D-008):** a webcam observes the TV throughout profiling, and no observation of a patch may be taken when any menu bar is visible in the lower portion of the screen at any point. The exact boundary is set after a webcam test (Q-008); how the guard is applied is listed under D-009 in [LEDGER.md](LEDGER.md#3-decisions).
 
 ## 4. Starting and finishing a task
 
@@ -97,9 +97,10 @@ No agent may operate the owner's equipment on its own initiative. Agents running
 - open or change anything in the TV's service menu, including by sending remote-control key sequences;
 - run anything that communicates with the Spyder5, including ArgyllCMS measurement commands such as `spotread`, `dispcal` or `dispread`;
 - send commands to the Denon receiver, or search the home network for devices;
+- turn on the owner's webcam or capture pictures from it;
 - display test patterns on the TV for measurement.
 
-**Allowed without authorisation:** software-only work, including simulated meters and TVs, replaying recorded data, and tests that need no hardware.
+**Allowed without authorisation:** software-only work, including simulated meters and TVs, replaying recorded data (including recorded or synthetic webcam pictures), and tests that need no hardware.
 
 **Physical tests** follow [docs/tests/README.md](docs/tests/README.md):
 
@@ -142,6 +143,7 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 - Never commit passwords, tokens (including TV pairing tokens), API keys, IP or MAC addresses, Wi-Fi details, device serial numbers or other personal information.
 - Keep private or machine-specific settings in the `local/` folder, or in files whose names contain `.local.` (for example `settings.local.toml`). Git ignores both. If the format needs documenting, commit an example file with made-up values.
 - Log files (`*.log`) are ignored because they can contain private details. Copy only checked, relevant extracts into the repository.
+- Webcam pictures can show the owner's room and people. Keep them in `local/`, and never commit one unless the owner has checked and approved that specific picture as evidence.
 - Do not commit vendor software, calibration data extracted from vendor software, or downloaded tools such as ArgyllCMS. Record where to obtain them instead.
 
 ## 12. Where things go
