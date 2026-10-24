@@ -4,6 +4,8 @@ This guide is for the owner. It explains, without assuming any programming knowl
 
 ## The short version
 
+These steps apply to work that changes repository files. A review-only task finishes with findings; it does not require another pull request. The pull-request author records unresolved disagreements in [LEDGER.md](../LEDGER.md).
+
 1. You ask Claude Code or Codex to do something.
 2. The agent works on its own **branch** — a separate copy — never on `main`, the accepted version.
 3. When it has finished, the agent opens a **pull request**: a proposal to add its changes to `main`. It fills in a checklist and tells you when the pull request is ready for review.
