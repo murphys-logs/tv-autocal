@@ -28,7 +28,7 @@ What changes and why, and what the owner needs to do next, if anything.
 
 ### Safety and approvals
 
-- [ ] Nothing here operates the TV, meter, receiver or service menu, or asks an agent to. Physical tests appear only as plans awaiting the owner's authorisation.
+- [ ] No unauthorised equipment operation. Any authorised equipment operation links to the approved test plan, the owner's authorisation and, if carried out, its results. Plans without authorisation are clearly marked as awaiting it.
 - [ ] No purchases, paid APIs or services, GitHub Actions or other automation, deployment or irreversible changes — unless the owner approved them first (link the approval here).
 - [ ] No passwords, tokens, network addresses, serial numbers or other private details.
 - Hardware spending proposed: £___ (the running total must stay within £25 — ledger section 7)

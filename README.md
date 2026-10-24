@@ -36,12 +36,13 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 | Colour meter | Datacolor Spyder5 colorimeter |
 | Computer | Windows PC |
 | AV receiver | Denon AVC-X3800H |
+| Selected Ex-Link cable | DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT — purchase reported by the owner; compatibility not tested |
 
 ## Constraints
 
 - **Free and open source**, for **Windows**, written in **Python**.
 - **No commercial calibration packages** are to be recommended.
-- **Extra hardware: £25 in total at most.** Spent so far: £0.
+- **Extra hardware: £25 in total at most.** Spent so far: £15.99 on the selected Ex-Link cable; £9.01 remains. See the ledger's [budget record](LEDGER.md#7-hardware-budget).
 - **Safety:** no AI agent may operate the TV, the meter or the TV's service menu by itself. Software-only simulations are allowed; every physical test needs the owner's explicit authorisation.
 
 ## Intended design — not yet proven
@@ -52,7 +53,7 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 | Spectral correction | Corrects the meter's readings for this TV's type of light | No validated correction identified yet |
 | Test-pattern generator | Shows exact, known colours on the TV | Not built; signal path not yet confirmed |
 | Optimisation engine | Works out which setting to change, and by how much | Not built; can be developed in simulation first |
-| TV-control backend | Changes TV settings using Samsung Ex-Link (serial) or network remote commands | **Compatibility with this TV's firmware not demonstrated** |
+| TV-control backend | Changes TV settings using Samsung Ex-Link (serial) only, as selected by the owner in D-006 | **Selected cable and TV firmware compatibility not demonstrated** |
 
 ## How the project is run
 
