@@ -29,7 +29,11 @@ AI reports and critiques are archived like any other source, but every statement
 
 The project is intended to become open source. Unless a document's licence allows redistribution, do not archive full copies of third-party material such as manuals, web pages or papers. Record the citation, short relevant quotations and notes instead.
 
-## Waiting to be imported
+## Research recorded here
+
+- [Ex-Link protocol investigation and proposed offline verification](2026-10-24-exlink-protocol-investigation.md) — Codex (OpenAI), 24 October 2026, S-005. Cited source inspection and checksum arithmetic; the software-only verification plan is proposed and unexecuted. TV compatibility remains untested.
+
+## Earlier reports waiting to be imported
 
 | Ledger ID | Document | Produced by | Original date | Planned file name | Status |
 |---|---|---|---|---|---|
