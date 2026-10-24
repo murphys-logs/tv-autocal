@@ -41,10 +41,14 @@ Software simulations never change the equipment test status. Two agents agreeing
 | S-001 | Repository setup brief | Owner | 2026-10-24 | [docs/briefs/2026-10-24-repository-setup.md](docs/briefs/2026-10-24-repository-setup.md) | Archived word for word |
 | S-002 | Claude feasibility report | AI: Claude (Anthropic) | 2026-10-23 | Not yet | Awaiting import; contents not available to agents |
 | S-003 | ChatGPT critique | AI: ChatGPT (OpenAI) | Unknown | Not yet | Awaiting import; contents not available to agents |
+| S-005 | Ex-Link protocol investigation and proposed offline verification | AI: Codex (OpenAI) | 2026-10-24 | [Research report](docs/research/2026-10-24-exlink-protocol-investigation.md) | Source inspection and local arithmetic completed; proposed software suite not executed; independent Claude Code review outstanding |
+| S-006 | Samsung-branded Consumer RS232 Control Worksheet, community-hosted PDF | Samsung attribution on document; PDF metadata names Anthony Moliterno; original distribution not authenticated | 2023-06-27 creation metadata; revision unknown | [Citation and page references in S-005](docs/research/2026-10-24-exlink-protocol-investigation.md#sources-actually-consulted) | Inspected 2026-10-24 at pinned community mirror; no manufacturer-hosted or exact-model confirmation |
+| S-007 | Home Assistant Libraries samsung-exlink, commit e2489b33c720c36d1995392b803f2336baf7b808 | Home Assistant Libraries contributors | 2026-10-17 commit | [Pinned source references in S-005](docs/research/2026-10-24-exlink-protocol-investigation.md#sources-actually-consulted) | Inspected 2026-10-24; primary evidence of its code, secondary evidence of TV behaviour; references S-006 |
+| S-008 | mgoff/go-samsung-exlink, commit 3bed0c96a57034299cfb320589be59a1588bfd78 | mgoff and contributors | 2017-02-08 commit | [Pinned source reference in S-005](docs/research/2026-10-24-exlink-protocol-investigation.md#sources-actually-consulted) | Inspected 2026-10-24; source literal discrepancy recorded as X-001 |
 
 ## 2. Claims
 
-Every claim below comes from the owner's brief (S-001). None has been tested yet.
+The initial claims come from the owner's brief (S-001). Later research claims identify their own sources. No equipment capability has been tested; source inspection and software arithmetic do not change that status.
 
 | ID | Claim | Provenance | Equipment test status | Tests | Notes |
 |---|---|---|---|---|---|
@@ -55,6 +59,12 @@ Every claim below comes from the owner's brief (S-001). None has been tested yet
 | C-005 | Software can adjust the TV's picture settings through Samsung Ex-Link on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-001, T-006 | S-001: compatibility "has not yet been demonstrated". |
 | C-006 | Software can adjust the TV's picture settings through network remote commands on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-001, T-007 | S-001: compatibility "has not yet been demonstrated". |
 | C-007 | A numerical optimisation engine, using the TV's own controls in a closed loop, can bring the picture close to Rec.709, D65 and BT.1886. | Owner (S-001: project objective) | Not tested | T-001, T-008 | Depends on C-002 to C-006 and on which controls the TV offers. The optimiser can be developed in simulation first; that will not change this status. |
+| C-009 | The consulted consumer-TV protocol profile uses seven binary bytes, header 08 22, four command/value bytes and a negative-sum modulo-256 checksum. | Secondary: S-006 community-hosted Samsung-branded worksheet p. 2, original distribution unverified; S-007 implementation | Not tested | T-009 (software only) | Generic source-supported profile; no assertion of support on this TV. The library references the worksheet, so they are not independent confirmations. |
+| C-010 | S-007 specifies 9600 8N1 and recognises success 03 0C F1 and failure 03 0C FF; S-006 p. 3 documents success feedback. These short replies contain no command identity or setting value. | Secondary for TV behaviour: S-006, S-007; Primary for S-007 implementation | Not tested | T-009 (software only) | Timing constants are library policies. Acknowledgement or stored commanded state is not independent verification of a changed TV setting. |
+| C-011 | The consulted sources do not establish KS7000 calibration-command support, signed-value encoding, ranges, persistence, readback or cable compatibility. Generic calibration commands and limited status-query extensions appear in the sources. | Secondary: S-006 pp. 1, 4 and S-007; research limitation recorded by AI: Codex (OpenAI), S-005 | Not tested | T-001, T-006 | Exact-model Samsung page was inaccessible. Absence of verified evidence here is not evidence of incompatibility. Q-006 remains open; C-005 stays unconfirmed. |
+| C-012 | S-008's published power-on literal ends D6; applying the documented checksum to its first six bytes gives D4, consistent with S-007. | Primary for literal source code: S-008; local arithmetic by Codex (OpenAI), recorded in S-005 | N/A | — | Arithmetic discrepancy X-001; reason for the literal and TV handling are unknown. No hardware inference. |
+| C-013 | This additive checksum can miss byte permutations and compensating changes; a valid checksum cannot establish command validity or authenticity. | AI: Codex (OpenAI), mathematical deduction and synthetic permutation calculation in S-005 | N/A | T-009 (software only) | Local arithmetic completed; no parser or hardware behaviour tested. |
+| C-014 | A small pure encoder/parser with an in-memory fake, independent literal fixtures and explicit timeout/error handling can be verified without a hardware transport. | AI: Codex (OpenAI), proposal S-005 | N/A | T-009 (software only) | Proposed; no implementation or verification suite executed. No real transport or real-mode selector is proposed in this slice. |
 
 ## 3. Decisions
 
@@ -82,7 +92,7 @@ Every claim below comes from the owner's brief (S-001). None has been tested yet
 
 ## 4. Disagreements
 
-None recorded yet. Disagreements between the imported Claude report and ChatGPT critique, and between reviewers, will be recorded here in this format:
+Source discrepancy X-001 is recorded below. The earlier Claude report and ChatGPT critique remain unavailable; no disagreement between those documents is inferred. Future disagreements between reports and reviewers will be recorded here in this format:
 
 > **X-NNN — topic** · Status: Open / Settled by evidence / Decided by the owner
 >
@@ -91,9 +101,16 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 > - **What would settle it:** a test (T-…) or a source (S-…)
 > - **Outcome:** only once settled — how, when and by whom
 
+**X-001 — Published Ex-Link power-on checksum** · Status: Arithmetic resolved; source discrepancy unexplained.
+
+- **Source A:** S-008's code contains `08 22 00 00 00 02 D6`; no explanation for that final byte was established.
+- **Source B:** S-006's checksum rule and S-007's literal imply `08 22 00 00 00 02 D4`.
+- **Evidence:** local arithmetic on 2026-10-24 gives a first-six-byte sum of `0x2C`, hence checksum `0xD4`. The S-008 complete frame sums to `0x02` modulo 256. [Record in S-005](docs/research/2026-10-24-exlink-protocol-investigation.md#source-inconsistency-and-arithmetic-checked).
+- **Outcome:** use the S-008 literal only as an offline negative fixture for this profile. The arithmetic does not establish a protocol variant or what a TV would do. Author explanation or further source history could explain the literal; none has been obtained. No equipment test is proposed to settle this discrepancy.
+
 ## 5. Outstanding tests
 
-**None of these has a written plan, and none is authorised. No agent may carry out any of them** ([AGENTS.md section 7](AGENTS.md#7-equipment-safety-rule-6)). An "owner check" means the owner looks something up for themselves, without a meter and without any agent operating the equipment.
+**The physical-test candidates below have no written plan and none is authorised. No agent may carry them out** ([AGENTS.md section 7](AGENTS.md#7-equipment-safety-rule-6)). An "owner check" means the owner looks something up for themselves, without a meter and without any agent operating the equipment. T-009 is separately labelled software-only: its proposed plan cannot operate equipment and does not authorise or complete T-006.
 
 | ID | What it would establish | Equipment involved | Kind | For | Status |
 |---|---|---|---|---|---|
@@ -105,6 +122,7 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 | T-006 | Whether the TV has a usable Ex-Link connection and responds to commands on its firmware | TV, PC; possibly a cable or adapter (any purchase needs approval) | Physical test — needs authorisation | C-005 | No plan yet |
 | T-007 | Whether the TV responds to network remote commands, and whether these can reach picture settings | TV, PC, home network | Physical test — needs authorisation | C-006 | No plan yet |
 | T-008 | Whether a full closed-loop calibration run improves accuracy on this TV | All | Physical test — needs authorisation | C-007 | No plan yet; depends on T-001 to T-007 |
+| T-009 | Whether a pure Ex-Link encoder/parser matches cited byte fixtures, handles malformed/late replies predictably and has no hardware I/O path | None; in-memory bytes and fake clock only | Software-only proposal; not an equipment test | C-009, C-010, C-013, C-014 | Planned in [S-005](docs/research/2026-10-24-exlink-protocol-investigation.md#proposed-software-only-verification-plan--t-009); no implementation or suite execution yet |
 
 ## 6. Open questions
 
@@ -115,6 +133,7 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 | Q-003 | Which Python version and Windows packaging approach? | Affects how the owner installs and runs the application. | Owner, on a proposal in a later pull request | Open |
 | Q-004 | Should `main` be protected in GitHub's settings so that it can change only through pull requests? | Would enforce rule 1 automatically. Changing settings needs the owner's approval, and whether GitHub offers this for a private repository may depend on the account's plan (not yet checked). | Owner | Open |
 | Q-005 | How will Codex review pull requests — directly on GitHub, or with the owner passing its review on? | Decides the exact review steps in [docs/workflow.md](docs/workflow.md). | Owner | Open |
+| Q-006 | Which authenticated, model-applicable sources establish Ex-Link calibration commands, value encodings, ranges and readback for UE49KS7000UXXU and its firmware? | Generic command tables and fake acknowledgements cannot establish C-005 or the cable's electrical compatibility. See S-005 and C-011. | Research by both agents; owner for any later physical-test authorisation | Open; manufacturer page inaccessible during this investigation |
 
 ## 7. Hardware budget
 
