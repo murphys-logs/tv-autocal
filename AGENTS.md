@@ -32,14 +32,15 @@ Rule 1 was addressed to Claude Code; Codex follows it with `codex/` branches (se
 
 The rest of this file explains how agents apply these rules. It was drafted by Claude Code in the setup pull request and can be changed only by a reviewed pull request. Where it goes further than the owner's wording, the difference is listed under decision D-005 in [LEDGER.md](LEDGER.md#3-decisions).
 
-## 3. Project scope (from the owner's brief)
+## 3. Project scope (from the owner's briefs)
 
 - **Goal:** a free, open-source Windows Python application for closed-loop, TV-side colour calibration of the owner's Samsung UE49KS7000UXXU, using the owner's existing Datacolor Spyder5 colorimeter, Windows PC and Denon AVC-X3800H receiver.
 - **Priority:** SDR Rec.709, D65 and BT.1886. HDR investigation is secondary.
 - **Budget:** additional hardware must not exceed £25 in total.
 - **Do not recommend commercial calibration packages.**
-- **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using Samsung Ex-Link or network remote commands.
-- **Not yet demonstrated:** whether these interfaces work with the owner's TV firmware. Treat this as an open question to be tested, never as a premise.
+- **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using **Samsung Ex-Link only**. The owner's later decision D-006 in [LEDGER.md](LEDGER.md#3-decisions) supersedes the original brief's alternative of network remote commands.
+- **Selected cable:** the owner reports purchasing the DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT (S-004). Purchase details and the remaining budget are in the ledger; purchase does not authorise any physical test.
+- **Not yet demonstrated:** whether the selected cable and Ex-Link interface work with the owner's TV and firmware. Treat this as an open question to be tested, never as a premise.
 
 ## 4. Starting and finishing a task
 
@@ -52,10 +53,14 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 
 ### Before you finish
 
+For tasks proposing repository file changes:
+
 1. Update [LEDGER.md](LEDGER.md) with new or changed claims, decisions, disagreements, tests and questions.
 2. Check that links between files work and that every ledger ID you mention exists.
 3. Open a pull request and fill in every section of the [template](.github/PULL_REQUEST_TEMPLATE.md).
 4. Tell the owner plainly what you did, what you did not do, what is untested, what needs their decision, and whether the pull request is ready for independent review — and by which agent.
+
+For review-only tasks, finish by reporting findings and unresolved disagreements in the review or to the owner. A review alone does not require a ledger edit or another pull request. The pull-request author records unresolved disagreements in the ledger as part of the proposed changes.
 
 ## 5. Branches, pull requests and review (rules 1, 2 and 4)
 
@@ -120,7 +125,7 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 
 ## 9. Disagreements (rule 9)
 
-- If you disagree with the other agent, an earlier report or a ledger entry, say so plainly and record it in the ledger's Disagreements section: each position, who holds it, the evidence each relies on, and what test or source could settle it.
+- If you disagree with the other agent, an earlier report or a ledger entry, say so plainly. For tasks proposing file changes, record it in the ledger's Disagreements section: each position, who holds it, the evidence each relies on, and what test or source could settle it. For review-only tasks, report it in the review; the pull-request author records unresolved disagreements in the ledger (section 4).
 - State the other side's position fairly, and never weaken it when editing the ledger.
 - A disagreement stays open until evidence settles it or the owner decides. Do not force agreement.
 

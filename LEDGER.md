@@ -30,7 +30,7 @@ The ledger is the project's shared memory. It records what we believe and where 
 
 Software simulations never change the equipment test status. Two agents agreeing is not evidence.
 
-**Tests** (section 5) move through: `Waiting for the owner` (owner checks only) or `No plan yet` → `Planned` → `Authorised` → `Done`.
+**Tests** (section 5) move through: `Waiting for the owner` (owner checks only) or `No plan yet` → `Planned` → `Authorised` → `Done`. A test removed from scope is retained as `Superseded — out of scope`, with the decision that superseded it.
 
 **IDs:** `S` source · `C` claim · `D` decision · `X` disagreement · `T` test · `Q` open question. IDs are never reused or renumbered. An entry that is replaced is marked "superseded by …", not deleted.
 
@@ -41,10 +41,11 @@ Software simulations never change the equipment test status. Two agents agreeing
 | S-001 | Repository setup brief | Owner | 2026-10-24 | [docs/briefs/2026-10-24-repository-setup.md](docs/briefs/2026-10-24-repository-setup.md) | Archived word for word |
 | S-002 | Claude feasibility report | AI: Claude (Anthropic) | 2026-10-23 | Not yet | Awaiting import; contents not available to agents |
 | S-003 | ChatGPT critique | AI: ChatGPT (OpenAI) | Unknown | Not yet | Awaiting import; contents not available to agents |
+| S-004 | Owner's review decisions and cable purchase confirmation | Owner | 2026-10-24 | [docs/briefs/2026-10-24-review-decisions.md](docs/briefs/2026-10-24-review-decisions.md) | Review decisions, purchase details and total price supplied by the owner |
 
 ## 2. Claims
 
-Every claim below comes from the owner's brief (S-001). None has been tested yet.
+The initial claims come from the owner's brief (S-001); the cable purchase is owner-reported in S-004. None of the equipment capabilities has been tested. A purchase record does not establish compatibility.
 
 | ID | Claim | Provenance | Equipment test status | Tests | Notes |
 |---|---|---|---|---|---|
@@ -52,9 +53,10 @@ Every claim below comes from the owner's brief (S-001). None has been tested yet
 | C-002 | ArgyllCMS can take measurements with the Spyder5 on the owner's PC. | Owner (S-001: intended architecture) | Not tested | T-003 | |
 | C-003 | A validated spectral correction can be obtained for this meter and TV. | Owner (S-001: intended architecture) | Not tested | T-004 | What counts as "validated", and how to check it, is open (Q-001). |
 | C-004 | A controlled test-pattern generator on the PC can show exact, known colours on the TV. | Owner (S-001: intended architecture) | Not tested | T-002, T-005 | That the signal must not be altered on the way — by graphics settings, Windows colour management or the receiver — is Claude Code's reading of "controlled". |
-| C-005 | Software can adjust the TV's picture settings through Samsung Ex-Link on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-001, T-006 | S-001: compatibility "has not yet been demonstrated". |
-| C-006 | Software can adjust the TV's picture settings through network remote commands on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-001, T-007 | S-001: compatibility "has not yet been demonstrated". |
-| C-007 | A numerical optimisation engine, using the TV's own controls in a closed loop, can bring the picture close to Rec.709, D65 and BT.1886. | Owner (S-001: project objective) | Not tested | T-001, T-008 | Depends on C-002 to C-006 and on which controls the TV offers. The optimiser can be developed in simulation first; that will not change this status. |
+| C-005 | Software can adjust the TV's picture settings through Samsung Ex-Link on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-001, T-006 | S-001: compatibility "has not yet been demonstrated". Ex-Link is the only control route in scope under D-006; the selected cable does not establish compatibility. |
+| C-006 | Software can adjust the TV's picture settings through network remote commands on the owner's firmware. | Owner (S-001: intended interface) | Not tested | T-007 (superseded) | Superseded by D-006 — network control is out of scope. Retained as history, not an active dependency; compatibility was never demonstrated. |
+| C-007 | A numerical optimisation engine, using the TV's own controls in a closed loop, can bring the picture close to Rec.709, D65 and BT.1886. | Owner (S-001: project objective) | Not tested | T-001, T-008 | Depends on C-002 to C-005 and on which controls the TV offers, under the Ex-Link-only decision D-006. The optimiser can be developed in simulation first; that will not change this status. |
+| C-008 | The owner purchased a DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT on 24 October 2026 at 21:00 (Europe/London), for £15.99 in total including delivery. | Owner (S-004) | N/A | — | Purchase record only. The product title and specifications are owner-reported; delivery status is unknown. Cable and TV compatibility remain untested (T-006). [Owner-supplied product link](https://www.amazon.co.uk/dp/B07XXWVH69). |
 
 ## 3. Decisions
 
@@ -62,11 +64,13 @@ Every claim below comes from the owner's brief (S-001). None has been tested yet
 |---|---|---|---|---|
 | D-001 | Scope: a free, open-source Windows Python application for closed-loop, TV-side calibration. SDR Rec.709, D65 and BT.1886 first; HDR investigation secondary. Additional hardware no more than £25 in total. No commercial calibration packages to be recommended. | Owner (S-001) | 2026-10-24 | In force |
 | D-002 | The nine working rules, quoted in [AGENTS.md section 2](AGENTS.md#2-the-owners-working-rules). | Owner (S-001) | 2026-10-24 | In force |
-| D-003 | Intended architecture: ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using Samsung Ex-Link or network remote commands. | Owner (S-001) | 2026-10-24 | Provisional — interface compatibility not demonstrated (C-005, C-006) |
+| D-003 | Intended architecture: ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using Samsung Ex-Link or network remote commands. | Owner (S-001) | 2026-10-24 | Interface choice superseded by D-006 (Ex-Link only). The remaining architecture is provisional; compatibility is not demonstrated. |
 | D-004 | Import the original Claude feasibility report (S-002) and ChatGPT critique (S-003) after the setup has been reviewed. | Owner (S-001) | 2026-10-24 | Pending |
 | D-005 | Working conventions that go beyond the owner's wording, listed below. | Proposed by Claude Code | 2026-10-24 | Proposed — takes effect if the owner merges the setup pull request |
+| D-006 | Use Samsung Ex-Link only for TV control. Network remote control is out of scope. Record the selected cable and completed purchase (C-008); this is neither approval for another purchase nor authorisation for any physical test. | Owner (S-004) | 2026-10-24 | In force — supersedes D-003's interface choice; C-006 and T-007 retained as superseded history. Ex-Link and cable compatibility remain untested. |
+| D-007 | Apply the two approved review corrections: the PR safety checklist must prohibit unauthorised equipment operation and require links to the approved plan and results where applicable; read-only reviews may finish with findings without a new PR, and the author records unresolved disagreements. | Owner (S-004) | 2026-10-24 | In force — amends the proposed workflow under D-005. |
 
-**D-005 in detail.** Each item can be accepted or rejected separately.
+**D-005 in detail.** Each item can be accepted or rejected separately. D-007 records the owner's approved amendments to the review and finish workflow; it does not approve the other proposed conventions.
 
 1. **Branches:** Codex uses `codex/<topic>` branches, mirroring rule 1's `claude/` branches.
 2. **Independence:** rule 4 applied to both vendors and to earlier AI reports — two Anthropic agents also count as one reviewer.
@@ -97,14 +101,14 @@ None recorded yet. Disagreements between the imported Claude report and ChatGPT 
 
 | ID | What it would establish | Equipment involved | Kind | For | Status |
 |---|---|---|---|---|---|
-| T-001 | The TV's firmware version, and which picture controls its menus offer (for example white balance, gamma and colour space), with their ranges | TV | Owner check | C-005, C-006, C-007 | Waiting for the owner |
+| T-001 | The TV's firmware version, and which picture controls its menus offer (for example white balance, gamma and colour space), with their ranges | TV | Owner check | C-005, C-007 | Waiting for the owner |
 | T-002 | How the PC, receiver and TV are connected, and the relevant details of each — for example the PC's Windows version, graphics hardware and video output settings, and the receiver's video settings | PC, receiver, TV | Owner check | C-004 | Waiting for the owner |
 | T-003 | Whether ArgyllCMS on the owner's PC recognises the Spyder5 and takes a reading | PC, Spyder5 | Physical test — needs authorisation | C-002 | No plan yet |
 | T-004 | How a spectral correction for this TV and meter can be obtained and validated | Spyder5, TV | Research first; any physical step needs authorisation | C-003, Q-001 | No plan yet |
 | T-005 | Whether test patterns reach the TV exactly as generated | PC, receiver, TV; possibly the Spyder5 | Physical test — needs authorisation | C-004 | No plan yet |
-| T-006 | Whether the TV has a usable Ex-Link connection and responds to commands on its firmware | TV, PC; possibly a cable or adapter (any purchase needs approval) | Physical test — needs authorisation | C-005 | No plan yet |
-| T-007 | Whether the TV responds to network remote commands, and whether these can reach picture settings | TV, PC, home network | Physical test — needs authorisation | C-006 | No plan yet |
-| T-008 | Whether a full closed-loop calibration run improves accuracy on this TV | All | Physical test — needs authorisation | C-007 | No plan yet; depends on T-001 to T-007 |
+| T-006 | Whether the selected cable is compatible with the TV's Ex-Link connection and whether the TV responds to commands on its firmware | TV, PC and the owner-purchased DSD TECH USB RS232 to 3.5mm cable (C-008); delivery status unknown | Physical test — needs authorisation | C-005 | No plan yet; no physical test authorised. Cable specifications and compatibility are not verified. |
+| T-007 | Whether the TV responds to network remote commands, and whether these can reach picture settings | TV, PC, home network | Historical test candidate only | C-006 (superseded) | Superseded — out of scope under D-006; not authorised and not an active dependency |
+| T-008 | Whether a full closed-loop calibration run improves accuracy on this TV using Ex-Link | All | Physical test — needs authorisation | C-007 | No plan yet; depends on T-001 to T-006 only |
 
 ## 6. Open questions
 
@@ -122,6 +126,8 @@ Limit: **£25 in total** for additional hardware (D-001). Every purchase needs t
 
 | Item | Purpose | Price | Approved by the owner | Bought |
 |---|---|---|---|---|
-| *None yet* | | | | |
+| [DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT](https://www.amazon.co.uk/dp/B07XXWVH69) | Selected for the Ex-Link-only route; compatibility untested (T-006) | £15.99 total, including delivery | Owner reports their completed purchase (S-004); no new purchase approval | 24 October 2026, 21:00 (Europe/London); delivery status unknown |
 
-Approved so far: **£0** · Spent so far: **£0**
+Owner-confirmed purchases: **£15.99** · Spent so far: **£15.99** · Remaining: **£9.01**.
+
+The product title and specifications above are owner-reported, not independently verified. This record authorises no further purchase and no physical test. Ex-Link and cable compatibility remain **untested**.
