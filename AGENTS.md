@@ -41,7 +41,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 - **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using **Samsung Ex-Link only**. The owner's later decision D-006 in [LEDGER.md](LEDGER.md#3-decisions) supersedes the original brief's alternative of network remote commands.
 - **Selected cable:** the owner reports purchasing the DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT (S-004). Purchase details and the remaining budget are in the ledger; purchase does not authorise any physical test.
 - **Not yet demonstrated:** whether the selected cable and Ex-Link interface work with the owner's TV and firmware. Treat this as an open question to be tested, never as a premise.
-- **Webcam menu guard (D-008, widened by D-010):** a webcam observes the TV throughout profiling, and no observation of a patch may be taken when a menu is visible anywhere on the screen at any point; the reading is repeated once the menu has gone. What counts as a menu is Q-010; how the guard is applied is listed under D-009 in [LEDGER.md](LEDGER.md#3-decisions).
+- **Webcam menu guard (D-008, widened by D-010):** a webcam observes the TV throughout profiling, and a menu anywhere on screen blocks or invalidates the entire reading. D-011 permits ignoring only the recorded meter/cap/cable hidden area, after T-010 supports C-024 for that setup; until then no reading is accepted. Q-010 defines the remaining menu question; D-009 and the [gate design](docs/webcam-measurement-gate.md) explain recovery.
 
 ## 4. Starting and finishing a task
 
@@ -49,7 +49,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 
 1. Read this file, [LEDGER.md](LEDGER.md) and the documents relevant to the task.
 2. Look at `main` and any open pull requests or branches, so you don't duplicate or contradict work in progress.
-3. Work only from what is in the repository and the owner's current instructions. You have no access to earlier conversations — your own or anyone else's. If the owner refers to material that is not here, such as the earlier feasibility report and critique, say so and ask for it to be imported. Never reconstruct or guess its contents.
+3. Work from the repository, the owner's instructions and source material actually supplied or retrieved through an available, authorised connection. Do not assume access to earlier conversations. If relevant originals cannot be retrieved, say so and ask for them to be supplied; never reconstruct missing text from memory or summaries. Record how retrieved evidence was obtained and import it through the normal reviewed workflow. S-012 demonstrates successful retrieval, not access to every earlier chat.
 4. Check whether the task needs the owner's approval (sections 7 and 8). If it does, ask and wait.
 
 ### Before you finish

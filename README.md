@@ -2,7 +2,7 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 24 October 2026: repository setup only.**
+> **Status, 25 October 2026: planning and research only.**
 > There is no application code yet, and **nothing in this repository has been tested on the owner's equipment.**
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 
@@ -45,14 +45,14 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 - **No commercial calibration packages** are to be recommended.
 - **Extra hardware: £25 in total at most.** Spent so far: £15.99 on the selected Ex-Link cable; £9.01 remains. See the ledger's [budget record](LEDGER.md#7-hardware-budget).
 - **Safety:** no AI agent may operate the TV, the meter or the TV's service menu by itself. Software-only simulations are allowed; every physical test needs the owner's explicit authorisation.
-- **Webcam menu guard (required):** no reading may be taken while a menu is visible anywhere on the screen (D-008 and D-010 in the [ledger](LEDGER.md#3-decisions)).
+- **Webcam menu guard (required):** a menu anywhere on screen blocks or invalidates the whole reading (D-008, D-010). D-011 permits only the recorded meter/cap/cable hidden area to be ignored, after T-010 supports C-024 for that setup. This condition is **not yet tested**. See the [ledger](LEDGER.md#3-decisions) and [gate design](docs/webcam-measurement-gate.md).
 
 ## Intended design — not yet proven
 
 | Part | Job | Status |
 |---|---|---|
 | Measurement (ArgyllCMS) | Takes readings from the Spyder5 | Not yet tried with this meter on this PC |
-| Menu-bar guard (webcam) | Watches the TV, and blocks or discards any reading taken while a menu is visible anywhere on the screen | Required by the owner (D-008, D-010); not built or tested |
+| Menu-bar guard (webcam) | Watches the TV, and blocks or discards any reading taken while a menu is visible anywhere on the screen | Required by the owner (D-008, D-010, conditioned by D-011); not built or tested |
 | Spectral correction | Corrects the meter's readings for this TV's type of light | No validated correction identified yet |
 | Test-pattern generator | Shows exact, known colours on the TV | Not built; signal path not yet confirmed |
 | Optimisation engine | Works out which setting to change, and by how much | Not built; can be developed in simulation first |
@@ -88,6 +88,8 @@ Read more:
 ## Earlier work
 
 The Claude feasibility report of 23 October 2026 is archived in [docs/research/](docs/research/2026-10-23-claude-feasibility-report.md) (S-002). It is AI research: its claims are recorded in the [ledger](LEDGER.md#claims-from-the-claude-feasibility-report-s-002) as hypotheses, **none has been tested on the owner's equipment**, and where it differs from the owner's later decisions (for example Ex-Link-only control, D-006) the decisions win.
+
+The original [ChatGPT feasibility research](docs/research/2026-10-23-chatgpt-feasibility-research.md) is also archived (S-012). Its citation markers and claimed historical software-test result remain unverified; this is a separate document from the critique. Later source checks and reconciliations are recorded in the ledger.
 
 A ChatGPT critique also exists outside this repository. Its original contents will be imported into [docs/research/](docs/research/README.md) once the owner supplies them. Until then, nothing here relies on it.
 
