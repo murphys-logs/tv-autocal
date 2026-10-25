@@ -31,13 +31,13 @@ The project is intended to become open source. Unless a document's licence allow
 
 ## Research recorded here
 
+- [Claude feasibility report](2026-10-23-claude-feasibility-report.md) — Claude (Anthropic), 23 October 2026, S-002. Pasted by the owner from a Claude Docs document and archived word for word, except that the owner's name is removed at the owner's request (D-012). AI hypotheses throughout: no agent here has checked its citations yet, and nothing in it has been tested on the owner's equipment. Its network and infrared control routes are out of scope under D-006.
 - [Ex-Link protocol investigation and proposed offline verification](2026-10-24-exlink-protocol-investigation.md) — Codex (OpenAI), 24 October 2026, S-005. Cited source inspection and checksum arithmetic; the software-only verification plan is proposed and unexecuted. TV compatibility remains untested.
 
-## Earlier reports waiting to be imported
+## Earlier report waiting to be imported
 
 | Ledger ID | Document | Produced by | Original date | Planned file name | Status |
 |---|---|---|---|---|---|
-| S-002 | Claude feasibility report | Claude (Anthropic) | 2026-10-23 | `2026-10-23-claude-feasibility-report.md` | Waiting for the owner to supply the original text |
 | S-003 | ChatGPT critique | ChatGPT (OpenAI) | Unknown | To be decided once the date is known | Waiting for the owner to supply the original text |
 
-No agent has access to the earlier conversations that produced these documents. Until their original contents are imported, nothing in this repository depends on them.
+No agent has access to the earlier conversation that produced this document. Until its original contents are imported, nothing in this repository depends on it.

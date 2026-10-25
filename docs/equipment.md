@@ -9,6 +9,7 @@ What the owner has said about the equipment, and what still needs confirming. Th
 - **Picture controls offered by the menus, and their ranges:** unknown — T-001
 - **Control route:** Samsung Ex-Link only — D-006. Connection, cable compatibility and command support remain untested — T-006.
 - **Network remote control:** out of scope under D-006; C-006 and T-007 are retained as superseded history.
+- **Ex-Link jack:** the Claude feasibility report says the TV has a 3.5 mm Ex-Link jack, reportedly on the TV itself rather than the One Connect Mini (S-002, C-026). This is unverified AI research; the owner's look-only check is T-001.
 
 ## Colour meter
 
@@ -20,6 +21,7 @@ What the owner has said about the equipment, and what still needs confirming. Th
 
 - **Type:** Windows PC
 - **Windows version, graphics hardware and video output settings:** unknown — T-002
+- **Graphics card:** an NVIDIA GTX 1080, according to the Claude feasibility report (S-002, C-035); not yet confirmed by the owner in this repository — T-002
 
 ## AV receiver
 
