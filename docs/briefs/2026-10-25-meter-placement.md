@@ -1,4 +1,4 @@
-# Meter placement and the screen area it hides (25 October 2026)
+# Meter placement (25 October 2026)
 
 | Field | Value |
 |---|---|
@@ -7,14 +7,14 @@
 | Original date | 2026-10-25 |
 | Imported | 2026-10-25, by Claude Code (Anthropic), in the pull request that records the description and answers |
 | How obtained | The owner's message to Claude Code, and the owner's choices among multiple-choice options that Claude Code offered |
-| Fidelity | Verbatim. Claude Code's request, the owner's message, the questions, the option labels and the option descriptions are reproduced exactly, including spelling; only the layout of the options is simplified |
+| Fidelity | Verbatim. Claude Code's request, the owner's message, the questions, the option labels and the option descriptions are reproduced exactly, including spelling; only the layout of the options is simplified. Four passages, including the whole of question 1 and its answer, were later removed at the owner's instruction (D-013); the marker "[removed under D-013]" shows where |
 | Ledger ID | S-011 |
 
-This archive is the source of claim C-023 and decision D-011 in [LEDGER.md](../../LEDGER.md). Do not edit it.
+This archive is the source of claim C-023 in [LEDGER.md](../../LEDGER.md); D-011, which also came from it, is withdrawn under D-013. Do not edit it.
 
 ## Context
 
-Claude Code reviewed the webcam measurement-gate design proposal (pull request #5). Its first finding was that the colour meter probably hides part of the screen from the webcam, and that the repository did not record where the meter sits during readings. Claude Code's report of that review to the owner ended with this request:
+Claude Code reviewed \[removed under D-013\] (pull request #5). Its first finding was that \[removed under D-013\] the repository did not record where the meter sits during readings. Claude Code's report of that review to the owner ended with this request:
 
 ```text
 One thing would help directly: telling us where you'll put the Spyder5 during readings (resting on the screen, or on a stand?), which is the open question behind finding 1.
@@ -29,7 +29,7 @@ The meter will be hanging by usb cable into the middle of the screen it is a cir
 ## What Claude Code said before asking
 
 ```text
-Thanks, that settles where the meter sits. It also confirms finding 1: the webcam can't see the screen behind the meter, behind its cap, or behind the cable running down from the top. On a 49-inch screen (about 108 × 61 cm) that's a small area, but it's right where the reading is taken. That makes it your decision rather than the programmers'.
+Thanks, that settles where the meter sits. [removed under D-013]
 ```
 
 ## Follow-up questions and the owner's answers
@@ -38,15 +38,7 @@ Claude Code wrote these questions and their options, including the "(Recommended
 
 ### Question 1
 
-```text
-The webcam can't see the screen behind the meter, its cap or its USB cable. How should the menu guard treat that hidden area?
-
-- Accept if a test shows it's safe (Recommended): Ignore the hidden area only if the webcam test (T-010) shows that any TV menu that could cover it also appears somewhere the webcam can see. Until then, or if the test fails, no readings are accepted.
-- Accept it now: Treat the hidden area as a known blind spot from the start. A menu or pop-up small enough to sit entirely behind the meter, its cap or the cable would go unnoticed.
-- Decide later: Record it as an open question. Codex's design must leave it undecided, and no reading can be accepted until you choose.
-```
-
-**Owner's answer:** "Accept if a test shows it's safe (Recommended)"
+\[removed under D-013\]
 
 ### Question 2
 

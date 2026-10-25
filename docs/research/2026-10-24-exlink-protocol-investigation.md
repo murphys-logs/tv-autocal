@@ -9,14 +9,14 @@
 | Original date | 2026-10-24 |
 | Imported | 2026-10-24, by Codex (OpenAI) |
 | How obtained | Direct inspection of published documents and pinned source code; local arithmetic on literal bytes |
-| Fidelity | Original research summary and proposal; short source excerpts only |
+| Fidelity | Original research summary and proposal; short source excerpts only. One clause in the Finding section was later removed at the owner's instruction (D-013); the marker "\[removed under D-013\]" shows where |
 | Ledger ID | S-005 |
 
 ## Finding
 
 There is enough published information to propose a small, hardware-free packet encoder and response parser. There is insufficient evidence here to promise control of this particular TV's calibration settings. The generic packet format, model-specific command support, cable compatibility and measurement of actual picture changes are separate questions.
 
-This investigation did not use the unavailable earlier Claude feasibility report or ChatGPT critique. Research assistance from other Codex agents is still one vendor's work. Claude Code reviewed the initial proposal; this revision addresses its three findings and awaits re-review. The proposal incorporates main's Ex-Link-only decision and cable record (D-006, C-008), as well as the webcam requirement recorded by #6 (D-008, D-009). This proposal concerns Ex-Link alone and makes no additional purchase or equipment-test proposal.
+This investigation did not use the unavailable earlier Claude feasibility report or ChatGPT critique. Research assistance from other Codex agents is still one vendor's work. Claude Code reviewed the initial proposal; this revision addresses its three findings and awaits re-review. The proposal incorporates main's Ex-Link-only decision and cable record (D-006, C-008) \[removed under D-013\]. This proposal concerns Ex-Link alone and makes no additional purchase or equipment-test proposal.
 
 ## Sources actually consulted
 

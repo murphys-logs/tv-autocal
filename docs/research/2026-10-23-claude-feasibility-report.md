@@ -7,10 +7,10 @@
 | Original date | 2026-10-23, from the date line at the top of the document |
 | Imported | 2026-10-25, by Claude Code (Anthropic) |
 | How obtained | Pasted by the owner into a Claude Code conversation on 25 October 2026, copied from a Claude Docs document (the owner's answer, S-013). Claude Code had no access to the document or to the conversation that produced it |
-| Fidelity | Verbatim as pasted, with one change made at the owner's request (D-012): the owner's name in the byline on the second line, written there as an @ mention, is replaced (with its @ sign) by "[owner's name removed]". Two embedded items, a run-time chart in section 8 and an architecture diagram in section 11, did not come through the paste; they appear only as the placeholder lines the paste contained |
+| Fidelity | Verbatim as pasted, with one change made at the owner's request (D-012): the owner's name in the byline on the second line, written there as an @ mention, is replaced (with its @ sign) by "[owner's name removed]". Two embedded items, a run-time chart in section 8 and an architecture diagram in section 11, did not come through the paste; they appear only as the placeholder lines the paste contained. Item 8 of the "Blind navigation design" list in section 3 was later removed at the owner's instruction (D-013); the marker "\[removed under D-013\]" shows where |
 | Ledger ID | S-002 |
 
-**Every statement in this report is an AI hypothesis (provenance `AI: Claude`), including those it labels \[V\] "verified".** No agent in this repository has yet checked its citations, and **nothing in it has been tested on the owner's equipment.** Where it differs from the owner's later decisions, the decisions win: in particular, TV control is Ex-Link only (D-006), so the report's network key-press and infrared routes are out of scope, and a menu anywhere on the screen invalidates a reading (D-010). The report's service-menu and infrared steps are not authorised ([AGENTS.md section 7](../../AGENTS.md#7-equipment-safety-rule-6)). The claims taken from it, and how they relate to the rest of the project, are in [LEDGER.md](../../LEDGER.md#claims-from-the-claude-feasibility-report-s-002).
+**Every statement in this report is an AI hypothesis (provenance `AI: Claude`), including those it labels \[V\] "verified".** No agent in this repository has yet checked its citations, and **nothing in it has been tested on the owner's equipment.** Where it differs from the owner's later decisions, the decisions win: in particular, TV control is Ex-Link only (D-006), so the report's network key-press and infrared routes are out of scope, and every reading follows the owner's measurement cycle: change a setting, exit the menu, wait a short delay, then read (D-013). The report's service-menu and infrared steps are not authorised ([AGENTS.md section 7](../../AGENTS.md#7-equipment-safety-rule-6)). The claims taken from it, and how they relate to the rest of the project, are in [LEDGER.md](../../LEDGER.md#claims-from-the-claude-feasibility-report-s-002).
 
 Everything below the line is the original. Do not edit it.
 
@@ -142,7 +142,7 @@ Practical notes on the primary route: openHAB queues keys with a 300 ms default 
 5. **Measurement confirms every change.** The sensitivity model (section 8) predicts what each step should do. A miss beyond 3 standard deviations of meter noise triggers re-home and re-zero; two misses in a row stop the run and ask you.
 6. **Time-outs and lost menus.** Never rely on a menu staying open. Each adjustment is a self-contained open, navigate, adjust, close, and every key goes in the journal.
 7. **On-screen menus versus readings.** Put the meter where menus never draw (centre of screen; check). At start-up, read the same patch with the menu shut and open: a difference above 0.5% in luminance or 0.0005 in u'v' means the program closes the menu before every reading, at about 2 s extra each time. The Ex-Link route can switch the OSD off entirely \[V\] ([Samsung sheet](https://image-us.samsung.com/SamsungUS/samsungbusiness/tv-ci-resources/Samsung-RS232-Control.pdf)).
-8. **Optional true readback.** A webcam or phone camera aimed at the TV, plus OCR (Tesseract) of the slider number, turns blind navigation into checked navigation \[I\]. It is an add-on, not a dependency.
+8. \[removed under D-013\]
 
 ### Backup and rollback
 

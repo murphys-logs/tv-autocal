@@ -19,7 +19,7 @@ This folder keeps research material — reports, critiques, references and notes
 
 3. **Paste the original unchanged**, mistakes included. Put any comments in the ledger, not in the document.
 4. **Add a source entry** to section 1 of the ledger, and record any claims taken from the document in section 2, with provenance pointing back to it.
-5. **Never edit an archived original once merged.** If a better copy turns up, archive it as a new file and note the relationship in the ledger.
+5. **Never edit an archived original once merged.** If a better copy turns up, archive it as a new file and note the relationship in the ledger. The only exceptions are changes the owner has explicitly instructed, recorded in the ledger as D-012 and D-013.
 
 ## AI-generated material
 
@@ -33,9 +33,9 @@ The project is intended to become open source. Unless a document's licence allow
 
 - [TV Calibration Feasibility Testing — original ChatGPT research](2026-10-23-chatgpt-feasibility-research.md) — ChatGPT (OpenAI), 23 October 2026, S-012. Complete original response; citations remain unresolved and equipment capabilities remain untested. Historical proposals do not authorise physical tests or replace later project decisions. See the [import notes](../../LEDGER.md#s-012-import-notes).
 
-- [Claude feasibility report](2026-10-23-claude-feasibility-report.md) — Claude (Anthropic), 23 October 2026, S-002. Pasted by the owner from a Claude Docs document and archived word for word, except that the owner's name is removed at the owner's request (D-012). Imported as AI hypotheses. Targeted later source checks are recorded in the ledger (S-014 to S-017); unchecked assertions remain hypotheses and nothing has been tested on the owner's equipment. Its network and infrared control routes are out of scope under D-006.
+- [Claude feasibility report](2026-10-23-claude-feasibility-report.md) — Claude (Anthropic), 23 October 2026, S-002. Pasted by the owner from a Claude Docs document and archived word for word, except that the owner's name is removed at the owner's request (D-012) and one list item is removed at the owner's instruction (D-013). Imported as AI hypotheses. Targeted later source checks are recorded in the ledger (S-014 to S-017); unchecked assertions remain hypotheses and nothing has been tested on the owner's equipment. Its network and infrared control routes are out of scope under D-006.
 
-- [Ex-Link protocol investigation and proposed offline verification](2026-10-24-exlink-protocol-investigation.md) — Codex (OpenAI), 24 October 2026, S-005. Cited source inspection and checksum arithmetic; the software-only verification plan is proposed and unexecuted. TV compatibility remains untested.
+- [Ex-Link protocol investigation and proposed offline verification](2026-10-24-exlink-protocol-investigation.md) — Codex (OpenAI), 24 October 2026, S-005. Cited source inspection and checksum arithmetic; the software-only verification plan is proposed and unexecuted. TV compatibility remains untested. One clause is removed at the owner's instruction (D-013).
 
 ## Earlier report waiting to be imported
 

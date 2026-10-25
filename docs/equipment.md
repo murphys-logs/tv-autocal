@@ -1,6 +1,6 @@
 # Equipment
 
-What the owner has said about the equipment, and what still needs confirming. The original equipment comes from the owner's brief (S-001); the selected cable and purchase details come from the owner's later confirmation (S-004); the webcam comes from the owner's menu-guard requirement (S-009); the meter's position comes from the owner's later description (S-011). All are in the ledger's [sources](../LEDGER.md#1-sources). Nothing has been tested yet. [LEDGER.md](../LEDGER.md) is the formal record: if this page and the ledger ever differ, the ledger wins and this page should be corrected.
+What the owner has said about the equipment, and what still needs confirming. The original equipment comes from the owner's brief (S-001); the selected cable and purchase details come from the owner's later confirmation (S-004); the meter's position comes from the owner's later description (S-011). All are in the ledger's [sources](../LEDGER.md#1-sources). Nothing has been tested yet. [LEDGER.md](../LEDGER.md) is the formal record: if this page and the ledger ever differ, the ledger wins and this page should be corrected.
 
 ## TV — the display to calibrate
 
@@ -28,13 +28,6 @@ What the owner has said about the equipment, and what still needs confirming. Th
 
 - **Model:** Denon AVC-X3800H
 - **Whether it sits in the video path between the PC and the TV, and its video settings:** unknown — T-002
-
-## Webcam — screen monitor
-
-- **Owned:** yes, reported by the owner (S-009, C-016). Model, connection and position not yet recorded — Q-007
-- **Purpose:** the menu guard (D-008, D-010) — no reading while a menu is visible anywhere on the screen
-- **Whether it reliably shows the TV's menus during measurement:** not tested — T-010
-- **Screen it cannot see:** the part behind the meter, its cap and its cable. It is ignored only if T-010 shows that any menu covering it also shows somewhere the webcam can see; until then, no reading is accepted — D-011
 
 ## Additional hardware
 
