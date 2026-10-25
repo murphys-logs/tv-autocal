@@ -68,6 +68,8 @@ Two AI coding agents from different companies share this repository: **Claude Co
 Read more:
 
 - [docs/workflow.md](docs/workflow.md) — the same process, step by step, for a non-programmer
+- [docs/plan.md](docs/plan.md) — a proposed order of work, from the information you need to give to a first calibration (a proposal, not a decision)
+- [docs/equipment.md](docs/equipment.md#what-we-still-need-from-you) — what we still need you to look up
 - [AGENTS.md](AGENTS.md) — the rules both agents follow
 - [LEDGER.md](LEDGER.md) — evidence, decisions, disagreements and outstanding tests
 

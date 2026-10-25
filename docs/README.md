@@ -4,6 +4,7 @@
 |---|---|
 | [workflow.md](workflow.md) | How the project runs, in plain English — roles, pull requests, reviews, approvals and physical tests — with a glossary |
 | [equipment.md](equipment.md) | The owner's equipment: what is known and what still needs confirming |
+| [plan.md](plan.md) | Claude Code's proposed order of work, reconciled by Codex with D-013: pass and stop conditions towards a first SDR calibration — a proposal, not a decision |
 | [briefs/](briefs/) | The owner's instructions to the agents, archived word for word |
 | [research/](research/README.md) | Research material — reports, critiques and references — archived with its provenance |
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
