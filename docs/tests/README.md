@@ -1,6 +1,6 @@
 # Tests on the owner's equipment
 
-This folder holds the plans, authorisations and results of every test that involves the owner's real equipment: the TV, the Spyder5, the Denon receiver, or the PC when it is driving the TV. It answers *"what actually happened on the owner's equipment?"*.
+This folder holds the plans, authorisations and results of every test that involves the owner's real equipment: the TV, the Spyder5, the Denon receiver, the Ex-Link cable, or the PC when it is driving any of them. It answers *"what actually happened on the owner's equipment?"*.
 
 Software-only simulations do not belong here and need no authorisation, because they never touch the equipment. Their results must always be labelled as simulations.
 
@@ -10,6 +10,8 @@ Software-only simulations do not belong here and need no authorisation, because 
 - **Only the authorised steps, with the owner present.** Anything else needs fresh authorisation. The owner can stop a test at any time.
 - **Record what actually happened** — including failures, surprises and anything done differently from the plan. Never fill in expected or typical values.
 - **Write down original settings before changing anything**, so they can be restored.
+- **Apply D-013 to every reading.** Each plan explains how every step that changes a TV setting follows change, exit, wait, read, including restoration. After a menu value is inspected, exit the menu and wait before the next reading too. State the proposed delay (Q-008) and how the menu is exited. See [the measurement cycle and use of readings](../plan.md#measurement-cycle-and-use-of-readings).
+- **Keep diagnostic evidence separate from calibration data.** Record each reading's purpose and the criteria for using or rejecting it. Diagnostic readings do not become accepted calibration data later; running a component test does not establish absolute accuracy.
 
 ## Life of a test
 
@@ -26,3 +28,5 @@ After step 5, the equipment test status of each claim tested changes to Confirme
 ## Owner checks
 
 Some ledger entries are "owner checks": the owner looks something up for themselves — a firmware version, a menu, a cable — without a meter and without any agent operating the equipment. These need no plan or authorisation. The owner reports what they found, and an agent records it in the ledger with the owner as the source.
+
+An owner check only looks. Anything that connects, sends, measures or changes something for the project — connecting either end of the Ex-Link cable, running ArgyllCMS with the meter, or changing a TV, PC or receiver setting — belongs in a written test plan, so that its risks and its record are thought through first. Owner checks never involve the service menu. The current list of owner checks is in [docs/equipment.md](../equipment.md#what-we-still-need-from-you); the cable-check difference from the earlier proposal is recorded in X-009.

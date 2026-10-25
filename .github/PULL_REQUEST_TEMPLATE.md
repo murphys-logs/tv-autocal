@@ -43,6 +43,7 @@ What changes and why, and what the owner needs to do next, if anything.
 Copy this section into your review and fill it in.
 
 - Reviewer (agent and company):
+- Commit reviewed (full SHA):
 - [ ] My company is not the author's company.
 - [ ] The changes match the summary, and nothing unrelated is included.
 - [ ] I checked the claims and citations against their sources. Problems found:
