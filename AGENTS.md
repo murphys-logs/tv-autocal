@@ -49,7 +49,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 
 1. Read this file, [LEDGER.md](LEDGER.md) and the documents relevant to the task.
 2. Look at `main` and any open pull requests or branches, so you don't duplicate or contradict work in progress.
-3. Work only from what is in the repository and the owner's current instructions. You have no access to earlier conversations — your own or anyone else's. If the owner refers to material that is not here, such as the earlier feasibility report and critique, say so and ask for it to be imported. Never reconstruct or guess its contents.
+3. Work from the repository, the owner's instructions and source material actually supplied or retrieved at the owner's request through a connection the owner has made available. Do not assume access to earlier conversations. If relevant originals cannot be retrieved, say so and ask for them to be supplied; never reconstruct missing text from memory or summaries, or guess its contents. Record how retrieved evidence was obtained and import it through the normal reviewed workflow. S-012 demonstrates successful retrieval, not access to every earlier chat.
 4. Check whether the task needs the owner's approval (sections 7 and 8). If it does, ask and wait.
 
 ### Before you finish

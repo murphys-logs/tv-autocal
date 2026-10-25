@@ -2,7 +2,7 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 24 October 2026: repository setup only.**
+> **Status, 25 October 2026: planning and research only.**
 > There is no application code yet, and **nothing in this repository has been tested on the owner's equipment.**
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 
@@ -86,6 +86,8 @@ Read more:
 ## Earlier work
 
 The Claude feasibility report of 23 October 2026 is archived in [docs/research/](docs/research/2026-10-23-claude-feasibility-report.md) (S-002). It is AI research: its claims are recorded in the [ledger](LEDGER.md#claims-from-the-claude-feasibility-report-s-002) as hypotheses, **none has been tested on the owner's equipment**, and where it differs from the owner's later decisions (for example Ex-Link-only control, D-006) the decisions win.
+
+The original [ChatGPT feasibility research](docs/research/2026-10-23-chatgpt-feasibility-research.md) is also archived (S-012). Its citation markers and claimed historical software-test result remain unverified; this is a separate document from the critique. Later source checks and reconciliations are recorded in the ledger.
 
 A ChatGPT critique also exists outside this repository. Its original contents will be imported into [docs/research/](docs/research/README.md) once the owner supplies them. Until then, nothing here relies on it.
 
