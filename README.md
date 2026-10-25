@@ -87,7 +87,9 @@ Read more:
 
 ## Earlier work
 
-A Claude feasibility report dated 23 October 2026 and a ChatGPT critique exist outside this repository. Their original contents will be imported into [docs/research/](docs/research/README.md) after this setup has been reviewed. Until then, nothing here relies on them.
+The Claude feasibility report of 23 October 2026 is archived in [docs/research/](docs/research/2026-10-23-claude-feasibility-report.md) (S-002). It is AI research: its claims are recorded in the [ledger](LEDGER.md#claims-from-the-claude-feasibility-report-s-002) as hypotheses, **none has been tested on the owner's equipment**, and where it differs from the owner's later decisions (for example Ex-Link-only control, D-006) the decisions win.
+
+A ChatGPT critique also exists outside this repository. Its original contents will be imported into [docs/research/](docs/research/README.md) once the owner supplies them. Until then, nothing here relies on it.
 
 ## Licence
 
