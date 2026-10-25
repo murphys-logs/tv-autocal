@@ -47,7 +47,7 @@ Readings, data files, photos, and software and firmware versions — for example
 
 Decide **before** the test which results would support, contradict or fail to settle each claim in section 1.
 
-**When to stop:** list the observations that end the test at once — for example no reply or an unexpected reply from the TV, an unexpected setting change or menu, a reading outside the expected range, or anything the owner is unsure about. For the initial tests proposed in [docs/plan.md](../plan.md), stop after an unclear TV command result and do not resend it. Record the outcome; any recovery must be a separately reviewed and explicitly authorised procedure after the TV's state is established. This restriction on the proposed tests does not settle the future transport policy in X-007.
+**When to stop:** list the observations that end the test at once — for example no reply or an unexpected reply from the TV, an unexpected setting change or menu, a reading outside the expected range, or anything the owner is unsure about. For the initial tests proposed in [docs/plan.md](../plan.md), stop after an unclear TV command result and do not resend it. Record what happened. After looking at the TV's normal menu, the owner may restore the recorded original values by hand, as the plan's restoration step describes; nothing here limits the owner's own use of the TV. Further project-test recovery or continuation involving an Ex-Link command, a resend, a service-menu step or other recovery from an unexpected state needs a separately reviewed and explicitly authorised procedure. No automatic recovery is authorised here. This restriction on the proposed tests does not settle the future transport policy in X-007.
 
 ## 8. Owner's authorisation
 
