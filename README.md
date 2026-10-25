@@ -21,7 +21,7 @@ The first priority is accurate **SDR** (standard dynamic range) video:
 **Closed-loop, TV-side calibration** means the software adjusts the TV's own controls (such as its colour and white-balance settings) and checks every change with the meter, instead of altering the picture on the PC:
 
 1. The PC shows a known test colour on the TV.
-2. The meter measures what the TV actually displays, but never while the webcam shows a menu bar in the lower part of the screen. The reading is then corrected for this TV's type of light.
+2. The meter measures what the TV actually displays, but never while the webcam shows a menu anywhere on the screen. The reading is then corrected for this TV's type of light.
 3. The software compares the measurement with the target.
 4. It works out which TV setting to change, and by how much, and sends that change to the TV.
 5. Steps 1–4 repeat until the error is small enough or the TV can do no better.
@@ -45,14 +45,14 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 - **No commercial calibration packages** are to be recommended.
 - **Extra hardware: £25 in total at most.** Spent so far: £15.99 on the selected Ex-Link cable; £9.01 remains. See the ledger's [budget record](LEDGER.md#7-hardware-budget).
 - **Safety:** no AI agent may operate the TV, the meter or the TV's service menu by itself. Software-only simulations are allowed; every physical test needs the owner's explicit authorisation.
-- **Webcam menu guard (required):** no reading may be taken while any menu bar is visible in the lower part of the screen (D-008 in the [ledger](LEDGER.md#3-decisions)).
+- **Webcam menu guard (required):** no reading may be taken while a menu is visible anywhere on the screen (D-008 and D-010 in the [ledger](LEDGER.md#3-decisions)).
 
 ## Intended design — not yet proven
 
 | Part | Job | Status |
 |---|---|---|
 | Measurement (ArgyllCMS) | Takes readings from the Spyder5 | Not yet tried with this meter on this PC |
-| Menu-bar guard (webcam) | Watches the TV, and blocks or discards any reading taken while a menu bar is visible in the lower part of the screen | Required by the owner (D-008); not built; exact screen area to be set after a webcam test |
+| Menu-bar guard (webcam) | Watches the TV, and blocks or discards any reading taken while a menu is visible anywhere on the screen | Required by the owner (D-008, D-010); not built or tested |
 | Spectral correction | Corrects the meter's readings for this TV's type of light | No validated correction identified yet |
 | Test-pattern generator | Shows exact, known colours on the TV | Not built; signal path not yet confirmed |
 | Optimisation engine | Works out which setting to change, and by how much | Not built; can be developed in simulation first |
