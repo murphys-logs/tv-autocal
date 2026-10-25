@@ -31,7 +31,10 @@ The project is intended to become open source. Unless a document's licence allow
 
 ## Research recorded here
 
+- [TV Calibration Feasibility Testing — original ChatGPT research](2026-10-23-chatgpt-feasibility-research.md) — ChatGPT (OpenAI), 23 October 2026, S-012. Complete original response; citations remain unresolved and equipment capabilities remain untested. Historical proposals do not authorise physical tests or replace later project decisions. See the [import notes](../../LEDGER.md#s-012-import-notes).
+
 - [Claude feasibility report](2026-10-23-claude-feasibility-report.md) — Claude (Anthropic), 23 October 2026, S-002. Pasted by the owner from a Claude Docs document and archived word for word, except that the owner's name is removed at the owner's request (D-012). AI hypotheses throughout: no agent here has checked its citations yet, and nothing in it has been tested on the owner's equipment. Its network and infrared control routes are out of scope under D-006.
+
 - [Ex-Link protocol investigation and proposed offline verification](2026-10-24-exlink-protocol-investigation.md) — Codex (OpenAI), 24 October 2026, S-005. Cited source inspection and checksum arithmetic; the software-only verification plan is proposed and unexecuted. TV compatibility remains untested.
 
 ## Earlier report waiting to be imported
@@ -40,4 +43,4 @@ The project is intended to become open source. Unless a document's licence allow
 |---|---|---|---|---|---|
 | S-003 | ChatGPT critique | ChatGPT (OpenAI) | Unknown | To be decided once the date is known | Waiting for the owner to supply the original text |
 
-No agent has access to the earlier conversation that produced this document. Until its original contents are imported, nothing in this repository depends on it.
+The original text of S-003 is still unavailable in this repository. The separate feasibility response S-012 has been recovered and archived; it does not replace S-003. Until S-003 is imported, nothing in this repository depends on its contents.
