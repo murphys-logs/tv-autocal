@@ -29,6 +29,33 @@ Nothing reaches `main` without your decision. No agent operates your TV, meter o
 | Provenance | Where a claim came from — you, official documentation, a forum, an AI, and so on |
 | Simulation | Software that imitates the TV or meter, so code can be checked without touching your equipment |
 
+## Calibration words
+
+Plain-English explanations written by Claude Code. They explain words; they are not evidence about your equipment. The ledger IDs point to what is still unknown.
+
+| Word | Meaning |
+|---|---|
+| Calibration | Adjusting the TV's own settings so that what it shows matches the video standards as closely as it can |
+| Colour meter (colorimeter) | A small sensor placed on the screen that measures how bright the light is and what colour it is. Yours is a Datacolor Spyder5 |
+| ArgyllCMS | Free, open-source colour-measurement software. The plan is to use its `spotread` program to take readings from the Spyder5 (C-002, not yet tried) |
+| Spectral correction (CCSS file) | A file describing the kind of light a type of screen gives out. A colour meter like the Spyder5 needs a suitable one to read a particular kind of screen accurately. "Validated" means checked against a better instrument (Q-001) |
+| Patch, test pattern | A known colour or grey shown on the screen for the meter to measure |
+| Rec.709, D65, BT.1886 | The three SDR targets: the standard red, green and blue; the standard white; and the standard brightness curve from black to white. See the [README](../README.md#goals) |
+| cd/m² ("nits") | The unit of screen brightness. The brightness to aim for is still to be chosen (Q-014) |
+| Black level | How dark the TV's black is. BT.1886's curve depends on it; whether the Spyder5 can measure it on this TV is not known (C-043) |
+| White balance (2-point, multi-point) | TV controls that adjust red, green and blue so that greys look neutral: 2-point at one dark and one bright level, multi-point at 10 or 20 levels (X-003) |
+| Colour management system (CMS) | TV controls that adjust where red, green, blue, cyan, magenta and yellow fall |
+| Picture mode | A set of picture settings the TV keeps separately, such as Movie or Standard. Settings belong to a picture mode on a particular input |
+| Ex-Link | Samsung's serial (RS-232) control socket, a 3.5 mm jack on some TVs. The project's only route for software to change TV settings (D-006); not yet tested on your TV |
+| Acknowledgement | The short "received" reply a TV may send after an Ex-Link command. It does not prove that the setting changed (C-010) |
+| Service menu | A hidden factory menu. Changes there can be hard or impossible to undo. No agent may open it, and the project avoids it |
+| HDMI range (full or limited) | Two ways of numbering black to white in a video signal (0–255, or 16–235). The PC, receiver and TV must agree, or blacks and whites are crushed or washed out |
+| Menu guard | The webcam check that throws away any reading taken while a menu shows anywhere on the screen (D-008, D-010) |
+| Hidden area | The part of the screen behind the meter, its cap and its cable, which the webcam cannot see (D-011) |
+| Diagnostic, guard-validation and accepted readings | The three kinds of meter reading. Only accepted readings may be used to calibrate or judge accuracy. See [plan.md](plan.md#three-kinds-of-meter-reading) |
+| Owner check | Something you look up yourself, without any agent operating the equipment. See [tests/README.md](tests/README.md#owner-checks) |
+| ΔE2000 ("delta E") | A number for how different two colours look. Smaller is better; a value around 1 is often quoted as barely noticeable |
+
 ## Who reviews whom
 
 | Pull request written by | Independent review by |
@@ -47,7 +74,8 @@ Agents from the same company do not count as independent of each other. ChatGPT 
    > Please review pull request #___ in the tv-autocal repository against AGENTS.md. Do not push changes to its branch. Post your review on the pull request, or give it to me to post. List anything you disagree with, so it can be recorded in LEDGER.md.
 
 4. If the review asks for changes, pass it to the agent that wrote the pull request. If the two agents still disagree, the disagreement is recorded in the ledger. It does not have to be settled before you decide.
-5. When you are satisfied, click **Merge pull request**, then **Confirm merge**. If you are not, add a comment saying what you want changed, or click **Close pull request**.
+5. **Check that the review covers the latest version.** Every review names the commit it checked (a code such as `3fe2c48`). If the author has pushed anything since, the new changes have not been reviewed yet; ask the reviewer to check them. Codex's automatic GitHub comment ("Codex Review Summary") is not the checklist review; whether it counts towards rule 2 is question Q-015.
+6. When you are satisfied, click **Merge pull request**, then **Confirm merge**. If you are not, add a comment saying what you want changed, or click **Close pull request**.
 
 How Codex will receive review requests — directly on GitHub, or through you — is still to be decided (question Q-005 in the ledger).
 

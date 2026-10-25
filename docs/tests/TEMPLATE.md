@@ -7,6 +7,8 @@
 
 Which ledger claims (C-…) or questions (Q-…) does this test address? What would each possible result mean for them?
 
+**Prerequisites:** which tests (T-…) and owner answers (Q-…) must be complete before this test can be authorised. Link to their results.
+
 ## 2. Equipment and settings involved
 
 Every device involved, and every setting that might change.
@@ -37,9 +39,15 @@ Numbered, exact steps. For each step, say who carries it out: the owner, or an a
 
 Readings, data files, photos, and software and firmware versions — for example the ArgyllCMS version and the TV's firmware version.
 
+**Meter readings and the menu guard.** For each step that uses the meter, say which kind of reading it takes — diagnostic, guard-validation or accepted calibration reading ([docs/plan.md](../plan.md#three-kinds-of-meter-reading)) — and how the menu guard (D-010, D-011) is applied. Say what happens to a reading taken while a menu, or a view the webcam could not confirm, might have affected it. If no step uses the meter, say so.
+
+**For each reading, record:** the software version or commit, the correction file and its fingerprint (hash), the patch values, the TV's input, picture mode and relevant settings, start and end times, an identifier for each attempt, and every rejected attempt with its reason.
+
 ## 7. How results will be judged
 
 Decide **before** the test which results would support, contradict or fail to settle each claim in section 1.
+
+**When to stop:** list the observations that end the test at once — for example no reply or an unexpected reply from the TV, an unexpected setting change or menu, a reading outside the expected range, or anything the owner is unsure about. Never resend a TV command after an unclear result.
 
 ## 8. Owner's authorisation
 

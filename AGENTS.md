@@ -156,6 +156,7 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 | `LEDGER.md` | Sources, claims, decisions, disagreements, tests, open questions and budget |
 | `docs/workflow.md` | Plain-English guide for the owner |
 | `docs/equipment.md` | The owner's equipment: what is known and what still needs confirming |
+| `docs/plan.md` | Proposed order of work, with pass and stop conditions (a proposal, not a decision) |
 | `docs/briefs/` | The owner's instructions, archived word for word |
 | `docs/research/` | Research material, archived with its provenance |
 | `docs/tests/` | Plans, authorisations and results of tests on the owner's equipment |
