@@ -23,7 +23,7 @@ The first priority is accurate **SDR** (standard dynamic range) video:
 1. The PC shows a known test colour on the TV.
 2. The meter measures what the TV actually displays. The reading is then corrected for this TV's type of light.
 3. The software compares the measurement with the target.
-4. It works out which TV setting to change, and by how much, and sends that change to the TV. It then exits the TV's menu and waits a short moment, so the next reading is not disturbed (D-013).
+4. It works out which TV setting to change, and by how much, and sends that change to the TV. It then exits the TV's menu and waits a short moment, so the menu does not disturb the next reading (D-013).
 5. Steps 1–4 repeat until the error is small enough or the TV can do no better.
 
 ## Equipment
