@@ -6,7 +6,7 @@
 | Produced by | Claude (Anthropic) |
 | Original date | 2026-10-23, from the date line at the top of the document |
 | Imported | 2026-10-25, by Claude Code (Anthropic) |
-| How obtained | Pasted by the owner into a Claude Code conversation on 25 October 2026, copied from a Claude Docs document (the owner's answer, S-012). Claude Code had no access to the document or to the conversation that produced it |
+| How obtained | Pasted by the owner into a Claude Code conversation on 25 October 2026, copied from a Claude Docs document (the owner's answer, S-013). Claude Code had no access to the document or to the conversation that produced it |
 | Fidelity | Verbatim as pasted, with one change made at the owner's request (D-012): the owner's name in the byline on the second line, written there as an @ mention, is replaced (with its @ sign) by "[owner's name removed]". Two embedded items, a run-time chart in section 8 and an architecture diagram in section 11, did not come through the paste; they appear only as the placeholder lines the paste contained |
 | Ledger ID | S-002 |
 

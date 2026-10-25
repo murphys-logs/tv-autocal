@@ -8,7 +8,7 @@
 | Imported | 2026-10-25, by Claude Code (Anthropic), in the pull request that archives the Claude feasibility report |
 | How obtained | The owner's message to Claude Code, and the owner's choices among multiple-choice options that Claude Code offered |
 | Fidelity | Verbatim. The request, the questions, the option labels and the option descriptions are reproduced exactly, with one change: the owner's name, which Claude Code quoted as an @ mention in the second question, is replaced (with its @ sign) by "[owner's name removed]", following the owner's answer to that question. The layout of the options is simplified. The report the owner pasted is archived separately as S-002 and is not repeated here |
-| Ledger ID | S-012 |
+| Ledger ID | S-013 |
 
 This archive is the source of decision D-012 and of the "How obtained" and "Fidelity" lines in the [archived report](../research/2026-10-23-claude-feasibility-report.md). Do not edit it.
 
