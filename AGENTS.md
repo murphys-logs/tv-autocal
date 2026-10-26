@@ -1,6 +1,6 @@
 # AGENTS.md — shared instructions for Claude Code, Codex and Antigravity
 
-These are the working instructions for **every AI agent** on this project. Codex reads this file directly. Claude Code reads it through `CLAUDE.md`, which contains only the import line `@AGENTS.md`. Antigravity reads this file as part of its workspace instructions. All shared rules live here, so all agents work from the same text; any vendor-specific file should only point here.
+These are the working instructions for **every AI agent** on this project. Codex reads this file directly. Claude Code reads it through `CLAUDE.md`, which contains only the import line `@AGENTS.md`. All shared rules live here, so all agents work from the same text; any vendor-specific file should only point here.
 
 If an instruction the owner gives you in your current conversation conflicts with this file, follow the owner and propose an update to this file in a pull request. If two parts of this file conflict, stop and ask the owner.
 
