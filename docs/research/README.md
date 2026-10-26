@@ -37,6 +37,8 @@ The project is intended to become open source. Unless a document's licence allow
 
 - [Ex-Link protocol investigation and proposed offline verification](2026-10-24-exlink-protocol-investigation.md) — Codex (OpenAI), 24 October 2026, S-005. Cited source inspection and checksum arithmetic; the software-only verification plan is proposed and unexecuted. TV compatibility remains untested. One clause is removed at the owner's instruction (D-013).
 
+- [TV-side auto-calibration of the Samsung UE49KS7000UXXU: independent feasibility study](2026-10-26-antigravity-feasibility-study.md) — Antigravity (Google), 26 October 2026, S-024. Independent feasibility synthesis and primary/secondary source audit (S-025 to S-031, C-062 to C-073, X-010); AI analysis and design proposals remain hypotheses, and nothing has been tested on the owner's equipment.
+
 ## Earlier report waiting to be imported
 
 | Ledger ID | Document | Produced by | Original date | Planned file name | Status |
