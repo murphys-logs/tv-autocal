@@ -132,7 +132,7 @@ Byte-for-byte identity proves S-006, S-007 and S-015 share one upstream workshee
 
 ## C-068
 
-Qualifies C-041 and C-056 and corrects S-002 section 5 line 230: QLED `.ccss` files declare `TECHNOLOGY "Unknown"` (`ccss.c` L303–321 -> `disptech_unknown`, `disptechs.c` L393–396 `refr = 1`), causing `spotread.c` L1734 and `spyd2.c` L3235 to override lowercase `-y` into inline refresh-synchronised measurement unless uppercase `-Y n` is passed. `-N` warns as unsupported (`spyd2.c` L4088), `-O` must precede flags when logging (`spotread.c` L1034), and X-011 records the static `-O` control-flow disagreement ([S-024 section 3.1](research/2026-10-26-antigravity-feasibility-study.md#31-comparison-with-the-claude-feasibility-report-s-002-anthropic-23-october-2026)).
+Qualifies C-041 and C-056 and corrects S-002 section 5 line 230: QLED `.ccss` files declare `TECHNOLOGY "Unknown"` (`ccss.c` L303–321 -> `disptech_unknown`, `disptechs.c` L393–396 `refr = 1`), causing `spotread.c` L1734 and `spyd2.c` L3235 to override lowercase `-y` into inline refresh-synchronised measurement unless uppercase `-Y n` is passed. `-N` warns as unsupported (`spyd2.c` L4088), the logfile name must not immediately follow `-O` (which takes an optional spectrum filename; `spotread.c` L1034), and X-011 records the static `-O` control flow, now settled at source level by Codex withdrawing its initial reading ([S-024 section 3.1](research/2026-10-26-antigravity-feasibility-study.md#31-comparison-with-the-claude-feasibility-report-s-002-anthropic-23-october-2026)).
 
 ## C-069
 
@@ -144,7 +144,7 @@ Confirms C-042's missing 2016 SUHD `.ccss` on 2026-10-26 (`SAM`: 307, `SEC`: 42 
 
 ## C-071
 
-Primary-manual confirmation for C-044's Denon `Video Mode: Bypass` step on the exact `AVC-X3800H` model, including the helpful side-effect that Denon suppresses its own on-screen volume/status overlays over video in `Bypass` (provided `IMAX DTS` is not active). Actual owner cabling and settings await T-002 and T-005.
+Primary-manual confirmation for C-044's Denon `Video Mode: Bypass` step on the exact `AVC-X3800H` model, including the helpful side-effect that Denon suppresses its own on-screen volume/status overlays over video in `Bypass` (provided `Video Mode` is not locked out by an active `IMAX DTS` or `IMAX DTS:X` sound mode). Actual owner cabling and settings await T-002 and T-005.
 
 ## C-072
 
