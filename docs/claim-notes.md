@@ -100,7 +100,7 @@ Subsequently checked in S-015/C-057: the manufacturer-hosted PDF is accessible. 
 
 ## C-060
 
-Documentary observations, not TV behaviour. Claude Code's inference that the table covers later models is consistent with these renamed controls/features, but the document does not establish exact-model applicability. This supports the caution in C-011/C-027 and bears on C-039's ranges.
+Documentary observations, not TV behaviour. Claude Code's inference that the table covers later models is consistent with these renamed controls/features, but the document does not establish exact-model applicability. This supports the caution in C-011/C-027 and bears on C-039's ranges. The owner's menu inspection in S-033 (C-077) offers an integer slider `-3..+3` without listing BT.1886 or other discrete gamma types, contrasting with the worksheet's listed types.
 
 ## C-061
 
@@ -169,7 +169,7 @@ Updates C-008's delivery status and confirms the delivered unit matches the `SH-
 
 ## C-077
 
-Owner's normal-menu picture controls, ranges and current values in the primary viewing picture mode (intended calibration target: Movie mode; mode active during inspection not explicitly stated) on the `UE49KS7000UXXU` with firmware `T-JZMDEUC-1270.1` ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)). Confirms basic sliders (Backlight 0–20, Brightness 0–100, Contrast 0–100, Sharpness 0–100, Colour 0–100, Tint G50/R50), integer Gamma slider -3..+3 (without a named BT.1886 discrete toggle in this menu), Warm2 selectable over standard HDMI (clarifying C-063's e-Manual note), 2-point White Balance (-50..+50, all 0), Custom Colour Space (RGBCYM with RGB sliders), all picture processing disabled (Smart LED, Auto Motion Plus, Dynamic Contrast, Clean View, Eco), and Apply Picture Settings to All Sources. 10-point white balance slider ranges, current values and enable state were not reported.
+Owner's normal-menu picture controls, ranges and current values in the primary viewing picture mode (intended calibration target: Movie mode; mode active during inspection not explicitly stated) on the `UE49KS7000UXXU` with firmware `T-JZMDEUC-1270.1` ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)). Confirms basic sliders (Backlight 0–20, Brightness 0–100, Contrast 0–100, Sharpness 0–100, Colour 0–100, Tint G50/R50), integer Gamma slider -3..+3 (a -3..+3 slider; no BT.1886 option reported), Warm2 selectable over standard HDMI (clarifying C-063's e-Manual note), 2-point White Balance (-50..+50, all 0), Custom Colour Space (RGBCYM with RGB sliders), the listed picture processing settings disabled (Smart LED, Auto Motion Plus, Dynamic Contrast, Clean View, Eco), and Apply Picture Settings to All Sources. 10-point white balance slider ranges, current values and enable state were not reported.
 
 ## C-078
 
@@ -189,11 +189,11 @@ Denon AVC-X3800H receiver configuration ([S-033](briefs/2026-10-26-owner-equipme
 
 ## C-082
 
-Meter and software status on the owner's PC ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): Datacolor Spyder5Pro with original installer and activation serial retained (vendor software not installed). ArgyllCMS V3.5.0 is unpacked in the Downloads folder (exact path recorded in private local settings and redacted under AGENTS.md section 11) and DisplayCAL is installed. When hanging by its USB cable draped over the top edge of the TV with the counterweight behind, the meter rests flat against the screen surface (clarifying S-011's description of the cap hanging beneath).
+Meter and software status on the owner's PC ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): Datacolor Spyder5Pro with original installer and activation serial retained (vendor software not installed). ArgyllCMS V3.5.0 is unpacked in the Downloads folder (exact path kept out of the repository under AGENTS.md section 11) and DisplayCAL is installed. When hanging by its USB cable draped over the top edge of the TV with the counterweight behind, the meter rests flat against the screen surface (clarifying S-011's description of the cap hanging beneath).
 
 ## C-083
 
-PC-side serial port check for the DSD TECH SH-U35B Ex-Link cable ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): Windows Device Manager assigns `USB Serial Port (COM3)` to the FTDI chip when plugged into the PC with the TV end disconnected (the action proposed under Position A). Prospective project policy for owner checks remains an open question under X-009. Communication with the TV remains Not tested pending an authorised T-006 plan.
+PC-side serial port check for the DSD TECH SH-U35B Ex-Link cable ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): Windows Device Manager assigns `USB Serial Port (COM3)` to the FTDI chip when plugged into the PC with the TV end disconnected. This check was performed in response to Antigravity's checklist request (item 5; TV disconnected), which requested the PC-only USB plug-in, differing from the look-only text in docs/equipment.md on main and docs/tests/README.md. Prospective project policy for owner checks remains an open question under X-009. Communication with the TV remains Not tested pending an authorised T-006 plan.
 
 ## C-084
 

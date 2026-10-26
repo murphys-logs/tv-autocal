@@ -7,12 +7,12 @@
 | Original date | 2026-10-26 |
 | Imported | 2026-10-26, by Antigravity (Google), in the pull request for owner checklist import |
 | How obtained | The owner's verbatim completed checklist responses provided in the Antigravity conversation |
-| Fidelity | Verbatim for the owner's checklist responses, archived with the checklist question headings for context. The owner's personal username in the installation path is redacted under AGENTS.md section 11. No serial numbers or private credentials were submitted or recorded ([AGENTS.md section 11](../../AGENTS.md#11-privacy-and-credentials)). |
+| Fidelity | Condensed extraction of the owner's completed checklist responses, structured under the checklist section headings. Item 5's original prompt asked: "When the USB plug is inserted into the PC, what COM port number does Windows Device Manager assign to it under Ports (COM & LPT)? (PC check only; DO NOT plug into TV)". The owner's personal username in the installation path (item 2.3) is redacted under AGENTS.md section 11. No serial numbers or private credentials were submitted or recorded ([AGENTS.md section 11](../../AGENTS.md#11-privacy-and-credentials)). |
 | Ledger ID | S-033 |
 
 This archive is the source of claims C-077 to C-084 in [LEDGER.md](../../LEDGER.md), settles disagreement X-003, completes owner checks T-001 and T-002, and records the provisional calibration targets under Q-014. Do not edit it.
 
-## Owner's completed checklist (verbatim responses)
+## Owner's completed checklist responses (structured extraction)
 
 ### 1. Samsung TV (`UE49KS7000UXXU`) — Look-Only Check (T-001)
 
@@ -122,7 +122,7 @@ This archive is the source of claims C-077 to C-084 in [LEDGER.md](../../LEDGER.
 
 ### 5. DSD TECH Ex-Link Cable (`SH-U35B`) (T-006)
 
-- **Assigned COM Port (PC check only; TV disconnected):** `USB Serial Port (COM3)`
+- **Assigned COM Port (checklist item 5 prompt: "When the USB plug is inserted into the PC, what COM port number does Windows Device Manager assign to it under Ports (COM & LPT)? (PC check only; DO NOT plug into TV)"; TV disconnected):** `USB Serial Port (COM3)`
 
 ---
 

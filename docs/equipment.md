@@ -8,7 +8,7 @@ What the owner has said about the equipment, and what still needs confirming. Th
 - **Firmware version:** `T-JZMDEUC-1270.1 , BT - S` (`Sub-micom: T-JZMDEUS-1007`, `e-Manual: JZDVBEUK-1.1.3`) — from the `Contact Samsung` screen (S-032, C-074; AI-transcribed from withheld owner photograph)
 - **Picture controls offered by the menus, and their ranges:** confirmed by the owner in S-033 (C-077, C-078):
   - Picture modes: `[Dynamic, Standard, Natural, Movie]`. Initial calibration priority is Movie mode (mode active during checklist inspection not explicitly stated).
-  - Basic sliders: Backlight `0–20` (current 8), Brightness `0–100` (current 45), Contrast `0–100` (current 95), Sharpness `0–100` (current 0), Colour `0–100` (current 50), Tint `G50/R50`, Gamma integer slider `-3..+3` (current 0; slider only, no discrete BT.1886 toggle), Colour Tone `Warm2` (selectable over HDMI).
+  - Basic sliders: Backlight `0–20` (current 8), Brightness `0–100` (current 45), Contrast `0–100` (current 95), Sharpness `0–100` (current 0), Colour `0–100` (current 50), Tint `G50/R50`, Gamma integer slider `-3..+3` (current 0; a -3..+3 slider; no BT.1886 option reported), Colour Tone `Warm2` (selectable over HDMI).
   - White balance: 2-point controls all six present (`R/G/B-Offset` and `R/G/B-Gain`, range `-50..+50`, current values all 0); multi-point control offers **10 points** (`10%` to `100%`, selectable — settles X-003; 10-point slider ranges, current values and enable state not reported).
   - Colour Space: `Auto`, `Native`, `Custom` (Custom provides `Red`, `Green`, `Blue`, `Yellow`, `Cyan`, `Magenta`, each with `Red`, `Green`, `Blue` sliders).
   - Enhancement settings: HDMI Black Level `Auto`, HDMI UHD Color `On`, Digital Clean View `Off`, Auto Motion Plus `Off`, Smart LED `Off`, Dynamic Contrast `Off`, Eco Solution `All off`.
@@ -21,7 +21,7 @@ What the owner has said about the equipment, and what still needs confirming. Th
 
 - **Model:** Datacolor Spyder5 colorimeter — **Spyder5Pro** edition confirmed by the owner (S-033, C-082). Original installer and activation serial code retained; vendor software not installed.
 - **Position during readings:** hangs by its USB cable draped over the top edge of the TV in the middle of the screen, counterweight hanging behind; sensor rests flat against the screen surface — reported by the owner (S-033, C-023, C-082; clarifies S-011's description of cap hanging beneath).
-- **Software installed on PC:** ArgyllCMS V3.5.0 unpacked in the Downloads folder (exact path recorded in private local settings); DisplayCAL installed (S-033, C-082).
+- **Software installed on PC:** ArgyllCMS V3.5.0 unpacked in the Downloads folder (exact path kept out of the repository); DisplayCAL installed (S-033, C-082).
 - **Works with ArgyllCMS on the owner's PC:** not tested — T-003
 - **Spectral correction for this TV:** none identified or validated — T-004, Q-001
 
@@ -77,7 +77,7 @@ The proposed order of work after this is in [plan.md](plan.md).
 - [x] **Firmware version** (Settings → Support → Contact Samsung). Confirmed in S-032 (C-074): **`T-JZMDEUC-1270.1 , BT - S`** (`Sub-micom: T-JZMDEUS-1007`, `e-Manual: JZDVBEUK-1.1.3`). Please don't install a firmware update during the project without telling us first (C-053).
 - [x] **Normal-menu picture controls** (T-001). Substantively confirmed in S-033 (C-077, C-078):
   - Picture modes offered: `[Dynamic, Standard, Natural, Movie]`;
-  - Controls, ranges and owner-reported current values: Backlight `0–20` (8), Brightness `0–100` (45), Contrast `0–100` (95), Sharpness `0–100` (0), Colour `0–100` (50), Tint `G50/R50`, Gamma slider `-3..+3` (0; slider only, no discrete BT.1886 name), Colour Tone `Warm2` (selectable over HDMI);
+  - Controls, ranges and owner-reported current values: Backlight `0–20` (8), Brightness `0–100` (45), Contrast `0–100` (95), Sharpness `0–100` (0), Colour `0–100` (50), Tint `G50/R50`, Gamma slider `-3..+3` (0; a -3..+3 slider; no BT.1886 option reported), Colour Tone `Warm2` (selectable over HDMI);
   - White balance: 2-point controls all six present (`-50..+50`, current all 0); multi-point control offers **10 points** (`10%` to `100%`, selectable; settles X-003; 10-point slider values/range unrecorded);
   - Colour Space: `Auto`, `Native`, `Custom` (Custom provides RGBCYM with RGB sliders);
   - HDMI Black Level `Auto`, HDMI UHD Color `On`, Digital Clean View `Off`, Auto Motion Plus `Off`, Smart LED `Off`, Dynamic Contrast `Off`, Eco Solution `All off`;
