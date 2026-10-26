@@ -2,6 +2,7 @@
 
 | Path | What it holds |
 |---|---|
+| [claim-notes.md](claim-notes.md) | Analysis behind the ledger claims |
 | [workflow.md](workflow.md) | How the project runs, in plain English — roles, pull requests, reviews, approvals and physical tests — with a glossary |
 | [equipment.md](equipment.md) | The owner's equipment: what is known and what still needs confirming |
 | [plan.md](plan.md) | Claude Code's proposed order of work, reconciled by Codex with D-013: pass and stop conditions towards a first SDR calibration — a proposal, not a decision |

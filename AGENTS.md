@@ -154,6 +154,7 @@ Each rule has one home, and other files link to it instead of restating it.
 | `AGENTS.md` | This file |
 | `CLAUDE.md` | Imports this file for Claude Code — nothing else |
 | `LEDGER.md` | Sources, claims, decisions, disagreements, tests, open questions and budget |
+| `docs/claim-notes.md` | Analysis behind the ledger claims |
 | `docs/workflow.md` | Plain-English guide for the owner |
 | `docs/equipment.md` | The owner's equipment: what is known and what still needs confirming |
 | `docs/plan.md` | Proposed order of work, with pass and stop conditions (a proposal, not a decision) |
