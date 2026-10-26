@@ -56,7 +56,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 
 For tasks proposing repository file changes:
 
-1. Update [LEDGER.md](LEDGER.md) with new or changed claims, decisions, disagreements, tests and questions.
+1. Update [LEDGER.md](LEDGER.md) with new or changed claims, decisions, disagreements, tests and questions. Keep each ledger table cell to about two sentences, roughly 50 words, and link to the detail in the document that owns the topic. Review history goes in the pull-request description or [docs/reviews/](docs/reviews/README.md), not in the ledger.
 2. Check that links between files work and that every ledger ID you mention exists.
 3. Open a pull request and fill in every section of the [template](.github/PULL_REQUEST_TEMPLATE.md).
 4. Tell the owner plainly what you did, what you did not do, what is untested, what needs their decision, and whether the pull request is ready for independent review — and by which agent.
@@ -160,6 +160,7 @@ Each rule has one home, and other files link to it instead of restating it.
 | `docs/briefs/` | The owner's instructions, archived word for word |
 | `docs/research/` | Research material, archived with its provenance |
 | `docs/tests/` | Plans, authorisations and results of tests on the owner's equipment |
+| `docs/reviews/` | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
 | `.github/PULL_REQUEST_TEMPLATE.md` | Review checklist for every pull request |
 
 Application code, its tests and its dependencies will come in later pull requests. The Python version and packaging (Q-003) and the licence (Q-002) are still open. Until they are decided: use only free and open-source dependencies, record each new dependency and its licence in the pull request, and make sure tests can run without hardware.

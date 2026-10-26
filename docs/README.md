@@ -8,6 +8,7 @@
 | [briefs/](briefs/) | The owner's instructions to the agents, archived word for word |
 | [research/](research/README.md) | Research material — reports, critiques and references — archived with its provenance |
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
+| [reviews/](reviews/README.md) | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
 
 ## Two rules for this folder
 
