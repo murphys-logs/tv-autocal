@@ -108,39 +108,39 @@ Proposal only; no stage has passed, no physical test plan is completed or author
 
 ## C-062
 
-UK manuals show `HDMI`, `USB` and `Optical` on the One Connect Mini (no 3.5 mm socket) and `LAN` plus `CI` behind the rear `Cover Terminal`. US `UN..KS8000` manuals are not interchangeable because EU boards include `CI` and run `T-JZMDEUC`; T-001 visually checks whether an unlabelled or undocumented 3.5 mm jack exists. Detail: [S-024 section 2](research/2026-10-26-antigravity-feasibility-study.md#2-decisive-dependency-table).
+Samsung's UK User Manual (`BN68-07864G-00` pp. 5, 8, 10–12) shows `HDMI`, `USB` and `Optical` on the external `One Connect` box (called `One Connect Mini` in `S-031`; no 3.5 mm jack) and `LAN` plus `CI` behind the rear `Cover Terminal`. S-032 (C-074) now confirms an undocumented rear 3.5 mm `EX-LINK` socket; detail: [S-024 section 2](research/2026-10-26-antigravity-feasibility-study.md#2-decisive-dependency-table).
 
 ## C-063
 
-Confirms on exact-model UK documentation that `PC` / `DVI` input modes and `Game` mode block essential calibration controls (`White Balance`, `Gamma`, `Colour Space`). Any calibration workflow must use a standard video input label with `Movie` mode, `Smart LED` Off and `Eco Sensor` Off. Detail: [S-024 section 5.3](research/2026-10-26-antigravity-feasibility-study.md#53-signal-path--test-pattern-renderer-tv_autocalpatterns--dependency-4c).
+`ENG-JZDVBEUK-1.1.3` (pp. 53, 71) documents `Colour Tone` restrictions (`HDMI-to-DVI`; `Cool`/`Standard` in `Dynamic` only), `HDMI Black Level` requiring `RGB444`, `Game Mode` switching `Picture Mode` to `Game`, and `HDMI UHD Color` turning the TV off and on when set to `On`. Which `Expert Settings` grey out on `T-JZMDEUC-1270.1` remains a look-only T-001 check ([S-024 section 5.3](research/2026-10-26-antigravity-feasibility-study.md#53-signal-path--test-pattern-renderer-tv_autocalpatterns--dependency-4c)).
 
 ## C-064
 
-Matches C-021's pin-out and uses a genuine RS-232 transceiver rather than 3.3 V or 5 V TTL, addressing the main electrical-level question on paper. However, the datasheet omits exact voltage swing, the delivered cable's printed model label has not been checked (T-001), and TV compatibility remains untested (T-006).
+S-026 (pp. 2–5) matches C-021's 3.5 mm Tip/Ring/Sleeve pin-out and describes the `SH-U35B` as an RS-232 serial cable, corroborated by the delivered leaflet in S-032 (C-076). Because an unbuffered `FT232R` is logic-level (TTL) and neither guide names a transceiver IC or voltage swing, electrical and TV compatibility await a reviewed T-006 plan.
 
 ## C-065
 
-Qualifies C-035 and bears on Q-006 and X-010: CalMAN's 2016 SUHD support used Samsung's proprietary DDC workflow (and referenced a full One Connect box's `External Sync` port, unlike the UK `UE49KS7000U`'s One Connect Mini), so it does not prove that public `08 22` consumer picture commands work on `T-JZMDEUC`. Also confirms Portrait's internal `10p` versus `20p` wording conflict (X-003).
+Qualifies C-035 and bears on Q-006 and X-010: Portrait's archived 2016 SUHD guide selects `"Control Method: Samsung DDC"` (wire bytes unpublished), which neither proves nor disproves compatibility with public `08 22` consumer picture commands, leaving them unestablished pending T-006. It also refers generically to `"the Samsung OneConnect box"` and switches internally between 10-point and 20-point wording (X-003).
 
 ## C-066
 
-Byte-for-byte identity proves S-006, S-007 and S-015 share one upstream worksheet rather than providing independent confirmations (qualifying C-052 and C-060). Clarifies C-038: `0x0e 0x01` controls command-result feedback banners, not user menus, so `KEY_EXIT` (`08 22 0d 00 00 2d 9c`) remains necessary under [D-013](plan.md#measurement-cycle-and-use-of-readings). SamyGO `p=107013` reflects a user who had switched `RS-232 Jack` to `Debug`, leaving default firmware state open for T-006 (X-002).
+Byte-for-byte identity proves S-006, S-007 and S-015 share one upstream worksheet rather than independent confirmations (qualifying C-052 and C-060). Clarifies C-038: `0x0e 0x01` controls command-result feedback banners, so `KEY_EXIT` (`08 22 0d 00 00 2d 9c`) remains necessary under [D-013](plan.md#measurement-cycle-and-use-of-readings). SamyGO `p=107012` (`stich86`) and `p=107013` (`zoelechat`) reflect a `KS7000` switched to `Debug` mode, while S-015 p. 1 shows `UART` selected in an example (X-002).
 
 ## C-067
 
-Removes `phillipsnick/samsung-tv` as independent protocol evidence for C-037 or KS7000 calibration: its checksum code omits two's-complement negation (producing invalid frames), and its older `0x0b` basic-picture numbering merely illustrates cross-generation drift versus S-015 without covering white balance, gamma or colour space.
+`phillipsnick/samsung-tv` (commit `221d0855`, `lib/app.js` L30–38, L360–438) implements `setPictureGamma` (`0x0b 0x07 0x03`) and basic `0x0b 0x01–0x06` sliders matching S-015 p. 4 addresses, omits white-balance and colour-space commands, and omits two's-complement checksum negation (invalid unless the six-byte sum is `0` or `128 mod 256`). Its `README.md` service-menu warning remains weak secondary context behind C-037.
 
 ## C-068
 
-Qualifies C-041 and C-056 and corrects S-002 section 5 line 230. Because DisplayCAL's Samsung QLED `.ccss` files set `DISPLAY_TYPE_REFRESH "YES"` (`refr = 1`), `spyd2_col_cal_spec_set` overrides lowercase `-y`, `-N` (`inst_opt_noinitcalib`) is unimplemented in `spyd2.c`, and `spotread -O` performs only an 80% refresh calibration before exiting with zero XYZ readings unless uppercase `-Y n` (`inst_mode_emis_norefresh_ovd`) is passed. Detail: [S-024 section 3.1](research/2026-10-26-antigravity-feasibility-study.md#31-comparison-with-the-claude-feasibility-report-s-002-anthropic-23-october-2026).
+Qualifies C-041 and C-056 and corrects S-002 section 5 line 230: QLED `.ccss` files declare `TECHNOLOGY "Unknown"` (`ccss.c` L303–321 -> `disptech_unknown`, `disptechs.c` L393–396 `refr = 1`), causing `spotread.c` L1734 and `spyd2.c` L3235 to override lowercase `-y` into inline refresh-synchronised measurement unless uppercase `-Y n` is passed. `-N` warns as unsupported (`spyd2.c` L4088), `-O` must precede flags when logging (`spotread.c` L1034), and X-011 records the static `-O` control-flow disagreement ([S-024 section 3.1](research/2026-10-26-antigravity-feasibility-study.md#31-comparison-with-the-claude-feasibility-report-s-002-anthropic-23-october-2026)).
 
 ## C-069
 
-Direct hardware-driver constraint from ArgyllCMS's Spyder driver (`spyd2.c` `L2973–2990`): our Python wrapper must allow in-progress `spotread` calls to finish cleanly (or exit interactive mode with `q`) rather than killing subprocesses mid-read, otherwise USB re-plugging may be required.
+Direct driver constraint from `spyd2.c` (L2973–2980): Spyder3/4/5 hardware lacks a reset command, may enter a `"borked state if the driver is aborted"`, and may not clear on immediate restart. Physical USB replugging is an untested AI inference, so our wrapper must exit `spotread` cleanly rather than killing subprocesses mid-read.
 
 ## C-070
 
-Confirms C-042's missing 2016 SUHD `.ccss`, shows `oeminst` offers no quantum-dot mode on Spyder5, and refutes S-002's claim that standard `spotread` logs can be retroactively re-scored with a different `.ccss` (`spyd2.c` multiplies by `p->ccmat` before output). Borrowed `.ccss` files also leave unit-specific Spyder5 filter ageing uncompensated, so Q-001 and Q-016 remain decisive.
+Confirms C-042's missing 2016 SUHD `.ccss` on 2026-10-26 (`SAM`: 307, `SEC`: 42 entries), shows `oeminst` omits quantum-dot LED, and clarifies why standard `spotread` logs cannot be re-scored: loading a `.ccss` sets `p->ccmat` to unity (`spyd2.c` L2347, L2386) and folds spectra into the `3x7` sensor matrix `p->cal_A` (L2248–2253), discarding the 7 raw sensor channels on output.
 
 ## C-071
 
@@ -148,8 +148,20 @@ Primary-manual confirmation for C-044's Denon `Video Mode: Bypass` step on the e
 
 ## C-072
 
-Replaces S-002's indirect `~0.3 cd/m²` inference (C-043) with ChromaPure's direct Spyder5 low-light benchmark (`0.38 cd/m²`, `231 s` for 95 patches) and HDTVTest's `0.04 cd/m²` UK `UE49KS7000` black measurement. Confirms native black and `<10%` stimulus cannot be measured reliably by the Spyder5, requiring visual PLUGE black setup and `>=20%` 2-point White Balance Offset targets.
+Replaces S-002's indirect `~0.3 cd/m²` inference (C-043) with ChromaPure's 2018 LG OLED Spyder5 benchmark (`0.38 cd/m²` luminance-consistency limit, `231 s` for 95 reads; the page's `1.3–2.0` CIE94 table is for SpyderX) and HDTVTest's `0.04 cd/m²` sample UK `UE49KS7000` black. Under BT.1886 at `120`/`0.04 cd/m²`, `5%` is `0.31 cd/m²` (`<0.38`) while `10%` is `0.93 cd/m²` (tested in T-003).
 
 ## C-073
 
-Supports X-003 Source A (`10p` on UK `UE49KS7000`) and warns that blind automated 10-point white-balance optimisation could worsen greyscale/EOTF tracking on UK `T-JZMDEUC` firmware. As proposed in [S-024 section 5.4](research/2026-10-26-antigravity-feasibility-study.md#54-numerical-optimiser-verification--safe-stopping-tv_autocaloptimiser--dependency-4d), the optimiser should complete 2-point White Balance first, run a reversible single-interval probe, and skip `10p WB` if anomalous coupling appears.
+Supports X-003 Source A (`10p` on UK `UE49KS7000UXXU`) while noting HDTVTest states only that `10p` was `"contrast-aligned and didn't work well"` on its sample and labels one chart `"2p & 10p"`. As proposed in [S-024 section 5.4](research/2026-10-26-antigravity-feasibility-study.md#54-numerical-optimiser-verification--safe-stopping-tv_autocaloptimiser--dependency-4d), Stage D runs a reversible single-interval probe and restores recorded `(r_0, g_0, b_0)` and `e_0` if skipped.
+
+## C-074
+
+Resolves the physical Ex-Link port question in C-036, C-062 and T-001, and answers the model-label and firmware items in [equipment.md](equipment.md) (updating C-053). Photographs are withheld under [AGENTS.md section 11](../AGENTS.md#11-privacy-and-credentials) ([S-032](briefs/2026-10-26-pr19-rulings-and-equipment-confirmations.md)). Confirming the physical 3.5 mm `EX-LINK` jack does not prove electrical or command compatibility on `T-JZMDEUC-1270.1`, which remains Not tested pending T-006.
+
+## C-075
+
+Confirms C-045's GPU model directly from the owner ([S-032](briefs/2026-10-26-pr19-rulings-and-equipment-confirmations.md)) and answers the OS and GPU/driver items in T-002. Because the PC runs `Windows 10 Home 22H2`, Windows 11's SDR automatic colour-management toggle (C-059) does not apply, while GPU LUTs, HDR, Night Light and HDMI range checks remain for T-002 and T-005.
+
+## C-076
+
+Updates C-008's delivery status and confirms the delivered unit matches the `SH-U35B` model and 3.5 mm Tip/Ring/Sleeve pin-out in S-026 (C-064; [S-032](briefs/2026-10-26-pr19-rulings-and-equipment-confirmations.md)). Because neither the leaflet (`A100033`) nor S-026 states a transceiver IC or voltage swing, electrical and protocol compatibility with the rear `EX-LINK` port remain Not tested and require a reviewed, authorised T-006 plan.

@@ -1,15 +1,15 @@
 # Equipment
 
-What the owner has said about the equipment, and what still needs confirming. The original equipment comes from the owner's brief (S-001); the selected cable and purchase details come from the owner's later confirmation (S-004); the meter's position comes from the owner's later description (S-011). All are in the ledger's [sources](../LEDGER.md#1-sources). Nothing has been tested yet. [LEDGER.md](../LEDGER.md) is the formal record: if this page and the ledger ever differ, the ledger wins and this page should be corrected.
+What the owner has said about the equipment, and what still needs confirming. The original equipment comes from the owner's brief (S-001); the selected cable and purchase details come from the owner's later confirmation (S-004); the meter's position comes from the owner's later description (S-011); and the rear `EX-LINK` port, exact model label, TV firmware version, PC OS/GPU/driver and delivered cable leaflet come from the owner's confirmations and photographs of 26 October 2026 (S-032). All are in the ledger's [sources](../LEDGER.md#1-sources). Nothing has been tested yet. [LEDGER.md](../LEDGER.md) is the formal record: if this page and the ledger ever differ, the ledger wins and this page should be corrected.
 
 ## TV — the display to calibrate
 
-- **Model:** Samsung UE49KS7000UXXU
-- **Firmware version:** unknown — T-001
+- **Model:** Samsung UE49KS7000UXXU — confirmed on the rear panel label (S-032, C-074)
+- **Firmware version:** `T-JZMDEUC-1270.1 , BT - S` (`Sub-micom: T-JZMDEUS-1007`, `e-Manual: JZDVBEUK-1.1.3`) — from the `Contact Samsung` screen (S-032, C-074; AI-transcribed from withheld owner photograph)
 - **Picture controls offered by the menus, and their ranges:** unknown — T-001
-- **Control route:** Samsung Ex-Link only — D-006. Connection, cable compatibility and command support remain untested — T-006.
+- **Control route:** Samsung Ex-Link only — D-006. Connection, cable compatibility and command support remain **not tested** — T-006.
 - **Network remote control:** out of scope under D-006; C-006 and T-007 are retained as superseded history.
-- **Ex-Link jack:** the Claude feasibility report says the TV has a 3.5 mm Ex-Link jack, reportedly on the TV itself rather than the One Connect Mini (S-002, C-036). This is unverified AI research; the owner's look-only check is T-001.
+- **Ex-Link jack:** round 3.5 mm socket labelled **`EX-LINK`** on the rear of the TV panel (between `USB (IoT EXTEND)` and `LAN` behind `Cover Terminal`, **not** on the One Connect box) — confirmed by the owner and rear-bay photograph (S-032, C-074). Electrical compatibility and command support on `T-JZMDEUC-1270.1` remain **not tested** — T-006.
 
 ## Colour meter
 
@@ -21,8 +21,9 @@ What the owner has said about the equipment, and what still needs confirming. Th
 ## Computer
 
 - **Type:** Windows PC
-- **Windows version, graphics hardware and video output settings:** unknown — T-002
-- **Graphics card:** an NVIDIA GTX 1080, according to the Claude feasibility report (S-002, C-045); not yet confirmed by the owner in this repository — T-002
+- **Windows version:** `Windows 10 Home 22H2` — confirmed by the owner (S-032, C-075)
+- **Graphics card and driver:** `NVIDIA GTX 1080 8GB`, `GeForce Driver Version 582.78` — confirmed by the owner (S-032, C-075; confirms C-045's GPU model)
+- **Video output settings and colour/display tools:** unknown — T-002
 
 ## AV receiver
 
@@ -31,12 +32,13 @@ What the owner has said about the equipment, and what still needs confirming. Th
 
 ## Additional hardware
 
-- **Selected cable:** [DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT](https://www.amazon.co.uk/dp/B07XXWVH69).
-- **Source:** product title, specifications and purchase details reported by the owner (S-004, C-008); not independently verified.
+- **Selected cable:** [DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT](https://www.amazon.co.uk/dp/B07XXWVH69) (`Model: SH-U35B`).
+- **Source:** purchase details reported by the owner (S-004, C-008); delivered printed user-guide leaflet (`A100033`) supplied by the owner and transcribed in S-032 (C-076), matching the online `SH-U35B` guide (S-026, C-064).
 - **Purchased:** 24 October 2026 at 21:00 (time zone not stated).
 - **Total paid:** £15.99, including delivery.
-- **Delivery status:** unknown.
-- **Compatibility with the TV and Ex-Link:** untested — T-006. The purchase does not establish compatibility or authorise any physical test.
+- **Delivery status:** arrived (confirmed 26 October 2026, S-032, C-076).
+- **Leaflet specifications:** `Model: SH-U35B`, `FTDI FT232RL` (or `FT232RNL` on some batches), 6 ft, described as an RS-232 serial cable wired `Tip = RX (device TX), Ring = TX (device RX), Sleeve = GND`; separate RS-232 transceiver IC and voltage swing are not stated (C-064, C-076).
+- **Compatibility with the TV and Ex-Link:** **not tested** — T-006. Neither the purchase nor the leaflet establishes electrical or firmware compatibility or authorises any physical test.
 
 Budget: **£25** in total · Spent: **£15.99** · Remaining: **£9.01** — see the ledger's [budget section](../LEDGER.md#7-hardware-budget). No further purchase or physical test is authorised by this record.
 
@@ -52,8 +54,8 @@ The proposed order of work after this is in [plan.md](plan.md).
 
 ### 1. TV
 
-- [ ] **Confirm the model** on the rear label. The repository records **UE49KS7000UXXU** (C-001). Is that exactly what the label says?
-- [ ] **Firmware version** (Settings → Support → About This TV, or similar). Please don't install a firmware update during the project without telling us first (C-053).
+- [x] **Confirm the model** on the rear label. Confirmed in S-032 (C-074): rear label reads **UE49KS7000UXXU** (`Model: UE49KS7000U`, `Type No.: UE49KS7000`).
+- [x] **Firmware version** (Settings → Support → Contact Samsung). Confirmed in S-032 (C-074): **`T-JZMDEUC-1270.1 , BT - S`** (`Sub-micom: T-JZMDEUS-1007`, `e-Manual: JZDVBEUK-1.1.3`). Please don't install a firmware update during the project without telling us first (C-053).
 - [ ] **Normal-menu picture controls** (T-001). For the picture mode you watch most:
   - the picture modes offered;
   - each control's name, range and current value: Backlight, Brightness, Contrast, Sharpness, Colour, Tint, Gamma, Colour Tone;
@@ -63,15 +65,15 @@ The proposed order of work after this is in [plan.md](plan.md).
   - HDMI Black Level, HDMI UHD Colour for that input, Smart LED, Auto Motion Plus and the Eco Solution settings;
   - whether Apply Picture Settings is set to Current Source or All Sources;
   - which controls are greyed out in the current configuration, and whether the input is already labelled as a PC or Game Mode is already on; do not switch either setting for this checklist.
-- [ ] **Connectors:** is there a 3.5 mm socket labelled Ex-Link, External Sync or RS-232C? Is it on the TV itself or on the One Connect box (C-036)? A photo of the label is enough.
+- [x] **Connectors:** Confirmed in S-032 (C-074): round 3.5 mm socket labelled **`EX-LINK`** on the rear of the TV panel (not on the One Connect box).
 - [ ] **Which HDMI input** the receiver or PC feeds, and the input's name or icon in the TV's source list.
 
 ### 2. PC
 
-- [ ] Windows version and build (type `winver` in the Start menu).
-- [ ] Graphics card model, to confirm the NVIDIA GTX 1080 that the Claude report mentions (C-045), and the driver version.
+- [x] Windows version: confirmed in S-032 (C-075) as **`Windows 10 Home 22H2`** (exact OS build number via `winver` optional).
+- [x] Graphics card model and driver version: confirmed in S-032 (C-075) as **`NVIDIA GTX 1080 8GB`**, **`GeForce Driver Version 582.78`** (confirming C-045's GPU model).
 - [ ] Output to the TV: resolution, refresh rate, colour format (RGB or YCbCr), colour depth, and output dynamic range (full or limited), as shown in the NVIDIA Control Panel.
-- [ ] Windows settings for the TV display: HDR on or off, "Automatically manage colour for apps", Night light, and any colour profile assigned to it.
+- [ ] Windows settings for the TV display: HDR on or off, "Automatically manage colour for apps" (if applicable), Night light, and any colour profile assigned to it.
 - [ ] Colour or display tools installed: DisplayCAL, ArgyllCMS (which version), Datacolor's Spyder software, ColorControl, or similar.
 - [ ] RGB-lighting or similar background programs (for example Gigabyte RGB Fusion), which ArgyllCMS's instructions say can block meter access.
 - [ ] **Distances:** how far the PC is from the TV's Ex-Link socket and from the middle of the screen. The selected cable is 6 ft (about 1.8 m); the meter's cable must also reach.
@@ -91,8 +93,8 @@ The proposed order of work after this is in [plan.md](plan.md).
 
 ### 5. Ex-Link cable
 
-- [ ] Has it arrived?
-- [ ] What the packaging or product page says about the 3.5 mm plug's wiring (which of tip, ring and sleeve carry transmit, receive and ground), and whether it is RS-232 (not "TTL") level (C-021).
+- [x] Has it arrived? Confirmed in S-032 (C-076): arrived.
+- [x] What the packaging or product page says about the 3.5 mm plug's wiring and RS-232 level: confirmed in S-032 (C-076, matching S-026/C-064) — printed `SH-U35B` leaflet (`A100033`) states `Tip: RX (Receives from device TX), Ring: TX (Transmits to device RX), Sleeve: GND` and describes a `USB serial RS232 cable`, without naming a transceiver IC or voltage levels.
 - [ ] If its device name and COM port are already recorded, report them; otherwise leave them unknown. Do not connect either end for this checklist. A connection check belongs in a reviewed, authorised plan (X-009).
 
 ### 6. Viewing and playback
