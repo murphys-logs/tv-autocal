@@ -1,6 +1,6 @@
-# AGENTS.md — shared instructions for Claude Code and Codex
+# AGENTS.md — shared instructions for Claude Code, Codex and Antigravity
 
-These are the working instructions for **every AI agent** on this project. Codex reads this file directly. Claude Code reads it through `CLAUDE.md`, which contains only the import line `@AGENTS.md`. All shared rules live here, so both agents work from the same text; any vendor-specific file should only point here.
+These are the working instructions for **every AI agent** on this project. Codex reads this file directly. Claude Code reads it through `CLAUDE.md`, which contains only the import line `@AGENTS.md`. All shared rules live here, so all agents work from the same text; any vendor-specific file should only point here.
 
 If an instruction the owner gives you in your current conversation conflicts with this file, follow the owner and propose an update to this file in a pull request. If two parts of this file conflict, stop and ask the owner.
 
@@ -9,10 +9,11 @@ If an instruction the owner gives you in your current conversation conflicts wit
 | Who | Role |
 |---|---|
 | **Owner** | The person who owns this repository and the equipment. Only the owner can authorise physical tests, give the approvals listed in rule 7, and decide whether a pull request is merged. |
-| **Claude Code** (Anthropic) | AI coding agent. Works on `claude/…` branches and reviews Codex's pull requests. |
-| **Codex** (OpenAI) | AI coding agent. Works on `codex/…` branches and reviews Claude Code's pull requests. |
+| **Claude Code** (Anthropic) | AI coding agent. Works on `claude/…` branches and reviews pull requests from Codex and Antigravity. |
+| **Codex** (OpenAI) | AI coding agent. Works on `codex/…` branches and reviews pull requests from Claude Code and Antigravity. |
+| **Antigravity** (Google) | AI coding agent. Works on `antigravity/…` branches and reviews pull requests from Claude Code and Codex. |
 
-Other AI tools can contribute material — the Claude feasibility report and the ChatGPT critique, for example — but they count as their vendor: ChatGPT and Codex are both OpenAI; the Claude apps and Claude Code are both Anthropic.
+Other AI tools can contribute material — the Claude feasibility report and the ChatGPT critique, for example — but they count as their vendor: ChatGPT and Codex are both OpenAI; the Claude apps and Claude Code are both Anthropic; Gemini and Antigravity are both Google.
 
 ## 2. The owner's working rules
 
@@ -28,9 +29,9 @@ These nine rules are quoted exactly from the owner's setup brief of 24 October 2
 > 8. Make the workflow understandable to a non-programmer.
 > 9. Record unresolved disagreements rather than forcing agreement.
 
-Rule 1 was addressed to Claude Code; Codex follows it with `codex/` branches (section 5).
+Rule 1 was addressed to Claude Code; Codex follows it with `codex/` branches (section 5); Antigravity follows it with `antigravity/` branches (section 5).
 
-The rest of this file explains how agents apply these rules. It was drafted by Claude Code in the setup pull request and can be changed only by a reviewed pull request. Where it goes further than the owner's wording, the difference is listed under decision D-005 in [LEDGER.md](LEDGER.md#3-decisions).
+The rest of this file explains how agents apply these rules. It was drafted by Claude Code in the setup pull request and can be changed only by a reviewed pull request. Where it goes further than the owner's wording, the difference is listed under decisions D-005 and D-017 in [LEDGER.md](LEDGER.md#3-decisions).
 
 ## 3. Project scope (from the owner's briefs)
 
@@ -65,15 +66,16 @@ For review-only tasks, finish by reporting findings and unresolved disagreements
 
 ## 5. Branches, pull requests and review (rules 1, 2 and 4)
 
-- **Never commit directly to `main`.** Claude Code uses branches named `claude/<topic>`; Codex uses `codex/<topic>`.
+- **Never commit directly to `main`.** Claude Code uses branches named `claude/<topic>`; Codex uses `codex/<topic>`; Antigravity uses `antigravity/<topic>`.
 - **One topic per pull request**, small enough to review properly.
 - **Substantive changes need independent review.** A change is substantive if it touches code, claims, evidence, decisions, tests, instructions, safety rules or project scope. If in doubt, it is substantive. Only the owner can decide that a change is too minor to need review.
 - **Independence is counted by vendor, not by agent.**
-  - Claude Code's pull requests are reviewed by Codex; Codex's are reviewed by Claude Code.
-  - Two OpenAI agents — ChatGPT and Codex, or two Codex sessions — are one reviewer, not two. The same applies to two Anthropic agents.
+  - Three AI vendors share this project: Anthropic, OpenAI and Google.
+  - All substantive changes require independent review by an agent from a different vendor before the owner decides whether to merge (for example, an Antigravity pull request is reviewed by Claude Code or Codex; a Claude Code pull request is reviewed by Codex or Antigravity; a Codex pull request is reviewed by Claude Code or Antigravity).
+  - Two agents from the same vendor — such as ChatGPT and Codex, two Anthropic agents, or two Antigravity sessions — count as one reviewer, not two.
   - An earlier AI report counts as its vendor's view, not as an independent check.
 - **Reviewers comment; they don't edit.** A reviewer does not push commits to the author's branch. Suggest changes in review comments, or open a separate pull request, so it stays clear who wrote what.
-- **Only the owner merges.** No agent merges a pull request, closes the other agent's pull request, force-pushes, rewrites shared history or deletes branches unless the owner explicitly asks for that specific action.
+- **Only the owner merges.** No agent merges a pull request, closes another agent's pull request, force-pushes, rewrites shared history or deletes branches unless the owner explicitly asks for that specific action.
 
 ## 6. Evidence, provenance and citations (rules 3 and 5)
 
@@ -126,7 +128,7 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 
 ## 9. Disagreements (rule 9)
 
-- If you disagree with the other agent, an earlier report or a ledger entry, say so plainly. For tasks proposing file changes, record it in the ledger's Disagreements section: each position, who holds it, the evidence each relies on, and what test or source could settle it. For review-only tasks, report it in the review; the pull-request author records unresolved disagreements in the ledger (section 4).
+- If you disagree with another agent, an earlier report or a ledger entry, say so plainly. For tasks proposing file changes, record it in the ledger's Disagreements section: each position, who holds it, the evidence each relies on, and what test or source could settle it. For review-only tasks, report it in the review; the pull-request author records unresolved disagreements in the ledger (section 4).
 - State the other side's position fairly, and never weaken it when editing the ledger.
 - A disagreement stays open until evidence settles it or the owner decides. Do not force agreement.
 
