@@ -10,17 +10,17 @@ A free, open-source Windows application, written in Python, intended to calibrat
 
 | ID | Question | Options | Agents' recommendation | Holds up |
 |---|---|---|---|---|
-| [T-001, T-002](docs/equipment.md#what-we-still-need-from-you) | Your owner checks: look up the TV, PC and receiver details | — | — | Stage 1 of the [plan](docs/plan.md), and later physical tests |
+| [T-001, T-002](docs/equipment.md#what-we-still-need-from-you) | Your owner checks: look up the TV, PC and receiver details | Substantively completed in S-033 | Recorded in S-033; completes Stage 1 | Stage 1 passed; physical tests ready to plan |
 | [Q-004](LEDGER.md#6-open-questions) | Protect `main` so it changes only through pull requests? | Pull request only / also an approval / none | Claude Code: settle Q-011 first, then pull request only | Nothing yet |
 | [Q-008](LEDGER.md#6-open-questions) | How long to wait after leaving the menu before reading? | A short delay, to be proposed | No recommendation yet | The delay in every test plan that takes readings |
 | [Q-011](LEDGER.md#6-open-questions) | Make the repository private? | Private / stay public | No recommendation yet | Q-004's options |
 | [Q-013](LEDGER.md#6-open-questions) | What if Ex-Link cannot change the TV's settings? | Guided manual adjustment / service-menu step / revisit D-006 | Claude Code: guided manual adjustment | Stage 2 of the plan |
-| [Q-014](LEDGER.md#6-open-questions) | Input, picture mode, room, brightness, black level and pass marks for the first calibration? | Provisional now, final after T-003 | No recommendation yet | Component-test plans; T-008 |
+| [Q-014](LEDGER.md#6-open-questions) | Input, picture mode, room, brightness, black level and pass marks for the first calibration? | Provisional given in S-033; final black/marks after T-003 | Movie mode, HDMI 4, dim room, 140–160 cd/m² (S-033) | Component-test plans; T-008 |
 | [Q-015](LEDGER.md#6-open-questions) | Get after-the-fact reviews of PRs #2, #6, #7, #10, #13 and commit a62772c? Does a Codex bot summary count as a review? | Yes / no, for each | No recommendation yet | Nothing yet |
 | [Q-016](LEDGER.md#6-open-questions) | If no spectral correction can be validated, what then? | Keep T-008 blocked / seek a way to validate / unvalidated, with limits | No recommendation yet | T-008 |
 | [Q-017](LEDGER.md#6-open-questions) | Keep a private copy of cut archive text before anyone rewrites git history? | You keep a copy / accept the loss / never rewrite history | No recommendation yet | Any rewrite of git history |
 | [Q-018](LEDGER.md#6-open-questions) | Approve the automatic Codex review on GitHub, or switch it off? | Approve / switch off | No recommendation yet | Nothing yet |
-| [X-009](LEDGER.md#4-disagreements) | May an owner check connect the cable to the PC? | Yes / no, look only | Both agents: look only | The cable item in your checklist |
+| [X-009](LEDGER.md#4-disagreements) | May an owner check connect the cable to the PC? | Yes (Position A) / no, look only (Position B) | PC check performed in S-033; formal policy remains open | Proposed boundary for future owner checks |
 | [Q-002](LEDGER.md#6-open-questions) | Which open-source licence? | Any open-source licence | No recommendation yet | Distributing the application |
 | [Q-005](LEDGER.md#6-open-questions) | How does Codex receive review requests? | On GitHub / through you | No recommendation yet | The review steps in [docs/workflow.md](docs/workflow.md) |
 
