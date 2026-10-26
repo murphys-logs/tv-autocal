@@ -1,6 +1,6 @@
 # Claim notes
 
-This file holds the analysis behind the claims in [LEDGER.md](../LEDGER.md), moved here word for word. The ledger remains the record of each claim's provenance and equipment test status; this file adds no claims.
+This file holds the analysis behind the claims in [LEDGER.md](../LEDGER.md), moved here word for word; only relative link paths are changed so that they work from this folder. The ledger remains the record of each claim's provenance and equipment test status; this file adds no claims.
 
 ## C-004
 
@@ -9,10 +9,6 @@ That the signal must not be altered on the way — by graphics settings, Windows
 ## C-005
 
 S-001: compatibility "has not yet been demonstrated". Ex-Link is the only control route in scope under D-006; the selected cable does not establish compatibility.
-
-## C-006
-
-Superseded by D-006 — network control is out of scope. Retained as history, not an active dependency; compatibility was never demonstrated.
 
 ## C-007
 

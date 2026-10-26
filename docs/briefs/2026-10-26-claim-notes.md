@@ -10,6 +10,8 @@
 | Fidelity | Verbatim — the complete message below preserves the text as received, including its Markdown escapes and line-break markers |
 | Ledger ID | S-021 |
 
+This archive is the source of decision D-016 in [LEDGER.md](../../LEDGER.md). Do not edit it.
+
 ```text
 Task: move long analytical claim notes out of LEDGER.md, word for word (option (c) from PR #15)\
 \
