@@ -112,7 +112,7 @@ Samsung's UK User Manual (`BN68-07864G-00` pp. 5, 8, 10–12) shows `HDMI`, `USB
 
 ## C-063
 
-`ENG-JZDVBEUK-1.1.3` (pp. 53, 71) documents `Colour Tone` restrictions (`HDMI-to-DVI`; `Cool`/`Standard` in `Dynamic` only), `HDMI Black Level` requiring `RGB444`, `Game Mode` switching `Picture Mode` to `Game`, and `HDMI UHD Color` turning the TV off and on when set to `On`. Which `Expert Settings` grey out on `T-JZMDEUC-1270.1` remains a look-only T-001 check ([S-024 section 5.3](research/2026-10-26-antigravity-feasibility-study.md#53-signal-path--test-pattern-renderer-tv_autocalpatterns--dependency-4c)).
+`ENG-JZDVBEUK-1.1.3` (PDF pp. 56–58, 75; printed pp. 51–53, 70) documents `Colour Tone` (`HDMI-to-DVI` note; `Cool`/`Standard` in `Dynamic` only), `HDMI Black Level` requiring `RGB444`, `Game Mode` switching `Picture Mode` to `Game`, and `HDMI UHD Color` turning the TV off and on when set to `On`. Which `Expert Settings` grey out on `T-JZMDEUC-1270.1` remains a look-only T-001 check ([S-024 section 5.3](research/2026-10-26-antigravity-feasibility-study.md#53-signal-path--test-pattern-renderer-tv_autocalpatterns--dependency-4c)).
 
 ## C-064
 
@@ -148,7 +148,7 @@ Primary-manual confirmation for C-044's Denon `Video Mode: Bypass` step on the e
 
 ## C-072
 
-Replaces S-002's indirect `~0.3 cd/m²` inference (C-043) with ChromaPure's 2018 LG OLED Spyder5 benchmark (`0.38 cd/m²` luminance-consistency limit, `231 s` for 95 reads; the page's `1.3–2.0` CIE94 table is for SpyderX) and HDTVTest's `0.04 cd/m²` sample UK `UE49KS7000` black. Under BT.1886 at `120`/`0.04 cd/m²`, `5%` is `0.31 cd/m²` (`<0.38`) while `10%` is `0.93 cd/m²` (tested in T-003).
+Replaces S-002's indirect `~0.3 cd/m²` inference (C-043) with ChromaPure's benchmark reporting a `0.38 cd/m²` low-light limit on a 2018 LG OLED (`231 s` for 95 reads), 11-point greyscale error (0.015 in x, 0.005 in y) and colour error (0.006 in x, 0.005 in y) on an unspecified display (no numerical `0.005 / 0.005` figure is given for 10%+), motivating near-black caution against HDTVTest's `0.04 cd/m²` sample UK `UE49KS7000` black. Low-light floor on the owner's unit remains not tested pending T-003.
 
 ## C-073
 

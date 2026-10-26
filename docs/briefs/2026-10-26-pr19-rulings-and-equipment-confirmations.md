@@ -20,6 +20,8 @@ I will go with both your recommendations. I can now confirm that there is an EX 
 
 ## Context of the two recommendations accepted by the owner
 
+*(Note: The text below is Antigravity's retrospective summary of the two recommendations it put to the owner; it is not the owner's wording.)*
+
 In the immediately preceding assessment turn on 26 October 2026, Antigravity (Google) asked the owner to rule on two questions following the independent reviews of PR #19 by Claude Code (Anthropic) and Codex (OpenAI):
 
 1. **Decision 1 — How to handle PR #19 given S-024's archive rule:** Antigravity's recommended Option A was to correct PR #19 on branch `antigravity/feasibility-study` before merge, then ask Claude Code or Codex to review the new commit SHA.

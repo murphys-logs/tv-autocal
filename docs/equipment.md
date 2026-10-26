@@ -64,6 +64,7 @@ The proposed order of work after this is in [plan.md](plan.md).
   - Colour Space options and the Custom sliders;
   - HDMI Black Level, HDMI UHD Colour for that input, Smart LED, Auto Motion Plus and the Eco Solution settings;
   - whether Apply Picture Settings is set to Current Source or All Sources;
+  - whether Colour Tone (and Warm2) is selectable or greyed out in your normal PC/receiver setup (Samsung's e-Manual notes Colour Tone is available only with an HDMI-to-DVI connection, so please check whether it is available over standard HDMI);
   - which controls are greyed out in the current configuration, and whether the input is already labelled as a PC or Game Mode is already on; do not switch either setting for this checklist.
 - [x] **Connectors:** Confirmed in S-032 (C-074): round 3.5 mm socket labelled **`EX-LINK`** on the rear of the TV panel (not on the One Connect box).
 - [ ] **Which HDMI input** the receiver or PC feeds, and the input's name or icon in the TV's source list.
