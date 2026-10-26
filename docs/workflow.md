@@ -6,7 +6,7 @@ This guide is for the owner. It explains, without assuming any programming knowl
 
 These steps apply to work that changes repository files. A review-only task finishes with findings; it does not require another pull request. The pull-request author records unresolved disagreements in [LEDGER.md](../LEDGER.md).
 
-1. You ask Claude Code or Codex to do something.
+1. You ask Claude Code, Codex or Antigravity to do something.
 2. The agent works on its own **branch** — a separate copy — never on `main`, the accepted version.
 3. When it has finished, the agent opens a **pull request**: a proposal to add its changes to `main`. It fills in a checklist and tells you when the pull request is ready for review.
 4. You ask the agent from the **other company** to review it.
@@ -20,7 +20,7 @@ Nothing reaches `main` without your decision. No agent operates your TV, meter o
 |---|---|
 | Repository ("repo") | The project's folder on GitHub, including its full history |
 | `main` | The accepted version of the project |
-| Branch | A separate line of work. Claude Code's branches start with `claude/`, Codex's with `codex/` |
+| Branch | A separate line of work. Claude Code's branches start with `claude/`, Codex's with `codex/`, Antigravity's with `antigravity/` |
 | Commit | A saved set of changes, with a note saying what changed |
 | Pull request (PR) | A proposal to add a branch's changes to `main`. It shows exactly what would change, and it is where review and discussion happen |
 | Review | A check of a pull request by the agent from the other company |
@@ -59,10 +59,11 @@ Plain-English explanations written by Claude Code, reconciled with D-013 by Code
 
 | Pull request written by | Independent review by |
 |---|---|
-| Claude Code (Anthropic) | Codex (OpenAI) |
-| Codex (OpenAI) | Claude Code (Anthropic) |
+| Claude Code (Anthropic) | Codex (OpenAI) or Antigravity (Google) |
+| Codex (OpenAI) | Claude Code (Anthropic) or Antigravity (Google) |
+| Antigravity (Google) | Claude Code (Anthropic) or Codex (OpenAI) |
 
-Agents from the same company do not count as independent of each other. ChatGPT and Codex together are one opinion from OpenAI; the Claude apps and Claude Code together are one opinion from Anthropic.
+Agents from the same company do not count as independent of each other. ChatGPT and Codex together are one opinion from OpenAI; the Claude apps and Claude Code together are one opinion from Anthropic; Gemini and Antigravity together are one opinion from Google.
 
 ## Reviewing and merging a pull request, step by step
 

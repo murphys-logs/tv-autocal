@@ -76,11 +76,11 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 
 ## How the project is run
 
-Two AI coding agents from different companies share this repository: **Claude Code** (Anthropic) and **Codex** (OpenAI).
+Three AI coding agents from different companies share this repository: **Claude Code** (Anthropic), **Codex** (OpenAI), and **Antigravity** (Google).
 
-1. An agent works on its own branch (`claude/…` or `codex/…`), never directly on `main`.
+1. An agent works on its own branch (`claude/…`, `codex/…`, or `antigravity/…`), never directly on `main`.
 2. It proposes its changes in a pull request and fills in the [review checklist](.github/PULL_REQUEST_TEMPLATE.md).
-3. The agent from the *other* company reviews the pull request.
+3. An agent from a *different* company reviews the pull request.
 4. The owner decides whether to merge it.
 
 Read more:
@@ -88,7 +88,7 @@ Read more:
 - [docs/workflow.md](docs/workflow.md) — the same process, step by step, for a non-programmer
 - [docs/plan.md](docs/plan.md) — a proposed order of work, from the information you need to give to a first calibration (a proposal, not a decision)
 - [docs/equipment.md](docs/equipment.md#what-we-still-need-from-you) — what we still need you to look up
-- [AGENTS.md](AGENTS.md) — the rules both agents follow
+- [AGENTS.md](AGENTS.md) — the rules all agents follow
 - [LEDGER.md](LEDGER.md) — evidence, decisions, disagreements and outstanding tests
 
 ## What's where
