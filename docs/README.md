@@ -13,7 +13,7 @@
 ## Two rules for this folder
 
 1. **Sources and test results are kept apart.** `research/` records *what someone said*; `tests/` records *what happened on the owner's equipment*. This is how the project keeps to the owner's rule 3. [LEDGER.md](../LEDGER.md) links the two.
-2. **Archived originals are never edited.** Once merged, documents in `briefs/` and `research/` keep their original wording; corrections and commentary go in the ledger. The README files that describe each folder are not archives and can be updated. The only exceptions are changes the owner has explicitly instructed, recorded in the ledger as D-012 and D-013.
+2. **Archived originals are never edited.** Once merged, documents in `briefs/` and `research/` keep their original wording; corrections and commentary go in the ledger. The README files that describe each folder are not archives and can be updated. The only exceptions are changes the owner has explicitly instructed, listed in [AGENTS.md section 6](../AGENTS.md#6-evidence-provenance-and-citations-rules-3-and-5).
 
 ## File names
 

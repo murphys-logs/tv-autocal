@@ -9,7 +9,7 @@
 | Original date | 2026-10-24 |
 | Imported | 2026-10-24, by Codex (OpenAI) |
 | How obtained | Direct inspection of published documents and pinned source code; local arithmetic on literal bytes |
-| Fidelity | Original research summary and proposal; short source excerpts only. One clause in the Finding section was later removed at the owner's instruction (D-013); the marker "\[removed under D-013\]" shows where |
+| Fidelity | Original research summary and proposal; short source excerpts only. One clause in the Finding section was later removed at the owner's instruction (D-013); the marker "\[removed under D-013\]" shows where. The uncut text is in commit 337a58f1ac81e5359e9c9d762b06717b156313d0, and it stays there only while git history is left intact (Q-017) |
 | Ledger ID | S-005 |
 
 ## Finding

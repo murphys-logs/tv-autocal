@@ -19,7 +19,7 @@ This folder keeps research material — reports, critiques, references and notes
 
 3. **Paste the original unchanged**, mistakes included. Put any comments in the ledger, not in the document.
 4. **Add a source entry** to section 1 of the ledger, and record any claims taken from the document in section 2, with provenance pointing back to it.
-5. **Never edit an archived original once merged.** If a better copy turns up, archive it as a new file and note the relationship in the ledger. The only exceptions are changes the owner has explicitly instructed, recorded in the ledger as D-012 and D-013.
+5. **Never edit an archived original once merged.** If a better copy turns up, archive it as a new file and note the relationship in the ledger. The only exceptions are changes the owner has explicitly instructed, listed in [AGENTS.md section 6](../../AGENTS.md#6-evidence-provenance-and-citations-rules-3-and-5).
 
 ## AI-generated material
 

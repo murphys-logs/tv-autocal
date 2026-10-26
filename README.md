@@ -18,6 +18,7 @@ A free, open-source Windows application, written in Python, intended to calibrat
 | [Q-014](LEDGER.md#6-open-questions) | Input, picture mode, room, brightness, black level and pass marks for the first calibration? | Provisional now, final after T-003 | No recommendation yet | Component-test plans; T-008 |
 | [Q-015](LEDGER.md#6-open-questions) | Get after-the-fact reviews of PRs #2, #6, #7, #10, #13 and commit a62772c? Does a Codex bot summary count as a review? | Yes / no, for each | No recommendation yet | Nothing yet |
 | [Q-016](LEDGER.md#6-open-questions) | If no spectral correction can be validated, what then? | Keep T-008 blocked / seek a way to validate / unvalidated, with limits | No recommendation yet | T-008 |
+| [Q-017](LEDGER.md#6-open-questions) | Keep a private copy of cut archive text before anyone rewrites git history? | You keep a copy / accept the loss / never rewrite history | No recommendation yet | Any rewrite of git history |
 | [Q-018](LEDGER.md#6-open-questions) | Approve the automatic Codex review on GitHub, or switch it off? | Approve / switch off | No recommendation yet | Nothing yet |
 | [X-009](LEDGER.md#4-disagreements) | May an owner check connect the cable to the PC? | Yes / no, look only | Both agents: look only | The cable item in your checklist |
 | [Q-002](LEDGER.md#6-open-questions) | Which open-source licence? | Any open-source licence | No recommendation yet | Distributing the application |

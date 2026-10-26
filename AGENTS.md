@@ -87,7 +87,7 @@ For review-only tasks, finish by reporting findings and unresolved disagreements
 - **Never invent** measurements, test results, quotations, page numbers, URLs, version numbers or firmware behaviour. If something is unknown, write "unknown".
 - **Simulations are not tests on equipment.** Label simulation results as simulations. They never change a claim's equipment test status.
 - **Agreement is not evidence.** Two agents, or two vendors, agreeing does not make a claim true.
-- **Archived originals stay untouched.** Once merged, archived documents in `docs/briefs/` and `docs/research/` are never edited; corrections and commentary go in the ledger. (The folders' README files are not archives and can be updated.) The only exceptions are changes the owner has explicitly instructed, each recorded as a decision in the ledger (D-012, D-013).
+- **Archived originals stay untouched.** Once merged, archived documents in `docs/briefs/` and `docs/research/` are never edited; corrections and commentary go in the ledger. (The folders' README files are not archives and can be updated.) The only exceptions are changes the owner has explicitly instructed, each recorded as a decision in the ledger (D-012, D-013, D-014).
 
 ## 7. Equipment safety (rule 6)
 

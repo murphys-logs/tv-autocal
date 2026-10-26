@@ -7,7 +7,7 @@
 | Original date | 2026-10-25 |
 | Imported | 2026-10-25, by Claude Code (Anthropic), in the pull request that records the description and answers |
 | How obtained | The owner's message to Claude Code, and the owner's choices among multiple-choice options that Claude Code offered |
-| Fidelity | Verbatim. Claude Code's request, the owner's message, the questions, the option labels and the option descriptions are reproduced exactly, including spelling; only the layout of the options is simplified. Four passages, including the whole of question 1 and its answer, were later removed at the owner's instruction (D-013); the marker "[removed under D-013]" shows where |
+| Fidelity | Verbatim. Claude Code's request, the owner's message, the questions, the option labels and the option descriptions are reproduced exactly, including spelling; only the layout of the options is simplified. Four passages, including the whole of question 1 and its answer, were later removed at the owner's instruction (D-013); the marker "[removed under D-013]" shows where. The uncut text is in commit 337a58f1ac81e5359e9c9d762b06717b156313d0, and it stays there only while git history is left intact (Q-017) |
 | Ledger ID | S-011 |
 
 This archive is the source of claim C-023 in [LEDGER.md](../../LEDGER.md); D-011, which also came from it, is withdrawn under D-013. Do not edit it.
