@@ -10,7 +10,7 @@ A free, open-source Windows application, written in Python, intended to calibrat
 
 | ID | Question | Options | Agents' recommendation | Holds up |
 |---|---|---|---|---|
-| [T-001, T-002](docs/equipment.md#what-we-still-need-from-you) | Your owner checks: look up the TV, PC and receiver details | — | — | Stage 1 of the [plan](docs/plan.md), and every test after it |
+| [T-001, T-002](docs/equipment.md#what-we-still-need-from-you) | Your owner checks: look up the TV, PC and receiver details | — | — | Stage 1 of the [plan](docs/plan.md), and later physical tests |
 | [Q-004](LEDGER.md#6-open-questions) | Protect `main` so it changes only through pull requests? | Pull request only / also an approval / none | Claude Code: settle Q-011 first, then pull request only | Nothing yet |
 | [Q-008](LEDGER.md#6-open-questions) | How long to wait after leaving the menu before reading? | A short delay, to be proposed | No recommendation yet | The delay in every test plan that takes readings |
 | [Q-011](LEDGER.md#6-open-questions) | Make the repository private? | Private / stay public | No recommendation yet | Q-004's options |
