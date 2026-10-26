@@ -80,11 +80,11 @@ If right, Brightness has to be set by eye on a PLUGE pattern, BT.1886's black le
 
 ## C-044
 
-Bears on C-004. These are settings on the owner's PC, TV and receiver, made by the owner; no agent may send commands to the Denon (AGENTS.md section 7). S-002's black-level and clipping checks belong to T-005.
+Bears on C-004. These are settings on the owner's PC, TV and receiver, made by the owner; no agent may send commands to the Denon (AGENTS.md section 7). S-002's black-level and clipping checks belong to T-005. Owner's active signal path and settings recorded in S-033 (C-079 to C-081) differ from C-044's proposed baseline in three ways: GPU output is Limited dynamic range (16–235), TV HDMI Black Level is Auto, and Denon Video Mode is Auto (rather than Bypass).
 
 ## C-045
 
-The owner's own equipment, reported at second hand. The owner should confirm it in T-002 before the design relies on it.
+The owner's own equipment, reported at second hand. Confirmed in S-032 (C-075) for the NVIDIA GTX 1080 GPU model and driver version. S-033 (C-084) records mixed PC usage (desktop, SDR streaming, gaming, and HDR) rather than confirming GeForce Now as the main use.
 
 ## C-046
 
@@ -100,7 +100,7 @@ Subsequently checked in S-015/C-057: the manufacturer-hosted PDF is accessible. 
 
 ## C-060
 
-Documentary observations, not TV behaviour. Claude Code's inference that the table covers later models is consistent with these renamed controls/features, but the document does not establish exact-model applicability. This supports the caution in C-011/C-027 and bears on C-039's ranges.
+Documentary observations, not TV behaviour. Claude Code's inference that the table covers later models is consistent with these renamed controls/features, but the document does not establish exact-model applicability. This supports the caution in C-011/C-027 and bears on C-039's ranges. The owner's menu inspection in S-033 (C-077) offers an integer slider `-3..+3` without listing BT.1886 or other discrete gamma types, contrasting with the worksheet's listed types.
 
 ## C-061
 
@@ -165,3 +165,36 @@ Confirms C-045's GPU model directly from the owner ([S-032](briefs/2026-10-26-pr
 ## C-076
 
 Updates C-008's delivery status and confirms the delivered unit matches the `SH-U35B` model and 3.5 mm Tip/Ring/Sleeve pin-out in S-026 (C-064; [S-032](briefs/2026-10-26-pr19-rulings-and-equipment-confirmations.md)). Because neither the leaflet (`A100033`) nor S-026 states a transceiver IC or voltage swing, electrical and protocol compatibility with the rear `EX-LINK` port remain Not tested and require a reviewed, authorised T-006 plan.
+
+
+## C-077
+
+Owner's normal-menu picture controls, ranges and current values in the primary viewing picture mode (intended calibration target: Movie mode; mode active during inspection not explicitly stated) on the `UE49KS7000UXXU` with firmware `T-JZMDEUC-1270.1` ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)). Confirms basic sliders (Backlight 0–20, Brightness 0–100, Contrast 0–100, Sharpness 0–100, Colour 0–100, Tint G50/R50), integer Gamma slider -3..+3 (a -3..+3 slider; no BT.1886 option reported), Warm2 selectable over standard HDMI (clarifying C-063's e-Manual note), 2-point White Balance (-50..+50, all 0), Custom Colour Space (RGBCYM with RGB sliders), the listed picture processing settings disabled (Smart LED, Auto Motion Plus, Dynamic Contrast, Clean View, Eco), and Apply Picture Settings to All Sources. 10-point white balance slider ranges, current values and enable state were not reported.
+
+## C-078
+
+Owner check T-001 settles disagreement X-003 at the descriptive menu level: the multi-point White Balance menu on the owner's UK `UE49KS7000UXXU` offers 10 points (labelled 10%, 20%... 100%), which are selectable with the Denon/PC input ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)). This confirms Position A (HDTVTest review of UK KS7000) and disproves Position B (20 points from US KS8000) for the owner's unit. 10-point slider values, ranges and optical response on equipment remain untested pending Stage 4/5.
+
+## C-079
+
+Establishes the physical video path from the PC's GTX 1080 through the Denon AVC-X3800H receiver to the TV's external One Connect box: PC HDMI -> Denon HDMI In 'PC' -> Denon Monitor 1 (eARC) -> One Connect HDMI 4 ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)). On the TV, the input is labelled 'Home Cinema' with Game Mode turned off, and no picture controls are greyed out in this configuration.
+
+## C-080
+
+Owner's PC display configuration in NVIDIA Control Panel and Windows 10 Home 22H2 ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): 3840×2160 @ 60 Hz, RGB, 8bpc, Limited dynamic range (16–235), Windows HDR Off, Night light Off, and no ICC profile loaded. No RGB lighting background utilities are running. Confirms both the 6 ft Ex-Link cable and Spyder5 USB cable reach from the PC without strain.
+
+## C-081
+
+Denon AVC-X3800H receiver configuration ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): firmware 6000-1060-0071-9831, Video Mode Auto, HDMI Upscaler Off, 4K/8K Signal Format Enhanced, and on-screen volume/status banners enabled over video playback. While Video Mode is currently Auto, C-071 notes switching to Bypass in a future test plan would guarantee zero video processing and suppress Denon overlays during measurements.
+
+## C-082
+
+Meter and software status on the owner's PC ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): Datacolor Spyder5Pro with original installer and activation serial retained (vendor software not installed). ArgyllCMS V3.5.0 is unpacked in the Downloads folder (exact path kept out of the repository under AGENTS.md section 11) and DisplayCAL is installed. When hanging by its USB cable draped over the top edge of the TV with the counterweight behind, the meter rests flat against the screen surface (clarifying S-011's description of the cap hanging beneath).
+
+## C-083
+
+PC-side serial port check for the DSD TECH SH-U35B Ex-Link cable ([S-033](briefs/2026-10-26-owner-equipment-checklist.md)): Windows Device Manager assigns `USB Serial Port (COM3)` to the FTDI chip when plugged into the PC with the TV end disconnected. This check was performed in response to Antigravity's checklist request (item 5; TV disconnected), which requested the PC-only USB plug-in, differing from the look-only text in docs/equipment.md on main and docs/tests/README.md. Prospective project policy for owner checks remains an open question under X-009. Communication with the TV remains Not tested pending an authorised T-006 plan.
+
+## C-084
+
+Provisional calibration targets and viewing preferences (Q-014, [S-033](briefs/2026-10-26-owner-equipment-checklist.md)): dim viewing room, target peak brightness 140–160 cd/m² for SDR Rec.709/D65/BT.1886, mixed usage (PC desktop, SDR streaming/movies, gaming, HDR), and initial calibration priority on Movie mode for the PC/Denon HDMI input (HDMI 4). Final black target and pass marks await T-003 and T-004.
