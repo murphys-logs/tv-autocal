@@ -41,7 +41,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 - **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using **Samsung Ex-Link only**. The owner's later decision D-006 in [LEDGER.md](LEDGER.md#3-decisions) supersedes the original brief's alternative of network remote commands.
 - **Selected cable:** the owner reports purchasing the DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT (S-004). Purchase details and the remaining budget are in the ledger; purchase does not authorise any physical test.
 - **Not yet demonstrated:** whether the selected cable and Ex-Link interface work with the owner's TV and firmware. Treat this as an open question to be tested, never as a premise.
-- **Measurement cycle (D-013):** after every change to a TV setting, the program exits the TV's menu and waits a short delay before it takes any reading: change, exit, wait, read. The length of the delay is Q-008 in [LEDGER.md](LEDGER.md#6-open-questions).
+- **Measurement cycle:** [change, exit, wait, read](docs/plan.md#measurement-cycle-and-use-of-readings) (D-013).
 
 ## 4. Starting and finishing a task
 
@@ -145,6 +145,8 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 - Do not commit vendor software, calibration data extracted from vendor software, or downloaded tools such as ArgyllCMS. Record where to obtain them instead.
 
 ## 12. Where things go
+
+Each rule has one home, and other files link to it instead of restating it.
 
 | Path | Contents |
 |---|---|

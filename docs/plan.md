@@ -9,12 +9,12 @@ This page puts the work in order: what has to be known, tested or decided before
 
 - **TV control is Samsung Ex-Link only** (D-006). Whether it works on this TV is not known (C-005).
 - **Hardware budget:** £25 in total; £15.99 spent; **£9.01 left**. No purchase is proposed here.
-- **Measurement cycle (D-013):** after every TV setting change, the program exits the TV's menu and waits a short delay before taking any reading: change, exit, wait, read. Q-008 leaves the delay undecided; the way the program exits the menu over Ex-Link also needs a reviewed design. This page selects neither.
+- **Measurement cycle:** [change, exit, wait, read](#measurement-cycle-and-use-of-readings) (D-013).
 - **No service menu.** No agent opens it, and no plan below uses it.
 
 ## Measurement cycle and use of readings
 
-Every reading follows D-013, including diagnostic readings, the first baseline, the readings after a calculated change, and the readings after restoration. Each test plan must specify how D-013 applies to every step that changes a TV setting. A menu-value inspection is followed by menu exit and the planned delay before the next reading too. A repeated reading without another setting change still requires the preceding exit and delay to have been completed. Before readings rely on the program's Ex-Link exit method, establish that method under the owner's observation in T-006; subsequent uses follow the reviewed reply/error handling, stopping on a failed or unclear exit. This does not require inspecting the screen before every reading or prove that every exit succeeds. Menu-value checks explicitly listed in a plan still apply.
+Every reading follows D-013 — change, exit, wait, read — including diagnostic readings, the first baseline, the readings after a calculated change, and the readings after restoration. Q-008 leaves the delay undecided; the way the program exits the menu over Ex-Link also needs a reviewed design. This page selects neither. Each test plan must specify how D-013 applies to every step that changes a TV setting. A menu-value inspection is followed by menu exit and the planned delay before the next reading too. A repeated reading without another setting change still requires the preceding exit and delay to have been completed. Before readings rely on the program's Ex-Link exit method, establish that method under the owner's observation in T-006; subsequent uses follow the reviewed reply/error handling, stopping on a failed or unclear exit. This does not require inspecting the screen before every reading or prove that every exit succeeds. Menu-value checks explicitly listed in a plan still apply.
 
 Record each reading's purpose and its acceptance criteria before taking it. Component-test readings and T-013's relative diagnostic readings are kept out of calibration data and accuracy claims; they cannot be promoted later. T-013 tests a limited feedback response and restoration, not absolute calibration accuracy. T-008 uses only readings meeting its reviewed plan's criteria. Applying D-013 does not establish correction validity or measurement accuracy (Q-001, T-004).
 
@@ -43,7 +43,7 @@ The owner looks things up and reports them. No meter, no Ex-Link connection, no 
 ### Stage 3 — Software-only checks (can run alongside stages 1 and 2)
 
 - T-009: Ex-Link message encoder and reply reader, with no route to real hardware.
-- A simulated TV and meter, the record format for readings, and the design for sending Ex-Link commands: one command at a time, and **no automatic resend after an unclear result for the first transport**; later policy remains open under X-007. An acknowledgement does not prove the setting changed (C-010), and a repeated step could be applied twice.
+- A simulated TV and meter, the record format for readings, and the design for sending Ex-Link commands: one command at a time, with the first transport following the [stop rules](#stop-rules-for-every-physical-stage) on an unclear result; later policy remains open under X-007. An acknowledgement does not prove the setting changed (C-010), and a repeated step could be applied twice.
 - Exercise change, exit, wait, read with simulated settings, menus and time, including baseline preparation, menu inspections and restoration. A failed or uncertain exit must not silently permit a reading. These software checks cannot prove real TV behaviour or detect unexpected overlays.
 - **Passes when:** each applicable suite is implemented and run by hand and its passed, failed, skipped and unrun counts are recorded. These are simulations: they never change an equipment test status.
 
@@ -74,7 +74,7 @@ The future plan would specify these steps:
 4. Restore the original value through the planned procedure. Check it in the normal menu outside any reading, exit the menu and wait the planned delay, then check that the readings return to where they started within the plan's tolerance.
 
 - **Passes when:** the change is measured, the second change improves the reading, and restoration is confirmed both ways.
-- **Stops if:** a command's result is unclear (stop; no resend), the change cannot be told apart from noise, or restoration fails. Stop and record what happened. After looking at the TV's normal menu, the owner may restore the recorded original values by hand, as the plan's restoration step describes; nothing here limits the owner's own use of the TV. Further project-test recovery or continuation involving an Ex-Link command, a resend, a service-menu step or other recovery from an unexpected state needs a separately reviewed and explicitly authorised procedure. No automatic recovery is authorised here.
+- **Stops if:** the change cannot be told apart from noise, restoration fails, or any of the [stop rules](#stop-rules-for-every-physical-stage) applies.
 
 ### Stage 6 — T-008: full SDR calibration (needs authorisation)
 

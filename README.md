@@ -44,7 +44,7 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 - **No commercial calibration packages** are to be recommended.
 - **Extra hardware: £25 in total at most.** Spent so far: £15.99 on the selected Ex-Link cable; £9.01 remains. See the ledger's [budget record](LEDGER.md#7-hardware-budget).
 - **Safety:** no AI agent may operate the TV, the meter or the TV's service menu by itself. Software-only simulations are allowed; every physical test needs the owner's explicit authorisation.
-- **Measurement cycle (required):** change a setting, exit the TV's menu, wait a short delay, then take the readings (D-013 in the [ledger](LEDGER.md#3-decisions)).
+- **Measurement cycle (required):** [change, exit, wait, read](docs/plan.md#measurement-cycle-and-use-of-readings) (D-013).
 
 ## Intended design — not yet proven
 
