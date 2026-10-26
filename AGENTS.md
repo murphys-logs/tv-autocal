@@ -41,7 +41,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 - **Intended architecture:** ArgyllCMS for measurements, validated spectral corrections, a controlled test-pattern generator, a numerical optimisation engine, and a TV-control backend using **Samsung Ex-Link only**. The owner's later decision D-006 in [LEDGER.md](LEDGER.md#3-decisions) supersedes the original brief's alternative of network remote commands.
 - **Selected cable:** the owner reports purchasing the DSD TECH USB RS232 to 3.5mm Serial Cable with FTDI FT232RL Chip 6FT (S-004). Purchase details and the remaining budget are in the ledger; purchase does not authorise any physical test.
 - **Not yet demonstrated:** whether the selected cable and Ex-Link interface work with the owner's TV and firmware. Treat this as an open question to be tested, never as a premise.
-- **Measurement cycle (D-013):** after every change to a TV setting, the program exits the TV's menu and waits a short delay before it takes any reading: change, exit, wait, read. The length of the delay is Q-008 in [LEDGER.md](LEDGER.md#6-open-questions).
+- **Measurement cycle:** [change, exit, wait, read](docs/plan.md#measurement-cycle-and-use-of-readings) (D-013).
 
 ## 4. Starting and finishing a task
 
@@ -56,7 +56,7 @@ The rest of this file explains how agents apply these rules. It was drafted by C
 
 For tasks proposing repository file changes:
 
-1. Update [LEDGER.md](LEDGER.md) with new or changed claims, decisions, disagreements, tests and questions.
+1. Update [LEDGER.md](LEDGER.md) with new or changed claims, decisions, disagreements, tests and questions. Keep each ledger table cell to about two sentences, roughly 50 words, and link to the detail in the document that owns the topic. Review history goes in the pull-request description or [docs/reviews/](docs/reviews/README.md), not in the ledger.
 2. Check that links between files work and that every ledger ID you mention exists.
 3. Open a pull request and fill in every section of the [template](.github/PULL_REQUEST_TEMPLATE.md).
 4. Tell the owner plainly what you did, what you did not do, what is untested, what needs their decision, and whether the pull request is ready for independent review — and by which agent.
@@ -87,7 +87,7 @@ For review-only tasks, finish by reporting findings and unresolved disagreements
 - **Never invent** measurements, test results, quotations, page numbers, URLs, version numbers or firmware behaviour. If something is unknown, write "unknown".
 - **Simulations are not tests on equipment.** Label simulation results as simulations. They never change a claim's equipment test status.
 - **Agreement is not evidence.** Two agents, or two vendors, agreeing does not make a claim true.
-- **Archived originals stay untouched.** Once merged, archived documents in `docs/briefs/` and `docs/research/` are never edited; corrections and commentary go in the ledger. (The folders' README files are not archives and can be updated.) The only exceptions are changes the owner has explicitly instructed, each recorded as a decision in the ledger (D-012, D-013).
+- **Archived originals stay untouched.** Once merged, archived documents in `docs/briefs/` and `docs/research/` are never edited; corrections and commentary go in the ledger. (The folders' README files are not archives and can be updated.) The only exceptions are changes the owner has explicitly instructed, each recorded as a decision in the ledger (D-012, D-013, D-014).
 
 ## 7. Equipment safety (rule 6)
 
@@ -146,6 +146,8 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 
 ## 12. Where things go
 
+Each rule has one home, and other files link to it instead of restating it.
+
 | Path | Contents |
 |---|---|
 | `README.md` | Project overview and goals |
@@ -158,6 +160,7 @@ Never recommend commercial calibration packages. Free and open-source tools may 
 | `docs/briefs/` | The owner's instructions, archived word for word |
 | `docs/research/` | Research material, archived with its provenance |
 | `docs/tests/` | Plans, authorisations and results of tests on the owner's equipment |
+| `docs/reviews/` | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
 | `.github/PULL_REQUEST_TEMPLATE.md` | Review checklist for every pull request |
 
 Application code, its tests and its dependencies will come in later pull requests. The Python version and packaging (Q-003) and the licence (Q-002) are still open. Until they are decided: use only free and open-source dependencies, record each new dependency and its licence in the pull request, and make sure tests can run without hardware.

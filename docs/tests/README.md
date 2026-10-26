@@ -10,8 +10,8 @@ Software-only simulations do not belong here and need no authorisation, because 
 - **Only the authorised steps, with the owner present.** Anything else needs fresh authorisation. The owner can stop a test at any time.
 - **Record what actually happened** — including failures, surprises and anything done differently from the plan. Never fill in expected or typical values.
 - **Write down original settings before changing anything**, so they can be restored.
-- **Apply D-013 to every reading.** Each plan explains how every step that changes a TV setting follows change, exit, wait, read, including restoration. After a menu value is inspected, exit the menu and wait before the next reading too. State the proposed delay (Q-008) and how the menu is exited. See [the measurement cycle and use of readings](../plan.md#measurement-cycle-and-use-of-readings).
-- **Keep diagnostic evidence separate from calibration data.** Record each reading's purpose and the criteria for using or rejecting it. Diagnostic readings do not become accepted calibration data later; running a component test does not establish absolute accuracy.
+- **Every reading follows [change, exit, wait, read](../plan.md#measurement-cycle-and-use-of-readings) (D-013).** Each plan shows how, in section 6 of the [template](TEMPLATE.md).
+- **Keep diagnostic evidence separate from calibration data** ([use of readings](../plan.md#measurement-cycle-and-use-of-readings)).
 
 ## Life of a test
 

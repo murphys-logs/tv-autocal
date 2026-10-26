@@ -7,7 +7,7 @@
 | Original date | 2026-10-24 |
 | Imported | 2026-10-24, by Claude Code (Anthropic), in the pull request that records the answers |
 | How obtained | The owner's message to Claude Code, and the owner's choice among multiple-choice options that Claude Code offered |
-| Fidelity | Verbatim. Claude Code's questions and the owner's answers are reproduced exactly, including spelling; Markdown emphasis in the questions is removed and the layout of the options is simplified. Two passages were later removed at the owner's instruction (D-013); the marker "[removed under D-013]" shows where |
+| Fidelity | Verbatim. Claude Code's questions and the owner's answers are reproduced exactly, including spelling; Markdown emphasis in the questions is removed and the layout of the options is simplified. Two passages were later removed at the owner's instruction (D-013); the marker "[removed under D-013]" shows where. The uncut text is in commit 337a58f1ac81e5359e9c9d762b06717b156313d0, under its earlier file name (see `git log --follow`), and it stays there only while git history is left intact (Q-017) |
 | Ledger ID | S-010 |
 
 This archive is the source of question Q-011 in [LEDGER.md](../../LEDGER.md); D-010 and Q-010, which also came from it, are withdrawn under D-013. Do not edit it.

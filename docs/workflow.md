@@ -50,8 +50,8 @@ Plain-English explanations written by Claude Code, reconciled with D-013 by Code
 | Acknowledgement | The short "received" reply a TV may send after an Ex-Link command. It does not prove that the setting changed (C-010) |
 | Service menu | A hidden factory menu. Changes there can be hard or impossible to undo. No agent may open it, and the project avoids it |
 | HDMI range (full or limited) | Two ways of numbering black to white in a video signal (0–255, or 16–235). The PC, receiver and TV must agree, or blacks and whites are crushed or washed out |
-| Measurement cycle | After every TV setting change, the program exits the menu and waits a short delay before readings: change, exit, wait, read (D-013). The delay is Q-008 |
-| Diagnostic and calibration readings | Readings have a recorded purpose and acceptance criteria. Diagnostic readings stay separate from accepted calibration data. D-013 applies to every reading; see [plan.md](plan.md#measurement-cycle-and-use-of-readings) |
+| Measurement cycle | [Change, exit, wait, read](plan.md#measurement-cycle-and-use-of-readings) (D-013) |
+| Diagnostic and calibration readings | Readings have a recorded purpose and acceptance criteria. Diagnostic readings stay separate from accepted calibration data; see [plan.md](plan.md#measurement-cycle-and-use-of-readings) |
 | Owner check | Something you look up yourself, without any agent operating the equipment. See [tests/README.md](tests/README.md#owner-checks) |
 | ΔE2000 ("delta E") | A number for how different two colours look. Smaller is better; a value around 1 is often quoted as barely noticeable |
 
