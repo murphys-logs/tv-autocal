@@ -18,7 +18,7 @@ Software-only simulations do not belong here and need no authorisation, because 
 | Step | What happens | Test status in the ledger |
 |---|---|---|
 | 1. Plan | An agent copies [TEMPLATE.md](TEMPLATE.md) to `T-NNN-short-title.md` (`NNN` is the test's ledger number), fills in the plan sections and opens a pull request. | Planned |
-| 2. Review | The other company's agent reviews the plan, as for any pull request. | Planned |
+| 2. Review | An agent from a different company reviews the plan, as for any pull request. | Planned |
 | 3. Authorise | The owner fills in the authorisation section, or authorises in a pull-request comment or in conversation; their words are copied into the file. | Authorised |
 | 4. Carry out | Only the authorised steps, with the owner present. | Authorised |
 | 5. Record | Observations go in the results section. Data files go in a `T-NNN-data/` folder, after private details such as serial numbers and network addresses have been removed. | Done |

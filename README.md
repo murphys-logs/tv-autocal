@@ -96,7 +96,7 @@ Read more:
 | Path | Contents |
 |---|---|
 | `README.md` | This overview |
-| `AGENTS.md` | Shared instructions for Claude Code and Codex |
+| `AGENTS.md` | Shared instructions for all AI agents |
 | `CLAUDE.md` | One line that makes Claude Code read `AGENTS.md` |
 | `LEDGER.md` | Evidence, decisions, disagreements and outstanding tests |
 | `docs/` | Documentation and research archive — see [docs/README.md](docs/README.md) |

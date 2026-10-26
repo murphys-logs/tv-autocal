@@ -9,7 +9,7 @@ These steps apply to work that changes repository files. A review-only task fini
 1. You ask Claude Code, Codex or Antigravity to do something.
 2. The agent works on its own **branch** — a separate copy — never on `main`, the accepted version.
 3. When it has finished, the agent opens a **pull request**: a proposal to add its changes to `main`. It fills in a checklist and tells you when the pull request is ready for review.
-4. You ask the agent from the **other company** to review it.
+4. You ask an agent from a **different company** to review it.
 5. You read the summary and the review, then decide: **merge** (accept), **ask for changes**, or **close** (reject).
 
 Nothing reaches `main` without your decision. No agent operates your TV, meter or receiver without your written authorisation for a specific test.
@@ -23,7 +23,7 @@ Nothing reaches `main` without your decision. No agent operates your TV, meter o
 | Branch | A separate line of work. Claude Code's branches start with `claude/`, Codex's with `codex/`, Antigravity's with `antigravity/` |
 | Commit | A saved set of changes, with a note saying what changed |
 | Pull request (PR) | A proposal to add a branch's changes to `main`. It shows exactly what would change, and it is where review and discussion happen |
-| Review | A check of a pull request by the agent from the other company |
+| Review | A check of a pull request by an agent from a different company |
 | Merge | Accepting a pull request, so its changes become part of `main`. Only you do this |
 | Ledger | [LEDGER.md](../LEDGER.md): the record of sources, claims, decisions, disagreements and tests |
 | Provenance | Where a claim came from — you, official documentation, a forum, an AI, and so on |
@@ -69,11 +69,11 @@ Agents from the same company do not count as independent of each other. ChatGPT 
 
 1. On GitHub, open the repository, click **Pull requests**, then click the pull request you want.
 2. Read the **plain-English summary** at the top. The **Files changed** tab shows every change.
-3. Ask the other company's agent to review it. You can paste this message, filling in the number:
+3. Ask an agent from a different company to review it. You can paste this message, filling in the number:
 
    > Please review pull request #___ in the tv-autocal repository against AGENTS.md. Do not push changes to its branch. Post your review on the pull request, or give it to me to post. List anything you disagree with, so it can be recorded in LEDGER.md.
 
-4. If the review asks for changes, pass it to the agent that wrote the pull request. If the two agents still disagree, the disagreement is recorded in the ledger. It does not have to be settled before you decide.
+4. If the review asks for changes, pass it to the agent that wrote the pull request. If the agents still disagree, the disagreement is recorded in the ledger. It does not have to be settled before you decide.
 5. **Check that the review covers the latest version.** Every review names the full commit SHA it checked. If the author has pushed anything since, the new changes have not been reviewed yet; ask the reviewer to check them. Codex's automatic GitHub comment ("Codex Review Summary") is not the checklist review; whether it counts towards rule 2 is question Q-015.
 6. When you are satisfied, click **Merge pull request**, then **Confirm merge**. If you are not, add a comment saying what you want changed, or click **Close pull request**.
 

@@ -11,7 +11,7 @@ What changes and why, and what the owner needs to do next, if anything.
 
 - Written by (agent and company):
 - Branch:
-- Independent review needed from (the other company's agent):
+- Independent review needed from (an agent from a different company):
 
 ## What changed
 
