@@ -17,6 +17,7 @@ Codex reviewed main at `337a58f1`, all 22 tracked files, the ten existing pull r
 | C-061 | Q-012 is left unused; Q-015 remains unanswered. |
 | Q-012 | This reconciliation introduces no replacement question under this ID and does not renumber C-060, T-013 or Q-013 to Q-015. |
 | Q-013 | first suggested in Claude Code's review of PR #4; carried from PR #12 and reconciled with D-013 |
+| Q-015 | Review records were rechecked by Codex (OpenAI) on 2026-10-25, including PRs #11, #12 and #13. The records distinguish authored reviews, automatic summaries, the commits covered and review timing. The proposal that reviews name their full commit and cover the latest changes does not answer this question. |
 | Q-016 | ChatGPT's Part 1 question was refined by Claude Code to include the separate validation option; Codex adopts that wording refinement. |
 
 ## X-007
@@ -50,6 +51,13 @@ These are repository/GitHub observations, not a decision that any kind of review
 | S-012 upload | [Upload commit](https://github.com/murphys-logs/tv-autocal/commit/a62772c3212351ea08caa3e659573448b1825138) added the research file to main's first-parent history. | 25 October 18:04:23 UTC, before #9 merged. This records the path into main, not an equipment result or review-adequacy decision. |
 
 The [Part 1 assessment](https://github.com/murphys-logs/tv-autocal/pull/11#issuecomment-6404046450) recorded no substantive disagreement with Claude Code. Claude's later response proposed the three-option wording now used in Q-016 and accepted scoping the early-test stop rule; Codex accepts both, so that wording difference is resolved for this proposal. In [review of PR #14 at `5f82ac1a9341b7ba96ba907ef0f1d4a97c8f7280`](https://github.com/murphys-logs/tv-autocal/pull/14#pullrequestreview-5645706578), Claude requested removing T-004 from T-013's prerequisites and preserving the owner's manual restoration, with a correction to X-007's attribution. Codex accepts those findings and has revised the proposal accordingly; these revisions need independent re-review. X-009 records the agents' agreement on a checklist boundary awaiting the owner's decision.
+
+## Q-015: the review and the records compared
+
+Added 26 October 2026 by Claude Code, for Q-015. S-020's review (AI: Claude Code) and the records above agree on PRs #6, #7, #9, #10 and #13. They differ, or the records add a fact, on two points:
+
+- **PR #2.** The review: merged without a written cross-vendor review of its final version. The records: #2 merged into the setup branch, not main, without a review; Claude Code reviewed the same head, `aecf3daa1d40c295552710a95fe120d268f72cda`, under #4 before #4 merged into main.
+- **Commit a62772c.** The review: it put substantive research straight onto main. The records agree, and show it landed before #9 merged. Checked on 26 October 2026: the file it added is identical (git blob `f873fd6cbb3760c32200efb40636775d3b332cf6`) to the version on PR #9's branch, which Claude Code reviewed after #9 merged.
 
 ## Note added 26 October 2026
 

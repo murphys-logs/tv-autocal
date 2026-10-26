@@ -37,6 +37,7 @@ What changes and why, and what the owner needs to do next, if anything.
 
 - [ ] Unresolved disagreements are recorded in `LEDGER.md`, not smoothed over.
 - [ ] The summary makes sense to a non-programmer.
+- [ ] If this PR opens, answers or changes an owner decision, the README decision list is updated.
 
 ## For the independent reviewer
 
