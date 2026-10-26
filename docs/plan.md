@@ -26,13 +26,15 @@ Each stage starts only when the one before it has passed, unless it says otherwi
 
 ### Stage 1 — Information only the owner can give
 
-The owner looks things up and reports them. No meter, no Ex-Link connection, no service menu. The full list is in [equipment.md](equipment.md#what-we-still-need-from-you).
+The owner looks things up and reports them. No meter, no Ex-Link connection, no service menu. The full list is in [equipment.md](equipment.md#completed-owner-checks-stage-1).
 
+- **Status:** **Passed on 26 October 2026.** Model confirmed (`UE49KS7000UXXU`), rear 3.5 mm `EX-LINK` port confirmed, and all items for T-001 and T-002 recorded in the ledger (S-032, S-033, C-074 to C-084).
 - **Passes when:** the model is confirmed and T-001 and T-002 are recorded in the ledger.
 - **Stops if:** the model is not UE49KS7000UXXU (the research must be checked again), or no 3.5 mm Ex-Link socket can be found (the owner decides what happens next, Q-013, before any Ex-Link work).
 
 ### Stage 2 — Research and decisions (software only)
 
+- **Status:** **In progress.** Stage 1 passed and provisional targets under Q-014 are recorded (Movie mode on HDMI 4, dim room, 140–160 cd/m²). Research on Denon bypass (C-071), cable pin-out (C-076), and 10-point WB presence (C-078) is integrated.
 - Find model-specific Ex-Link evidence (Q-006, X-002), the cable's wiring and signal levels (C-021), what the Denon's Bypass setting does (C-044), and the available spectral corrections and their licences (Q-001, Q-002).
 - Record Q-013's fallback decision. For Q-014, agree only a **provisional** input, picture mode, room, brightness/black assumptions and criteria sufficient to write the component-test plans. The **final** answer follows T-003's evidence and must be recorded before T-008; Stage 2 does not require it.
 - Agree what correction validation means under Q-001 before planning T-004. If no practical validation route is found, ask Q-016; do not assume permission to proceed to T-008 with an unvalidated correction. Unresolved validation does not block plans for other tests whose own prerequisites are met.

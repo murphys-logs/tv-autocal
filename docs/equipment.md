@@ -59,17 +59,19 @@ Budget: **£25** in total · Spent: **£15.99** · Remaining: **£9.01** — see
 - **Primary content:** PC desktop, SDR movies/streaming, gaming, and HDR content (S-033, C-084).
 - **Initial calibration priority:** Movie mode on PC/Denon HDMI input (`HDMI 4`) (S-033, C-084).
 
-## What we still need from you
+## Completed owner checks (Stage 1)
 
-These are **owner checks**: you look things up and tell us. They need no test plan, because no agent operates anything. Please:
+All initial owner look-only checks (T-001 and T-002) are **100% complete** (S-032, S-033), formally passing Stage 1 of the project plan. No further look-only information is needed from the owner before Stage 2 component test planning.
 
-- **only look:** write down current values before changing anything, and change nothing for the project yet;
-- **stay out of the service menu**, and don't plug the Ex-Link cable into the TV;
-- **keep private details out of what you send:** no serial numbers, IP or MAC addresses, or photos that show people or your room. Photos of labels or menus are fine; they stay in the private `local/` folder unless you approve one for the repository.
+Key technical parameters confirmed by the completed baseline:
 
-The initial look-only checklist is substantively **complete** (S-033), with the items recorded below and in [LEDGER.md](../LEDGER.md). 10-point white-balance slider values and enable state remain unrecorded and can be noted when relevant before future calibration.
+1. **Signal path & quantization (T-005):** The PC GPU outputs `Limited (16–235)` while TV HDMI Black Level is `Auto`. Because Windows desktop applications render in full-range (0–255), test-pattern generation levels must be validated in T-005 to avoid double-compression or black lifting.
+2. **Denon video processing & overlays:** The Denon receiver is in Video Mode `Auto` with on-screen overlays enabled (`Yes`). Setting the receiver to `Bypass` (C-071) in future plans eliminates receiver processing and suppresses overlays during readings.
+3. **Gamma architecture:** The TV offers an integer slider `-3..+3` with no discrete BT.1886 menu preset. BT.1886 curve alignment must be achieved through the slider offset and greyscale white balance adjustments.
+4. **Multi-point White Balance caution:** 10-point WB is verified present and selectable (settling X-003); however, due to HDTVTest's finding that 10-point controls were contrast-aligned on this model (C-073), 2-point controls must be calibrated first.
+5. **Spyder5 low-light limits:** The Spyder5 noise floor (~0.38 cd/m²) is roughly 10x higher than the KS7000 native panel black (~0.04 cd/m²). BT.1886 target calculation must use an assumed black level rather than raw meter readings below 10% stimulus.
 
-The proposed order of work after this is in [plan.md](plan.md).
+The completed Stage 1 checklist records:
 
 ### 1. TV
 
