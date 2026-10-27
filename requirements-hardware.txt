@@ -1,0 +1,3 @@
+# Optional future Windows serial runner only. Not needed for simulation/tests.
+# pySerial 3.5: BSD-3-Clause; no dependency is installed by this repository.
+pyserial==3.5

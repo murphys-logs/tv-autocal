@@ -1,5 +1,7 @@
 # Software integration design and offline contracts
 
+**Historical PR #23 record:** the verification and hashes below identify reviewed head `674b7be8408efd77def1b68a66314dec9ceccb5f`, merged as `a90258addad8791be0de1e2246e69db14e1bc9f4`. The original `tv_autocal` files remain unchanged; later hardware-facing entry points and their separate offline verification are in [component tools](component-tools.md). Review completion is recorded in [PR #23](https://github.com/murphys-logs/tv-autocal/pull/23).
+
 **Software only; no hardware operation or physical-test authorisation.** This slice connects explicit fixture evidence for a patch, a menu observation, a command audit and a complete meter transcript. It opens no window, enumerates no display/device, starts no process and opens no serial port. It supplies no physical adapter or real-mode switch.
 
 Prepared by Codex (OpenAI), 27 October 2026, under the [verbatim owner request](../briefs/2026-10-27-software-integration.md) (S-041). Base: merged PR #22, `8a299da05e30da2ec88a77538e35416d9ef8d51e`, whose files match reviewed head `9e6b49b6e76b210dc7d8401c9bc413131336afe1`. Design and software results are S-042/C-094/T-016, not equipment evidence. Source-format inspection is S-043/C-095.

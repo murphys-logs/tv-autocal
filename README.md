@@ -2,11 +2,11 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 27 October 2026: PRs #21/#22 merged; software integration design and offline tests prepared for independent review.**
-> The full calibration application is not built. All implemented components are software-only; **no operational equipment tests have been run**.
+> **Status, 27 October 2026: PRs #21/#22/#23 merged; bounded component-test tools prepared for independent review.**
+> The full calibration application is not built. Hardware-facing component paths now exist but have only offline checks; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 
-Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype](docs/software/t009-prototype.md), and PR #22's [renderer and simulated controller](docs/software/renderer-cycle.md), were independently reviewed and merged. New review material: [software integration design and offline contracts](docs/software/integration.md). **All physical plans remain NOT AUTHORISED**. The centred 6.25% patch is unchanged. No component presents patterns on a display or connects to equipment; no owner answer is needed merely to review this work.
+Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype](docs/software/t009-prototype.md), PR #22's [renderer and simulated controller](docs/software/renderer-cycle.md), and PR #23's [offline integration](docs/software/integration.md) were independently reviewed and merged. New review material: [bounded component tools](docs/software/component-tools.md). **All physical plans remain NOT AUTHORISED**. Default execution is an in-memory simulation; explicit hardware paths require reviewed plan amendments and specific owner authorisation. The centred 6.25% patch is unchanged. No owner answer is needed merely to review this work.
 
 ## What needs your decision
 
@@ -21,6 +21,7 @@ Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/test
 | [Q-016](LEDGER.md#6-open-questions) | If no spectral correction can be validated, what then? | Keep T-008 blocked / seek a way to validate / unvalidated, with limits | No recommendation yet | T-008 |
 | [Q-017](LEDGER.md#6-open-questions) | Keep a private copy of cut archive text before anyone rewrites git history? | You keep a copy / accept the loss / never rewrite history | No recommendation yet | Any rewrite of git history |
 | [Q-018](LEDGER.md#6-open-questions) | Approve the automatic Codex review on GitHub, or switch it off? | Approve / switch off | No recommendation yet | Nothing yet |
+| [Q-019](LEDGER.md#6-open-questions) | Is another display available besides the TV, and where will the tool consoles sit? | Owner to describe the existing arrangement; unknown | Record the arrangement and review console placement before physical use; no setup change assumed | Presenter/meter plan amendments and authorisation |
 | [X-009](LEDGER.md#4-disagreements) | May an owner check connect the cable to the PC? | Yes (Position A) / no, look only (Position B) | PC check performed in S-033; formal policy remains open | Proposed boundary for future owner checks |
 | [X-012](LEDGER.md#4-disagreements) | Which setting scope should T-006 use? | Retain All Sources / isolate Current Source, each with a reviewed restoration procedure | Claude prefers retaining All Sources; Codex recommends establishing affected settings/restoration before choosing | T-006 authorisation; neither option selected |
 | [Q-002](LEDGER.md#6-open-questions) | Which open-source licence? | Any open-source licence | No recommendation yet | Distributing the application |
