@@ -21,6 +21,9 @@ policy) remain open.
 | [simulation.py](../../tv_autocal/simulation.py) | Manually advanced fake clock, literal scripted replies, one-request in-memory session and distinct software evidence |
 | [test_t009.py](../../tests/test_t009.py) | Literal reference fixtures, malformed inputs, error/timing cases and containment checks |
 
+ACK means acknowledgment and NACK means negative response. Neither confirms
+what a real TV did; this prototype processes synthetic replies only.
+
 There are no third-party dependencies. The standard library provides `enum`,
 `dataclasses` and the test runner (`unittest`); Python uses the PSF licence.
 The source uses Python 3.10+ annotation syntax, but support is demonstrated only
@@ -87,7 +90,11 @@ preserves the original provenance and exact-model limitations.
   When polling is delayed, scripted arrival times determine the result.
 - Multiple replies or a complete reply followed by partial extra bytes in one
   delivery produce an unknown outcome. Later bytes cannot change a terminal
-  outcome. Scripted polling and direct synthetic delivery cannot be mixed.
+  outcome. This fake does not retain those later bytes: polling stops at the
+  first terminal result and leaves later scripted entries unconsumed; direct
+  delivery after retirement is ignored. For example, a scripted ACK at 10 ms
+  followed by a NACK at 20 ms still reports ACK, without logging the NACK.
+  Scripted polling and direct synthetic delivery cannot be mixed.
 - `Evidence` separates encoded bytes, accepted fake write, simulated ACK,
   simulated rejection and unknown outcome. It has no TV-setting-verification
   or calibration-improvement field. An ACK never proves either.
@@ -100,7 +107,10 @@ real-mode selector. Supplying `port`, `host`, `transport` or `real_mode` fails
 locally. The fake accepts its own concrete clock and immutable scripted data,
 not an arbitrary transport callback.
 
-Static import/call inspection and runtime guards against file/device opens,
+Static import/call inspection covers Python files recursively, including nested
+application packages. A regression check uses inert source files in a temporary
+directory to prove that a forbidden import in a subdirectory is detected;
+those files are never imported or executed. Runtime guards against file/device opens,
 socket access and process launches supplement this absence of hardware code.
 The guarded test reruns all 35 functional tests with those guards active.
 These checks are not a security sandbox for arbitrary Python or future edits.
@@ -123,7 +133,9 @@ py -3.15 -B -m unittest discover -s tests -v
 The bundled Python 3.12.14 executable was also invoked with
 `-B -m unittest discover -s tests`; its machine-specific path is intentionally
 not committed. No installation is needed for this slice. `-B` avoids bytecode
-cache writes; the runner only imports software and prints test results.
+cache writes. The runner imports software, prints test results and creates then
+removes inert local source files for the containment regression. It does not
+open devices or execute the fixture source.
 
 ## Manual software run record — 27 October 2026
 
@@ -132,18 +144,27 @@ cache writes; the runner only imports software and prints test results.
 | Initial draft | Python 3.15.0 | 35 | 1 | 0 | 0 | 0 |
 | After adding explicit Factory-SVB fixtures and fixing nested-suite count | Python 3.15.0 | 37 | 0 | 0 | 0 | 0 |
 | Same revision | Python 3.12.14 | 37 | 0 | 0 | 0 | 0 |
-| Final code below, including rejection of mixed delivery modes | Python 3.15.0 | 38 | 0 | 0 | 0 | 0 |
-| Same final code | Python 3.12.14 | 38 | 0 | 0 | 0 | 0 |
+| Before review, including rejection of mixed delivery modes | Python 3.15.0 | 38 | 0 | 0 | 0 | 0 |
+| Same pre-review code | Python 3.12.14 | 38 | 0 | 0 | 0 | 0 |
+| After review: recursive containment inspection and nested-source regression | Python 3.15.0 | 39 | 0 | 0 | 0 | 0 |
+| Same post-review code, hashed below | Python 3.12.14 | 39 | 0 | 0 | 0 | 0 |
 
 The initial failure was a test-bookkeeping assertion expecting 35 nested
 functional tests when 33 existed. The guard itself reported no I/O failure.
 The assertion now compares executed count with the suite's discovered count.
-The final 38 top-level cases include the guarded rerun of 35 functional cases;
+During the review fixes, two sandboxed attempts per interpreter each reported
+38 passes and one error: Windows denied access to the temporary fixture directory,
+first in system temp and then in the checkout. The final run on each interpreter
+used normal temporary storage outside that sandbox and passed all 39 tests.
+The empty directories left by the failed attempts were removed. These were local
+filesystem errors, not hardware results or suppressed test failures.
+
+The latest 39 top-level cases include the guarded rerun of 35 functional cases;
 those nested executions are not counted as 35 additional distinct tests.
 Loops cover 5,355 single-byte corruptions and 65,024 unsupported first-command-byte/value
 combinations. These counts describe synthetic inputs, not equipment operations.
 
-The exact tested application/test contents are identified below so the run
+The exact latest tested application/test contents are identified below so the run
 record does not rely on a self-referential commit hash. The containing PR commit
 identifies the full proposed tree; any later code change requires a new record.
 
@@ -152,7 +173,7 @@ identifies the full proposed tree; any later code change requires a new record.
 | `tv_autocal/__init__.py` | `02a4bc365fe39e9bcb75a8dc978d04ae87a249fd33d9ecda252cae1cc1ab651d` |
 | `tv_autocal/exlink.py` | `d55c4ac872e95c02dd5a379e68ea4a4d7661dab63e57dd5769560f779c423596` |
 | `tv_autocal/simulation.py` | `bd84b7e1b597156af4ce2952fc6f2e3cfa2094d6fba1ef4e0a639406e94b69d8` |
-| `tests/test_t009.py` | `daaec54ad5f478a725ab4aa680851e4f159e0dffdd725b313ed39472067ec008` |
+| `tests/test_t009.py` | `35c260f608756f2f78e73bd4e9297fc0c30b60a8332cd60ad675bce99a2d234d` |
 
 ## What remains outside T-009
 
@@ -160,7 +181,13 @@ There is no real serial transport, command-correlation guarantee, TV state
 simulator, meter simulator, measurement-cycle controller, pattern renderer,
 optimisation engine or graphical application in this bounded slice. A future
 T-006 harness must be separately designed/reviewed; this fake must not be
-repurposed as a physical driver simply by adding a port option. T-009's passing
+repurposed as a physical driver simply by adding a port option. In particular,
+its early return and loss of later bytes must not be copied into a real sender:
+that sender must keep receiving and retain all bytes through the authorised
+session, including after a reply, and stop further sends on unexpected late or
+duplicate bytes. Separate offline tests must demonstrate that behaviour before
+any physical use; the fake's terminal outcome is not evidence that a stream
+remained quiet. T-009's passing
 tests do not satisfy T-003, T-005, T-006, T-013 or T-008 and do not change any
-equipment claim to Confirmed. Review is still required from Claude Code
+equipment claim to Confirmed. Re-review of these changes is required from Claude Code
 (Anthropic) or Antigravity (Google); two Codex agents are one vendor.

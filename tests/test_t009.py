@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import socket
 import subprocess
+from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
@@ -318,18 +319,34 @@ class ContainmentTests(unittest.TestCase):
             with self.assertRaises(TypeError):
                 FakeSession(FakeClock(), **options)
 
-    def test_application_imports_and_calls_have_no_io_capabilities(self):
-        # Inspect every application module, not just the two currently used.
-        root = Path(exlink.__file__).parent
-        for source in root.glob("*.py"):
+    def assert_application_has_no_io(self, root):
+        # Include future subpackages without importing or executing their code.
+        for source in sorted(root.rglob("*.py")):
             tree = ast.parse(source.read_text(encoding="utf-8"))
             for node in ast.walk(tree):
                 if isinstance(node, ast.Import):
-                    self.fail("Unexpected import in application: " + ast.unparse(node))
+                    self.fail("Unexpected import in " + str(source) + ": " + ast.unparse(node))
                 if isinstance(node, ast.ImportFrom):
-                    self.assertIn((node.level, node.module), {(0, "enum"), (0, "dataclasses"), (1, "exlink")})
+                    self.assertIn((node.level, node.module), {(0, "enum"), (0, "dataclasses"), (1, "exlink")}, str(source))
                 if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
-                    self.assertNotIn(node.func.id, {"open", "exec", "eval", "compile", "__import__", "input"})
+                    self.assertNotIn(node.func.id, {"open", "exec", "eval", "compile", "__import__", "input"}, str(source))
+
+    def test_application_imports_and_calls_have_no_io_capabilities(self):
+        self.assert_application_has_no_io(Path(exlink.__file__).parent)
+
+    def test_source_inspection_rejects_io_in_a_nested_package(self):
+        # These are inert source fixtures: neither file is imported or executed.
+        with TemporaryDirectory(prefix="t009-fixture-") as directory:
+            root = Path(directory)
+            (root / "__init__.py").write_text("", encoding="utf-8")
+            nested = root / "nested"
+            nested.mkdir()
+            source = nested / "module.py"
+            source.write_text("from enum import Enum\n", encoding="utf-8")
+            self.assert_application_has_no_io(root)
+            source.write_text("import socket\n", encoding="utf-8")
+            with self.assertRaisesRegex(AssertionError, "Unexpected import .*import socket"):
+                self.assert_application_has_no_io(root)
 
     def test_runtime_guards_fail_on_io_during_all_software_scenarios(self):
         # Guarded execution of every functional test after imports are loaded.
