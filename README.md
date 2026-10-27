@@ -2,11 +2,11 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 27 October 2026: component plans and the first software-only prototype prepared for independent review.**
-> The calibration application is not built. T-009 contains only in-memory protocol checks; **no operational equipment tests have been run**.
+> **Status, 27 October 2026: PR #21 merged; off-screen rendering and a simulated measurement controller prepared for independent review.**
+> The full calibration application is not built. All implemented components are software-only; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 
-Your owner checks T-001/T-002 are complete. Review material: [three physical-test plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype and verification](docs/software/t009-prototype.md). **All physical plans remain NOT AUTHORISED**, with execution prerequisites listed in each. The prototype cannot connect to hardware or generate display patterns. No owner answer is needed merely to review this work.
+Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype](docs/software/t009-prototype.md) were independently reviewed and merged. New review material: [off-screen renderer and simulated controller](docs/software/renderer-cycle.md). **All physical plans remain NOT AUTHORISED**. The renderer produces memory buffers only; no component presents patterns on a display or connects to equipment. No owner answer is needed merely to review this work.
 
 ## What needs your decision
 
@@ -72,7 +72,7 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 |---|---|---|
 | Measurement (ArgyllCMS) | Takes readings from the Spyder5 | Not yet tried with this meter on this PC |
 | Spectral correction | Corrects the meter's readings for this TV's type of light | No validated correction identified yet |
-| Test-pattern generator | Shows exact, known colours on the TV | Not built; physical route recorded, colour-value fidelity untested |
+| Test-pattern generator | Shows exact, known colours on the TV | Off-screen RGB buffers implemented; physical presenter and output-path validation still missing |
 | Optimisation engine | Works out which setting to change, and by how much | Not built; can be developed in simulation first |
 | TV-control backend | Changes TV settings using Samsung Ex-Link (serial) only, as selected by the owner in D-006 | **Selected cable and TV firmware compatibility not demonstrated** |
 
@@ -102,7 +102,7 @@ Read more:
 | `CLAUDE.md` | One line that makes Claude Code read `AGENTS.md` |
 | `LEDGER.md` | Evidence, decisions, disagreements and outstanding tests |
 | `docs/` | Documentation and research archive — see [docs/README.md](docs/README.md) |
-| `tv_autocal/` and `tests/` | Hardware-free T-009 protocol prototype and manually run software tests |
+| `tv_autocal/` and `tests/` | Hardware-free protocol prototype, off-screen renderer, simulated controller and manual software tests |
 | `.github/PULL_REQUEST_TEMPLATE.md` | The checklist every pull request fills in |
 | `.gitignore` | Files git must never store here, such as temporary files, passwords and private settings |
 
