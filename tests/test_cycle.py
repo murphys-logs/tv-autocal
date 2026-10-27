@@ -2,6 +2,7 @@
 
 from dataclasses import FrozenInstanceError
 import unittest
+from unittest.mock import patch
 
 from tv_autocal.cycle import (
     CommandReply, CycleState, MeasurementController, MeterSample,
@@ -33,7 +34,7 @@ class CycleTests(unittest.TestCase):
         self.assertEqual(c.original_level, 50)
         self.assertEqual(tv.commands, ())
         self.assertEqual([e.action for e in c.events], [
-            "capture_original", "begin", "inspect", "exit", "wait",
+            "begin", "inspect", "capture_original", "exit", "wait",
         ])
         clock.advance(2000)
         self.assertEqual(c.poll(), CycleState.READY)
@@ -54,6 +55,29 @@ class CycleTests(unittest.TestCase):
         self.assertEqual([r.read_started_ms for r in c.records], [2000, 4000, 6000])
         self.assertEqual([e.action for e in c.events if e.phase is Phase.CHANGE], [
             "begin", "set", "reply", "inspect", "exit", "wait", "read", "accepted",
+        ])
+
+    def test_baseline_inspection_precedes_ground_truth_check_and_original_capture(self):
+        c, _, _, _ = self.make_controller()
+        original_inspect, original_level = SimulatedTV.inspect, SimulatedTV.level
+        accesses = []
+
+        def observe(tv):
+            accesses.append("inspect")
+            self.assertIsNone(c.original_level)
+            return original_inspect(tv)
+
+        def ground_truth(tv):
+            accesses.append("ground_truth")
+            self.assertIsNone(c.original_level)
+            return original_level.fget(tv)
+
+        with patch.object(SimulatedTV, "inspect", observe), patch.object(SimulatedTV, "level", property(ground_truth)):
+            c.start_baseline()
+        self.assertEqual(accesses, ["inspect", "ground_truth"])
+        self.assertEqual(c.original_level, 50)
+        self.assertEqual([(e.action, e.detail, e.phase) for e in c.events[1:3]], [
+            ("inspect", "50", Phase.BASELINE), ("capture_original", "50", Phase.BASELINE),
         ])
 
     def test_poll_neither_advances_time_nor_reads_before_wait_boundary(self):
@@ -167,8 +191,13 @@ class CycleTests(unittest.TestCase):
                 c.start_baseline()
                 self.assertEqual(c.state, CycleState.STOPPED)
                 self.assertEqual(c.records[0].phase, Phase.BASELINE)
+                self.assertIsNone(c.original_level)
+                self.assertEqual(c.records[0].target_level, step.menu_value)
                 self.assertIsNone(c.records[0].read_started_ms)
+                self.assertNotIn("capture_original", [e.action for e in c.events])
                 self.assertNotIn("exit", [e.action for e in c.events])
+                if step.menu_available:
+                    self.assertIn("simulator invariant", c.records[0].reason)
                 clock.advance(2000)
                 c.poll()
                 self.assertEqual(meter.reads, 0)
@@ -352,16 +381,17 @@ class CycleTests(unittest.TestCase):
         self.assertEqual(meter.reads, 2)
         self.assertEqual(tv.commands, ())
 
-    def test_simulated_interference_before_repeat_is_detected(self):
+    def test_simulator_ground_truth_invariant_rejects_interference_before_repeat(self):
         c, clock, tv, meter = self.make_controller()
         self.baseline(c, clock)
         tv.prepare(None)
         c.repeat()
         self.assertEqual(c.state, CycleState.STOPPED)
         self.assertFalse(c.records[-1].accepted)
+        self.assertIn("simulator invariant", c.records[-1].reason)
         self.assertEqual(meter.reads, 1)
 
-    def test_simulated_interference_during_wait_or_read_stops(self):
+    def test_simulator_ground_truth_invariant_rejects_interference_during_wait_or_read(self):
         for reading in (False, True):
             with self.subTest(reading=reading):
                 c, clock, tv, meter = self.make_controller((MeterSample((1, 2, 3), after_ms=50),))
@@ -376,16 +406,83 @@ class CycleTests(unittest.TestCase):
                 self.assertTrue(c.restoration_required)
                 self.assertEqual(meter.reads, int(reading))
                 self.assertFalse(c.records[-1].accepted)
+                self.assertIn("simulator invariant", c.records[-1].reason)
 
-    def test_attempt_limit_prevents_another_setter(self):
-        c, clock, tv, meter = self.make_controller(max_attempts=1)
+    def test_first_setter_requires_budget_for_change_and_restoration(self):
+        for limit, repeats in ((1, 0), (2, 0), (3, 1)):
+            with self.subTest(limit=limit, repeats=repeats):
+                c, clock, tv, meter = self.make_controller(max_attempts=limit)
+                self.baseline(c, clock)
+                for _ in range(repeats):
+                    c.repeat()
+                    clock.advance(2000)
+                    c.poll()
+                before = (c.events, c.records, tv.commands, tv.level, tv.menu_open, meter.reads)
+                with self.assertRaisesRegex(RuntimeError, "reserved.*restoration"):
+                    c.measure_change(49)
+                self.assertEqual(c.state, CycleState.READY)
+                self.assertFalse(c.restoration_required)
+                self.assertEqual((c.events, c.records, tv.commands, tv.level, tv.menu_open, meter.reads), before)
+                if limit > 1:
+                    c.restore()
+                    clock.advance(2000)
+                    self.assertEqual(c.poll(), CycleState.COMPLETE)
+                    self.assertEqual(len(c.records), limit)
+
+    def test_last_attempt_is_reserved_after_change_and_restore_completes(self):
+        c, clock, tv, meter = self.make_controller(max_attempts=3)
         self.baseline(c, clock)
         c.measure_change(49)
-        self.assertEqual(c.state, CycleState.STOPPED)
-        self.assertEqual(tv.commands, ())
-        self.assertEqual(meter.reads, 1)
-        self.assertEqual(len(c.records), 1)
-        self.assertIn("attempt limit", c.events[-1].detail)
+        clock.advance(2000)
+        self.assertEqual(c.poll(), CycleState.READY)
+        before = (c.events, c.records, tv.commands, tv.level, tv.menu_open, meter.reads)
+        for action in (c.repeat, lambda: c.measure_change(48)):
+            with self.subTest(action=action), self.assertRaisesRegex(RuntimeError, "reserved.*restoration"):
+                action()
+            self.assertEqual(c.state, CycleState.READY)
+            self.assertTrue(c.restoration_required)
+            self.assertEqual((c.events, c.records, tv.commands, tv.level, tv.menu_open, meter.reads), before)
+        c.restore()
+        clock.advance(2000)
+        self.assertEqual(c.poll(), CycleState.COMPLETE)
+        self.assertEqual(tv.level, 50)
+        self.assertEqual(tv.commands, (49, 50))
+        self.assertFalse(c.restoration_required)
+        self.assertEqual([r.phase for r in c.records], [Phase.BASELINE, Phase.CHANGE, Phase.RESTORE])
+        self.assertEqual(meter.reads, 3)
+
+    def test_repeat_after_change_preserves_target_and_patch_and_allows_restore(self):
+        c, clock, tv, meter = self.make_controller((MeterSample((1, 2, 3)),) * 4, max_attempts=4)
+        self.baseline(c, clock)
+        c.measure_change(49, (13, 26, 51))
+        clock.advance(2000)
+        self.assertEqual(c.poll(), CycleState.READY)
+        c.repeat()
+        clock.advance(1999)
+        self.assertEqual(c.poll(), CycleState.WAITING)
+        self.assertEqual(meter.reads, 2)
+        clock.advance(1)
+        self.assertEqual(c.poll(), CycleState.READY)
+        self.assertEqual((c.records[-1].phase, c.records[-1].target_level, c.records[-1].patch_rgb),
+                         (Phase.REPEAT, 49, (13, 26, 51)))
+        self.assertEqual(tv.commands, (49,))
+        c.restore()
+        clock.advance(2000)
+        self.assertEqual(c.poll(), CycleState.COMPLETE)
+        self.assertEqual(len(c.records), 4)
+
+    def test_attempt_limit_stop_identifies_refused_phase(self):
+        for phase in (Phase.REPEAT, Phase.RESTORE):
+            with self.subTest(phase=phase):
+                c, clock, tv, meter = self.make_controller(max_attempts=1)
+                self.baseline(c, clock)
+                (c.repeat if phase is Phase.REPEAT else c.restore)()
+                self.assertEqual(c.state, CycleState.STOPPED)
+                self.assertEqual((c.events[-1].action, c.events[-1].phase), ("stop", phase))
+                self.assertIn("attempt limit", c.events[-1].detail)
+                self.assertEqual(len(c.records), 1)
+                self.assertEqual(tv.commands, ())
+                self.assertEqual(meter.reads, 1)
 
     def test_invalid_rgb_and_target_rejected_before_mutation(self):
         invalid_rgb = ([], (0, 0), (0, 0, 256), (False, 0, 0), (0.5, 0, 0))

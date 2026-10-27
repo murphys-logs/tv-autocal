@@ -2,7 +2,7 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 27 October 2026: PR #21 merged; off-screen rendering and a simulated measurement controller prepared for independent review.**
+> **Status, 27 October 2026: PR #21 merged; renderer/controller review fixes prepared for independent re-review.**
 > The full calibration application is not built. All implemented components are software-only; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 

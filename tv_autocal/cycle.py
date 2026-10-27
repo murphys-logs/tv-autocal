@@ -183,11 +183,12 @@ class MeasurementRecord:
 
     ``sample_due_ms`` and ``read_deadline_ms`` are None before a read starts.
     ``completed_ms`` records actual finalisation, including a delayed poll.
+    ``target_level`` is None if the baseline menu value was unavailable.
     """
 
     attempt: int
     phase: Phase
-    target_level: int
+    target_level: int | None
     patch_rgb: tuple[int, int, int]
     started_ms: int
     read_started_ms: int | None
@@ -210,6 +211,10 @@ class MeasurementController:
     Restoration is permitted only on the normal successful path; cancellation
     and errors never initiate a setter, retry or recovery. This simulator is
     not a transport implementation or a guarantee about a real menu/overlay.
+    Ground-truth invariants read the fake's level/menu state; those checks are
+    unavailable to a real controller and are not evidence of device readback.
+    Changes and post-setter repeats must leave one attempt for restoration;
+    a refused request raises before mutation and leaves the controller READY.
     """
 
     def __init__(
@@ -235,7 +240,7 @@ class MeasurementController:
         self._original: int | None = None
         self._restoration_required = False
         self._phase: Phase | None = None
-        self._target = 0
+        self._target: int | None = None
         self._patch = (0, 0, 0)
         self._baseline_patch = (0, 0, 0)
         self._started_ms = 0
@@ -272,8 +277,12 @@ class MeasurementController:
         if self._state is not state:
             raise RuntimeError("Action is not allowed while " + self._state.value)
 
-    def _begin(self, phase: Phase, target: int, patch_rgb: tuple[int, int, int]) -> None:
+    def _begin(self, phase: Phase, target: int | None, patch_rgb: tuple[int, int, int]) -> None:
+        reserve_restore = phase is Phase.CHANGE or (phase is Phase.REPEAT and self._restoration_required)
+        if reserve_restore and len(self._records) >= self._max_attempts - 1:
+            raise RuntimeError("The final attempt is reserved for explicit restoration")
         if len(self._records) >= self._max_attempts:
+            self._phase = phase
             self._stop("attempt limit reached")
             return
         self._phase, self._target, self._patch = phase, target, patch_rgb
@@ -283,8 +292,9 @@ class MeasurementController:
         self._pending = True
         self._event("begin", "RGB " + str(patch_rgb))
         if phase is Phase.REPEAT:
+            # Simulator ground truth only; a real adapter cannot supply this check.
             if self._tv.menu_open or self._tv.level != target:
-                self._stop("simulated state changed since the preceding exit")
+                self._stop("simulator invariant: state changed since the preceding exit")
                 return
         else:
             command = None if phase is Phase.BASELINE else target
@@ -299,7 +309,18 @@ class MeasurementController:
                     return
             observed = self._tv.inspect()
             self._event("inspect", str(observed))
-            if observed != target:
+            if phase is Phase.BASELINE:
+                self._target = observed
+                if observed is None:
+                    self._stop("simulated baseline menu value is unavailable")
+                    return
+                # A fixture consistency check, not real-device setting readback.
+                if observed != self._tv.level:
+                    self._stop("simulator invariant: baseline observation differs from ground truth")
+                    return
+                self._original = observed
+                self._event("capture_original", str(observed))
+            elif observed != target:
                 self._stop("simulated menu value is unavailable or differs from target")
                 return
             exited = self._tv.exit_menu()
@@ -314,10 +335,8 @@ class MeasurementController:
     def start_baseline(self, patch_rgb: tuple[int, int, int] = (128, 128, 128)) -> None:
         self._require(CycleState.NEW)
         _rgb(patch_rgb)
-        self._original = self._tv.level
         self._baseline_patch = patch_rgb
-        self._event("capture_original", str(self._original))
-        self._begin(Phase.BASELINE, self._original, patch_rgb)
+        self._begin(Phase.BASELINE, None, patch_rgb)
 
     def measure_change(self, level: int, patch_rgb: tuple[int, int, int] = (128, 128, 128)) -> None:
         self._require(CycleState.READY)
@@ -347,6 +366,7 @@ class MeasurementController:
             self._pending = False
 
     def _stop(self, reason: str, xyz: tuple[float, float, float] | None = None) -> None:
+        # Simulator ground truth only; no physical drift detection is implemented.
         if self._original is not None and self._tv.level != self._original:
             self._restoration_required = True
         self._record(False, reason, xyz)
@@ -366,8 +386,9 @@ class MeasurementController:
         """
         if self._state not in (CycleState.WAITING, CycleState.READING):
             return self._state
+        # Simulator ground truth only; real menu/setting state is not observable here.
         if self._tv.menu_open or self._tv.level != self._target:
-            self._stop("simulated menu or setting changed during wait/read")
+            self._stop("simulator invariant: menu or setting changed during wait/read")
             return self._state
         now = self._clock.milliseconds
         if self._state is CycleState.WAITING:

@@ -5,7 +5,7 @@
 
 This page puts the work in order: what has to be known, tested or decided before the next step can start, and what would make each step stop.
 
-**Preparation update, 27 October 2026:** owner checks T-001/T-002 are recorded. The [T-003](tests/T-003-meter.md), [T-005](tests/T-005-signal-path.md) and [T-006](tests/T-006-exlink.md) plans and [T-009 prototype](software/t009-prototype.md) were independently reviewed and merged in PR #21. Physical plans remain **NOT AUTHORISED**, with execution prerequisites stated in each. The new [off-screen renderer and simulated controller](software/renderer-cycle.md) address part of Stage 3 and await independent review. No physical stage has passed.
+**Preparation update, 27 October 2026:** owner checks T-001/T-002 are recorded. The [T-003](tests/T-003-meter.md), [T-005](tests/T-005-signal-path.md) and [T-006](tests/T-006-exlink.md) plans and [T-009 prototype](software/t009-prototype.md) were independently reviewed and merged in PR #21. Physical plans remain **NOT AUTHORISED**, with execution prerequisites stated in each. The [off-screen renderer and simulated controller](software/renderer-cycle.md) address part of Stage 3; PR #22 review fixes await independent re-review. No physical stage has passed.
 
 ## What stays fixed
 
