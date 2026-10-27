@@ -165,7 +165,7 @@ Each rule has one home, and other files link to it instead of restating it.
 | `docs/tests/` | Plans, authorisations and results of tests on the owner's equipment |
 | `docs/software/` | Software-only design proposals, validation records and limits |
 | `docs/reviews/` | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
-| `tv_autocal/` | Software-only protocol prototype, off-screen renderer and simulated measurement controller |
+| `tv_autocal/` | Software-only protocol, renderer, toy cycle and offline presentation/meter/audit integration contracts |
 | `tests/` | Hardware-free software tests, including simulation and containment checks |
 | `.github/PULL_REQUEST_TEMPLATE.md` | Review checklist for every pull request |
 

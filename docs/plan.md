@@ -5,7 +5,7 @@
 
 This page puts the work in order: what has to be known, tested or decided before the next step can start, and what would make each step stop.
 
-**Preparation update, 27 October 2026:** owner checks T-001/T-002 are recorded. The [T-003](tests/T-003-meter.md), [T-005](tests/T-005-signal-path.md) and [T-006](tests/T-006-exlink.md) plans and [T-009 prototype](software/t009-prototype.md) were independently reviewed and merged in PR #21. Physical plans remain **NOT AUTHORISED**, with execution prerequisites stated in each. The [off-screen renderer and simulated controller](software/renderer-cycle.md) address part of Stage 3; PR #22 review fixes await independent re-review. No physical stage has passed.
+**Preparation update, 27 October 2026:** owner checks T-001/T-002 are recorded. The [T-003](tests/T-003-meter.md), [T-005](tests/T-005-signal-path.md) and [T-006](tests/T-006-exlink.md) plans and [T-009 prototype](software/t009-prototype.md) were independently reviewed and merged in PR #21. The [off-screen renderer and simulated controller](software/renderer-cycle.md) were reviewed and merged in PR #22. The new [integration contracts and offline tests](software/integration.md) extend Stage 3 and await independent review. Physical plans remain **NOT AUTHORISED**, with execution prerequisites stated in each. No physical stage has passed.
 
 ## What stays fixed
 
@@ -48,6 +48,7 @@ The owner looks things up and reports them. No meter, no Ex-Link connection, no 
 - A simulated TV and meter, the record format for readings, and the design for sending Ex-Link commands: one command at a time, with the first transport following the [stop rules](#stop-rules-for-every-physical-stage) on an unclear result; later policy remains open under X-007. An acknowledgement does not prove the setting changed (C-010), and a repeated step could be applied twice.
 - Exercise change, exit, wait, read with simulated settings, menus and time, including baseline preparation, menu inspections and restoration. A failed or uncertain exit must not silently permit a reading. These software checks cannot prove real TV behaviour or detect unexpected overlays.
 - T-014 checks the off-screen pattern buffers; T-015 checks the toy measurement cycle and its failures. Their [implementation record](software/renderer-cycle.md) explains scope and evidence. A physical presenter, meter adapter and serial sender are still missing, so the new code does not close the execution gates in Stage 4.
+- T-016 checks [offline integration](software/integration.md): manual patch-only sequencing, presentation ownership, explicit menu observations, source-format meter transcripts and command-byte retention through simulated closure. Its in-memory contracts do not implement a physical presenter, process/serial adapter, real drain interval or hardware readback.
 - **Passes when:** each applicable suite is implemented and run by hand and its passed, failed, skipped and unrun counts are recorded. These are simulations: they never change an equipment test status.
 
 ### Stage 4 — Component tests T-003 to T-006 (each physical step needs its own authorisation)
