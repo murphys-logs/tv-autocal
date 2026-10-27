@@ -1,0 +1,2 @@
+# Keep the reviewed software bytes stable on Windows for verification hashes.
+*.py text eol=lf

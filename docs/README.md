@@ -9,6 +9,7 @@
 | [briefs/](briefs/) | The owner's instructions to the agents, archived word for word |
 | [research/](research/README.md) | Research material — reports, critiques and references — archived with its provenance |
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
+| [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
 | [reviews/](reviews/README.md) | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
 
 ## Two rules for this folder

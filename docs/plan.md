@@ -5,6 +5,8 @@
 
 This page puts the work in order: what has to be known, tested or decided before the next step can start, and what would make each step stop.
 
+**Preparation update, 27 October 2026:** owner checks T-001/T-002 are recorded. Draft [T-003](tests/T-003-meter.md), [T-005](tests/T-005-signal-path.md) and [T-006](tests/T-006-exlink.md) plans await independent review and remain **NOT AUTHORISED**, with execution prerequisites stated in each. The bounded [T-009 software prototype](software/t009-prototype.md) has been checked locally; it is not a physical sender, pattern generator or the broader simulated TV/meter and measurement-cycle controller proposed below. No physical stage has passed.
+
 ## What stays fixed
 
 - **TV control is Samsung Ex-Link only** (D-006). Whether it works on this TV is not known (C-005).
