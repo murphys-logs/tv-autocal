@@ -23,6 +23,37 @@ class MeterOutputTests(unittest.TestCase):
         with self.assertRaises(FrozenInstanceError):
             result.accepted = False
 
+    def test_source_prompt_branch_with_both_result_forms_and_line_endings(self):
+        # S-043, ArgyllCMS V3.5.0 spectro/spotread.c:2189-2207.
+        # One authored manual/no-reference/no-target/no-switch fixture branch,
+        # with SALONEINSTLIB unset; not a captured or predicted Spyder5 transcript.
+        # numlib/numsup.c:208,223 defines fl_end as the empty string.
+        prompt = (
+            b"\nPlace instrument on spot to be measured,\n"
+            b"and hit [A-Z] to read white and setup FWA compensation (keyed to letter)\n"
+            b"[a-z] to read and make FWA compensated reading from keyed reference\n"
+            b"'r' to set reference, 's' to save spectrum,\n"
+            b"'f' to report cal. refresh rate, 'F' to measure refresh rate\n"
+            b"'h' to toggle high res., 'k' to do a calibration\n"
+            b"Hit ESC or Q to exit, any other key to take a reading: "
+        )
+        results = (
+            ("D50 Lab", VALID),
+            ("Yxy", b"\n Result is XYZ: 10.000000 20.000000 30.000000, "
+             b"Yxy: 20.000000 0.166667 0.333333\n"),
+        )
+        for output_format, result_line in results:
+            for newline in (b"\n", b"\r\n"):
+                with self.subTest(output_format=output_format, newline=newline):
+                    stdout = (prompt + result_line).replace(b"\n", newline)
+                    result = parse_meter_output(stdout, b"", 0)
+                    self.assertTrue(result.accepted)
+                    self.assertEqual(result.xyz, (10.0, 20.0, 30.0))
+                    self.assertEqual(result.output_format, output_format)
+                    self.assertIs(result.stdout, stdout)
+                    self.assertEqual((result.stderr, result.exit_code), (b"", 0))
+                    self.assertTrue(result.simulated)
+
     def test_numeric_fixture_notation_and_finite_zero_negative_values(self):
         stdout = b" Result is XYZ: -0.5 +2e1 .0, D50 Lab: 1. 2E-2 -3\n"
         result = parse_meter_output(stdout, b"", 0)
