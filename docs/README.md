@@ -9,6 +9,7 @@
 | [briefs/](briefs/) | The owner's instructions to the agents, archived word for word |
 | [research/](research/README.md) | Research material — reports, critiques and references — archived with its provenance |
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
+| [tests/component-execution.md](tests/component-execution.md) | Shared draft execution amendment: source/runtime identities, proposed display arrangement, authorisation records and unresolved inputs |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
 | [software/renderer-cycle.md](software/renderer-cycle.md) | Off-screen renderer, simulated change/exit/wait/read controller, technical choices and manual checks |
 | [software/integration.md](software/integration.md) | Offline presentation, meter transcript, command-audit and observation contracts, with technical choices and verification |

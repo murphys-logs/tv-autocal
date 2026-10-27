@@ -2,9 +2,11 @@
 
 > **Status: draft plan for independent review — NOT AUTHORISED. Do not carry out any step.**
 > No instrument, display, receiver or cable was operated while preparing this plan. The owner's request to prepare it is not permission to run it.
-> **Execution blockers:** independent review, explicit owner authorisation, and the reviewed patch renderer required for steps 5–11. No patch renderer is supplied by T-009.
+> **Execution blockers:** independent review of this execution amendment, unresolved local/display inputs listed below, and explicit owner authorisation. The component presenter and meter runner are implemented and reviewed, but their Windows/equipment paths remain untested.
 
 Author: Codex (OpenAI), 27 October 2026. Baseline: `ba099e0a182713945c247636042286e6f9dca626`. Numerical limits below are **AI: Codex diagnostic proposals**, not published accuracy guarantees or owner decisions.
+
+Execution amendment: Codex (OpenAI), 27 October 2026, against merged software `45ef2c28cfcb271d2f1f3373be4082706ba775a8` (PRs #24/#25). The [shared execution record](component-execution.md) is part of this proposed plan. This software commit identifies the tools, **not the future reviewed plan revision or an authorisation**.
 
 ## 1. Purpose
 
@@ -20,9 +22,12 @@ This addresses C-002, the access portion of C-041, C-056, C-068 and X-011. It co
 | Independent review and owner authorisation | Pending. Authorisation must identify this plan's reviewed commit, date and exact steps. Discovery-only steps 1–4 may be authorised separately. |
 | Meter installation | ArgyllCMS V3.5.0 is reportedly unpacked; USB driver access has not been demonstrated. Driver installation, replacement, `oeminst` and vendor-data extraction are outside this plan. Discovery failure stops the session for a separate proposal. |
 | Serial-device isolation | Before **any** ArgyllCMS launch, including `spotread -?`, the owner must record and disconnect the Ex-Link cable's **USB end from the PC** and keep its TV end disconnected. It stays disconnected throughout this test. If another non-meter serial device is connected, stop for a scope amendment; do not discover it by probing. |
-| Reviewed patch renderer for steps 5–11 | **Missing.** Before authorisation of these steps, a reviewed amendment must identify the exact renderer/version or commit, executable/file SHA-256, launch/close procedure, display selection and software verification of its RGB buffers and geometry. It must implement the fixed patch sequence below without unattended changes or TV control. A browser, image viewer or an unspecified DisplayCAL window is not an interchangeable substitute. |
+| Presenter and meter runner for steps 5–11 | Reviewed component source and hashes are identified in the [shared software record](component-execution.md#reviewed-software-and-local-inputs). This amendment supplies the sequence/launch mapping below. Actual Python/Tk/driver availability, the installed Argyll executable identity and the display workflow remain unverified; no substitute renderer or direct measurement launch is permitted. |
+| **Unresolved owner input — display/console arrangement (Q-019)** | The owner can, and probably will, connect a second screen; this is a proposal, not confirmation that it is connected. Confirm the final arrangement, TV coordinates and console placement through the [display procedure](component-execution.md#display-and-console-arrangement). Connection or display-setting changes are not carried out by this amendment. |
 | Timing and diagnostic scope | Owner accepts the proposed 2.0-second minimum wait and section 7 limits for this test (Q-008). This does not settle a production delay. Q-014's existing Movie/HDMI 4/dim-room preference is sufficient; do not adjust brightness to achieve 140–160 cd/m² here. |
 | Correction policy | This plan uses Argyll's generic calibration with no external `-X` file or inherited correction environment variables. Follow the [isolated launch environment](#isolated-launch-environment). The owner must explicitly accept these **uncorrected diagnostic readings only** within this plan. Q-001/T-004/Q-016 remain open for calibration. |
+
+**Still needed from the owner before execution:** final display/console arrangement for steps 5–11; acceptance of the proposed wait, diagnostic thresholds and generic readings; and dated permission for exact reviewed steps. The [shared unresolved-input list](component-execution.md#unresolved-inputs) separates these decisions from missing installation/evidence records. Discovery-only steps 1–4 do not require a presenter, but still require their own review, isolation, executable identity and authorisation.
 
 T-005 need not pass before these initial relative meter checks: the unchanged signal path is recorded as unvalidated. T-006 is not a prerequisite because the owner exits menus manually. Neither arrangement authorises Ex-Link operation or a later test.
 
@@ -75,13 +80,35 @@ Every action below is a **future authorised action**, not an instruction to exec
 2. **Owner:** record section 3 baselines. For discovery-only authorisation leave TV/receiver settings unchanged. Connect the Spyder5 to the existing PC USB port if not already connected; record the driver name/version already shown by Windows Device Manager, without installing or changing it. If an installation prompt appears, stop.
 3. **Owner:** after rechecking both Ex-Link ends are disconnected and the isolated environment, run exactly `spotread.exe -?` using the identified executable. This is **instrument/port discovery and a physical step**: it can open and write to serial devices during discovery. Record the version, discovered instrument and selectable display types with device identifiers kept private. Stop if Spyder5 is absent, the device is ambiguous, the version differs from 3.5.0 or generic non-refresh type is unavailable. Do not guess a `-c` index or use the Ex-Link COM port.
 4. **Owner and agent:** if only discovery was authorised, stop here and record the discovery result. After the discovery process exits normally, close the dedicated console and restore the initial meter connection arrangement; leave Ex-Link disconnected and TV/receiver settings unchanged. If the process remains outstanding or failed unexpectedly, use the stop procedure instead. No readings or TV patterns are permitted. For further steps, confirm the renderer prerequisite and explicit authorisation are satisfied, with exactly one supported measurement instrument available and the command's default instrument unambiguous.
-5. **Owner:** record start time and whether the TV was already warm. If needed, turn it on with its normal remote, select HDMI 4 and Movie mode, and record the Movie settings without changing numerical controls. Set up the agreed dim room and mount the Spyder5 at the renderer's centre using the counterweight, without pressing it into the panel. Start the pinned renderer in the recorded output configuration; show `RGB 128,128,128`. Exit normal TV/receiver menus using the owner-operated remotes and wait at least **2.0 seconds** after menus have disappeared and the patch is stable. If an unexpected overlay/menu appears, stop; no automated screen check is claimed.
-6. **Owner:** with that patch unchanged, take one initial reading using the command described below. Record actual finite XYZ/Yxy output and process completion. If output is calibration-only, erroneous, incomplete, non-finite or names the wrong instrument, reject the attempt and stop; do not repeat automatically. A valid initial reading establishes access only, not repeatability or accuracy.
+5. **Owner:** record start time and whether the TV was already warm. If needed, turn it on with its normal remote, select HDMI 4 and Movie mode, and record the Movie settings without changing numerical controls. Set up the agreed dim room and mount the Spyder5 at the renderer's centre using the counterweight, without pressing it into the panel. Launch the presenter using the [execution mapping](#reviewed-tool-execution-mapping); confirm its target with **C**, then press/release **Space** once to apply frame 1, `RGB 128,128,128`. Exit normal TV/receiver menus using the owner-operated remotes and wait at least **2.0 seconds** after menus have disappeared and the patch is stable. If an unexpected overlay/menu appears, stop; no automated screen check is claimed.
+6. **Owner:** with that patch unchanged, launch one meter-runner attempt with purpose `initial-access`, using the mapping below. Record actual finite XYZ/Yxy output and process completion. If output is calibration-only, erroneous, incomplete, non-finite or names the wrong instrument, reject the attempt and stop; do not repeat automatically. A valid initial reading establishes access only, not repeatability or accuracy.
 7. **Owner:** retain the mid-grey patch and fixed setup. At **30, 35 and 40 minutes after step 5**, take **five consecutive readings per block**, each separately launched and logged. Record actual times; if a block takes longer than its five-minute slot, finish that block normally and stop the schedule as timing-inconclusive. The minimum 2.0-second wait applies before every new reading, including unchanged-patch repeats. At the end of the three blocks apply section 7's stability limits. If they fail, end the session; do not extend warm-up or loosen limits during the run.
 8. **Owner:** once step 7 passes, display each of `RGB 255,255,255`, `51,51,51`, `26,26,26`, `13,13,13`, `5,5,5`, and `0,0,0` in that order, with the same geometry and surround. After each change, ensure the previously established menu exit remains complete, wait at least 2.0 seconds and take **five readings**. No menu or numerical control changes occur. The low-light sequence intentionally probes noise: a finite result that fails the predefined low-light reliability criterion is retained as diagnostic data, not silently dropped. Hardware/protocol errors or other stop events still end the session immediately.
 9. **Owner:** return to `RGB 128,128,128`, wait at least 2.0 seconds and take **five final readings**. Compare with the final warm-up block using section 7. A failed end check makes the range assessment inconclusive, without erasing the initial access result.
 10. **Owner and agent:** retain all attempts, including rejected ones. Record the passing code range and any failed/indistinguishable low-light patches, without extrapolating below the tested codes or adopting a black-level value. Do not adjust the TV in response to results.
 11. **Owner:** complete normal restoration from section 3, record each restoration, and stop. There are at most **51 reading launches** (one initial, 15 warm-up, 30 range, five final). Do not add a repeat run, new correction or recovery sequence under this authorisation.
+
+### Reviewed tool execution mapping
+
+These are **argument specifications for future review and authorisation, not commands to run now**. Use the source-run `tv_autocal_tools` entry point and exact interpreter recorded in the [shared software record](component-execution.md#reviewed-software-and-local-inputs). Every tool launch also needs the common `--hardware`, `--permit`, exact `--confirm` and fresh `--log` fields defined in the [authorisation/launch record](component-execution.md#authorisation-and-launch-record), with plan `T-003`. All unresolved values stay labelled **UNRESOLVED**; do not substitute this preparation request as permission.
+
+| Tool | Required plan-specific argument values |
+|---|---|
+| `present` — one run for steps 5–10 | `--sequence t003`; `--x` and `--y` are the confirmed, nonnegative TV desktop origin, currently **UNRESOLVED**. Use a fresh presenter journal under `local/T-003/`. |
+| `meter` — one run per scheduled attempt | `--executable` and `--sha256` identify the locally reviewed Argyll V3.5.0 executable; `--attempt-log` is a fresh simple filename directly under `local/T-003/`, different from the evidence `--log`; `--presentation-log` names the still-open presenter journal; `--presentation-sequence`, `--rgb` and `--purpose` come from the table below. Use `--wait-ms 2000 --timeout-ms 60000` only after owner acceptance; include `--isolated --exit-confirmed --discovery-confirmed` only when each statement is true. |
+
+The meter tool performs **no discovery**. Step 3's separately authorised `spotread.exe -?` remains outside the wrapper and must finish successfully before `--discovery-confirmed` can be used. Discovery output, its exit state and exact executable hash belong in the private evidence record; no help/discovery was run while preparing this amendment.
+
+| Plan step | Presenter frame (`--presentation-sequence`) | `--rgb` | `--purpose` | Maximum attempts |
+|---|---:|---|---|---:|
+| 6 | 1 | `128,128,128` | `initial-access` | 1 |
+| 7, 30 / 35 / 40 minutes | 1, held without advance | `128,128,128` | `warmup-30` / `warmup-35` / `warmup-40` | 5 each |
+| 8 | 2 / 3 / 4 / 5 / 6 / 7 | `255,255,255` / `51,51,51` / `26,26,26` / `13,13,13` / `5,5,5` / `0,0,0` | `range` | 5 per frame |
+| 9 | 8 | `128,128,128` | `end-check` | 5 |
+
+Before each launch, match the intended RGB and frame number to the journal's latest `pattern_present_intent` and completed `pattern_buffer_applied` pair. The frame number is the event's **`fields.sequence`**, not the journal's top-level event counter. The runner checks the renderer hash and this receipt before and after the attempt; a receipt is not proof the display is still visible. Keep the patch unobstructed and unchanged until the meter runner has finished and its evidence has been checked. Do not advance or close the presenter while an attempt is outstanding.
+
+After each completed block, focus the presenter only when no reading is outstanding and use one press/release of **Space** or **Right** per next frame. Held keys do not intentionally advance multiple frames. There is no automatic schedule and no restart after failure. After all final readings and evidence checks, **Escape** closes; advancing after frame 8 also closes. Confirm window disappearance, `presenter_closed`, normal CLI exit and the final `journal-close` record; an absent or failed record leaves completion unconfirmed. The presenter's three-hour lifetime is a proposed hard stop: expiry rejects an affected reading, never permits a restart or authorises ignoring an outstanding process. Its native geometry check does not establish HDMI fidelity or absence of overlays.
 
 ### Isolated launch environment
 
@@ -89,19 +116,23 @@ These are future authorised preparation steps, not actions during review. Use on
 
 Omitting `-X` alone is insufficient: `spotread.c` lines 1150–1158 and `doc/Environment.html` lines 128–136 in S-037 show that these variables can supply a default correction. No correction file is loaded or inspected as part of this test.
 
-**Allowlisted measurement invocation, for steps 6–9 only:**
+**Allowlisted child invocation made by the meter runner, for steps 6–9 only:**
 
 ```text
 spotread.exe -O -e -x -Y n <unique-local-attempt.log>
 ```
 
-The path and logfile are resolved in the authorised local session, never by copying this placeholder. Put the logfile last, **not immediately after `-O`**, which has an optional spectrum filename. Use a fresh logfile per attempt under ignored `local/T-003/`; retain console output and exit status too. No shell script is supplied by this plan. `-e` selects emissive readings; `-x` requests Yxy display; uppercase `-Y n` forces non-refresh mode. The documented Spyder5 default uses generic non-refresh calibration. No external correction (`-X` or either environment default) or unsupported no-calibration option (`-N`) is used.
+This describes the runner's fixed child argument list; it is **not an alternative direct-launch procedure**. The path/hash and fresh logfile are resolved in the authorised local record, never by copying this placeholder. The wrapper places the logfile last, **not immediately after `-O`**, removes both correction defaults from a copy of its environment, and records raw output and exit evidence in its separate journal. `-e` selects emissive readings; `-x` requests Yxy display; uppercase `-Y n` forces non-refresh mode. The documented Spyder5 default uses generic non-refresh calibration. No external correction (`-X` or either environment default) or unsupported no-calibration option (`-N`) is used.
 
 ### Stopping and an outstanding reading
 
 `-O` can perform one calibration or measurement and exit; require an actual XYZ result. Do not answer an unexpected calibration prompt or send keys as an improvised workaround. A normal stop means launch no more readings and let an in-flight reading finish before closing its console. The owner may request an immediate stop at any time.
 
 If a launch has not returned within **60 seconds**, record a diagnostic timeout and stop the test schedule. Report whether the process is still running; do not automatically kill it, restart it or replug the meter. The owner can choose to leave it running to finish, or stop their PC activity by closing the console, ending the process or shutting down. Those actions may abort the driver; none is asserted to be a safe meter reset. Record any owner-directed interruption and reject that unfinished attempt. The agent does not continue an indefinite test or initiate a recovery. Before any further project meter operation, review the outstanding state and obtain specific authorisation for a recovery/resumption procedure. This deadline is a workflow limit, not an established measurement-duration bound.
+
+For wrapped readings, follow the [meter attempt and closure procedure](component-execution.md#meter-attempt-and-closure). A timeout or Ctrl+C rejects the attempt while the wrapper remains attached to the child and drains output; it does not promise shutdown by 60 seconds. Keep the held patch and both consoles until normal completion unless the owner chooses an interruption. The owner can stop at any time. A disappearing presenter, three-hour expiry or any interruption makes the affected reading unusable and stops further work; do not extend the presenter lifetime or reopen it to salvage the attempt.
+
+The final meter JSON has **no `closed` field**. Retain `exit_code`, `accepted`, `reason`, `timed_out`, `cancelled`, `capture_complete` and `log_complete`, together with raw stream events, `meter_exit`, the CLI outcome and the final `journal-close` record. JSON is printed before final journal closure; `accepted: true` alone is insufficient if that closure subsequently fails. Missing/failed closure evidence or an outstanding process is not successful completion, and no software flag proves driver or equipment safety. Discovery is not supervised by this runner; retain its separate terminal result and treat unknown completion under the same stop boundary.
 
 ## 6. What will be recorded
 
@@ -148,7 +179,8 @@ Thus code 5 needs separation from code 0 as well as code 13; if 0→5 fails but 
 - Conditions or limits: not yet recorded
 - Acceptance of proposed diagnostic thresholds and 2.0-second wait: not granted
 - Acceptance of generic, uncorrected diagnostic readings: not granted
-- Renderer revision/hash and launch/close procedure accepted for steps 5–11: not yet supplied
+- Component source revision/hash: identified above; local interpreter/Tk/Argyll identities and display/console record remain unresolved
+- Reviewed launch/close procedure accepted for steps 5–11: not granted
 - Date: not authorised
 - Verbatim authorisation: none
 

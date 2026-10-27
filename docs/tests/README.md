@@ -10,11 +10,11 @@ All three plans below are **NOT AUTHORISED** and have **no equipment results**. 
 
 | Plan | Scope | Execution prerequisites still open |
 |---|---|---|
-| [T-003 meter](T-003-meter.md) | Device discovery, actual readings, repeatability, drift and observed usable range | Review/authorisation; reviewed patch renderer before measurement steps |
-| [T-005 signal path](T-005-signal-path.md) | Clipping/stability screening; correct range interpretation remains unproved | Review/authorisation; reviewed renderer; T-003 evidence before optical steps; additional method for Stage 4 range gate |
-| [T-006 Ex-Link](T-006-exlink.md) | Electrical gate, bounded ordinary control, menu exit and restoration | Electrical evidence, scope/restoration and menu-timing amendments, reviewed physical sender, review/authorisation |
+| [T-003 meter](T-003-meter.md) | Device discovery, actual readings, repeatability, drift and observed usable range | Amendment review/authorisation; display arrangement, exact runtime/binary identities, accepted timing and outstanding-process handling |
+| [T-005 signal path](T-005-signal-path.md) | Clipping/stability screening; correct range interpretation remains unproved | Amendment review/authorisation; display/runtime inputs and separate visual runs; T-003 before optical steps; additional method for Stage 4 range gate |
+| [T-006 Ex-Link](T-006-exlink.md) | Electrical gate, bounded ordinary control, menu exit and restoration | Amendment review/authorisation; electrical evidence, scope/restoration, menu timing and exact connection/stop procedures |
 
-The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device. The later [bounded component tools](../software/component-tools.md) add candidate hardware-facing entry points, currently unoperated and awaiting independent review. The plans below have not yet incorporated their exact launch/closure procedures and source/dependency identities; those amendments and the outstanding physical prerequisites are required before authorisation.
+The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device. The [bounded component tools](../software/component-tools.md) were reviewed and merged in PR #24, followed by PR #25's documented console limitation; their hardware paths remain unoperated. The plans now propose execution amendments using those sources and the [shared execution record](component-execution.md). This record distinguishes the pinned software from the still-unfilled reviewed plan revision and local identities. The owner's possible second screen is recorded as a proposal, not a completed setup. [Unresolved inputs](component-execution.md#unresolved-inputs) remain explicit; merging the amendments will not authorise any step.
 
 ## Ground rules
 
