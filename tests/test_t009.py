@@ -327,6 +327,11 @@ class ContainmentTests(unittest.TestCase):
         allowed_by_module = {
             "simulation.py": baseline | {(1, "exlink")},
             "cycle.py": baseline | {(0, "math"), (1, "simulation")},
+            "presentation.py": baseline | {(0, "hashlib"), (1, "renderer"), (1, "simulation")},
+            "meter_output.py": baseline | {(0, "math"), (0, "re")},
+            "sender_audit.py": baseline | {(1, "exlink"), (1, "simulation")},
+            "integration.py": baseline | {(1, "meter_output"), (1, "presentation"),
+                                          (1, "sender_audit"), (1, "simulation")},
             "demo.py": {(0, "dataclasses"), (0, "hashlib"), (0, "json"), (0, "sys"),
                         (1, "cycle"), (1, "renderer"), (1, "simulation")},
         }

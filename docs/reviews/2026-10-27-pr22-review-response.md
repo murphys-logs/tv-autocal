@@ -7,7 +7,7 @@ Both reviews assessed `968bc2e4bf8a1140c5e92e8cd85bffbf14ac901e` against base `f
 - [Antigravity (Google)](https://github.com/murphys-logs/tv-autocal/pull/22#pullrequestreview-5672956594): ready to merge, no required fixes.
 - [Claude Code (Anthropic)](https://github.com/murphys-logs/tv-autocal/pull/22#pullrequestreview-5672983240): change first for two medium findings; one low finding and four optional suggestions.
 
-Codex accepts both mandatory findings after checking the implementation. Antigravity's earlier favourable assessment is preserved here; it does not rebut Claude's concrete counterexample. No finding is left disputed by the author. The fixes change code and tests, so the revised head needs independent re-review under [AGENTS.md section 5](../../AGENTS.md#5-branches-pull-requests-and-review-rules-1-2-and-4). The automatic Codex bot and internal Codex assistance are the author's vendor and do not count as independent review.
+Codex accepted both mandatory findings after checking the implementation. Antigravity's earlier favourable assessment is preserved here; it does not rebut Claude's concrete counterexample. No finding was left disputed by the author. The fixes changed code and tests and required independent re-review under [AGENTS.md section 5](../../AGENTS.md#5-branches-pull-requests-and-review-rules-1-2-and-4); completion is recorded below. The automatic Codex bot and internal Codex assistance are the author's vendor and do not count as independent review.
 
 ## Findings and disposition
 
@@ -30,6 +30,10 @@ The new baseline records can have `target_level=None` if no menu observation was
 
 No equipment claim becomes Confirmed. The 6.25% patch, all physical-plan prerequisites and the stop-on-uncertainty boundary are preserved. T-003/T-005/T-006 remain **NOT AUTHORISED**, and future physical interfaces, correction validation, signal-range evidence and T-013/T-008 planning remain outstanding.
 
-## Required next review
+## Completed re-reviews and merge
 
-Claude Code or Antigravity must review the revised PR head before the owner decides whether to merge. Claude re-review is especially useful because Claude raised M-1/M-2; either different vendor satisfies the independence rule. Ask the reviewer to verify the reservation boundary, observation/capture semantics, simulator-only limitations and regression results. An approval of the initial head alone does not cover this revision.
+[Claude Code](https://github.com/murphys-logs/tv-autocal/pull/22#pullrequestreview-5673235217) and [Antigravity](https://github.com/murphys-logs/tv-autocal/pull/22#pullrequestreview-5673265657) independently re-reviewed `9e6b49b6e76b210dc7d8401c9bc413131336afe1` and both recommended merge with no required fixes. Each reported 91 tests passing on their available interpreters. Their non-blocking dedicated-exception suggestion was deferred until a caller needs that distinction. The author's review-completion assessment was recorded in the PR description without changing the reviewed commit.
+
+Antigravity's reference to an exhausted-budget "terminal record" was imprecise: the refused phase appears in the stop event, with no new measurement attempt or record. Existing code/tests already enforce this. Claude's inability to inspect S-040's original conversation was an evidence-access limitation; the author checked its quotation against the directly supplied owner messages.
+
+The owner merged [PR #22](https://github.com/murphys-logs/tv-autocal/pull/22) on 27 October 2026 as `8a299da05e30da2ec88a77538e35416d9ef8d51e`. The merged tree matches the reviewed head. No physical test was authorised by those reviews or the merge, and subsequent substantive changes require their own independent review.

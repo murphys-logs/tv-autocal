@@ -83,7 +83,7 @@ The test runner creates and removes inert source files in a temporary directory 
 
 ## Manual verification — 27 October 2026
 
-The initial head `968bc2e4bf8a1140c5e92e8cd85bffbf14ac901e` passed 87 tests on Python 3.12.14 and 3.15.0. The following results and hashes supersede that record for the revised files after the PR #22 review fixes.
+The initial head `968bc2e4bf8a1140c5e92e8cd85bffbf14ac901e` passed 87 tests on Python 3.12.14 and 3.15.0. The following results and hashes supersede that initial record for reviewed PR #22 head `9e6b49b6e76b210dc7d8401c9bc413131336afe1`. They are a historical snapshot; later integration and containment-test changes have their own [current verification record](integration.md#offline-validation).
 
 | Run | Interpreter | Passed | Failed | Errors | Skipped | Unrun |
 |---|---|---:|---:|---:|---:|---:|
@@ -96,7 +96,7 @@ Checks cover every native patch/surround byte against literal row boundaries, ex
 
 The text-only module command was rerun successfully after the review fixes on Python 3.12.14: three synthetic readings, toy level 50→49→50, final state COMPLETE and 6,000 fake milliseconds. No image was displayed. The gray-128 native buffer's SHA-256 was `ec5fdc9c0deba9f98fcdc9019e9a373047830a2fb62661547ff6cc75a92d897b`. This identifies software bytes only.
 
-The current tested source hashes below avoid a self-referential commit hash. The containing PR identifies the full tree; later source changes require a new verification record. The [T-009 record](t009-prototype.md) retains its separately identified historical PR #21 hashes.
+The PR #22 tested source hashes below identify that snapshot, not every subsequent revision. Later source changes require a new verification record. The [T-009 record](t009-prototype.md) retains its separately identified historical PR #21 hashes.
 
 | File | SHA-256 |
 |---|---|
@@ -114,6 +114,6 @@ The current tested source hashes below avoid a self-referential commit hash. The
 
 ## Independent review and remaining work
 
-Claude Code (Anthropic) and Antigravity (Google) reviewed the initial PR. The [review response](../reviews/2026-10-27-pr22-review-response.md) records their differing recommendations and the accepted fixes. The revised code and evidence need independent re-review by Claude Code or Antigravity before the owner's merge decision; earlier reviews do not cover these changes. Same-vendor assistance is not independent review. Re-review should focus on attempt reservation, observation versus simulator ground truth, refused-phase records, new regressions and continued absence of physical I/O routes.
+Claude Code (Anthropic) and Antigravity (Google) reviewed and re-reviewed PR #22, both recommending merge of `9e6b49b6e76b210dc7d8401c9bc413131336afe1`. The owner merged it as `8a299da05e30da2ec88a77538e35416d9ef8d51e`; the merged tree matches that reviewed head. The [review response and completion record](../reviews/2026-10-27-pr22-review-response.md) retain the findings and their disposition. This review does not cover the later integration slice, which requires its own independent review.
 
 No equipment claim becomes Confirmed. T-003/T-005/T-006 remain unauthorised; electrical compatibility, setting scope (X-012), menu timing, physical sender, correction validation, the stronger signal-range method and T-013/T-008 plans remain open. Full white-balance/colour-control support and calibration accuracy are not demonstrated by these simulations.

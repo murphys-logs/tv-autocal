@@ -11,6 +11,7 @@
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
 | [software/renderer-cycle.md](software/renderer-cycle.md) | Off-screen renderer, simulated change/exit/wait/read controller, technical choices and manual checks |
+| [software/integration.md](software/integration.md) | Offline presentation, meter transcript, command-audit and observation contracts, with technical choices and verification |
 | [reviews/](reviews/README.md) | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
 
 ## Two rules for this folder

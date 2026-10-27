@@ -8,6 +8,10 @@ from unittest.mock import patch
 import test_cycle
 import test_renderer
 import test_renderer_cycle_integration
+import test_presentation
+import test_meter_output
+import test_sender_audit
+import test_integration
 
 
 class SoftwareContainmentTests(unittest.TestCase):
@@ -19,7 +23,9 @@ class SoftwareContainmentTests(unittest.TestCase):
         suite = unittest.TestSuite(
             unittest.defaultTestLoader.loadTestsFromTestCase(case)
             for case in (test_renderer.RendererTests, test_cycle.CycleTests,
-                         test_renderer_cycle_integration.RendererCycleIntegrationTests)
+                         test_renderer_cycle_integration.RendererCycleIntegrationTests,
+                         test_presentation.PresentationTests, test_meter_output.MeterOutputTests,
+                         test_sender_audit.SenderAuditTests, test_integration.IntegrationTests)
         )
         expected = suite.countTestCases()
         with ExitStack() as stack:
