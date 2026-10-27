@@ -4,6 +4,18 @@ This folder holds the plans, authorisations and results of every test that invol
 
 Software-only simulations do not belong here and need no authorisation, because they never touch the equipment. Their results must always be labelled as simulations.
 
+## Plans awaiting independent review
+
+All three plans below are **NOT AUTHORISED** and have **no equipment results**. Each identifies unresolved execution prerequisites; preparing or merging a plan does not authorise a test.
+
+| Plan | Scope | Execution prerequisites still open |
+|---|---|---|
+| [T-003 meter](T-003-meter.md) | Device discovery, actual readings, repeatability, drift and observed usable range | Review/authorisation; reviewed patch renderer before measurement steps |
+| [T-005 signal path](T-005-signal-path.md) | Clipping/stability screening; correct range interpretation remains unproved | Review/authorisation; reviewed renderer; T-003 evidence before optical steps; additional method for Stage 4 range gate |
+| [T-006 Ex-Link](T-006-exlink.md) | Electrical gate, bounded ordinary control, menu exit and restoration | Electrical evidence, scope/restoration and menu-timing amendments, reviewed physical sender, review/authorisation |
+
+The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device.
+
 ## Ground rules
 
 - **No physical test without the owner's explicit authorisation of that specific plan** ([AGENTS.md section 7](../../AGENTS.md#7-equipment-safety-rule-6)). If the owner authorises in conversation, their words are copied into the plan before any step is carried out.

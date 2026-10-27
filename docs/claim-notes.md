@@ -198,3 +198,17 @@ PC-side serial port check for the DSD TECH SH-U35B Ex-Link cable ([S-033](briefs
 ## C-084
 
 Provisional calibration targets and viewing preferences (Q-014, [S-033](briefs/2026-10-26-owner-equipment-checklist.md)): dim viewing room, target peak brightness 140–160 cd/m² for SDR Rec.709/D65/BT.1886, mixed usage (PC desktop, SDR streaming/movies, gaming, HDR), and initial calibration priority on Movie mode for the PC/Denon HDMI input (HDMI 4). Final black target and pass marks await T-003 and T-004.
+
+## C-090
+
+Codex (OpenAI) retrieved and read the official [ArgyllCMS V3.5.0 source ZIP](https://www.argyllcms.com/Argyll_V3.5.0_src.zip) on 27 October 2026 (S-037), SHA-256 `f8576ce5589fd15620abb73ff049ea31f55ddbd1bba6d1ffa87452658e7bc85f`. No Argyll executable was run and no downloaded source is committed. Identity with the earlier S-029 copy is unknown because that retrieval did not record a hash.
+
+`spectro/spotread.c:464,1192` builds the instrument list for help and measurement launches. `spectro/icoms_nt.c:93–99,125–135` classifies Windows VCP/USBSER device names and probes fast serial devices. `spectro/inst.c:1455–1456,1499–1544` selects candidate baud rates and writes identification bytes. `Jamtop:41` and `spectro/Jamfile:101–102` enable fast serial support in the source build defaults. This establishes a source-level hazard, not that the owner's adapter classification or installed binary has been tested.
+
+The [Environment documentation](https://www.argyllcms.com/doc/Environment.html#ARGYLL_EXCLUDE_SERIAL_SCAN) and bundled `doc/Environment.html:384–391` describe excluded port names separated by commas/semicolons. `spectro/icoms.c:580–624,640–656` parses that list and compares each token with the port path using exact `strcmp` at line 649. `ARGYLL_EXCLUDE_SERIAL_SCAN=1` is therefore not a Boolean disable-all setting and would not exclude a port named `COM3`. No exclusion setting has been tested on this installation.
+
+[T-003](tests/T-003-meter.md) and [T-005](tests/T-005-signal-path.md) require both Ex-Link ends disconnected before any Argyll launch. [T-006](tests/T-006-exlink.md) prohibits ArgyllCMS/DisplayCAL and other discovery tools during the connected session. The future meter adapter and concurrent T-013/T-008 sessions need separately reviewed, verified isolation; a port exclusion alone is not currently accepted as that verification.
+
+## C-091
+
+S-037 `spectro/spotread.c:1150–1158` and bundled `doc/Environment.html:128–136` show that `ARGYLL_COLMTER_CAL_SPEC_SET` and `ARGYLL_COLMTER_COR_MATRIX` can supply a default external correction without an explicit `-X`. Codex identified this during the source check; no owner environment values were inspected. [T-003's isolated launch environment](tests/T-003-meter.md#isolated-launch-environment), also required by T-005, records their presence privately and removes them only from the dedicated future test shell before launching Argyll. Persistent defaults remain unchanged. This is a proposed setup procedure, not proof of generic-only readings or correction accuracy on the owner's equipment.

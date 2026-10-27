@@ -2,25 +2,27 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 25 October 2026: planning and research only.**
-> There is no application code yet, and **nothing in this repository has been tested on the owner's equipment.**
+> **Status, 27 October 2026: component plans and the first software-only prototype prepared for independent review.**
+> The calibration application is not built. T-009 contains only in-memory protocol checks; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
+
+Your owner checks T-001/T-002 are complete. Review material: [three physical-test plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype and verification](docs/software/t009-prototype.md). **All physical plans remain NOT AUTHORISED**, with execution prerequisites listed in each. The prototype cannot connect to hardware or generate display patterns. No owner answer is needed merely to review this work.
 
 ## What needs your decision
 
 | ID | Question | Options | Agents' recommendation | Holds up |
 |---|---|---|---|---|
-| [T-001, T-002](docs/equipment.md#what-we-still-need-from-you) | Your owner checks: look up the TV, PC and receiver details | Substantively completed in S-033 | Recorded in S-033; completes Stage 1 | Stage 1 passed; physical tests ready to plan |
 | [Q-004](LEDGER.md#6-open-questions) | Protect `main` so it changes only through pull requests? | Pull request only / also an approval / none | Claude Code: settle Q-011 first, then pull request only | Nothing yet |
-| [Q-008](LEDGER.md#6-open-questions) | How long to wait after leaving the menu before reading? | A short delay, to be proposed | No recommendation yet | The delay in every test plan that takes readings |
+| [Q-008](LEDGER.md#6-open-questions) | How long to wait after leaving the menu before reading? | Test-specific delay, then evaluate evidence | Codex proposes 2.0 seconds in the draft plans; not chosen or tested | Authorising measurement plans |
 | [Q-011](LEDGER.md#6-open-questions) | Make the repository private? | Private / stay public | No recommendation yet | Q-004's options |
-| [Q-013](LEDGER.md#6-open-questions) | What if Ex-Link cannot change the TV's settings? | Guided manual adjustment / service-menu step / revisit D-006 | Claude Code: guided manual adjustment | Stage 2 of the plan |
+| [Q-013](LEDGER.md#6-open-questions) | What if Ex-Link cannot change the TV's settings? | Guided manual adjustment / separately planned service-menu step / revisit D-006 | Claude Code: guided manual adjustment; T-006 needs acceptance of its stop boundary only | Any future fallback; no fallback adopted |
 | [Q-014](LEDGER.md#6-open-questions) | Input, picture mode, room, brightness, black level and pass marks for the first calibration? | Provisional given in S-033; final black/marks after T-003 | Movie mode, HDMI 4, dim room, 140–160 cd/m² (S-033) | Component-test plans; T-008 |
 | [Q-015](LEDGER.md#6-open-questions) | Get after-the-fact reviews of PRs #2, #6, #7, #10, #13 and commit a62772c? Does a Codex bot summary count as a review? | Yes / no, for each | No recommendation yet | Nothing yet |
 | [Q-016](LEDGER.md#6-open-questions) | If no spectral correction can be validated, what then? | Keep T-008 blocked / seek a way to validate / unvalidated, with limits | No recommendation yet | T-008 |
 | [Q-017](LEDGER.md#6-open-questions) | Keep a private copy of cut archive text before anyone rewrites git history? | You keep a copy / accept the loss / never rewrite history | No recommendation yet | Any rewrite of git history |
 | [Q-018](LEDGER.md#6-open-questions) | Approve the automatic Codex review on GitHub, or switch it off? | Approve / switch off | No recommendation yet | Nothing yet |
 | [X-009](LEDGER.md#4-disagreements) | May an owner check connect the cable to the PC? | Yes (Position A) / no, look only (Position B) | PC check performed in S-033; formal policy remains open | Proposed boundary for future owner checks |
+| [X-012](LEDGER.md#4-disagreements) | Which setting scope should T-006 use? | Retain All Sources / isolate Current Source, each with a reviewed restoration procedure | Claude prefers retaining All Sources; Codex recommends establishing affected settings/restoration before choosing | T-006 authorisation; neither option selected |
 | [Q-002](LEDGER.md#6-open-questions) | Which open-source licence? | Any open-source licence | No recommendation yet | Distributing the application |
 | [Q-005](LEDGER.md#6-open-questions) | How does Codex receive review requests? | On GitHub / through you | No recommendation yet | The review steps in [docs/workflow.md](docs/workflow.md) |
 
@@ -70,7 +72,7 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 |---|---|---|
 | Measurement (ArgyllCMS) | Takes readings from the Spyder5 | Not yet tried with this meter on this PC |
 | Spectral correction | Corrects the meter's readings for this TV's type of light | No validated correction identified yet |
-| Test-pattern generator | Shows exact, known colours on the TV | Not built; signal path not yet confirmed |
+| Test-pattern generator | Shows exact, known colours on the TV | Not built; physical route recorded, colour-value fidelity untested |
 | Optimisation engine | Works out which setting to change, and by how much | Not built; can be developed in simulation first |
 | TV-control backend | Changes TV settings using Samsung Ex-Link (serial) only, as selected by the owner in D-006 | **Selected cable and TV firmware compatibility not demonstrated** |
 
@@ -87,7 +89,7 @@ Read more:
 
 - [docs/workflow.md](docs/workflow.md) — the same process, step by step, for a non-programmer
 - [docs/plan.md](docs/plan.md) — a proposed order of work, from the information you need to give to a first calibration (a proposal, not a decision)
-- [docs/equipment.md](docs/equipment.md#what-we-still-need-from-you) — what we still need you to look up
+- [docs/equipment.md](docs/equipment.md) — equipment record and completed owner checks
 - [AGENTS.md](AGENTS.md) — the rules all agents follow
 - [LEDGER.md](LEDGER.md) — evidence, decisions, disagreements and outstanding tests
 
@@ -100,6 +102,7 @@ Read more:
 | `CLAUDE.md` | One line that makes Claude Code read `AGENTS.md` |
 | `LEDGER.md` | Evidence, decisions, disagreements and outstanding tests |
 | `docs/` | Documentation and research archive — see [docs/README.md](docs/README.md) |
+| `tv_autocal/` and `tests/` | Hardware-free T-009 protocol prototype and manually run software tests |
 | `.github/PULL_REQUEST_TEMPLATE.md` | The checklist every pull request fills in |
 | `.gitignore` | Files git must never store here, such as temporary files, passwords and private settings |
 
