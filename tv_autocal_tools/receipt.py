@@ -7,9 +7,11 @@ measured light. Owner confirmation and the physical plan remain necessary.
 
 from dataclasses import dataclass
 from datetime import datetime
+from hashlib import sha256
 import json
 from re import fullmatch
 
+from tv_autocal.renderer import render_patch
 from .journal import private_path
 from .presenter import validate_plan_sequence
 
@@ -76,6 +78,7 @@ def read_receipt(path: str, *, plan: str, revision: str, sequence: int,
     authorised_ns = None
     pending = None
     latest = None
+    rgb_hashes = {}
     last_time = -1
     last_frame = 0
     for record_number, line in enumerate(raw.splitlines()):
@@ -143,6 +146,11 @@ def read_receipt(path: str, *, plan: str, revision: str, sequence: int,
                 raise ValueError("Invalid presenter pattern")
             frame_pattern = tuple(pattern) if valid_rgb else pattern
             validate_plan_sequence(plan, (frame_pattern,))
+            if valid_rgb:
+                if frame_pattern not in rgb_hashes:
+                    rgb_hashes[frame_pattern] = sha256(render_patch(frame_pattern).pixels).hexdigest()
+                if digest != rgb_hashes[frame_pattern]:
+                    raise ValueError("RGB frame hash does not match the rendered patch")
             pending = (number, frame_pattern, digest, timestamp)
         elif event == "pattern_buffer_applied":
             if (pending is None or fields.get("hardware") is not True

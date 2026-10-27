@@ -47,6 +47,22 @@ Before Tk creates a window, the backend establishes and verifies per-monitor V2 
 
 Named visual patterns close after 60 seconds without manual advance; a stale timer cannot close a later pattern. A proposed three-hour session cap closes the window and ends the run, never restarts it. Both limits and the exact GUI build need physical-plan review. The owner must keep the measurement patch unobstructed and unchanged throughout a meter attempt, including an outstanding process after timeout. Focus changes alone do not close it because the owner needs to use the separate meter console.
 
+### T-005 visual run boundaries
+
+The existing `t005-visual` sequence ends after the detail pattern; it does not return to grey 128, and advancing again closes the window. T-005 V4 therefore needs separate presenter runs. The future reviewed plan amendment must spell out these three runs, their launch/closure options and separate fresh journals before any authorisation:
+
+1. Use `t005-visual` for V2's geometry check and the six V3 patterns in the original recorded Denon mode, then close normally. A failed check stops the plan; this is not permission to restart after a failure.
+2. Use `patch` with RGB `(128,128,128)`. Confirm and advance once, then hold that grey patch while the owner performs V4's authorised Bypass change, menu exit and wait. Do not advance past grey or change the receiver while the presenter is closed. Record completion before closing this run normally.
+3. Use `t005-visual` in the recorded Bypass state, then close normally. This existing playlist starts with geometry, so the amendment must explicitly include and record that repeated geometry check, followed by exactly one repetition of the six V3 patterns. Each visual item keeps the 60-second limit and manual advance.
+
+These are proposed launch details for review, not amended or authorised physical steps. No new playlist, pattern or allowlist entry is added. No meter attempt may span a presenter closure or transition between these runs; any later optical attempt needs its own held patch and current receipt. T-005's original-state and restoration requirements still apply across the runs.
+
+### Display arrangement to confirm
+
+**Unknown (Q-019):** whether the PC has any display besides the TV, and where the presenter launch console and separate meter console would sit relative to the full-screen TV image. The owner must supply the existing display arrangement and intended console placement; no additional monitor is assumed. Record the answer in the physical-plan amendment and private setup record before authorisation.
+
+The reviewed procedure must explain how the owner launches and observes each meter attempt while keeping the TV image unobstructed, including while a rejected process remains outstanding. If the TV is the only display, that workflow needs resolving before use; this PR does not assume a console can overlay the pattern, prescribe a second display or authorise changing the arrangement. No display enumeration or physical setup check has been performed.
+
 ## One meter attempt
 
 Future entry point: `meter --hardware` with common options, `--executable` (drive-absolute `spotread.exe`), a reviewed lowercase `--sha256`, fresh `--attempt-log local/<plan>/<name>.log`, `--purpose`, `--presentation-log`, `--presentation-sequence`, and `--rgb`. It also requires explicit `--isolated`, `--exit-confirmed`, and `--discovery-confirmed` attestations. These mean both Ex-Link ends are disconnected and no other non-meter serial device/tool is involved; the selected patch is stable with menus exited; and prior authorised discovery identified the expected V3.5.0 Spyder5/default generic non-refresh configuration unambiguously. **This runner performs no discovery and never runs help.**
@@ -59,7 +75,7 @@ Two reader resources are established before spawning, preventing a thread-start 
 
 The deadline is exclusive. Unlike the previous one-attempt fixture, capture continues after either timeout or cancellation, so call order cannot discard later transcript bytes. The runner announces rejection/outstanding state and remains attached until process exit and pipe EOF. It never kills, resets, retries or starts another reading. This deliberately has no guaranteed shutdown time if the driver stalls. Closing the console or ending the process is an owner-directed interruption with possible driver consequences, not a recovery supplied by this tool. A failed capture/unknown process state must be reviewed before further operation.
 
-The CLI reads the presenter's bounded journal before launch and after exit, requiring matching plan/revision, applied sequence, RGB and frame hash. A logged change, closure, incomplete write or mismatched receipt rejects the attempt while retaining its raw meter evidence. This does not prove the presenter is still alive, visible or unobscured: an uncleanly terminated process may leave an apparently active log. Owner observation and the stable-patch attestation remain necessary; there is no cross-process frame lock or automatic overlay detector.
+The CLI reads the presenter's bounded journal before launch and after exit, requiring matching plan/revision, applied sequence, RGB and frame hash. Every RGB intent's hash is checked against SHA-256 of the unchanged renderer's native patch pixels; a well-formed but wrong hash is rejected. A logged change, closure, incomplete write or mismatched receipt rejects the attempt while retaining its raw meter evidence. This does not prove the presenter is still alive, visible or unobscured: an uncleanly terminated process may leave an apparently active log. Owner observation and the stable-patch attestation remain necessary; there is no cross-process frame lock or automatic overlay detector.
 
 ## One bounded Ex-Link session
 
@@ -68,6 +84,8 @@ Future entry point: `serial --hardware` with common options, one explicit `--por
 The lazy backend requires pySerial 3.5. It constructs a closed port with 9600 baud, 8N1, no flow control, nonblocking reads and a one-second write timeout; DTR/RTS are set false before open. pySerial documents possible driver/OS line activation on open, so this is not proof of electrically harmless behaviour. No port URLs, scans, arbitrary bytes, reset buffers, retries, reconnects, power/service commands or automatic restoration are exposed.
 
 The manual sequence is exactly **EXIT → Contrast 94 → EXIT → restore 95 → EXIT**, at most five writes. Keys are `b` (fresh observed baseline 95), `m` (before opening the normal menu), `o` (owner observed the stated expected value), `e` (EXIT), `c` (owner confirmed exit), `d` (set 94), `r` (restore 95), and `q` (close). The successful key order is `b → m,o,e,c → d,m,o,e,c → r,m,o,e,c → q`, with enforced reply/settling phases. Wrong-phase keys do not send. Every send is manual and logged before dispatch.
+
+The serial console accepts only those exact lowercase characters. Python's documented special-key prefix (`\x00` or `\xe0`) and its following keycode are consumed together and ignored, so an arrow/function key cannot become an attestation, send or quit command. Other characters, including uppercase aliases and Escape, are ignored. Ctrl+C uses the existing `KeyboardInterrupt` stop/drain/close handling; no `\x03` character branch is used. Fake-console tests cover the reported Right, End, Insert, PgDn, F8, F9 and F10 sequences across all session phases and repeated command stages.
 
 Menu-opening boundaries precede the owner's opening action, so the later observation cannot reset the automatic-close clock. Every command invalidates the old observation generation; setter and EXIT IDs are paired with the fresh setting/closure attestations. These remain human observations, not hardware readback. A mismatch or uncertain value requires stopping, not pressing the confirmation key.
 
@@ -79,7 +97,7 @@ The same port and receive loop continue through observations and idle intervals.
 
 S-046 records these primary references, consulted 27 October 2026. No sample program from them was executed and no library was installed.
 
-- Python: [Tkinter/images](https://docs.python.org/3/library/tkinter.html#images), [subprocess](https://docs.python.org/3.12/library/subprocess.html), [threading](https://docs.python.org/3.12/library/threading.html), [PSF licence](https://docs.python.org/3.12/license.html).
+- Python: [Tkinter/images](https://docs.python.org/3/library/tkinter.html#images), [subprocess](https://docs.python.org/3.12/library/subprocess.html), [threading](https://docs.python.org/3.12/library/threading.html), [msvcrt console input: `getch`/`getwch` and special-key pairs](https://docs.python.org/3.12/library/msvcrt.html#console-i-o), [PSF licence](https://docs.python.org/3.12/license.html).
 - Tcl/Tk: [photo image/PPM/gamma](https://www.tcl-lang.org/man/tcl8.6/TkCmd/photo.htm), [licence](https://www.tcl-lang.org/software/tcltk/license.html).
 - Microsoft: [process DPI awareness](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setprocessdpiawarenesscontext), [DPI-context comparison](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-aredpiawarenesscontextsequal), [associated monitor](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-monitorfromwindow), [monitor rectangle](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmonitorinfow). API setup is provisional for this source-run tool; a future packaged executable should review Microsoft's manifest recommendation.
 - pySerial: [3.5 API, open/timeout/line semantics](https://pyserial.readthedocs.io/en/latest/pyserial_api.html), [BSD-3-Clause licence and line behaviour](https://pyserial.readthedocs.io/en/latest/appendix.html).
@@ -87,14 +105,16 @@ S-046 records these primary references, consulted 27 October 2026. No sample pro
 
 ## Offline verification
 
-The complete suite was run manually on 27 October 2026 using the files identified below:
+The complete suite was rerun manually on 27 October 2026 using each interpreter with `-B -m unittest discover -s tests` and the files identified below:
 
 | Interpreter | Passed | Failures | Errors | Skipped | Unrun |
 |---|---:|---:|---:|---:|---:|
-| Python 3.12.14 | 247 | 0 | 0 | 0 | 0 |
-| Python 3.15.0 | 247 | 0 | 0 | 0 | 0 |
+| Python 3.12.14 | 252 | 0 | 0 | 0 | 0 |
+| Python 3.15.0 | 252 | 0 | 0 | 0 | 0 |
 
-The 149 inherited tests are unchanged. The 98 new tests comprise 13 entry/journal/context, 28 meter, 19 presenter, 10 receipt, 26 serial and two containment checks. New guards rerun all 96 new functional cases with file/process/network/native calls and real hardware imports forbidden. The inherited guards still rerun 35 protocol and 109 other functional cases. These guarded reruns are not additional distinct tests. Backend tests explicitly substitute inert objects; no real Tk, pySerial, native window or child process is used.
+The 149 inherited tests are unchanged. The 103 new tests comprise 13 entry/journal/context, 28 meter, 19 presenter, 12 receipt, 29 serial and two containment checks. New guards rerun all 101 new functional cases with file/process/network/native calls and real hardware imports forbidden. The inherited guards still rerun 35 protocol and 109 other functional cases. These guarded reruns are not additional distinct tests. Backend tests explicitly substitute inert objects; no real Tk, pySerial, native window or child process is used.
+
+The special-key regression checks seven key pairs at 38 legally reached state checkpoints, covering all 14 session phases and repeated command generations: 266 subcases, not 266 extra tests. It checks no attestation, frame, session change or queued suffix; separate tests cover exact command keys and `KeyboardInterrupt`. Receipt regressions reject a false digest, a real digest paired with the wrong RGB, and an earlier bad RGB intent even when the latest one is valid.
 
 The default CLI simulation and help were also run manually; they reported simulation/no hardware, the unchanged centred rectangle and a synthetic Yxy result. The default command produces no file. The inherited recursive-source regression creates inert temporary text, never imports it, and used normal local temporary-directory permissions. Nothing was installed. No equipment status changes.
 
@@ -108,8 +128,8 @@ All 34 Python files use LF. The ten original application modules and nine inheri
 | `tests/test_component_entry.py` | `5fe629d9891e44af876d0c185cac13626faac64097a11b2571c7219a8d43b0b2` |
 | `tests/test_component_meter.py` | `d942bb607a84e617cf8a7c6a1a97a2d65ed0eb3dfe2181600f47f764bd1635a2` |
 | `tests/test_component_presenter.py` | `61c6c0414ae1f91efd22ee43d8bc136b81743792ddc6c7ba9e628a3b719f08dc` |
-| `tests/test_component_receipt.py` | `3a304347c5f38303c57c6ef7f36740795cf9bfae903d96b23439612276d662ec` |
-| `tests/test_component_serial.py` | `c5ef88f6cfd325540277b8371ee7d4cd885fa6bbcbf2b4081a81963334cc5824` |
+| `tests/test_component_receipt.py` | `29a8d5684cfd8d0ae8110fbc277d922257ff991e5a9744d6d047d7760070bf85` |
+| `tests/test_component_serial.py` | `efa42233e5fc85ed8121225b581b647489b0949883f244f276482bd8185fd1bd` |
 | `tests/test_cycle.py` | `2afb23d1268e82f77a4546b1a82d784f8762c87f65e7401accaf8bfdef5d2f30` |
 | `tests/test_integration.py` | `8afda185be5736d14196793263ffe9f626066322241f0def188269b83c65531f` |
 | `tests/test_meter_output.py` | `14308754d93164f13d7779a829171c778f4fbddaa825c5326185041af63600ac` |
@@ -136,11 +156,11 @@ All 34 Python files use LF. The ten original application modules and nine inheri
 | `tv_autocal_tools/meter.py` | `74d4e56bdd57948e0cfff9ceb2d305ecd78a2ef49e17e98a2bef61e7a6fe9dd9` |
 | `tv_autocal_tools/permission.py` | `ecabf7bc25ce444d407323d949f34b5def0c1c309fd64c7c6316967d6d928ddc` |
 | `tv_autocal_tools/presenter.py` | `3a1d25373a2e9dff0667293c9f4c1a0ee498cb3c4fd02505ab1f93417702b4d0` |
-| `tv_autocal_tools/receipt.py` | `0472b59826e442b9b93bd5c2afd896ce464e9d210204751095c5f00614f76280` |
-| `tv_autocal_tools/serial_tool.py` | `6d5cc1eb41c68c6f44a20640a5034805845f198af11046065092168a9d904fe7` |
+| `tv_autocal_tools/receipt.py` | `e05fbae85ff166b529961e9c2d008346b64c346b0b58758e5ea329b305972c61` |
+| `tv_autocal_tools/serial_tool.py` | `6b9a51ccb38f3960d3fba78b2b24bfc8501a2df4315e982ebf88ec773eebb716` |
 
 ## Remaining gates
 
 Independent review of these source paths is required before the owner considers a physical-test authorisation. No operational window, monitor check, process launch, meter discovery, serial open or equipment test was performed during implementation. Tk/driver/pySerial availability, actual Windows presentation, electrical compatibility, setting restoration and installed Argyll behaviour remain untested.
 
-T-003/T-005 need reviewed launch/closure and evidence-record amendments, an exact tool/dependency revision and the owner's explicit permission. T-005 still needs a method establishing correct range interpretation. T-006 still needs electrical evidence, setting-scope/restoration and menu-timing amendments. Existing approved patch geometry and all unfilled authorisation sections are preserved. T-013/T-008 are unsupported and remain blocked on their respective evidence, correction and authorisation gates. This PR does not resolve Q-001/Q-002/Q-003/Q-008/Q-014/Q-016 or X-012.
+T-003/T-005 need reviewed launch/closure and evidence-record amendments, an exact tool/dependency revision and the owner's explicit permission. These amendments must resolve Q-019's display/console arrangement and, for T-005, the separate V4 presenter runs. T-005 still needs a method establishing correct range interpretation. T-006 still needs electrical evidence, setting-scope/restoration and menu-timing amendments. Existing approved patch geometry and all unfilled authorisation sections are preserved. T-013/T-008 are unsupported and remain blocked on their respective evidence, correction and authorisation gates. This PR does not resolve Q-001/Q-002/Q-003/Q-008/Q-014/Q-016 or X-012.

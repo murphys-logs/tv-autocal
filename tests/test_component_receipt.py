@@ -13,6 +13,7 @@ from tv_autocal_tools.receipt import MAX_JOURNAL_BYTES, read_receipt
 
 REVISION = "a" * 40
 RGB = (128, 128, 128)
+FRAME_SHA256 = "ec5fdc9c0deba9f98fcdc9019e9a373047830a2fb62661547ff6cc75a92d897b"
 
 
 def records():
@@ -21,7 +22,7 @@ def records():
         ("software_identity", {"python": "fixture", "files": {"fixture.py": "b" * 64}}),
         ("presenter_target_confirmed", {"hardware": True}),
         ("pattern_present_intent", {"hardware": True, "sequence": 1, "pattern": list(RGB),
-                                    "width": 3840, "height": 2160, "sha256": "c" * 64}),
+                                    "width": 3840, "height": 2160, "sha256": FRAME_SHA256}),
         ("pattern_buffer_applied", {"hardware": True, "sequence": 1}),
     ]
     return [{"event": event, "sequence": index, "monotonic_ns": index + 1,
@@ -44,7 +45,7 @@ class ComponentReceiptTests(unittest.TestCase):
 
     def test_matching_immutable_receipt_and_metadata_are_not_display_proof(self):
         receipt = self.read()
-        self.assertEqual((receipt.sequence, receipt.rgb, receipt.frame_sha256), (1, RGB, "c" * 64))
+        self.assertEqual((receipt.sequence, receipt.rgb, receipt.frame_sha256), (1, RGB, FRAME_SHA256))
         self.assertEqual(set(receipt.as_dict()), {"path", "plan", "revision", "sequence", "rgb", "frame_sha256"})
         self.assertTrue(receipt.path.endswith("presenter-fixture.log"))
         self.assertEqual(self.read(), receipt)
@@ -121,6 +122,23 @@ class ComponentReceiptTests(unittest.TestCase):
             events[3]["fields"][key] = value
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 self.read(events)
+
+    def test_rgb_hash_must_match_patch_bytes_not_just_digest_format(self):
+        for rgb, digest in ((RGB, "f" * 64), ((255, 255, 255), FRAME_SHA256)):
+            events = records()
+            events[3]["fields"].update(pattern=list(rgb), sha256=digest)
+            with self.subTest(rgb=rgb, digest=digest), self.assertRaisesRegex(ValueError, "RGB frame hash"):
+                self.read(events, rgb=rgb)
+
+    def test_earlier_rgb_hash_mismatch_rejects_even_with_valid_latest_patch(self):
+        events = records()
+        events[3]["fields"]["sha256"] = "f" * 64
+        later = deepcopy(records()[3:])
+        for index, event in enumerate(later, 5):
+            event.update(sequence=index, monotonic_ns=index + 1)
+            event["fields"]["sequence"] = 2
+        with self.assertRaisesRegex(ValueError, "RGB frame hash"):
+            self.read(events + later, sequence=2)
 
     def test_visual_frame_may_precede_rgb_but_cannot_be_used_as_meter_patch(self):
         events = records()

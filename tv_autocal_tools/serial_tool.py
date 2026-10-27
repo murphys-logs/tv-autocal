@@ -325,9 +325,12 @@ class _WindowsRuntime:
         if not self._console.kbhit():
             return None
         key = self._console.getwch()
-        if key in ("\x03", "\x1b"):
-            return "q"
-        return key.lower() if key not in ("\r", "\n", " ") else None
+        if key in ("\x00", "\xe0"):
+            # msvcrt returns special keys as a prefix followed by a keycode.
+            # The code may spell a command, but it is not an owner action.
+            self._console.getwch()
+            return None
+        return key if key in {"b", "m", "o", "e", "c", "d", "r", "q"} else None
 
     def pause(self) -> None:
         self._time.sleep(0.01)

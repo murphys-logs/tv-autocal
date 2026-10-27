@@ -168,6 +168,7 @@ Each rule has one home, and other files link to it instead of restating it.
 | `tv_autocal/` | Software-only protocol, renderer, toy cycle and offline presentation/meter/audit integration contracts |
 | `tv_autocal_tools/` | Component-test entry points: simulation by default; explicitly armed Windows presenter, meter and serial paths require an authorised physical plan |
 | `tests/` | Hardware-free software tests, including simulation and containment checks |
+| `requirements-hardware.txt` | Optional pinned dependency for future authorised serial use; not needed for offline tests |
 | `.github/PULL_REQUEST_TEMPLATE.md` | Review checklist for every pull request |
 
 The bounded T-009 prototype, renderer, simulated controller and component tools have offline tests. Hardware-facing component paths exist in `tv_autocal_tools/` but remain unoperated; implementing or merging them does not authorise their use. The full application remains future work. Production Python/packaging (Q-003) and the project licence (Q-002) are still open. Until they are decided: use only free and open-source dependencies, record each new dependency and its licence in the pull request, and make sure tests can run without hardware.

@@ -1,6 +1,8 @@
 """Pure serial-session fixtures and fake backend tests; never open a port."""
 
 from dataclasses import FrozenInstanceError
+from copy import deepcopy
+from types import SimpleNamespace
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -87,6 +89,22 @@ class FakeRuntime:
             raise AssertionError("fake loop did not terminate")
 
 
+class FakeConsole:
+    def __init__(self, keys):
+        self.keys = list(keys)
+        self.reads = 0
+
+    def kbhit(self):
+        return bool(self.keys)
+
+    def getwch(self):
+        self.reads += 1
+        key = self.keys.pop(0)
+        if isinstance(key, BaseException):
+            raise key
+        return key
+
+
 class ComponentSerialTests(TestCase):
     def session(self, **kwargs):
         log = Recorder()
@@ -107,6 +125,134 @@ class ComponentSerialTests(TestCase):
         session.operator("c", now + 501)
         session.tick(now + 2501)
         return now + 2501
+
+    def console_phase_fixtures(self):
+        # Reach phases through legal actions, including each setter/EXIT
+        # generation. Copies let key regressions run without advancing time.
+        session, log = self.session()
+        fixtures = []
+
+        def save():
+            fixtures.append(deepcopy((session, log)))
+
+        save()
+        session.tick(5000)
+        save()
+        session.operator("b", 5000)
+        save()
+        now = 5001
+        for key, command in (("e", CandidateCommand.EXIT), ("d", CandidateCommand.CONTRAST94),
+                             ("e", CandidateCommand.EXIT), ("r", CandidateCommand.RESTORE95),
+                             ("e", CandidateCommand.EXIT)):
+            if key == "e":
+                session.operator("m", now)
+                save()
+                now += 1
+                session.operator("o", now)
+                save()
+                now += 1
+            self.assertEqual(session.operator(key, now), command.value)
+            save()
+            now += 1
+            session.write_done(7, now)
+            save()
+            now += 1
+            session.receive(ACK, now)
+            save()
+            now += 500
+            session.tick(now)
+            save()
+            if key == "e":
+                now += 1
+                session.operator("c", now)
+                save()
+                now += 2000
+                session.tick(now)
+                save()
+            now += 1
+        session.finish_close(closed=True)
+        save()
+        session, log = self.session()
+        session.stop("synthetic stopped-session fixture")
+        save()
+        session.finish_close(closed=True)
+        save()
+        return fixtures
+
+    def test_special_console_keys_never_dispatch_in_any_session_phase(self):
+        sequences = {"Right": "\xe0m", "End": "\xe0o", "Insert": "\xe0r", "PgDn": "\xe0q",
+                     "F8": "\x00b", "F9": "\x00c", "F10": "\x00d"}
+        fixtures = self.console_phase_fixtures()
+        self.assertEqual({session.phase for session, _ in fixtures}, {
+            "initial quiet", "baseline", "menu preparation", "observe setting", "exit ready",
+            "writing", "reply", "ack quiet", "confirm exit", "settling", "set ready",
+            "restore ready", "complete", "stopped",
+        })
+        for name, sequence in sequences.items():
+            for fixture in fixtures:
+                session, log = deepcopy(fixture)
+                with self.subTest(key=name, phase=session.phase, writes=session.writes, closed=session.closed):
+                    console = FakeConsole(sequence)
+                    # Invoke only the decoder, never the Windows constructor.
+                    runtime = SimpleNamespace(_console=console)
+                    before = deepcopy((session.__dict__, log.events))
+                    frames, decoded = [], []
+                    while console.kbhit():
+                        key = _WindowsRuntime.key(runtime)
+                        decoded.append(key)
+                        # Match run_serial's dispatch, including q outside
+                        # SerialSession.operator and its wrong-phase handling.
+                        if key == "q":
+                            session.stop("unexpected console stop")
+                        elif key is not None:
+                            try:
+                                frame = session.operator(key, session._now)
+                            except (ValueError, RuntimeError):
+                                continue
+                            if frame is not None:
+                                frames.append(frame)
+                    self.assertEqual(decoded, [None])
+                    self.assertEqual(console.reads, 2)
+                    self.assertIsNone(_WindowsRuntime.key(runtime))
+                    self.assertEqual(frames, [])
+                    self.assertEqual(log.events, before[1])
+                    # Compare all state except callback/parser object identity.
+                    for field, value in before[0].items():
+                        if field not in {"log", "_parser"}:
+                            self.assertEqual(getattr(session, field), value, field)
+
+    def test_console_accepts_only_exact_command_keys(self):
+        for key in "bmoecdrq":
+            with self.subTest(key=key):
+                console = FakeConsole(key)
+                self.assertEqual(_WindowsRuntime.key(SimpleNamespace(_console=console)), key)
+                self.assertFalse(console.kbhit())
+        for key in ("B", "M", "O", "E", "C", "D", "R", "Q", "x", "1", "\x03", "\x1b", "\r", "\n", " ", "\t"):
+            with self.subTest(ignored=repr(key)):
+                console = FakeConsole(key)
+                self.assertIsNone(_WindowsRuntime.key(SimpleNamespace(_console=console)))
+                self.assertFalse(console.kbhit())
+        console = FakeConsole("\xe0mq")
+        runtime = SimpleNamespace(_console=console)
+        self.assertIsNone(_WindowsRuntime.key(runtime))
+        self.assertEqual(_WindowsRuntime.key(runtime), "q")
+        self.assertIsNone(_WindowsRuntime.key(runtime))
+
+    def test_console_keyboard_interrupt_still_stops_and_closes_fake_session(self):
+        runtime, log = FakeRuntime(), Recorder()
+        runtime._console = FakeConsole([KeyboardInterrupt()])
+        # Keep the actual decoder callable when replacing the constructor.
+        decode = _WindowsRuntime.key
+        runtime.key = lambda: decode(runtime)
+        with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
+            result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
+                                menu_window_ms=10000)
+        self.assertEqual(result.reason, "owner interrupted; no recovery send")
+        self.assertFalse(result.accepted)
+        self.assertEqual(runtime.port.writes, [])
+        self.assertTrue(runtime.port.closed)
+        self.assertTrue(any(kind == "serial_stop" and "owner interrupted" in fields["reason"]
+                            for kind, fields in log.events))
 
     def test_exact_five_frame_sequence_requires_observations_and_exit_waits(self):
         session, log = self.session()
