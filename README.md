@@ -2,11 +2,11 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 27 October 2026: PRs #21/#22 merged; software integration design and offline tests prepared for independent review.**
-> The full calibration application is not built. All implemented components are software-only; **no operational equipment tests have been run**.
+> **Status, 27 October 2026: PRs #21/#22/#23 merged; bounded component-test tools prepared for independent review.**
+> The full calibration application is not built. Hardware-facing component paths now exist but have only offline checks; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 
-Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype](docs/software/t009-prototype.md), and PR #22's [renderer and simulated controller](docs/software/renderer-cycle.md), were independently reviewed and merged. New review material: [software integration design and offline contracts](docs/software/integration.md). **All physical plans remain NOT AUTHORISED**. The centred 6.25% patch is unchanged. No component presents patterns on a display or connects to equipment; no owner answer is needed merely to review this work.
+Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype](docs/software/t009-prototype.md), PR #22's [renderer and simulated controller](docs/software/renderer-cycle.md), and PR #23's [offline integration](docs/software/integration.md) were independently reviewed and merged. New review material: [bounded component tools](docs/software/component-tools.md). **All physical plans remain NOT AUTHORISED**. Default execution is an in-memory simulation; explicit hardware paths require reviewed plan amendments and specific owner authorisation. The centred 6.25% patch is unchanged. No owner answer is needed merely to review this work.
 
 ## What needs your decision
 

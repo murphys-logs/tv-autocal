@@ -14,7 +14,7 @@ All three plans below are **NOT AUTHORISED** and have **no equipment results**. 
 | [T-005 signal path](T-005-signal-path.md) | Clipping/stability screening; correct range interpretation remains unproved | Review/authorisation; reviewed renderer; T-003 evidence before optical steps; additional method for Stage 4 range gate |
 | [T-006 Ex-Link](T-006-exlink.md) | Electrical gate, bounded ordinary control, menu exit and restoration | Electrical evidence, scope/restoration and menu-timing amendments, reviewed physical sender, review/authorisation |
 
-The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device.
+The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device. The later [bounded component tools](../software/component-tools.md) add candidate hardware-facing entry points, currently unoperated and awaiting independent review. The plans below have not yet incorporated their exact launch/closure procedures and source/dependency identities; those amendments and the outstanding physical prerequisites are required before authorisation.
 
 ## Ground rules
 

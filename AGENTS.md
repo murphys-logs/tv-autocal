@@ -166,7 +166,8 @@ Each rule has one home, and other files link to it instead of restating it.
 | `docs/software/` | Software-only design proposals, validation records and limits |
 | `docs/reviews/` | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
 | `tv_autocal/` | Software-only protocol, renderer, toy cycle and offline presentation/meter/audit integration contracts |
+| `tv_autocal_tools/` | Component-test entry points: simulation by default; explicitly armed Windows presenter, meter and serial paths require an authorised physical plan |
 | `tests/` | Hardware-free software tests, including simulation and containment checks |
 | `.github/PULL_REQUEST_TEMPLATE.md` | Review checklist for every pull request |
 
-The bounded T-009 prototype, off-screen renderer and simulated controller have software tests; the full application and any hardware-facing code remain future work. The Python version and packaging (Q-003) and the licence (Q-002) are still open. Until they are decided: use only free and open-source dependencies, record each new dependency and its licence in the pull request, and make sure tests can run without hardware.
+The bounded T-009 prototype, renderer, simulated controller and component tools have offline tests. Hardware-facing component paths exist in `tv_autocal_tools/` but remain unoperated; implementing or merging them does not authorise their use. The full application remains future work. Production Python/packaging (Q-003) and the project licence (Q-002) are still open. Until they are decided: use only free and open-source dependencies, record each new dependency and its licence in the pull request, and make sure tests can run without hardware.
