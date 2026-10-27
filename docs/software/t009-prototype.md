@@ -164,9 +164,11 @@ those nested executions are not counted as 35 additional distinct tests.
 Loops cover 5,355 single-byte corruptions and 65,024 unsupported first-command-byte/value
 combinations. These counts describe synthetic inputs, not equipment operations.
 
-The exact latest tested application/test contents are identified below so the run
-record does not rely on a self-referential commit hash. The containing PR commit
-identifies the full proposed tree; any later code change requires a new record.
+The PR #21 tested application/test contents are identified below at reviewed
+commit `1cc88e1946a254637fbed1924dc29642eca279c5`. This is a historical run record;
+the later renderer/controller change extends the static test's import policy
+without changing the protocol modules. Its current hashes and complete-suite
+results are in the [renderer/controller record](renderer-cycle.md).
 
 | File | SHA-256 of tested bytes |
 |---|---|
@@ -189,5 +191,9 @@ duplicate bytes. Separate offline tests must demonstrate that behaviour before
 any physical use; the fake's terminal outcome is not evidence that a stream
 remained quiet. T-009's passing
 tests do not satisfy T-003, T-005, T-006, T-013 or T-008 and do not change any
-equipment claim to Confirmed. Re-review of these changes is required from Claude Code
-(Anthropic) or Antigravity (Google); two Codex agents are one vendor.
+equipment claim to Confirmed. Claude Code (Anthropic) and Antigravity (Google)
+re-reviewed PR #21 at `1cc88e1946a254637fbed1924dc29642eca279c5`, and the owner
+merged it as `f333df41805f5c1d6e195b6635abc6d853b62a25`. Later substantive changes
+still need independent review; two Codex agents are one vendor. The newer
+[renderer/controller work](renderer-cycle.md) adds separate software components,
+not physical functionality to T-009.

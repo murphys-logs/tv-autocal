@@ -4,3 +4,4 @@ This folder is a log of reviews of this repository's pull requests: who reviewed
 
 - [2026-10-25-review-records.md](2026-10-25-review-records.md) — review records moved out of the ledger on 26 October 2026
 - [2026-10-27-pr21-review-response.md](2026-10-27-pr21-review-response.md) — Claude Code and Antigravity findings, author assessment and revisions to the component plans/prototype
+- [2026-10-27-pr22-review-response.md](2026-10-27-pr22-review-response.md) — assessment and fixes for the renderer/controller reviews; revised code needs independent re-review

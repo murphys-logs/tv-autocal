@@ -321,13 +321,25 @@ class ContainmentTests(unittest.TestCase):
 
     def assert_application_has_no_io(self, root):
         # Include future subpackages without importing or executing their code.
+        # Each module has a narrow explicit import policy. Unknown/nested files
+        # get only the original harmless baseline, not every new module's imports.
+        baseline = {(0, "enum"), (0, "dataclasses")}
+        allowed_by_module = {
+            "simulation.py": baseline | {(1, "exlink")},
+            "cycle.py": baseline | {(0, "math"), (1, "simulation")},
+            "demo.py": {(0, "dataclasses"), (0, "hashlib"), (0, "json"), (0, "sys"),
+                        (1, "cycle"), (1, "renderer"), (1, "simulation")},
+        }
         for source in sorted(root.rglob("*.py")):
+            allowed = allowed_by_module.get(source.relative_to(root).as_posix(), baseline)
             tree = ast.parse(source.read_text(encoding="utf-8"))
             for node in ast.walk(tree):
                 if isinstance(node, ast.Import):
                     self.fail("Unexpected import in " + str(source) + ": " + ast.unparse(node))
                 if isinstance(node, ast.ImportFrom):
-                    self.assertIn((node.level, node.module), {(0, "enum"), (0, "dataclasses"), (1, "exlink")}, str(source))
+                    self.assertIn((node.level, node.module), allowed, str(source))
+                    if node.module == "sys":
+                        self.assertEqual([alias.name for alias in node.names], ["argv"], str(source))
                 if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
                     self.assertNotIn(node.func.id, {"open", "exec", "eval", "compile", "__import__", "input"}, str(source))
 
