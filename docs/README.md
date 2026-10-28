@@ -10,6 +10,8 @@
 | [research/](research/README.md) | Research material — reports, critiques and references — archived with its provenance |
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
 | [tests/component-execution.md](tests/component-execution.md) | Shared execution record, reconciles merged operator controls/meter-process evidence with owner inputs; unresolved prerequisites and authorisation |
+| [tests/T-003-discovery-execution.md](tests/T-003-discovery-execution.md) | Discovery-only executable identities, one-launch completion/stopping proposal and unresolved owner inputs; no Argyll run |
+| [tests/T-003-discovery-record.example.md](tests/T-003-discovery-record.example.md) | Blank template for private preparation/session records; no authorisation or results |
 | [software/component-readiness.md](software/component-readiness.md) | Software-only presenter controls, interruption handling, meter supervision and offline verification |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
 | [software/renderer-cycle.md](software/renderer-cycle.md) | Off-screen renderer, simulated change/exit/wait/read controller, technical choices and manual checks |
