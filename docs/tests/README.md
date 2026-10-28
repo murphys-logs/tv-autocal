@@ -6,15 +6,15 @@ Software-only simulations do not belong here and need no authorisation, because 
 
 ## Plans awaiting independent review
 
-All three plans below are **NOT AUTHORISED** and have **no equipment results**. Each identifies unresolved execution prerequisites; preparing or merging a plan does not authorise a test.
+PR #26 reviewed the execution amendments. PR #27 reviewed and merged the [readiness changes](../software/component-readiness.md). This owner-input reconciliation needs independent review; T-006's operating sequence is unchanged. All three plans below are **NOT AUTHORISED** and have **no equipment results**. Each identifies unresolved execution prerequisites; preparing or merging a plan does not authorise a test.
 
 | Plan | Scope | Execution prerequisites still open |
 |---|---|---|
 | [T-003 meter](T-003-meter.md) | Discovery-only steps 1–4 first; later readings, repeatability, drift and usable range separately authorised | Review/authorisation, exact runtime/binary and isolation records, discovery stop handling; later readings also need presentation and diagnostic-threshold gates |
 | [T-005 signal path](T-005-signal-path.md) | Clipping/stability screening; correct range interpretation remains unproved | Amendment review/authorisation; display/runtime inputs and separate visual runs; T-003 before optical steps; additional method for Stage 4 range gate |
-| [T-006 Ex-Link](T-006-exlink.md) | Electrical gate, bounded ordinary control, menu exit and restoration | Amendment review/authorisation; electrical evidence, scope/restoration, menu timing and exact connection/stop procedures |
+| [T-006 Ex-Link](T-006-exlink.md) | Electrical gate, bounded ordinary control, menu exit and restoration | Authorisation; electrical evidence, scope/restoration, menu timing and exact connection/stop procedures |
 
-The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device. The [bounded component tools](../software/component-tools.md) were reviewed and merged in PR #24, followed by PR #25's documented console limitation; their hardware paths remain unoperated. The [shared execution record](component-execution.md) distinguishes the pinned software from the still-unfilled reviewed plan revision and local identities. S-053 records the intended two-screen layout and D-019's accepted generic-only diagnostic and timing policies; neither is a completed setup or test authorisation. [Unresolved inputs](component-execution.md#unresolved-inputs) remain explicit; merging the amendments will not authorise any step.
+The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device. The [bounded component tools](../software/component-tools.md) were reviewed and merged in PR #24, followed by PR #25's documented console limitation; their hardware paths remain unoperated. PR #26 supplied execution amendments and PR #27 merged the current presenter/meter implementation. The [shared execution record](component-execution.md) distinguishes the pinned software from the still-unfilled reviewed plan revision and local identities. S-053 records the intended two-screen layout and D-019's accepted generic-only diagnostic and timing policies; neither is a completed setup or test authorisation. [Unresolved inputs](component-execution.md#unresolved-inputs) remain explicit; merging the amendments will not authorise any step.
 
 ## Ground rules
 

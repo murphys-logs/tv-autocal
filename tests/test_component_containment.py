@@ -41,7 +41,7 @@ def component_io_guards():
         return original_import(name, *args, **kwargs)
 
     targets = ("builtins.open", "io.open", "os.open", "os.read", "os.write",
-               "os.fsync", "os.system", "subprocess.Popen", "socket.socket",
+               "os.fsync", "os.system", "subprocess.Popen", "signal.signal", "socket.socket",
                "socket.create_connection", "socket.getaddrinfo")
     with ExitStack() as stack:
         # Resolve these standard-library patch targets before blocking imports:
