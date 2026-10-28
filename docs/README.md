@@ -11,6 +11,7 @@
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
 | [tests/component-execution.md](tests/component-execution.md) | Shared execution record, reconciles merged operator controls/meter-process evidence with owner inputs; unresolved prerequisites and authorisation |
 | [tests/T-003-discovery-execution.md](tests/T-003-discovery-execution.md) | Discovery-only executable identities, one-launch completion/stopping proposal and unresolved owner inputs; no Argyll run |
+| [tests/T-003-discovery-console.md](tests/T-003-discovery-console.md) | Accepted discovery choices and proposed console entry/history/copy/power procedure; no physical authority |
 | [tests/T-003-discovery-record.example.md](tests/T-003-discovery-record.example.md) | Blank template for private preparation/session records; no authorisation or results |
 | [software/component-readiness.md](software/component-readiness.md) | Software-only presenter controls, interruption handling, meter supervision and offline verification |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
