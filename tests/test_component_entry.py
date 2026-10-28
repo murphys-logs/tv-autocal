@@ -1,6 +1,6 @@
 """Entry-point and journal checks using memory only; no equipment or GUI."""
 
-from contextlib import ExitStack, redirect_stdout
+from contextlib import ExitStack, redirect_stderr, redirect_stdout
 from dataclasses import replace
 from io import BytesIO, StringIO
 import json
@@ -61,7 +61,8 @@ class ComponentEntryTests(unittest.TestCase):
                          "--confirm", "RUN " + plan + " " + "a" * 40,
                          "--log", "local/evidence.log"] + extra
             if failure:
-                with self.assertRaisesRegex(RuntimeError, "fixture failure"):
+                expected = RuntimeError if isinstance(failure, SystemExit) else type(failure)
+                with self.assertRaises(expected):
                     cli.main(arguments)
                 code = None
             else:
@@ -69,10 +70,13 @@ class ComponentEntryTests(unittest.TestCase):
             return code, events, window, measurement, serial
 
     def test_armed_presenter_cli_dispatch_is_explicit_and_fake_only(self):
-        code, events, window, measurement, serial = self.armed_run("present", ["--x", "0", "--y", "0"])
+        code, events, window, measurement, serial = self.armed_run(
+            "present", ["--x", "0", "--y", "0", "--control-x", "4000", "--control-y", "100"])
         self.assertEqual(code, 0)
         window.assert_called_once()
         self.assertEqual(window.call_args.kwargs["sequence"], ((128, 128, 128),))
+        self.assertEqual(window.call_args.kwargs["control_x"], 4000)
+        self.assertEqual(window.call_args.kwargs["control_y"], 100)
         measurement.assert_not_called()
         serial.assert_not_called()
         self.assertEqual([x[0] for x in events], ["authorisation", "software_identity", "closed"])
@@ -83,6 +87,22 @@ class ComponentEntryTests(unittest.TestCase):
         self.assertEqual(events[-2][0], "tool-aborted")
         self.assertEqual(events[-2][1]["error_type"], "RuntimeError")
         self.assertEqual(events[-1][0], "closed")
+
+    def test_callback_exit_zero_is_an_aborted_run_not_successful_cli_exit(self):
+        _, events, _, _, _ = self.armed_run("present", [], failure=SystemExit(0))
+        self.assertEqual(events[-2][0], "tool-aborted")
+        self.assertEqual(events[-2][1]["error_type"], "SystemExit")
+        self.assertEqual(events[-1][0], "closed")
+
+    def test_entrypoint_keeps_help_success_and_reports_backend_failure(self):
+        with patch.object(cli.sys, "argv", ["tv_autocal_tools", "--help"]), \
+                redirect_stdout(StringIO()), self.assertRaises(SystemExit) as stopped:
+            cli.entrypoint()
+        self.assertEqual(stopped.exception.code, 0)
+        with patch.object(cli, "main", side_effect=RuntimeError("callback failed")), \
+                redirect_stderr(StringIO()), self.assertRaises(SystemExit) as stopped:
+            cli.entrypoint()
+        self.assertEqual(stopped.exception.code, 2)
 
     def test_meter_cli_compares_presentation_evidence_and_retains_rejected_raw_result(self):
         capture = meter.TranscriptCapture(0, timeout_ms=100)
@@ -151,7 +171,9 @@ class ComponentEntryTests(unittest.TestCase):
         with ExitStack() as stack:
             for target in targets:
                 stack.enter_context(patch(target, side_effect=AssertionError("Unexpected I/O: " + target)))
-            for arguments in ([], ["simulate"], ["present"], ["meter"], ["serial"]):
+            for arguments in ([], ["simulate"], ["present"],
+                              ["present", "--control-x", "4000", "--control-y", "100"],
+                              ["meter"], ["serial"]):
                 with self.subTest(arguments=arguments), redirect_stdout(StringIO()) as output:
                     self.assertEqual(cli.main(arguments), 0)
                     value = json.loads(output.getvalue())

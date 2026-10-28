@@ -35,6 +35,7 @@ class FakeProcess:
     def __init__(self, stdout=VALID, stderr=b"", code=0):
         self.stdout, self.stderr = BytesIO(stdout), BytesIO(stderr)
         self.code = code
+        self.pid = 5151
 
     def poll(self):
         return self.code
@@ -50,6 +51,16 @@ def supervise_fixture(process, capture, notify):
 
 
 class ComponentMeterTests(unittest.TestCase):
+    def setUp(self):
+        # Every runner case keeps signal installation and process identity inert;
+        # tests of individual signal phases override this fake explicitly.
+        self.signal_patch = patch("signal.signal", return_value="synthetic previous handler")
+        self.signal_patch.start()
+        self.addCleanup(self.signal_patch.stop)
+        self.pid_patch = patch.object(meter, "getpid", return_value=4242)
+        self.pid_patch.start()
+        self.addCleanup(self.pid_patch.stop)
+
     def complete(self, stdout=VALID, stderr=b"", code=0, **kwargs):
         capture = meter.TranscriptCapture(0, **kwargs)
         capture.feed("stdout", stdout, 1)
@@ -361,19 +372,22 @@ class ComponentMeterTests(unittest.TestCase):
         def install(number, handler):
             handlers.append(handler)
             return "previous"
-        capture = meter.TranscriptCapture(0)
-        readers = MagicMock()
-        readers.lock.__enter__.return_value = None
         process = FakeProcess()
         def spawn(argv, env):
             handlers[0](None, None)
             return process
-        with patch("signal.signal", side_effect=install), patch.object(meter, "_spawn", side_effect=spawn), \
-                patch.object(meter, "_now_ms", return_value=1):
-            returned = meter._attach_launch(["fixture"], {}, capture, readers)
-        self.assertIs(returned, process)
-        readers.attach.assert_called_once_with(process)
-        self.assertTrue(capture.cancelled)
+        times = iter([0])
+        with patch("signal.signal", side_effect=install), \
+                patch.object(meter, "platform", "win32"), \
+                patch.object(meter, "_verified_executable", return_value="fixture"), \
+                patch.object(meter, "_reserve_attempt_log", return_value="fixture.log"), \
+                patch.object(meter, "_now_ms", side_effect=lambda: next(times, 2000)), \
+                patch.object(meter, "_spawn", side_effect=spawn), patch.object(meter, "sleep"):
+            result = self.run_fixture()
+        self.assertTrue(result.cancelled)
+        self.assertEqual(result.stdout, VALID)
+        self.assertTrue(result.child_exit_confirmed)
+        self.assertTrue(result.readers_complete)
         self.assertEqual(handlers[-1], "previous")
 
     def test_notification_failure_does_not_abandon_child_or_capture(self):
@@ -399,6 +413,243 @@ class ComponentMeterTests(unittest.TestCase):
             BytesIO.close(process.stderr)  # Dispose of the inert failing-close fixture.
         self.assertFalse(result.accepted)
         self.assertFalse(result.capture_complete)
+
+    def signal_fixture(self, phase=None, *, broken_log=False, broken_notice=False):
+        """Call the real runner with inert signal/process/file/thread boundaries."""
+        events, notices = [], []
+        binding = {"handler": "previous", "restored": False}
+
+        def install(number, handler):
+            previous = binding["handler"]
+            if phase == "restore" and handler == "previous":
+                interrupt()
+            binding["handler"] = handler
+            binding["restored"] = handler == "previous"
+            return previous
+
+        def interrupt():
+            self.assertFalse(binding["restored"])
+            binding["handler"](None, None)
+            binding["handler"](None, None)
+
+        def audit(kind, **fields):
+            events.append((kind, fields))
+            if (phase == "cancel-log" and kind == "meter_cancel"
+                    or phase == "exit-log" and kind == "meter_exit"):
+                interrupt()
+            if broken_log and kind == "meter_started":
+                raise OSError("synthetic post-launch journal failure")
+
+        def notify(message):
+            notices.append(message)
+            if broken_notice:
+                raise OSError("synthetic status output failure")
+
+        class SignalPipe(BytesIO):
+            def __init__(self, data, name):
+                super().__init__(data)
+                self.name = name
+
+            def close(self):
+                if not self.closed and phase == self.name + "-close":
+                    interrupt()
+                super().close()
+
+        process = FakeProcess()
+        process.stdout, process.stderr = SignalPipe(VALID, "stdout"), SignalPipe(b"", "stderr")
+        process.kill, process.terminate, process.send_signal = MagicMock(), MagicMock(), MagicMock()
+
+        def poll():
+            if phase == "poll":
+                interrupt()
+            return 0
+
+        process.poll = poll
+
+        class Readers:
+            def __init__(self, capture):
+                self.capture = capture
+                self.lock = MagicMock()
+                self.done = {"stdout": False, "stderr": False}
+
+            def start(self):
+                pass
+
+            def attach(self, attached):
+                if phase == "attach":
+                    interrupt()
+                for name in self.done:
+                    self.capture.feed(name, getattr(attached, name).read(), 2000)
+                    self.capture.end_stream(name, 2000)
+                    self.done[name] = True
+
+            def join(self):
+                if phase == "join":
+                    interrupt()
+
+            def abort(self):
+                pass
+
+        def spawn(argv, env):
+            if phase in {"spawn", "cancel-log"}:
+                interrupt()
+            return process
+
+        original_result = meter.TranscriptCapture.result
+        result_interrupted = []
+
+        def make_result(capture, exit_code, now_ms):
+            result = original_result(capture, exit_code, now_ms)
+            if phase == "result" and not result_interrupted:
+                result_interrupted.append(True)
+                interrupt()
+            return result
+
+        with patch("signal.signal", side_effect=install), \
+                patch.object(meter, "platform", "win32"), \
+                patch.object(meter, "_verified_executable", return_value="fixture"), \
+                patch.object(meter, "_reserve_attempt_log", return_value="fixture.log"), \
+                patch.object(meter, "_now_ms", side_effect=[0, 2000] + [2000] * 100), \
+                patch.object(meter, "getpid", return_value=4242), \
+                patch.object(meter.TranscriptCapture, "result", make_result), \
+                patch.object(meter, "_PipeReaders", Readers), \
+                patch.object(meter, "_spawn", side_effect=spawn), patch.object(meter, "sleep"):
+            result = self.run_fixture(log=audit, notify=notify)
+        self.assertTrue(binding["restored"])
+        process.kill.assert_not_called()
+        process.terminate.assert_not_called()
+        process.send_signal.assert_not_called()
+        self.assertTrue(process.stdout.closed)
+        self.assertTrue(process.stderr.closed)
+        return result, events, notices
+
+    def test_repeated_sigint_is_latched_through_launch_supervision_and_cleanup(self):
+        for phase in ("spawn", "attach", "poll", "cancel-log", "join",
+                      "stdout-close", "stderr-close", "exit-log", "result", "restore"):
+            with self.subTest(phase=phase):
+                result, events, _ = self.signal_fixture(phase)
+                self.assertFalse(result.accepted)
+                self.assertTrue(result.cancelled)
+                self.assertEqual(result.stdout, VALID)
+                self.assertTrue(result.capture_complete)
+                self.assertTrue(result.child_exit_confirmed)
+                self.assertTrue(result.readers_complete)
+                self.assertEqual(sum(kind == "meter_cancel" for kind, _ in events), 1)
+
+    def test_wrapper_child_identity_and_lifecycle_are_distinct(self):
+        result, events, notices = self.signal_fixture()
+        self.assertTrue(result.accepted)
+        self.assertEqual((result.wrapper_pid, result.child_pid), (4242, 5151))
+        started = next(fields for kind, fields in events if kind == "meter_started")
+        exited = next(fields for kind, fields in events if kind == "meter_child_exit")
+        completed = next(fields for kind, fields in events if kind == "meter_exit")
+        self.assertFalse(started["child_exit_confirmed"])
+        self.assertFalse(exited["readers_complete"])
+        self.assertTrue(completed["child_exit_confirmed"])
+        self.assertTrue(completed["readers_complete"])
+        self.assertEqual((completed["wrapper_pid"], completed["child_pid"]), (4242, 5151))
+        self.assertIn("Wrapper PID 4242", notices[0])
+        self.assertIn("meter child PID 5151", notices[0])
+        self.assertEqual(result.as_dict()["child_pid"], 5151)
+
+    def test_transcript_alone_does_not_claim_observed_process_lifecycle(self):
+        result = self.complete()
+        self.assertIsNone(result.wrapper_pid)
+        self.assertIsNone(result.child_pid)
+        self.assertIsNone(result.child_exit_confirmed)
+        self.assertIsNone(result.readers_complete)
+
+    def test_post_launch_log_and_notice_failures_do_not_abandon_capture(self):
+        for options in ({"broken_log": True}, {"broken_notice": True}):
+            with self.subTest(options=options):
+                result, _, _ = self.signal_fixture(**options)
+                self.assertFalse(result.accepted)
+                self.assertEqual(result.stdout, VALID)
+                self.assertTrue(result.child_exit_confirmed)
+                self.assertTrue(result.readers_complete)
+
+    def test_signal_registration_failure_prevents_child_launch(self):
+        with patch.object(meter, "platform", "win32"), \
+                patch.object(meter, "_verified_executable", return_value="fixture"), \
+                patch.object(meter, "_reserve_attempt_log", return_value="fixture.log"), \
+                patch.object(meter, "_now_ms", side_effect=[0, 2000, 2000]), \
+                patch("signal.signal", side_effect=ValueError("synthetic registration failure")), \
+                patch.object(meter, "_spawn") as spawn, self.assertRaises(ValueError):
+            self.run_fixture()
+        spawn.assert_not_called()
+
+    def test_sigint_latched_before_spawn_prevents_launch_and_restores_handler(self):
+        handlers = []
+
+        def install(number, handler):
+            handlers.append(handler)
+            if callable(handler):
+                handler(None, None)
+            return "previous"
+
+        with patch.object(meter, "platform", "win32"), \
+                patch.object(meter, "_verified_executable", return_value="fixture"), \
+                patch.object(meter, "_reserve_attempt_log", return_value="fixture.log"), \
+                patch.object(meter, "_now_ms", side_effect=[0, 2000, 2000]), \
+                patch("signal.signal", side_effect=install), \
+                patch.object(meter, "_spawn") as spawn, self.assertRaises(KeyboardInterrupt):
+            self.run_fixture()
+        spawn.assert_not_called()
+        self.assertEqual(handlers[-1], "previous")
+
+    def test_child_exit_does_not_finish_before_output_reader_completion(self):
+        capture = meter.TranscriptCapture(0)
+        capture.feed("stdout", VALID, 1)
+        capture.end_stream("stdout", 1)
+        process = FakeProcess()
+        process.poll = MagicMock(return_value=0)
+        readers = MagicMock()
+        readers.done = {"stdout": True, "stderr": False}
+        notices = []
+
+        def finish_reader(seconds):
+            self.assertTrue(capture.child_exit_confirmed)
+            self.assertFalse(capture.readers_complete)
+            readers.join.assert_not_called()
+            capture.end_stream("stderr", 2)
+            readers.done["stderr"] = True
+
+        with patch.object(meter, "_now_ms", return_value=2), \
+                patch.object(meter, "sleep", side_effect=finish_reader):
+            result = meter._supervise(process, capture, notices.append, readers=readers)
+        self.assertTrue(result.accepted)
+        self.assertTrue(result.readers_complete)
+        self.assertEqual(process.poll.call_count, 1)
+        self.assertEqual(len(notices), 1)
+        self.assertIn("output readers are still outstanding", notices[0])
+
+    def test_explicit_keyboardinterrupt_during_cleanup_rejects_and_retries_cleanup(self):
+        capture = meter.TranscriptCapture(0)
+        capture.feed("stdout", VALID, 1)
+        capture.end_stream("stdout", 1)
+        capture.end_stream("stderr", 1)
+        process = FakeProcess()
+        original_close = process.stdout.close
+        close_calls = []
+
+        def close():
+            close_calls.append(None)
+            if len(close_calls) == 1:
+                raise KeyboardInterrupt
+            original_close()
+
+        process.stdout.close = MagicMock(side_effect=close)
+        readers = MagicMock()
+        readers.done = {"stdout": True, "stderr": True}
+        readers.join.side_effect = [KeyboardInterrupt, None]
+        with patch.object(meter, "_now_ms", return_value=2):
+            result = meter._supervise(process, capture, lambda text: None, readers=readers)
+        self.assertTrue(result.cancelled)
+        self.assertFalse(result.accepted)
+        self.assertTrue(result.child_exit_confirmed)
+        self.assertTrue(result.readers_complete)
+        self.assertEqual(readers.join.call_count, 2)
+        self.assertEqual(process.stdout.close.call_count, 2)
 
 
 if __name__ == "__main__":

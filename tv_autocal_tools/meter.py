@@ -7,6 +7,7 @@ driver: supervision and bounded draining continue through process exit/EOF.
 
 from dataclasses import dataclass
 from hashlib import sha256 as digest_sha256
+from os import getpid
 from pathlib import Path, PureWindowsPath
 from re import fullmatch
 from sys import platform
@@ -37,6 +38,10 @@ class MeterResult:
     stderr_dropped: int
     simulated: bool
     purpose: str = "component diagnostic only; never calibration data"
+    wrapper_pid: int | None = None
+    child_pid: int | None = None
+    child_exit_confirmed: bool | None = None
+    readers_complete: bool | None = None
 
     def as_dict(self) -> dict:
         return {**self.__dict__, "stdout": self.stdout.hex(), "stderr": self.stderr.hex(),
@@ -67,6 +72,9 @@ class TranscriptCapture:
         self.timed_out = self.cancelled = False
         self.log_complete = True
         self._last_ms = started_ms
+        # None means no process lifecycle was observed (pure transcript use).
+        self.wrapper_pid = self.child_pid = None
+        self.child_exit_confirmed = self.readers_complete = None
 
     def _emit(self, kind: str, **fields) -> None:
         if self.log is not None and self.log_complete:
@@ -142,7 +150,10 @@ class TranscriptCapture:
         return MeterResult(raw["stdout"], raw["stderr"], exit_code, accepted, reason,
                            parsed.xyz if accepted else None, parsed.output_format,
                            self.timed_out, self.cancelled, complete, self.log_complete,
-                           self.dropped["stdout"], self.dropped["stderr"], self.simulated)
+                           self.dropped["stdout"], self.dropped["stderr"], self.simulated,
+                           wrapper_pid=self.wrapper_pid, child_pid=self.child_pid,
+                           child_exit_confirmed=self.child_exit_confirmed,
+                           readers_complete=self.readers_complete)
 
 
 def isolated_environment(environ: dict[str, str]) -> dict[str, str]:
@@ -200,27 +211,39 @@ def _spawn(argv: list[str], env: dict[str, str]):
                  env=env, bufsize=0, creationflags=CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW)
 
 
-def _attach_launch(argv, environment, capture, readers):
-    # Do not lose the newly created process handle to Ctrl+C between Popen and
-    # attaching the already-running readers. The deferred stop rejects output;
-    # it never sends an interrupt to the instrument process.
-    from signal import SIGINT, signal
-    cancelled = False
+class _DeferredStop:
+    """Latch SIGINT without raising inside a lock, launch or cleanup operation.
 
-    def defer_stop(signum, frame):
-        nonlocal cancelled
-        cancelled = True
+    This is installed before launch and retained through child exit and reader
+    cleanup. It does not handle console closure, termination, or OS shutdown.
+    Signal delivery timing on the owner's Windows installation is untested.
+    """
 
-    previous = signal(SIGINT, defer_stop)
-    try:
-        process = _spawn(argv, environment)
-        readers.attach(process)
-    finally:
-        signal(SIGINT, previous)
-    if cancelled:
-        with readers.lock:
+    def __init__(self):
+        self.requested = False
+
+    def request(self, signum=None, frame=None):
+        # A signal handler must not acquire the readers' lock or write logs.
+        self.requested = True
+
+    def __enter__(self):
+        from signal import SIGINT, signal
+        self.previous = signal(SIGINT, self.request)
+        return self
+
+    def __exit__(self, exc_type, exc, traceback):
+        from signal import SIGINT, signal
+        try:
+            signal(SIGINT, self.previous)
+        except Exception as restore_error:
+            if exc is None:
+                raise
+            exc.add_note("Restoring the SIGINT handler also failed: " + type(restore_error).__name__)
+
+    def apply(self, capture):
+        # The caller owns the capture lock (or all readers have joined).
+        if self.requested and not capture.cancelled:
             capture.cancel(_now_ms())
-    return process
 
 
 def _now_ms() -> int:
@@ -285,25 +308,37 @@ class _PipeReaders:
                 self.done[name] = True
 
 
-def _supervise(process, capture: TranscriptCapture, notify, *, readers) -> MeterResult:
+def _notify(capture, notify, message):
+    try:
+        notify(message)
+    except Exception:
+        capture.read_errors.add("notification")
+        capture._emit("meter_notification_error", detail="status output failed; capture remains attached")
+
+
+def _supervise(process, capture: TranscriptCapture, notify, *, readers, stop=None) -> MeterResult:
     lock, done = readers.lock, readers.done
+    stop = stop if stop is not None else _DeferredStop()
     warned = False
     status_failed = False
+    exit_code = None
+    capture.child_exit_confirmed = capture.readers_complete = False
     while True:
         try:
             with lock:
+                stop.apply(capture)
                 capture.tick(_now_ms())
                 if (capture.timed_out or capture.cancelled or capture.read_errors
                         or not capture.log_complete) and not warned:
-                    try:
-                        notify("Attempt rejected; meter process/output may still be outstanding "
-                               "(PID " + str(getattr(process, "pid", "unknown")) + "). "
-                               "Capture remains attached. No kill, retry or further reading is sent.")
-                    except Exception:
-                        capture.read_errors.add("notification")
+                    _notify(capture, notify,
+                            "Attempt rejected; meter child/output may still be outstanding "
+                            "(child PID " + str(capture.child_pid) + ", wrapper PID "
+                            + str(capture.wrapper_pid) + "). Capture remains attached. "
+                            "No kill, retry or further reading is sent.")
                     warned = True
             try:
-                exit_code = process.poll()
+                if exit_code is None:
+                    exit_code = process.poll()
             except Exception:
                 with lock:
                     capture.read_errors.add("process-status")
@@ -312,24 +347,52 @@ def _supervise(process, capture: TranscriptCapture, notify, *, readers) -> Meter
                         status_failed = True
                 exit_code = None
             with lock:
+                stop.apply(capture)
+                if exit_code is not None and not capture.child_exit_confirmed:
+                    capture.child_exit_confirmed = True
+                    capture._emit("meter_child_exit", child_pid=capture.child_pid,
+                                  exit_code=exit_code, time_ms=_now_ms(),
+                                  readers_complete=False)
+                    if not all(done.values()):
+                        _notify(capture, notify,
+                                "Meter child exit confirmed; output readers are still outstanding. "
+                                "Keep the wrapper and held patch in place until final completion.")
                 if exit_code is not None and all(done.values()):
                     break
             sleep(0.05)
         except KeyboardInterrupt:
-            with lock:
-                capture.cancel(_now_ms())
-            # Child has its own process group. Ctrl+C marks rejection, without
-            # forwarding a signal or abandoning the in-flight driver's output.
-    readers.join()
-    for name in done:
+            # Defensive fallback for an explicitly raised KeyboardInterrupt.
+            # Ordinary SIGINT uses the non-raising handler throughout this call.
+            stop.request()
+    while True:
         try:
-            getattr(process, name).close()
-        except Exception:
-            capture.read_errors.add(name + "-close")
-            capture._emit("meter_pipe_close_error", stream=name)
+            readers.join()
+            capture.readers_complete = True
+            break
+        except KeyboardInterrupt:
+            stop.request()
+    stop.apply(capture)
+    capture._emit("meter_readers_complete", child_pid=capture.child_pid,
+                  time_ms=_now_ms(), child_exit_confirmed=True)
+    for name in done:
+        while True:
+            try:
+                getattr(process, name).close()
+                break
+            except KeyboardInterrupt:
+                stop.request()
+            except Exception:
+                capture.read_errors.add(name + "-close")
+                capture._emit("meter_pipe_close_error", stream=name)
+                break
+        stop.apply(capture)
     capture._emit("meter_exit", exit_code=exit_code, time_ms=_now_ms(),
+                  wrapper_pid=capture.wrapper_pid, child_pid=capture.child_pid,
+                  child_exit_confirmed=capture.child_exit_confirmed,
+                  readers_complete=capture.readers_complete,
                   stdout_dropped=capture.dropped["stdout"],
                   stderr_dropped=capture.dropped["stderr"])
+    stop.apply(capture)
     return capture.result(exit_code, _now_ms())
 
 
@@ -343,7 +406,8 @@ def run_meter(permit: HardwarePermit, *, executable: str, sha256: str, attempt_l
     must supervise the fixed patch throughout the wait and capture. No display
     observation, instrument discovery or cross-process serial lock is inferred.
     A timeout stops acceptance, while this call remains attached until exit and
-    pipe EOF. Closing the console externally may abort the driver and lose data.
+    reader completion. Closing the wrapper externally does not prove child exit;
+    forced termination or shutdown remains an unresolved physical procedure.
     """
     if type(permit) is not HardwarePermit:
         raise TypeError("An explicit component permit is required")
@@ -381,12 +445,40 @@ def run_meter(permit: HardwarePermit, *, executable: str, sha256: str, attempt_l
         log("meter_capture_start_failed", simulated=False,
             detail="no process launched; reader resources unavailable")
         raise
+    # Install failure is pre-launch. Keep the non-raising handler installed
+    # until supervision, reader joins and pipe cleanup have actually completed.
+    process = None
     try:
-        process = _attach_launch(argv, environment, capture, readers)
+        with _DeferredStop() as stop:
+            if stop.requested:
+                raise KeyboardInterrupt("Meter attempt cancelled before process launch")
+            process = _spawn(argv, environment)
+            readers.attach(process)
+            with readers.lock:
+                capture.wrapper_pid, capture.child_pid = getpid(), getattr(process, "pid", None)
+                capture.child_exit_confirmed = capture.readers_complete = False
+                stop.apply(capture)
+                capture._emit("meter_started", pid=capture.child_pid,
+                              wrapper_pid=capture.wrapper_pid, child_pid=capture.child_pid,
+                              time_ms=_now_ms(), child_exit_confirmed=False,
+                              readers_complete=False)
+                _notify(capture, notify,
+                        "Wrapper PID " + str(capture.wrapper_pid) + " is supervising meter child PID "
+                        + str(capture.child_pid) + ". Ctrl+C rejects the attempt and keeps capture "
+                        "attached. Wrapper closure does not establish child exit.")
+            result = _supervise(process, capture, notify, readers=readers, stop=stop)
+        # A signal can arrive while the result is being built or the previous
+        # handler is being restored. The child/readers are already finished,
+        # but that late stop must still reject this attempt's returned result.
+        if stop.requested and not result.cancelled:
+            stop.apply(capture)
+            result = capture.result(result.exit_code, _now_ms())
+        return result
     except BaseException as error:
-        readers.abort()
-        log("meter_launch_failed", simulated=False, error_type=type(error).__name__)
+        if process is None:
+            readers.abort()
+            log("meter_launch_failed", simulated=False, error_type=type(error).__name__)
+        # An unexpected post-launch failure is not reported as successful child
+        # closure. Console/OS termination and arbitrary interpreter failures are
+        # outside this bounded SIGINT policy; no termination/retry is attempted.
         raise
-    with readers.lock:
-        capture._emit("meter_started", pid=getattr(process, "pid", None), time_ms=_now_ms())
-    return _supervise(process, capture, notify, readers=readers)
