@@ -1,11 +1,11 @@
 # T-006 — bounded Ex-Link control and restoration
 
-> **Draft for independent review — NOT AUTHORISED. No equipment has been operated.**
+> **Reviewed plan — NOT AUTHORISED. No equipment has been operated.**
 > **Execution blocked:** electrical evidence, scope/restoration, menu timing, unresolved stop/connection procedures and the owner's specific authorisation are still required. The component sender is reviewed software, not equipment validation.
 
 Prepared by Codex (OpenAI), 27 October 2026, against merged baseline `ba099e0a182713945c247636042286e6f9dca626`. This is a proposed experiment, not a statement that these commands work on the TV.
 
-Execution amendment by Codex (OpenAI), 27 October 2026, reviewed in PR #26 and reconciled 28 October with the merged PR #27 source identified below. This documentation reconciliation needs independent review; the sender behaviour is unchanged. [Common execution preparation](component-execution.md) records software identity, owner inputs and authorisation requirements; its unfilled fields are not permission to run. No source code or approved patch geometry changes.
+Execution amendment by Codex (OpenAI), 27 October 2026, reviewed in PR #26 and reconciled 28 October with the merged PR #27 source identified below. This documentation reconciliation was independently reviewed and merged in PR #28; the sender behaviour is unchanged. [Common execution preparation](component-execution.md) records software identity, owner inputs and authorisation requirements; its unfilled fields are not permission to run. No source code or approved patch geometry changes.
 
 ## 1. Purpose
 
@@ -22,7 +22,7 @@ T-001/T-002 are recorded in [S-033](../briefs/2026-10-26-owner-equipment-checkli
 | Scope | Owner accepts this test's stop boundary: on failure stop and return to the owner; no fallback or service-menu entry. This does not require settling the broader fallback question Q-013, which remains open. | Open |
 | Setting scope | Owner chooses a reviewed procedure: retain All Sources with every affected scope's baseline/restoration checks, or isolate Current Source with explicit scope-change/restoration steps. Neither option is selected by this draft. | Missing; amendment required before authorisation; X-012 |
 | Other software | ArgyllCMS, DisplayCAL and other instrument/serial discovery software must remain closed while either end of the Ex-Link cable is connected. No background discovery or second port user. | Must be checked before connection; C-090 |
-| Transport | Use only the pinned `tv_autocal_tools` serial entry point and source hashes below, with pySerial 3.5 and the reviewed local interpreter. No terminal substitute or arbitrary-byte input. | Software reviewed through PR #27; real port/driver behaviour not tested; this documentation reconciliation awaits review |
+| Transport | Use only the pinned `tv_autocal_tools` serial entry point and source hashes below, with pySerial 3.5 and the reviewed local interpreter. No terminal substitute or arbitrary-byte input. | Software reviewed through PR #27; documentation reconciliation reviewed in PR #28; real port/driver behaviour not tested |
 | Reply policy | Initial/late/duplicate bytes, partial writes, bounded logs and paired observations follow the source-backed sequence below. No checksum or ACK establishes correlation or a changed setting. | Implemented and checked offline; equipment behaviour not tested |
 | Offline checks | T-009 and T-017 coverage includes Contrast/EXIT literals, late-byte retention, fake-console command rejection and closure failures. | [Recorded 287-test suite](../software/component-tools.md#offline-verification); no physical evidence and no L-4 code fix |
 | Menu timing | A reviewed amendment identifies each normal menu/submenu used, its automatic-close timing and a send/observation interval that cannot overlap it. Unknown or overlapping timing makes EXIT inconclusive; do not transfer a timeout between different menus. | Missing; no timeout value assumed |

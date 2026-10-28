@@ -5,7 +5,7 @@
 ## Preparation fields — complete privately before authorisation
 
 - Session identifier and private directory: UNRESOLVED
-- New full reviewed plan commit (parent, package, console instructions and template): UNRESOLVED; PR #29’s prior review alone is insufficient
+- New full reviewed plan commit (parent, package, console instructions, preflight and template): UNRESOLVED; PR #30’s prior review alone is insufficient
 - Independent review references and outstanding findings: UNRESOLVED
 - Later authorisation-record commit: UNRESOLVED
 - Owner and date; authorisation copied verbatim into parent section 8: NONE
@@ -19,12 +19,58 @@
 - Owner can open/access the selected console: UNRESOLVED
 - Elapsed-time method, visibility and timing uncertainty handling: UNRESOLVED
 - Reviewed Windows power/screen-saver pass rule and read-only check method: UNRESOLVED
-- Automatic-lock and TV/Denon sleep/standby evidence; scope of any needed check resolved before authority: UNRESOLVED
+- Assessed locking/standby preflight record below; every applicable gap resolved before discovery authority: UNRESOLVED
 - Discovery-only 60-second policy decision/reference: D-020/S-059 accepted; not execution authority
 - Stopping/waiting/no forced-recovery decision/reference: D-020/S-059 accepted; not execution authority
 - Owner-presence arrangement if the process remains outstanding: UNRESOLVED
 - Whole private command line (selected path, sole `-?` argument, redirections and automatic exit/time capture): UNRESOLVED
 - Fresh, distinct, unused stdout/stderr/record paths: UNRESOLVED
+
+## Preflight records — before discovery authorisation
+
+Complete only after review of the [preflight method](T-003-discovery-preflight.md), including X-015's classification assessment. Visual owner checks and software-only registry preparation are recorded separately below. Neither grants discovery authority. Keep raw output and machine/account paths private; no settings, management, lock, power or equipment values are prefilled from documentation or past answers.
+
+### Owner look-only observations
+
+These visible-settings observations follow the owner-check rule, without a separate physical-test authorisation. No setting changes or native-program commands belong in this subsection.
+
+- Observation date, owner and reviewed preflight revision: NOT OBSERVED
+- Existing Samsung ordinary desktop, TV/Denon input indications; LG deferred: NOT OBSERVED
+- Plugged-in display-off, sleep and hibernate values, separately; screen saver, Wait and resume checkbox: NOT OBSERVED
+- Never/None gate result; unavailable controls and specific assessed explanation, if any: UNRESOLVED
+- Dynamic lock current option: NOT OBSERVED
+- Require sign-in exact wording and any timed-away/policy restriction: NOT OBSERVED
+- Access work or school connection/management indication (identifiers private): NOT OBSERVED
+- Owner report of known locking utility/task, remote-control arrangement, recent policy change, pending application or unexplained locks: NOT OBSERVED
+- Windows Update displayed status and any pending/scheduled/required restart, deadline or update in progress: NOT OBSERVED
+- Current active-hours start/end and automatic-adjustment state; proposed launch plus full 60-second interval fit: NOT OBSERVED
+- Update gate result, flagged uncertainty and targeted assessment; longer-wait/restart limits considered: UNRESOLVED
+- Samsung Sleep Timer: NOT OBSERVED
+- Samsung Off Timer, every schedule actually displayed: NOT OBSERVED
+- Samsung Auto Power Off: NOT OBSERVED
+- Samsung Auto Protection Time, actual choices/value without editing: NOT OBSERVED
+- Samsung Anynet+ (HDMI-CEC): NOT OBSERVED
+- Denon remote already known in MAIN mode, without changing it: NOT OBSERVED
+- Denon MAIN ZONE Auto Standby: NOT OBSERVED
+- Denon front-panel readability and SLEEP indicator; no SLEEP button press: NOT OBSERVED
+- Denon HDMI Control: NOT OBSERVED
+- Menus closed, original inputs/desktop still visible, values unchanged; any deviation: NOT OBSERVED
+
+### Software-only registry preparation
+
+This is an owner-run software step, not a look-only owner check. It uses the written preflight and temporary console controls under AGENTS.md's software-only allowance; X-015's differing interpretation needs focused review before use. No registry, power, lock, policy or equipment setting is changed.
+
+- Preparation date, owner and reviewed revision; classification review reference: NOT OBSERVED
+- Preparation console identity/host and verified session-only privacy controls; Windows System32 reg.exe private identity: NOT OBSERVED
+- Named policy query complete output, immediate exit code and value/type, or exact error: NOT OBSERVED
+- If applicable, parent-key query complete output, immediate exit code and absence assessment: NOT OBSERVED
+- Machine-inactivity result and source/application limits considered: UNRESOLVED
+- Completed preparation console closed; no Argyll launch: NOT OBSERVED
+
+### Combined preflight assessment
+
+- Any failed/unknown criterion, specific follow-up and independently reviewed alternative, if needed: UNRESOLVED
+- Assessment/reference: NOT READY — no observations supplied
 
 ## Session observations — fill only within authorised steps
 
@@ -43,10 +89,10 @@
 - Original process correction variables (presence/value, private): NOT OBSERVED
 - Both correction variables verified absent in this process before launch: NOT OBSERVED
 - Original/current error preference (`Stop`) and native exit-code preference (`false`); other capture settings: NOT OBSERVED
-- Current plugged-in display-off, sleep and hibernate values (each separately), without changes: NOT OBSERVED
-- Screen saver, Wait and On resume display logon screen; disabled/unavailable fields recorded as observed: NOT OBSERVED
-- Windows gate result against the console guide's Never/None rule; unknown/failed/inapplicable control and reviewed evidence: NOT OBSERVED
-- Unresolved automatic-lock/display-path conditions; evidence reference and launch-gate result, without new TV/Denon inspection: NOT OBSERVED
+- Assessed preflight record reference; owner confirms no relevant settings, management, input or connection changes, unexplained restart or new lock since that record: NOT OBSERVED
+- Preflight conditions still apply; original ordinary desktop/inputs visible and all menus closed before launch: NOT OBSERVED
+- Fresh look-only Windows Update status/restart/hour observations before launch, observation time and full 60-second interval check; views then closed: NOT OBSERVED
+- Any new power/saver/locking/standby/update uncertainty; launch gate (failed/unknown means no launch): NOT OBSERVED
 - Capture paths confirmed fresh and distinct: NOT OBSERVED
 - Owner present; accepted elapsed-time observation ready: NOT OBSERVED
 - Complete manually entered command checked before Enter; no paste/history/replay: NOT OBSERVED
