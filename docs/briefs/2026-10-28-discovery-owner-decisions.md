@@ -1,7 +1,7 @@
 # Owner's discovery-only planning choices
 
 **Source:** questions asked by Codex (OpenAI) and answers supplied by the owner in this conversation, 28 October 2026 (Europe/London).
-**Fidelity:** the selected request, six question/answer pairs and later instruction below are verbatim visible conversation text. Interface IDs and the supplied AI reviews are omitted. Questions are Codex's framing; answers are the owner's words. This is planning acceptance, not physical authorisation or equipment evidence.
+**Fidelity:** the selected request, six question/answer pairs and later instruction below reproduce the visible conversation text. Questions and the five answer options ending “(Recommended)” were worded by Codex and selected by the owner; “Unknown” was the owner's free-text reply. The other offered options, interface IDs and supplied AI reviews are not reproduced in this selected extract. “Verbatim” describes the recorded reply text, not original authorship of the option labels. This is planning acceptance, not physical authorisation or equipment evidence.
 
 ## Request
 

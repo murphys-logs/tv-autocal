@@ -15,10 +15,11 @@
 - HTTPS-published win32 package match and signature/source-build limitations acknowledged: UNRESOLVED
 - Other-copy/previous DisplayCAL identity: UNKNOWN; no alternative launch
 - Selected absolute Codex-bundled console executable path, hash, version and startup options: UNRESOLVED
-- Reviewed host, manual-entry, GUI-copy and session-only history method: UNRESOLVED
+- Reviewed host, manual-entry, GUI-copy and session-only history/prediction method: UNRESOLVED
 - Owner can open/access the selected console: UNRESOLVED
 - Elapsed-time method, visibility and timing uncertainty handling: UNRESOLVED
-- Method for checking existing sleep/hibernate/display timeouts and accommodating them without setting changes: UNRESOLVED
+- Reviewed Windows power/screen-saver pass rule and read-only check method: UNRESOLVED
+- Automatic-lock and TV/Denon sleep/standby evidence; scope of any needed check resolved before authority: UNRESOLVED
 - Discovery-only 60-second policy decision/reference: D-020/S-059 accepted; not execution authority
 - Stopping/waiting/no forced-recovery decision/reference: D-020/S-059 accepted; not execution authority
 - Owner-presence arrangement if the process remains outstanding: UNRESOLVED
@@ -35,13 +36,17 @@
 - TV/Denon/desktop unchanged; no presenter/pattern/reading: NOT OBSERVED
 - Selected executable actual path/hash/size immediately before launch: NOT OBSERVED
 - Console actual path/hash/version, `-NoLogo -NoProfile`: NOT OBSERVED
-- Actual host, ordinary/non-elevated access and classic Mark/Copy controls: NOT OBSERVED
-- Already-loaded PSReadLine version, original history setting and verified session-only SaveNothing: NOT OBSERVED
+- Actual host, ordinary/non-elevated access, classic Mark/Copy check, menus dismissed/no selection/idle prompt: NOT OBSERVED
+- Already-loaded PSReadLine version (require 2.4.5): NOT OBSERVED
+- Original HistorySaveStyle and PredictionSource; both verified as session-only SaveNothing and None before private commands: NOT OBSERVED
 - All process `ARGYLL_*` variable names (or none); additional-setting assessment and needed private values: NOT OBSERVED
 - Original process correction variables (presence/value, private): NOT OBSERVED
 - Both correction variables verified absent in this process before launch: NOT OBSERVED
 - Original/current error preference (`Stop`) and native exit-code preference (`false`); other capture settings: NOT OBSERVED
-- Current automatic sleep/hibernate/display-off settings and method suitability, without changes: NOT OBSERVED
+- Current plugged-in display-off, sleep and hibernate values (each separately), without changes: NOT OBSERVED
+- Screen saver, Wait and On resume display logon screen; disabled/unavailable fields recorded as observed: NOT OBSERVED
+- Windows gate result against the console guide's Never/None rule; unknown/failed/inapplicable control and reviewed evidence: NOT OBSERVED
+- Unresolved automatic-lock/display-path conditions; evidence reference and launch-gate result, without new TV/Denon inspection: NOT OBSERVED
 - Capture paths confirmed fresh and distinct: NOT OBSERVED
 - Owner present; accepted elapsed-time observation ready: NOT OBSERVED
 - Complete manually entered command checked before Enter; no paste/history/replay: NOT OBSERVED
@@ -50,6 +55,7 @@
 - 60-second boundary observation and whether return was confirmed before it: NOT RUN
 - Automatically saved numeric exit code or UNRECORDED/missing evidence; status line and shell errors: NOT RUN
 - Normal foreground return / outstanding / interrupted / unknown: NOT RUN
+- Unexpected continuation prompt; incomplete command / launch unconfirmed; allowance consumed and abnormal branch followed: NOT OBSERVED
 - Stdout/stderr capture paths, sizes, hashes and completeness assessment: NOT RUN
 - Stdout empty as expected, or unexpected content retained and assessed: NOT RUN
 - Reported Argyll version: NOT OBSERVED
