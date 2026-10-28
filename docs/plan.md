@@ -5,7 +5,7 @@
 
 This page puts the work in order: what has to be known, tested or decided before the next step can start, and what would make each step stop.
 
-**Preparation update, 27 October 2026:** owner checks T-001/T-002 are recorded. The [T-003](tests/T-003-meter.md), [T-005](tests/T-005-signal-path.md) and [T-006](tests/T-006-exlink.md) plans and [T-009 prototype](software/t009-prototype.md) were independently reviewed and merged in PR #21. The [off-screen renderer and simulated controller](software/renderer-cycle.md) were reviewed and merged in PR #22, and [offline integration](software/integration.md) in PR #23. New [bounded component tools](software/component-tools.md) await independent review; their hardware paths have not been operated. Physical plans remain **NOT AUTHORISED** and require execution amendments as well as their outstanding prerequisites. No physical stage has passed.
+**Preparation update, 27 October 2026:** owner checks T-001/T-002 are recorded. The [T-003](tests/T-003-meter.md), [T-005](tests/T-005-signal-path.md) and [T-006](tests/T-006-exlink.md) plans and [T-009 prototype](software/t009-prototype.md) were independently reviewed and merged in PR #21. The [off-screen renderer and simulated controller](software/renderer-cycle.md), [offline integration](software/integration.md), [bounded component tools](software/component-tools.md) and console-limitation documentation were reviewed and merged in PRs #22–#25. The [execution amendments](tests/component-execution.md) now await independent review, with unresolved inputs identified. Hardware paths remain unoperated; all physical plans remain **NOT AUTHORISED**. No physical stage has passed.
 
 ## What stays fixed
 
