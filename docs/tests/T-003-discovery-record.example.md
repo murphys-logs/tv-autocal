@@ -26,9 +26,13 @@
 - Whole private command line (selected path, sole `-?` argument, redirections and automatic exit/time capture): UNRESOLVED
 - Fresh, distinct, unused stdout/stderr/record paths: UNRESOLVED
 
-## Owner look-only preflight record — before discovery authorisation
+## Preflight records — before discovery authorisation
 
-Complete only after review of the [preflight method](T-003-discovery-preflight.md). These owner observations need no separate physical-test authority; they grant none. The registry read uses the reviewed session-only console privacy controls. Keep raw output and machine/account paths private; no settings, management, lock, power or equipment values are prefilled from documentation or past answers.
+Complete only after review of the [preflight method](T-003-discovery-preflight.md), including X-015's classification assessment. Visual owner checks and software-only registry preparation are recorded separately below. Neither grants discovery authority. Keep raw output and machine/account paths private; no settings, management, lock, power or equipment values are prefilled from documentation or past answers.
+
+### Owner look-only observations
+
+These visible-settings observations follow the owner-check rule, without a separate physical-test authorisation. No setting changes or native-program commands belong in this subsection.
 
 - Observation date, owner and reviewed preflight revision: NOT OBSERVED
 - Existing Samsung ordinary desktop, TV/Denon input indications; LG deferred: NOT OBSERVED
@@ -38,10 +42,9 @@ Complete only after review of the [preflight method](T-003-discovery-preflight.m
 - Require sign-in exact wording and any timed-away/policy restriction: NOT OBSERVED
 - Access work or school connection/management indication (identifiers private): NOT OBSERVED
 - Owner report of known locking utility/task, remote-control arrangement, recent policy change, pending application or unexplained locks: NOT OBSERVED
-- Preparation console identity/host and verified session-only privacy controls; Windows System32 reg.exe private identity: NOT OBSERVED
-- Named policy query complete output, immediate exit code and value/type, or exact error: NOT OBSERVED
-- If applicable, parent-key query complete output, immediate exit code and absence assessment: NOT OBSERVED
-- Windows locking gate result and source/application limits considered: UNRESOLVED
+- Windows Update displayed status and any pending/scheduled/required restart, deadline or update in progress: NOT OBSERVED
+- Current active-hours start/end and automatic-adjustment state; proposed launch plus full 60-second interval fit: NOT OBSERVED
+- Update gate result, flagged uncertainty and targeted assessment; longer-wait/restart limits considered: UNRESOLVED
 - Samsung Sleep Timer: NOT OBSERVED
 - Samsung Off Timer, every schedule actually displayed: NOT OBSERVED
 - Samsung Auto Power Off: NOT OBSERVED
@@ -51,9 +54,22 @@ Complete only after review of the [preflight method](T-003-discovery-preflight.m
 - Denon MAIN ZONE Auto Standby: NOT OBSERVED
 - Denon front-panel readability and SLEEP indicator; no SLEEP button press: NOT OBSERVED
 - Denon HDMI Control: NOT OBSERVED
-- Any failed/unknown criterion, specific follow-up and independently reviewed alternative, if needed: UNRESOLVED
 - Menus closed, original inputs/desktop still visible, values unchanged; any deviation: NOT OBSERVED
+
+### Software-only registry preparation
+
+This is an owner-run software step, not a look-only owner check. It uses the written preflight and temporary console controls under AGENTS.md's software-only allowance; X-015's differing interpretation needs focused review before use. No registry, power, lock, policy or equipment setting is changed.
+
+- Preparation date, owner and reviewed revision; classification review reference: NOT OBSERVED
+- Preparation console identity/host and verified session-only privacy controls; Windows System32 reg.exe private identity: NOT OBSERVED
+- Named policy query complete output, immediate exit code and value/type, or exact error: NOT OBSERVED
+- If applicable, parent-key query complete output, immediate exit code and absence assessment: NOT OBSERVED
+- Machine-inactivity result and source/application limits considered: UNRESOLVED
 - Completed preparation console closed; no Argyll launch: NOT OBSERVED
+
+### Combined preflight assessment
+
+- Any failed/unknown criterion, specific follow-up and independently reviewed alternative, if needed: UNRESOLVED
 - Assessment/reference: NOT READY — no observations supplied
 
 ## Session observations — fill only within authorised steps
@@ -75,7 +91,8 @@ Complete only after review of the [preflight method](T-003-discovery-preflight.m
 - Original/current error preference (`Stop`) and native exit-code preference (`false`); other capture settings: NOT OBSERVED
 - Assessed preflight record reference; owner confirms no relevant settings, management, input or connection changes, unexplained restart or new lock since that record: NOT OBSERVED
 - Preflight conditions still apply; original ordinary desktop/inputs visible and all menus closed before launch: NOT OBSERVED
-- Any new power/saver/locking/standby uncertainty; launch gate (failed/unknown means no launch): NOT OBSERVED
+- Fresh look-only Windows Update status/restart/hour observations before launch, observation time and full 60-second interval check; views then closed: NOT OBSERVED
+- Any new power/saver/locking/standby/update uncertainty; launch gate (failed/unknown means no launch): NOT OBSERVED
 - Capture paths confirmed fresh and distinct: NOT OBSERVED
 - Owner present; accepted elapsed-time observation ready: NOT OBSERVED
 - Complete manually entered command checked before Enter; no paste/history/replay: NOT OBSERVED
