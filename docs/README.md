@@ -9,7 +9,7 @@
 | [briefs/](briefs/) | The owner's instructions to the agents, archived word for word |
 | [research/](research/README.md) | Research material — reports, critiques and references — archived with its provenance |
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
-| [tests/component-execution.md](tests/component-execution.md) | Shared execution record, updated for proposed operator controls and meter-process evidence; unresolved inputs and authorisation |
+| [tests/component-execution.md](tests/component-execution.md) | Shared execution record, reconciles merged operator controls/meter-process evidence with owner inputs; unresolved prerequisites and authorisation |
 | [software/component-readiness.md](software/component-readiness.md) | Software-only presenter controls, interruption handling, meter supervision and offline verification |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
 | [software/renderer-cycle.md](software/renderer-cycle.md) | Off-screen renderer, simulated change/exit/wait/read controller, technical choices and manual checks |

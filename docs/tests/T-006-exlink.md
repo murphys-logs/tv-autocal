@@ -5,7 +5,7 @@
 
 Prepared by Codex (OpenAI), 27 October 2026, against merged baseline `ba099e0a182713945c247636042286e6f9dca626`. This is a proposed experiment, not a statement that these commands work on the TV.
 
-Execution amendment by Codex (OpenAI), 27 October 2026, uses the merged PR #24/#25 software at `45ef2c28cfcb271d2f1f3373be4082706ba775a8`. This amendment needs independent review. [Common execution preparation](component-execution.md) records software identity, owner inputs and authorisation requirements; its unfilled fields are not permission to run. No source code or approved patch geometry changes.
+Execution amendment by Codex (OpenAI), 27 October 2026, reviewed in PR #26 and reconciled 28 October with the merged PR #27 source identified below. This documentation reconciliation needs independent review; the sender behaviour is unchanged. [Common execution preparation](component-execution.md) records software identity, owner inputs and authorisation requirements; its unfilled fields are not permission to run. No source code or approved patch geometry changes.
 
 ## 1. Purpose
 
@@ -22,12 +22,12 @@ T-001/T-002 are recorded in [S-033](../briefs/2026-10-26-owner-equipment-checkli
 | Scope | Owner accepts this test's stop boundary: on failure stop and return to the owner; no fallback or service-menu entry. This does not require settling the broader fallback question Q-013, which remains open. | Open |
 | Setting scope | Owner chooses a reviewed procedure: retain All Sources with every affected scope's baseline/restoration checks, or isolate Current Source with explicit scope-change/restoration steps. Neither option is selected by this draft. | Missing; amendment required before authorisation; X-012 |
 | Other software | ArgyllCMS, DisplayCAL and other instrument/serial discovery software must remain closed while either end of the Ex-Link cable is connected. No background discovery or second port user. | Must be checked before connection; C-090 |
-| Transport | Use only the pinned `tv_autocal_tools` serial entry point and source hashes below, with pySerial 3.5 and the reviewed local interpreter. No terminal substitute or arbitrary-byte input. | Software reviewed in PR #24/#25; real port/driver behaviour not tested; this execution amendment awaits review |
+| Transport | Use only the pinned `tv_autocal_tools` serial entry point and source hashes below, with pySerial 3.5 and the reviewed local interpreter. No terminal substitute or arbitrary-byte input. | Software reviewed through PR #27; real port/driver behaviour not tested; this documentation reconciliation awaits review |
 | Reply policy | Initial/late/duplicate bytes, partial writes, bounded logs and paired observations follow the source-backed sequence below. No checksum or ACK establishes correlation or a changed setting. | Implemented and checked offline; equipment behaviour not tested |
-| Offline checks | T-009 and T-017 coverage includes Contrast/EXIT literals, late-byte retention, fake-console command rejection and closure failures. | [Recorded 252-test suite](../software/component-tools.md#offline-verification); no physical evidence and no L-4 code fix |
+| Offline checks | T-009 and T-017 coverage includes Contrast/EXIT literals, late-byte retention, fake-console command rejection and closure failures. | [Recorded 287-test suite](../software/component-tools.md#offline-verification); no physical evidence and no L-4 code fix |
 | Menu timing | A reviewed amendment identifies each normal menu/submenu used, its automatic-close timing and a send/observation interval that cannot overlap it. Unknown or overlapping timing makes EXIT inconclusive; do not transfer a timeout between different menus. | Missing; no timeout value assumed |
 | Connection and stopping | Specify physical connect/disconnect order and conditions, normal closure, and what the owner does if the console never reports closure. Include consequences of interrupting the console and cable handling. | **OPEN — procedure/evidence needed.** The policy below stops the test but does not invent an electrically safe disconnect procedure |
-| Owner inputs | Accept the test-only timing limits and stop boundary; select the evidence-backed setting-scope procedure; confirm usable console placement and local run identity. | **OPEN.** A second screen is proposed, not confirmed connected; see [unresolved inputs](component-execution.md#unresolved-inputs) |
+| Owner inputs | Accept the test-only timing limits and stop boundary; select the evidence-backed setting-scope procedure; confirm usable console placement and local run identity. | **OPEN.** The intended second-screen arrangement is supplied in S-053, not connected or verified; see [unresolved inputs](component-execution.md#unresolved-inputs) |
 | Owner | Dated authorisation for an identified revision and exact steps, copied verbatim into section 8, after independent review and closure of these gates. | Not authorised |
 
 Research can close a gate; it does not authorise a physical step. Do not fill evidence gaps by scanning commands, trying baud rates, opening the service menu or inferring signal levels from the FT232 chip name.
@@ -60,7 +60,7 @@ Only these three exact frames may be offered by the pinned sender. The contrast 
 
 ### Pinned sender and proposed launch
 
-The earlier component source baseline is `45ef2c28cfcb271d2f1f3373be4082706ba775a8`. The [readiness follow-up](../software/component-readiness.md) updates the common CLI and presenter/meter code; use its complete current [SHA-256 manifest](../software/component-tools.md#offline-verification) and final reviewed checkout, not an old baseline with a new manifest. In particular, `tv_autocal_tools/serial_tool.py` is `6b9a51ccb38f3960d3fba78b2b24bfc8501a2df4315e982ebf88ec773eebb716`; source identity includes the CLI, permission, journal and protocol modules too. Verify the whole manifest and the [local interpreter/dependency record](component-execution.md#reviewed-software-and-local-inputs), not this one file alone. pySerial must be exactly 3.5; nothing is installed by this amendment.
+The current source baseline is reviewed PR #27 head `e7122a0e510337583d0da2e2a22e9b22c40f812e`, merged at `e424d47171f236add2451129691fc88d855548c3` with an identical tree. The [readiness implementation](../software/component-readiness.md) updates the common CLI and presenter/meter code; use its complete [SHA-256 manifest](../software/component-tools.md#offline-verification), not an old baseline with a new manifest. In particular, `tv_autocal_tools/serial_tool.py` is `6b9a51ccb38f3960d3fba78b2b24bfc8501a2df4315e982ebf88ec773eebb716`; source identity includes the CLI, permission, journal and protocol modules too. Verify the whole manifest and the [local interpreter/dependency record](component-execution.md#reviewed-software-and-local-inputs), not this one file alone. pySerial must be exactly 3.5; nothing is installed by this amendment.
 
 The following is a **non-executable specification with unfilled placeholders**, for independent review only. `<PYTHON>` means the exact reviewed local interpreter invocation. `<PLAN_SHA>` means the full commit of the final reviewed execution plan, not the older tool-source commit. The private permit must identify `T-006`, action `serial`, the exact steps, dated verbatim owner authorisation and closed prerequisite evidence under the [common launch record](component-execution.md#authorisation-and-launch-record).
 
@@ -159,7 +159,7 @@ No response alone does not prove a service-menu change is necessary or that ever
 
 ## 8. Owner's authorisation
 
-**Not given.** The owner's execution-amendment request authorises preparation only and explicitly prohibits hardware operation now. A possible second screen is not a test authorisation or confirmed setup. This amendment and every unresolved prerequisite must be reviewed and completed before specific dated permission is copied here.
+**Not given.** The owner's execution-amendment request authorises preparation only and explicitly prohibits hardware operation now. S-053's planned second screen and D-019's diagnostic policies authorise no T-006 step and close none of its electrical, scope/restoration, menu-timing or connection/stop gates. This amendment and every unresolved prerequisite must be reviewed and completed before specific dated permission is copied here.
 
 - Authorised: no
 - Plan revision and steps authorised: none

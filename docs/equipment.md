@@ -21,8 +21,8 @@ What the owner has said about the equipment, and what still needs confirming. Th
 
 - **Model:** Datacolor Spyder5 colorimeter — **Spyder5Pro** edition confirmed by the owner (S-033, C-082). Original installer and activation serial code retained; vendor software not installed.
 - **Position during readings:** hangs by its USB cable draped over the top edge of the TV in the middle of the screen, counterweight hanging behind; sensor rests flat against the screen surface — reported by the owner (S-033, C-023, C-082; clarifies S-011's description of cap hanging beneath).
-- **Software installed on PC:** ArgyllCMS V3.5.0 unpacked in the Downloads folder (exact path kept out of the repository); DisplayCAL installed (S-033, C-082).
-- **Works with ArgyllCMS on the owner's PC:** not tested — T-003
+- **Software installed on PC:** ArgyllCMS V3.5.0 unpacked in Downloads; DisplayCAL installed (S-033, C-082). S-053/C-102 additionally reports ArgyllCMS as installed on the PC. Whether these refer to one or multiple copies, and which executable DisplayCAL used, are unknown. Select one reviewed path/hash under the [execution identity gate](tests/component-execution.md#reviewed-software-and-local-inputs); private paths stay out of the repository.
+- **Works with ArgyllCMS on the owner's PC:** owner reports prior Spyder5 use through DisplayCAL without noticed issues ([S-053](briefs/2026-10-28-owner-readiness-inputs.md#runtime-choice-and-historical-use)); project discovery and wrapper operation remain untested — T-003.
 - **Spectral correction for this TV:** none identified or validated — T-004, Q-001
 
 ## Computer
