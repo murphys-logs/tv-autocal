@@ -6,11 +6,11 @@ Software-only simulations do not belong here and need no authorisation, because 
 
 ## Plans awaiting independent review
 
-PR #26 reviewed the execution amendments; PR #27 merged the [readiness changes](../software/component-readiness.md), and PR #28 merged the owner-input reconciliation. The new [T-003 discovery-only execution package](T-003-discovery-execution.md) and [private-record template](T-003-discovery-record.example.md) need independent review. T-005/T-006 operating sequences are unchanged. All three plans below are **NOT AUTHORISED** and have **no equipment results**; preparing or merging a plan does not authorise a test.
+PR #26 reviewed the execution amendments; PR #27 merged the [readiness changes](../software/component-readiness.md), and PR #28 merged the owner-input reconciliation. PR #29 merged the [T-003 discovery-only execution package](T-003-discovery-execution.md). D-020 records accepted owner choices; the new [console amendment](T-003-discovery-console.md) and updated [private-record template](T-003-discovery-record.example.md) need fresh independent review. T-005/T-006 operating sequences are unchanged. All three plans below are **NOT AUTHORISED** and have **no equipment results**; preparing or merging a plan does not authorise a test.
 
 | Plan | Scope | Execution prerequisites still open |
 |---|---|---|
-| [T-003 meter](T-003-meter.md) | [Discovery-only package](T-003-discovery-execution.md) for steps 1–4 first; later readings separately authorised | Candidate/console fingerprints recorded by file reading only; package review, owner inputs Q-020, session records and exact authorisation remain open |
+| [T-003 meter](T-003-meter.md) | [Discovery-only package](T-003-discovery-execution.md) for steps 1–4 first; later readings separately authorised | D-020 answers Q-020; console-method review, private preparation, actual host/power/session checks and exact authority remain open |
 | [T-005 signal path](T-005-signal-path.md) | Clipping/stability screening; correct range interpretation remains unproved | Amendment review/authorisation; display/runtime inputs and separate visual runs; T-003 before optical steps; additional method for Stage 4 range gate |
 | [T-006 Ex-Link](T-006-exlink.md) | Electrical gate, bounded ordinary control, menu exit and restoration | Authorisation; electrical evidence, scope/restoration, menu timing and exact connection/stop procedures |
 
