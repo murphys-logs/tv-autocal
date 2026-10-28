@@ -2,18 +2,18 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 27 October 2026: PRs #21–#25 merged; component execution amendments prepared for independent review.**
+> **Status, 28 October 2026: PRs #21–#26 merged; owner readiness inputs recorded for independent review.**
 > The full calibration application is not built. Hardware-facing component paths now exist but have only offline checks; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 
-Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype](docs/software/t009-prototype.md), PR #22's [renderer and simulated controller](docs/software/renderer-cycle.md), PR #23's [offline integration](docs/software/integration.md), and PR #24's [bounded component tools](docs/software/component-tools.md) were independently reviewed and merged. PR #25 documents the remaining console limitation. New review material: [execution amendments and unresolved inputs](docs/tests/component-execution.md). **All physical plans remain NOT AUTHORISED**. Your possible second screen is recorded as a proposal; its connection and layout are unconfirmed. Default execution is an in-memory simulation; hardware use still needs resolved prerequisites and specific authorisation. The centred 6.25% patch is unchanged. No owner answer is needed merely to review this draft.
+Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/tests/README.md#plans-awaiting-independent-review) and [T-009 prototype](docs/software/t009-prototype.md), PR #22's [renderer and simulated controller](docs/software/renderer-cycle.md), PR #23's [offline integration](docs/software/integration.md), and PR #24's [bounded component tools](docs/software/component-tools.md) were independently reviewed and merged. PR #25 documents the remaining console limitation; PR #26 added execution amendments. [PR #27](https://github.com/murphys-logs/tv-autocal/pull/27) separately proposes presenter/meter readiness changes and is still open at this update. New review material: [owner inputs and remaining execution gates](docs/tests/component-execution.md). **All physical plans remain NOT AUTHORISED**. The intended two-screen layout is recorded, not connected or verified. D-019 selects **T-003 discovery-only first**, and accepts generic-only diagnostics with a two-second minimum wait and 60-second acceptance deadline for later readings. Default execution is an in-memory simulation; hardware use still needs resolved prerequisites and specific authorisation. The centred 6.25% patch is unchanged.
 
 ## What needs your decision
 
 | ID | Question | Options | Agents' recommendation | Holds up |
 |---|---|---|---|---|
 | [Q-004](LEDGER.md#6-open-questions) | Protect `main` so it changes only through pull requests? | Pull request only / also an approval / none | Claude Code: settle Q-011 first, then pull request only | Nothing yet |
-| [Q-008](LEDGER.md#6-open-questions) | How long to wait after leaving the menu before reading? | Test-specific delay, then evaluate evidence | Codex proposes 2.0 seconds in the draft plans; not chosen or tested | Authorising measurement plans |
+| [Q-008](LEDGER.md#6-open-questions) | What production delay is justified after leaving the menu? | Evaluate later timing evidence | Draft diagnostics: owner accepts 2.0-second minimum and 60-second acceptance deadline (D-019); neither is tested | Production timing; physical permissions remain separate |
 | [Q-011](LEDGER.md#6-open-questions) | Make the repository private? | Private / stay public | No recommendation yet | Q-004's options |
 | [Q-013](LEDGER.md#6-open-questions) | What if Ex-Link cannot change the TV's settings? | Guided manual adjustment / separately planned service-menu step / revisit D-006 | Claude Code: guided manual adjustment; T-006 needs acceptance of its stop boundary only | Any future fallback; no fallback adopted |
 | [Q-014](LEDGER.md#6-open-questions) | Input, picture mode, room, brightness, black level and pass marks for the first calibration? | Provisional given in S-033; final black/marks after T-003 | Movie mode, HDMI 4, dim room, 140–160 cd/m² (S-033) | Component-test plans; T-008 |
@@ -21,7 +21,7 @@ Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/test
 | [Q-016](LEDGER.md#6-open-questions) | If no spectral correction can be validated, what then? | Keep T-008 blocked / seek a way to validate / unvalidated, with limits | No recommendation yet | T-008 |
 | [Q-017](LEDGER.md#6-open-questions) | Keep a private copy of cut archive text before anyone rewrites git history? | You keep a copy / accept the loss / never rewrite history | No recommendation yet | Any rewrite of git history |
 | [Q-018](LEDGER.md#6-open-questions) | Approve the automatic Codex review on GitHub, or switch it off? | Approve / switch off | No recommendation yet | Nothing yet |
-| [Q-019](LEDGER.md#6-open-questions) | Will you use the proposed second screen, and how will layout/focus keep the TV clear? | Second screen possible/probable (S-047); actual setup unconfirmed | Review coordinate collection, focus/stop checks, taskbar/notification handling and setup/restoration before use | Presentation authorisation; draft review can proceed |
+| [Q-019](LEDGER.md#6-open-questions) | How will the planned layout/focus keep the TV clear and controls usable? | Samsung primary above LG, both 4K/300%, extended; LG via DisplayPort (S-053) | Prepare exact coordinate, setup/restoration and focus/stop procedures; native usability unverified | Later presentation authorisation, not discovery-only |
 | [X-009](LEDGER.md#4-disagreements) | May an owner check connect the cable to the PC? | Yes (Position A) / no, look only (Position B) | PC check performed in S-033; formal policy remains open | Proposed boundary for future owner checks |
 | [X-012](LEDGER.md#4-disagreements) | Which setting scope should T-006 use? | Retain All Sources / isolate Current Source, each with a reviewed restoration procedure | Claude prefers retaining All Sources; Codex recommends establishing affected settings/restoration before choosing | T-006 authorisation; neither option selected |
 | [Q-002](LEDGER.md#6-open-questions) | Which open-source licence? | Any open-source licence | No recommendation yet | Distributing the application |
@@ -71,7 +71,7 @@ As stated by the owner. Details still to be confirmed are listed in [docs/equipm
 
 | Part | Job | Status |
 |---|---|---|
-| Measurement (ArgyllCMS) | Takes readings from the Spyder5 | Not yet tried with this meter on this PC |
+| Measurement (ArgyllCMS) | Takes readings from the Spyder5 | Owner reports prior DisplayCAL use with this meter/PC; project discovery and wrapper remain untested (S-053) |
 | Spectral correction | Corrects the meter's readings for this TV's type of light | No validated correction identified yet |
 | Test-pattern generator | Shows known RGB buffers on the TV | Off-screen buffers and bounded presenter implemented/reviewed; actual presentation and output-path validation still missing |
 | Optimisation engine | Works out which setting to change, and by how much | Not built; can be developed in simulation first |

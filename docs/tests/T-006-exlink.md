@@ -159,7 +159,7 @@ No response alone does not prove a service-menu change is necessary or that ever
 
 ## 8. Owner's authorisation
 
-**Not given.** The owner's execution-amendment request authorises preparation only and explicitly prohibits hardware operation now. A possible second screen is not a test authorisation or confirmed setup. This amendment and every unresolved prerequisite must be reviewed and completed before specific dated permission is copied here.
+**Not given.** The owner's execution-amendment request authorises preparation only and explicitly prohibits hardware operation now. S-053's planned second screen and D-019's diagnostic policies authorise no T-006 step and close none of its electrical, scope/restoration, menu-timing or connection/stop gates. This amendment and every unresolved prerequisite must be reviewed and completed before specific dated permission is copied here.
 
 - Authorised: no
 - Plan revision and steps authorised: none
