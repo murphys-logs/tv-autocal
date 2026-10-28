@@ -16,6 +16,7 @@ from .permission import HardwarePermit
 MAX_PATTERNS = 256
 MAX_DURATION_SECONDS = 10800  # Proposed three-hour resource bound, not a timing result.
 CONTROL_WIDTH, CONTROL_HEIGHT = 440, 220
+NEXT_GUARD_MS = 1000  # Proposed input guard, not a display-settling interval.
 
 
 def validate_sequence(sequence: tuple) -> tuple:
@@ -77,8 +78,8 @@ def validate_plan_sequence(plan: str, sequence: tuple) -> tuple:
 class PresenterController:
     """Window-independent manual controls, exercised with an inert fake backend.
 
-    The backend must expose check_geometry, bind, show, confirm, mainloop,
-    schedule and close. It owns the actual platform boundary; callers are not
+    The backend must expose check_geometry, bind, show, confirm, set_next_enabled,
+    mainloop, schedule and close. It owns the actual platform boundary; callers are not
     sandboxed. The public hardware entry point always constructs the real one.
     """
 
@@ -91,6 +92,8 @@ class PresenterController:
         self.index = 0
         self.error: BaseException | None = None
         self._started_ns = monotonic_ns()
+        self._next_pending = False
+        self._next_ready_ns = 0
 
     def _record(self, kind: str, **fields) -> None:
         self.log(kind, elapsed_ms=(monotonic_ns() - self._started_ns) // 1_000_000,
@@ -147,11 +150,15 @@ class PresenterController:
                     self.window.confirm()
                     self.confirmed = True
                 return
-            if not self.confirmed:
+            if not self.confirmed or self._next_pending:
                 return
             if self.index == len(self.sequence):
                 self.close("manual advance after final pattern")
                 return
+            # Guard the controller as well as the widget: already-queued or
+            # reentrant commands must not bypass a disabled Next button.
+            self._next_pending = True
+            self.window.set_next_enabled(False)
             item = self.sequence[self.index]
             frame = render_pattern(item) if type(item) is str else render_patch(item)
             # Intention is durable before handing pixels to a window backend.
@@ -159,12 +166,33 @@ class PresenterController:
                          pattern=item, width=frame.width, height=frame.height,
                          sha256=sha256(frame.pixels).hexdigest())
             self.window.show(frame)
+            if self.closed:
+                # A backend callback may have stopped/failed during application.
+                # Do not publish a receipt or rearm controls after that closure.
+                return
             self.index += 1
             self._record("pattern_buffer_applied", sequence=self.index,
                          evidence="window update only; not measured light or HDMI verification")
+            self._next_ready_ns = monotonic_ns() + NEXT_GUARD_MS * 1_000_000
+            self.window.schedule(NEXT_GUARD_MS, self.release_next)
             if type(item) is str:
                 generation = self.index
                 self.window.schedule(60_000, lambda: self.expire_visual(generation))
+        except BaseException as error:
+            self._failure(error)
+
+    def release_next(self) -> None:
+        """Re-enable only after application plus the guard; never advance."""
+        if self.closed or not self._next_pending:
+            return
+        try:
+            remaining = self._next_ready_ns - monotonic_ns()
+            if remaining > 0:
+                self.window.schedule((remaining + 999_999) // 1_000_000, self.release_next)
+                return
+            self.window.check_geometry()
+            self.window.set_next_enabled(True)
+            self._next_pending = False
         except BaseException as error:
             self._failure(error)
 
@@ -390,6 +418,7 @@ class _TkWindow:
             self.root.deiconify()
             self.root.update_idletasks()
             self._raise_pending()
+            self._check_control_layout()
             self.control_check(self.root.winfo_id(), x, y)
             self.display.deiconify()
             self.root.update_idletasks()
@@ -425,16 +454,32 @@ class _TkWindow:
     def check_geometry(self) -> None:
         if self.closed:
             raise RuntimeError("Presenter window is closed")
+        self._check_control_layout()
         self.geometry_check(self.display.winfo_id(), self.x, self.y)
         self.control_check(self.root.winfo_id(), self.x, self.y)
+
+    def _check_control_layout(self) -> None:
+        # Requested dimensions reflect packed text/buttons at the current Tk
+        # scaling. A fixed client area must not silently clip a control.
+        required = (self.root.winfo_reqwidth(), self.root.winfo_reqheight())
+        available = (self.root.winfo_width(), self.root.winfo_height())
+        if any(need <= 0 or need > min(actual, limit)
+               for need, actual, limit in zip(required, available, (CONTROL_WIDTH, CONTROL_HEIGHT))):
+            raise RuntimeError("Operator controls do not fit; display scaling/layout needs review")
+
+    def set_next_enabled(self, enabled: bool) -> None:
+        self.buttons["next"].configure(state="normal" if enabled else "disabled")
 
     def confirm(self) -> None:
         self.label.configure(text="")
         self.buttons["confirm"].configure(state="disabled")
-        self.buttons["next"].configure(state="normal")
         self.instructions.configure(text="TV target confirmed. Click Next pattern when authorised.\n"
                                     "Keep the held TV image unobstructed.\n"
                                     "Stop or Escape closes both windows.")
+        self.root.update_idletasks()
+        self._raise_pending()
+        self.check_geometry()
+        self.set_next_enabled(True)
 
     def show(self, frame) -> None:
         self.check_geometry()

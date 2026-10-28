@@ -26,6 +26,8 @@ class FakeWindow:
         self.confirmed = False
         self.valid = True
         self.order = []
+        self.next_enabled = False
+        self.next_states = []
 
     def check_geometry(self):
         if not self.valid:
@@ -41,6 +43,11 @@ class FakeWindow:
 
     def confirm(self):
         self.confirmed = True
+        self.set_next_enabled(True)
+
+    def set_next_enabled(self, enabled):
+        self.next_enabled = enabled
+        self.next_states.append(enabled)
 
     def show(self, frame):
         self.order.append("show")
@@ -104,6 +111,8 @@ class FakeTk:
 
     def __init__(self):
         self.calls, self.images, self.nodes = [], [], []
+        self.required = (420, 200)
+        self.available = (440, 220)
 
     def node(self, name, **options):
         toolkit = self
@@ -124,6 +133,14 @@ class FakeTk:
                 self.protocols[name] = callback
             def winfo_id(self):
                 return 99 if name == "root" else 100
+            def winfo_reqwidth(self):
+                return toolkit.required[0]
+            def winfo_reqheight(self):
+                return toolkit.required[1]
+            def winfo_width(self):
+                return toolkit.available[0]
+            def winfo_height(self):
+                return toolkit.available[1]
         result = Node()
         self.nodes.append(result)
         return result
@@ -146,6 +163,12 @@ class FakeTk:
 
 
 class ComponentPresenterTests(unittest.TestCase):
+    def setUp(self):
+        self.now_ns = 0
+        self.clock_patch = patch.object(presenter, "monotonic_ns", lambda: self.now_ns)
+        self.clock_patch.start()
+        self.addCleanup(self.clock_patch.stop)
+
     def controller(self, sequence=((128, 128, 128),)):
         window = FakeWindow()
         events = []
@@ -155,6 +178,10 @@ class ComponentPresenterTests(unittest.TestCase):
 
     def tap(self, controller, command):
         controller.action(command)
+
+    def finish_guard(self, controller):
+        self.now_ns += 1_000_000_000
+        controller.release_next()
 
     def test_hardware_disabled_before_window_backend_or_log(self):
         with patch.object(presenter, "_open_window", side_effect=AssertionError("window")):
@@ -208,7 +235,7 @@ class ComponentPresenterTests(unittest.TestCase):
                                             log=lambda *a, **k: self.fail("log reached"))
                 backend.assert_not_called()
 
-    def test_confirmation_does_not_render_and_each_button_action_advances_once(self):
+    def test_confirmation_does_not_render_and_each_ready_button_action_advances_once(self):
         controller, window, events = self.controller(((128, 128, 128), (255, 0, 0)))
         self.tap(controller, "next")
         self.assertEqual(window.frames, [])
@@ -217,8 +244,10 @@ class ComponentPresenterTests(unittest.TestCase):
         self.assertEqual(window.frames, [])
         controller.action("next")
         self.assertEqual(len(window.frames), 1)
+        self.finish_guard(controller)
         self.tap(controller, "next")
         self.assertEqual(len(window.frames), 2)
+        self.finish_guard(controller)
         self.tap(controller, "next")
         self.assertTrue(window.closed)
         self.assertEqual(len(window.frames), 2)
@@ -282,6 +311,7 @@ class ComponentPresenterTests(unittest.TestCase):
         self.tap(controller, "next")
         milliseconds, callback = window.timers[-1]
         self.assertEqual(milliseconds, 60_000)
+        self.finish_guard(controller)
         self.tap(controller, "next")
         callback()
         self.assertFalse(window.closed)
@@ -315,7 +345,7 @@ class ComponentPresenterTests(unittest.TestCase):
                                     log=lambda kind, **data: events.append((kind, data)))
         self.assertTrue(window.closed)
         self.assertEqual(len(window.frames), 1)
-        self.assertEqual([value for value, _ in window.timers], [200, 10_800_000])
+        self.assertEqual([value for value, _ in window.timers], [200, 10_800_000, 1000])
 
     def test_callback_failure_is_propagated_after_loop_closes(self):
         window = FakeWindow(("confirm", "next"))
@@ -415,6 +445,10 @@ class ComponentPresenterTests(unittest.TestCase):
         self.assertEqual(window.buttons["confirm"].options["state"], "disabled")
         self.assertEqual(window.buttons["next"].options["state"], "normal")
         window.buttons["next"].options["command"]()
+        self.assertEqual(controller.index, 1)
+        self.assertEqual(window.buttons["next"].options["state"], "disabled")
+        self.assertEqual(window.buttons["stop"].options["state"], "normal")
+        window.buttons["next"].options["command"]()  # A queued callback bypassing Tk state.
         self.assertEqual(controller.index, 1)
         window.buttons["stop"].options["command"]()
         self.assertTrue(window.closed)
@@ -595,6 +629,135 @@ class ComponentPresenterTests(unittest.TestCase):
         self.assertFalse(record["close_completed"])
         with self.assertRaises(OSError):
             controller.run()
+
+    def test_rapid_and_reentrant_next_waits_one_second_after_slow_frame_application(self):
+        controller, window, events = self.controller(((128, 128, 128), (255, 255, 255)))
+        controller.action("confirm")
+        original_show = window.show
+        def slow_show(frame):
+            self.assertFalse(window.next_enabled)
+            controller.action("next")  # Reentrant input during frame application.
+            self.now_ns += 4_000_000_000
+            original_show(frame)
+        window.show = slow_show
+        controller.action("next")
+        self.assertEqual(controller.index, 1)
+        self.assertEqual(window.timers[-1][0], 1000)
+        for _ in range(3):
+            controller.action("next")  # Already queued or rapid callbacks.
+        self.now_ns += 999_000_000
+        window.timers[-1][1]()
+        controller.action("next")
+        self.assertEqual(len(window.frames), 1)
+        self.assertFalse(window.next_enabled)
+        self.assertEqual(window.timers[-1][0], 1)
+        self.now_ns += 1_000_000
+        window.timers[-1][1]()
+        self.assertTrue(window.next_enabled)
+        self.assertEqual(len(window.frames), 1)  # Timer never advances.
+        controller.action("next")
+        self.assertEqual(len(window.frames), 2)
+
+    def test_rapid_next_after_final_frame_does_not_close_the_session(self):
+        controller, window, events = self.controller()
+        controller.action("confirm")
+        controller.action("next")
+        controller.action("next")
+        self.assertFalse(controller.closed)
+        self.assertEqual(len(window.frames), 1)
+        self.finish_guard(controller)
+        self.assertFalse(controller.closed)
+        controller.action("next")
+        self.assertTrue(controller.closed)
+        self.assertEqual(events[-1][1]["reason"], "manual advance after final pattern")
+
+    def test_stop_and_escape_remain_immediate_during_next_guard(self):
+        for stop in (lambda c: c.action("stop"), lambda c: c.press("Escape")):
+            controller, window, events = self.controller()
+            controller.action("confirm")
+            controller.action("next")
+            stop(controller)
+            self.assertTrue(window.closed)
+            states = list(window.next_states)
+            self.finish_guard(controller)
+            self.assertEqual(window.next_states, states)
+            self.assertEqual(len(window.frames), 1)
+
+    def test_guard_callback_failure_closes_without_reenabling_or_advancing(self):
+        for operation in ("check_geometry", "set_next_enabled", "schedule"):
+            controller, window, events = self.controller()
+            controller.action("confirm")
+            controller.action("next")
+            original = KeyboardInterrupt("guard failure")
+            def fail(*args):
+                raise original
+            setattr(window, operation, fail)
+            if operation != "schedule":
+                self.now_ns += 1_000_000_000
+            controller.release_next()
+            self.assertTrue(window.closed)
+            self.assertIs(controller.error, original)
+            self.assertEqual(len(window.frames), 1)
+
+    def test_stop_during_frame_application_never_records_receipt_or_rearms_next(self):
+        for stop in (lambda c: c.action("stop"), lambda c: c.press("Escape"),
+                     lambda c: c._failure(KeyboardInterrupt("application interrupted"))):
+            controller, window, events = self.controller()
+            controller.action("confirm")
+            window.show = lambda frame: stop(controller)
+            controller.action("next")
+            self.assertTrue(controller.closed)
+            self.assertTrue(window.closed)
+            self.assertEqual(controller.index, 0)
+            self.assertFalse(window.next_enabled)
+            self.assertEqual(window.timers, [])
+            self.assertEqual(events[-1][0], "presenter_closed")
+            self.assertFalse(any(kind == "pattern_buffer_applied" for kind, _ in events))
+
+    def test_oversized_control_layout_fails_before_tv_mapping(self):
+        for required, available in (((441, 200), (440, 220)), ((420, 221), (440, 220)),
+                                    ((420, 200), (419, 220)), ((420, 200), (440, 199))):
+            with self.subTest(required=required, available=available):
+                tk = FakeTk()
+                tk.required, tk.available = required, available
+                with self.assertRaisesRegex(RuntimeError, "controls do not fit"):
+                    presenter._TkWindow(tk, (lambda *a: None, lambda *a: None), 0, 0, 3840, 10)
+                self.assertFalse(any(name == "display" and method == "deiconify"
+                                     for name, method, _, _ in tk.calls))
+                self.assertEqual(sum(method == "destroy" for _, method, _, _ in tk.calls), 2)
+
+    def test_control_layout_at_exact_available_size_is_accepted(self):
+        tk = FakeTk()
+        tk.required = tk.available = (440, 220)
+        window = presenter._TkWindow(tk, (lambda *a: None, lambda *a: None), 0, 0, 3840, 10)
+        window.confirm()
+        self.assertFalse(window.closed)
+
+    def test_confirmation_layout_change_fails_closed_before_any_pattern(self):
+        tk = FakeTk()
+        window = presenter._TkWindow(tk, (lambda *a: None, lambda *a: None), 0, 0, 3840, 10)
+        controller = presenter.PresenterController(window, ((0, 0, 0),), lambda *a, **k: None)
+        original_configure = window.instructions.configure
+        def enlarged_text(**kwargs):
+            original_configure(**kwargs)
+            tk.required = (500, 240)
+        window.instructions.configure = enlarged_text
+        controller.action("confirm")
+        self.assertTrue(window.closed)
+        self.assertFalse(controller.confirmed)
+        self.assertEqual(controller.index, 0)
+        self.assertIsInstance(controller.error, RuntimeError)
+        self.assertEqual(window.buttons["next"].options["state"], "disabled")
+
+    def test_later_control_layout_change_is_caught_by_watchdog(self):
+        tk = FakeTk()
+        window = presenter._TkWindow(tk, (lambda *a: None, lambda *a: None), 0, 0, 3840, 10)
+        controller = presenter.PresenterController(window, ((0, 0, 0),), lambda *a, **k: None)
+        tk.required = (440, 221)
+        controller.watchdog()
+        self.assertTrue(window.closed)
+        self.assertIsInstance(controller.error, RuntimeError)
+        self.assertEqual(controller.index, 0)
 
 
 if __name__ == "__main__":
