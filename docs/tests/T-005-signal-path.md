@@ -172,7 +172,6 @@ C-004's stronger exact-code claim and X-008 are not established by this method, 
 - Accepted launch/exit instructions and completed display/console record:
 - T-003 result and exact accepted meter command/configuration (part M only):
 - Steps authorised (V, M, R1; specify exact steps):
-- Planning acceptance of generic diagnostic readings, fresh 2.0-second minimum wait and 60-second acceptance deadline: recorded in S-053/D-019; not execution permission
 - Acceptance of section 7's screening criteria: not granted; any further conditions or limits remain to be recorded
 - Separate V-A/V-B/V-C runs and repeated geometry accepted; M included if prerequisites met:
 - Date:
