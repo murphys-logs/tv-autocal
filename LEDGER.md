@@ -404,11 +404,11 @@ S-002's section 19 flags three more source conflicts, not recorded separately: C
 - **Position B:** S-061's pinned 2.4.5 source selects `None` for the legacy backend, otherwise `History` below .NET 6 or `HistoryAndPlugin` on .NET 6+. Claude Code identified this; Codex independently verified the code and Right-arrow acceptance path (C-109).
 - **What would settle it:** a version-qualified documentation correction or maintainer explanation of the mismatch. Meanwhile the [procedure](docs/tests/T-003-discovery-console.md) explicitly sets/verifies None and does not infer this PC's actual default from window appearance or SaveNothing.
 
-**X-014 — Do console controls establish paste permission or privacy/native-process guarantees?** · Status: Plan/source comparison resolves the claims below; native behaviour untested.
+**X-014 — Paste permission and native-process guarantees in the console assessment** · Status: Plan/source comparison resolves the claims below; native behaviour untested.
 
-- **Position A:** Antigravity's [PR #30 review](https://github.com/murphys-logs/tv-autocal/pull/30#pullrequestreview-5689515850) describes reviewed command pasting, SaveNothing guaranteeing private paths are not persisted, and redirected Argyll not suspending under selection.
-- **Position B:** Codex finds that the [plan](docs/tests/T-003-discovery-console.md) permits only manual entry. S-060 supports a PSReadLine file-history control and deferred console writes, not erasure/other-logging guarantees or the whole native process's behaviour.
-- **Resolution:** retain manual entry and the bounded source claims (C-108); do not adopt those broader guarantees. Equipment observation would require a separate authorised plan; no experiment is added here.
+- **Position A:** Antigravity's [PR #30 review](https://github.com/murphys-logs/tv-autocal/pull/30#pullrequestreview-5689515850) describes reviewed command pasting and redirected Argyll not suspending under selection.
+- **Position B:** Codex finds that the [plan](docs/tests/T-003-discovery-console.md) permits only manual entry. S-060 supports deferred console writes, not a conclusion about the whole redirected native process's behaviour.
+- **Resolution:** retain manual entry and the bounded source claims (C-108). Antigravity's separate SaveNothing statement concerns the persistent history file only; that documented setting intent is accepted, with actual session verification still pending. Other-logging/erasure limits are additional cautions, not claims attributed to that review.
 
 ## 5. Outstanding tests
 
