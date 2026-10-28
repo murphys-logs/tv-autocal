@@ -34,6 +34,8 @@ def parser() -> argparse.ArgumentParser:
         if name == "present":
             command.add_argument("--x", type=int)
             command.add_argument("--y", type=int)
+            command.add_argument("--control-x", type=int, help="explicit operator-window desktop origin on a separate display")
+            command.add_argument("--control-y", type=int, help="explicit operator-window desktop origin on a separate display")
             command.add_argument("--sequence", choices=("patch", "t003", "t005-visual", "t005-optical"), default="patch")
             command.add_argument("--rgb", type=_rgb, default=(128, 128, 128))
         elif name == "meter":
@@ -146,7 +148,9 @@ def main(argv=None) -> int:
         journal("software_identity", python=sys.version.split()[0], files=source_fingerprints())
         if options.tool == "present":
             from .presenter import run_presenter
-            run_presenter(permit, x=options.x, y=options.y, sequence=sequence_for(options), log=journal)
+            run_presenter(permit, x=options.x, y=options.y,
+                          control_x=options.control_x, control_y=options.control_y,
+                          sequence=sequence_for(options), log=journal)
         elif options.tool == "meter":
             from .meter import run_meter
             from .receipt import read_receipt
@@ -188,12 +192,16 @@ def main(argv=None) -> int:
             print(json.dumps(summary, sort_keys=True))
             return 0 if result.accepted else 2
         return 0
-    except (Exception, KeyboardInterrupt) as error:
+    except (Exception, KeyboardInterrupt, SystemExit) as error:
         try:
             journal("tool-aborted", error_type=type(error).__name__, detail=str(error)[:512],
                     note="Failure reported; this event does not establish hardware closure")
         except Exception:
             pass  # Preserve the original error; failed journal closure also stays explicit.
+        if isinstance(error, SystemExit):
+            # A backend callback requesting exit (even exit 0) is a failed run.
+            # argparse's normal help exit occurs before this hardware block.
+            raise RuntimeError("Tool callback requested process exit") from error
         raise
     finally:
         journal.close()
