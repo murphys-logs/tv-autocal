@@ -39,7 +39,7 @@ The project is intended to become open source. Unless a document's licence allow
 
 - [TV-side auto-calibration of the Samsung UE49KS7000UXXU: independent feasibility study](2026-10-26-antigravity-feasibility-study.md) — Antigravity (Google), 26 October 2026, S-024. Independent feasibility synthesis and primary/secondary/owner source audit (S-025 to S-032, C-062 to C-076, X-010, X-011), updated before merge under S-032; AI analysis and design proposals remain hypotheses, and nothing has been tested on the owner's equipment.
 
-- [Samsung passive-entry, pending-update and timing gap research](2026-10-29-samsung-update-gap-research.md) — Codex (OpenAI), 29 October 2026, S-075. Primary Samsung publications only (S-076–S-078), with source facts separated from assessment and current state. Stronger version-view evidence and a conditional delayed USB route; no gap cleared, method change or equipment operation.
+- [Samsung passive-entry, pending-update and timing gap research](2026-10-29-samsung-update-gap-research.md) — Codex (OpenAI), 29 October 2026, S-075. Primary Samsung publications only (S-076–S-078), with source facts separated from assessment and current state. Stronger version-view evidence and a conditional delayed USB route; no gap cleared, method change or equipment operation in that research. D-021 subsequently removes the unanswered questions as readiness prerequisites; source uncertainties remain recorded.
 
 ## Earlier report waiting to be imported
 
