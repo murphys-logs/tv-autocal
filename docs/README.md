@@ -14,6 +14,7 @@
 | [tests/T-003-discovery-console.md](tests/T-003-discovery-console.md) | Accepted discovery choices and reviewed console entry/history/copy/power procedure; no physical authority |
 | [tests/T-003-discovery-preflight.md](tests/T-003-discovery-preflight.md) | PRs #31/#32 reviewed the preflight and update gate; visual observations and software-only registry preparation remain separate, with Windows update gates and private evidence still required |
 | [tests/T-003-samsung-update-evidence.md](tests/T-003-samsung-update-evidence.md) | Retired readiness method under D-021; retained source limits and former requirements are historical, with no collection requested |
+| [tests/T-003-discovery-readiness.md](tests/T-003-discovery-readiness.md) | Remaining discovery-only preparation, owner authority and later session checks after PR #35; no hardware actions or completed observations |
 | [tests/T-003-discovery-record.example.md](tests/T-003-discovery-record.example.md) | Blank template for private preparation/session records; no authorisation or results |
 | [software/component-readiness.md](software/component-readiness.md) | Software-only presenter controls, interruption handling, meter supervision and offline verification |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
