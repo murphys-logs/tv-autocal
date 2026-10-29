@@ -1,8 +1,8 @@
 # T-003 discovery-only locking and standby preflight
 
-**Document-only readiness amendment for independent review — discovery remains NOT AUTHORISED.** Updated under [S-081](../briefs/2026-10-29-samsung-readiness-amendment.md), 29 October 2026, Codex (OpenAI). No settings, registry or equipment checks are requested now.
+**D-021 readiness amendment merged in PR #35 — discovery remains NOT AUTHORISED.** Updated under [S-081](../briefs/2026-10-29-samsung-readiness-amendment.md), 29 October 2026, Codex (OpenAI). No settings, registry or equipment checks are requested now.
 
-This supplements the [discovery package](T-003-discovery-execution.md) and [console instructions](T-003-discovery-console.md). PRs #31–#34 merged the preflight, Samsung evidence method and source research. Under owner decision D-021, this amendment removes the Samsung clarification questions as discovery-readiness prerequisites and retires the [evidence method](T-003-samsung-update-evidence.md) from active use. This amendment needs independent cross-vendor review and owner merge; it supplies no session observations or discovery authority.
+This supplements the [discovery package](T-003-discovery-execution.md) and [console instructions](T-003-discovery-console.md). PRs #31–#34 merged the preflight, Samsung evidence method and source research. Under owner decision D-021, this amendment removes the Samsung clarification questions as discovery-readiness prerequisites and retires the [evidence method](T-003-samsung-update-evidence.md) from active use. PR #35 merged this amendment; it supplies no session observations or discovery authority. Use the [remaining readiness checklist](T-003-discovery-readiness.md) to index the existing gates.
 
 ## Scope and order
 
@@ -91,7 +91,7 @@ End the permitted menu observations by recording that all menus are closed, the 
 
 ## Samsung software updates and restart exposure
 
-**Removed as a discovery-readiness prerequisite by owner decision D-021 (S-081), subject to review and owner merge of this amendment.** Firmware-specific passive menu entry, pending/downloaded/deferred updates, Auto update Off/offline semantics, USB flag triggers and update/overlay/restart timing no longer require answers before discovery. Current firmware identification, an Auto update Off observation, a queue-absence proof, a restart-free interval and written Samsung clarification are not required for this purpose. Do not collect the retired method's fields or seek further Samsung answers for readiness.
+**Removed as a discovery-readiness prerequisite by owner decision D-021 (S-081), merged in PR #35.** Firmware-specific passive menu entry, pending/downloaded/deferred updates, Auto update Off/offline semantics, USB flag triggers and update/overlay/restart timing no longer require answers before discovery. Current firmware identification, an Auto update Off observation, a queue-absence proof, a restart-free interval and written Samsung clarification are not required for this purpose. Do not collect the retired method's fields or seek further Samsung answers for readiness.
 
 The [merged source research](../research/2026-10-29-samsung-update-gap-research.md) and C-114–C-124 remain historical evidence with their stated limits. Their unknowns are not resolved by this owner decision, and no uninterrupted-display or recovery guarantee is inferred. The former [Samsung evidence method](T-003-samsung-update-evidence.md) is retained as a historical record, not an active collection or clearance procedure.
 
@@ -113,7 +113,7 @@ Session evidence entries below are deliberately unfilled. The companion private 
 | Samsung clarification questions | NOT REQUIRED under D-021 | No collection or Samsung response required; source uncertainties remain recorded. Actually encountered interruptions follow the existing stop rules above |
 | Denon MAIN ZONE standby, sleep indication and HDMI Control | UNKNOWN | Each actual value/indication meets the receiver table, or a replacement criterion is adopted by tracked PR, cross-vendor review and owner merge as specified above |
 | Read-only navigation, unchanged inputs and desktop, menus closed | NOT OBSERVED | Owner records completed look-only checks and any deviation; settings remain unchanged |
-| Current readiness amendment review | PENDING | Claude Code (Anthropic) or Antigravity (Google) reviews this D-021 amendment at its full head before owner merge |
+| D-021 readiness amendment review/merge | COMPLETE | PR #35 merged reviewed head `7bae8580e914f82faf32396348b5b0b551f27d6f`; this supplies no session evidence or discovery authority |
 | Discovery authority | NONE | After review and assessed preparation, owner separately authorises dated parent steps 1–4 at the new reviewed revision |
 
 Ready for a **later authorisation decision** means all applicable required rows are supported, no flagged unknown in a remaining criterion remains, the private record is assessed, and the separate package's identity/console preparation gates are also complete. It does not mean discovery has run or that its session-only isolation/driver/environment checks may be skipped. Visual owner checks and the separately identified software-only preparation have distinct bases above; neither authorises connecting/changing/commanding equipment, measuring or the one discovery launch.

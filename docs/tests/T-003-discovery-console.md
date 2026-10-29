@@ -1,12 +1,12 @@
 # T-003 discovery-only console and timing instructions
 
-**D-021 readiness amendment awaits independent review and owner merge — NOT AUTHORISED. No interactive console window was opened, and no Argyll program or equipment was operated to prepare this document.** Codex (OpenAI), 28 October 2026. This supplements the [discovery package](T-003-discovery-execution.md), not a second test or an alternative launch procedure. Review this file, package, [preflight amendment](T-003-discovery-preflight.md), parent and private-record template at the same final revision before requesting dated authority in [parent section 8](T-003-meter.md#8-owners-authorisation).
+**D-021 merged in PR #35 — discovery remains NOT AUTHORISED. No interactive console window was opened, and no Argyll program or equipment was operated to prepare this document.** Codex (OpenAI), 28 October 2026. This supplements the [discovery package](T-003-discovery-execution.md), not a second test or an alternative launch procedure. Review this file, package, [preflight amendment](T-003-discovery-preflight.md), parent and private-record template at the same final revision before requesting dated authority in [parent section 8](T-003-meter.md#8-owners-authorisation).
 
 ## Accepted choices and remaining observations
 
 [S-059](../briefs/2026-10-28-discovery-owner-decisions.md)/D-020 records the owner's acceptance of the separate discovery 60-second limit and waiting response, existing phone stopwatch, selected Downloads Argyll candidate and **Codex-bundled PowerShell 7.6.5**, and ordinary Samsung desktop with the LG deferred. Current power settings are unknown. These are choices, not observed console access or permission to launch.
 
-PRs #29–#34 merged the preceding discovery documents and Samsung research. D-021 removes the Samsung clarification requirements and retires the former evidence method. This amendment needs independent review and owner merge. **The eventual authorisation must identify the new reviewed revision**, not rely on an earlier review alone.
+PRs #29–#34 merged the preceding discovery documents and Samsung research. D-021 removes the Samsung clarification requirements and retires the former evidence method. PR #35 merged the D-021 amendment. **The eventual authorisation must identify the new reviewed revision**, not rely on an earlier review alone.
 
 Private paths stay in ignored `local/` records. A public guide uses only placeholders. Check links relative to each guide's actual folder: the existing private guide is three directory levels below the repository root, so its `../../../docs/` links are correct. Do not move it to a different depth without updating and checking them.
 
