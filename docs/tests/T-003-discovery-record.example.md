@@ -67,16 +67,17 @@ Follow only the reviewed [Samsung evidence method](T-003-samsung-update-evidence
 - Current firmware/e-Manual identity, observation basis/date and source applicability: UNKNOWN
 - Owner report and basis: recent update/download, accepted/deferred prompt, terms acceptance, reset or unexplained restart: UNKNOWN
 - Owner knowledge of TV Internet connectivity and update-bearing USB media (no network/menu/media inspection): UNKNOWN
-- Basis establishing passive Software Update entry on this firmware, or why entry was not attempted: UNRESOLVED
-- Exact existing firmware/Auto update summary and date/time; unknown if not safely visible: NOT OBSERVED
+- Passive-entry basis for Software Update and Contact Samsung, separately; actual version-view route or why neither was entered: UNRESOLVED
+- Exact firmware string, view and date/time; Auto update only if actually visible, never inferred from Contact Samsung: NOT OBSERVED
 - Exact existing update/restart/progress/schedule indication and view; absence recorded only as no indication seen: NOT OBSERVED
 - Any prompt/deviation; collection stopped without action or improvised restoration: NOT OBSERVED
 - Menus closed normally, values/inputs/ordinary desktop unchanged, or reason not safely possible: NOT OBSERVED
 - Applicable primary evidence for staged/pending/downloaded/in-progress state and deferred restart semantics: UNRESOLVED
-- Applicable timing/overlay/restart evidence for launch and open-ended outstanding wait: UNRESOLVED
+- Applicable firmware timing/overlay/restart evidence for launch and open-ended outstanding wait; separate app/game effects remain unassessed: UNRESOLVED
 - Separate CEC Off/Off gate reference, linked-power/topology uncertainties and C-115 hypothesis assessment: UNRESOLVED
 - Each closure requirement: conclusion, exact source/observation locator, contradiction or remaining gap: UNRESOLVED
 - Assessment author/date/reference: NOT READY — no evidence supplied; Off alone cannot clear this gate
+- Planned session pre-launch passive rechecks and exact parent-section-8 scope reference; look-only exemption retained, including on launch day: UNRESOLVED
 - Invalidation events since collection, stale fields and specific reassessment required: UNRESOLVED
 - Any further procedure/clearance rule: tracked PR, cross-vendor review and owner merge before use: NONE
 
