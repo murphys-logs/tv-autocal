@@ -16,6 +16,8 @@ PR #26 reviewed the execution amendments; PR #27 merged the [readiness changes](
 
 The [T-009 prototype](../software/t009-prototype.md) is separate software-only work. It cannot run these plans, display patterns or contact a device. The [bounded component tools](../software/component-tools.md) were reviewed and merged in PR #24, followed by PR #25's documented console limitation; their hardware paths remain unoperated. PR #26 supplied execution amendments and PR #27 merged the current presenter/meter implementation. The [shared execution record](component-execution.md) distinguishes the pinned software from the still-unfilled reviewed plan revision and local identities. S-053 records the intended two-screen layout and D-019's accepted generic-only diagnostic and timing policies; neither is a completed setup or test authorisation. [Unresolved inputs](component-execution.md#unresolved-inputs) remain explicit; merging a further amendment will not authorise any physical test step.
 
+The separate [temporary CEC change/restoration proposal](T-003-cec-change-proposal.md) records the owner's preferred route and outstanding reset/method/authority holds. It is not executable and supplies no completed readiness or settings result.
+
 ## Ground rules
 
 - **No physical test without the owner's explicit authorisation of that specific plan** ([AGENTS.md section 7](../../AGENTS.md#7-equipment-safety-rule-6)). If the owner authorises in conversation, their words are copied into the plan before any step is carried out.
