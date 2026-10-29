@@ -5,7 +5,7 @@
 ## Preparation fields — complete privately before authorisation
 
 - Session identifier and private directory: UNRESOLVED
-- New full reviewed plan commit (parent, package, console instructions, preflight and template): UNRESOLVED; PR #30’s prior review alone is insufficient
+- New full reviewed plan commit (parent, package, console instructions, preflight, Samsung evidence method and template): UNRESOLVED; PR #30’s prior review alone is insufficient
 - Independent review references and outstanding findings: UNRESOLVED
 - Later authorisation-record commit: UNRESOLVED
 - Owner and date; authorisation copied verbatim into parent section 8: NONE
@@ -50,14 +50,36 @@ These visible-settings observations follow the owner-check rule, without a separ
 - Samsung Auto Power Off: NOT OBSERVED
 - Samsung Auto Protection Time, actual choices/value without editing: NOT OBSERVED
 - Samsung Anynet+ (HDMI-CEC): NOT OBSERVED
-- Samsung software update/restart exposure: UNRESOLVED — separate reviewed tracked evidence method/reference and applicable evidence required; no additional menu/update check is instructed by this template
-- Applicable Samsung Auto update state, pending/in-progress state, installation timing, linked-power interaction and reviewed assessment: UNRESOLVED; missing evidence prevents readiness
+- Samsung update/restart evidence: UNRESOLVED — use the separate subsection below only after method review/owner merge and a later collection request; no current observation or clearance
 - Denon remote already known in MAIN mode, without changing it: NOT OBSERVED
 - Denon MAIN ZONE Auto Standby: NOT OBSERVED
 - Denon front-panel readability and SLEEP indicator; no SLEEP button press: NOT OBSERVED
 - Denon HDMI Control: NOT OBSERVED
 - Menus closed, original inputs/desktop still visible, values unchanged; any deviation: NOT OBSERVED
 - Any owner-initiated change outside look-only scope: original/current values, restoration preference if supplied and separate assessment status: NOT OBSERVED; no retrospective authority or restoration instruction
+
+### Samsung update/restart evidence — future separate collection
+
+Follow only the reviewed [Samsung evidence method](T-003-samsung-update-evidence.md). This blank record requests no menu or update action. Source statements, owner reports and conclusions stay separate; no indication seen is not no update pending.
+
+- Method full commit, tracked PR, independent review and owner-merge references: UNRESOLVED
+- Collection date/time, owner and unchanged desktop/input starting state: NOT OBSERVED
+- Current firmware/e-Manual identity, observation basis/date and source applicability: UNKNOWN
+- Owner report and basis: recent update/download, accepted/deferred prompt, terms acceptance, reset or unexplained restart: UNKNOWN
+- Owner knowledge of TV Internet connectivity and update-bearing USB media (no network/menu/media inspection): UNKNOWN
+- Passive-entry basis for Software Update and Contact Samsung, separately; actual version-view route or why neither was entered: UNRESOLVED
+- Exact firmware string, view and date/time; Auto update only if actually visible, never inferred from Contact Samsung: NOT OBSERVED
+- Exact existing update/restart/progress/schedule indication and view; absence recorded only as no indication seen: NOT OBSERVED
+- Any prompt/deviation; collection stopped without action or improvised restoration: NOT OBSERVED
+- Menus closed normally, values/inputs/ordinary desktop unchanged, or reason not safely possible: NOT OBSERVED
+- Applicable primary evidence for staged/pending/downloaded/in-progress state and deferred restart semantics: UNRESOLVED
+- Applicable firmware timing/overlay/restart evidence for launch and open-ended outstanding wait; separate app/game effects remain unassessed: UNRESOLVED
+- Separate CEC Off/Off gate reference, linked-power/topology uncertainties and C-115 hypothesis assessment: UNRESOLVED
+- Each closure requirement: conclusion, exact source/observation locator, contradiction or remaining gap: UNRESOLVED
+- Assessment author/date/reference: NOT READY — no evidence supplied; Off alone cannot clear this gate
+- Planned session pre-launch passive rechecks and exact parent-section-8 scope reference; look-only exemption retained, including on launch day: UNRESOLVED
+- Invalidation events since collection, stale fields and specific reassessment required: UNRESOLVED
+- Any further procedure/clearance rule: tracked PR, cross-vendor review and owner merge before use: NONE
 
 ### Software-only registry preparation
 
@@ -96,6 +118,7 @@ This is an owner-run software step, not a look-only owner check. It uses the wri
 - Assessed preflight record reference; owner confirms no relevant settings, management, input or connection changes, unexplained restart or new lock since that record: NOT OBSERVED
 - Preflight conditions still apply; original ordinary desktop/inputs visible and all menus closed before launch: NOT OBSERVED
 - Fresh look-only Windows Update status/restart/hour observations before launch, observation time and full 60-second interval check; views then closed: NOT OBSERVED
+- Fresh Samsung passive evidence date/time, reviewed complete clearance argument still applicable, menus closed, or stop reason: NOT OBSERVED
 - Any new power/saver/locking/standby/update uncertainty; launch gate (failed/unknown means no launch): NOT OBSERVED
 - Capture paths confirmed fresh and distinct: NOT OBSERVED
 - Owner present; accepted elapsed-time observation ready: NOT OBSERVED
