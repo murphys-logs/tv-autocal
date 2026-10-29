@@ -28,7 +28,7 @@
 
 ## Preflight records — before discovery authorisation
 
-Complete only after review of the [preflight method](T-003-discovery-preflight.md), including X-015's classification assessment. Visual owner checks and software-only registry preparation are recorded separately below. Neither grants discovery authority. Keep raw output and machine/account paths private; no settings, management, lock, power or equipment values are prefilled from documentation or past answers.
+Complete only after applicable review of the [preflight method](T-003-discovery-preflight.md). X-015's classification review is complete; it supplies no execution evidence and does not override narrower owner instructions. Visual owner checks and software-only registry preparation are recorded separately below. Neither grants discovery authority. Keep raw output and machine/account paths private; no settings, management, lock, power or equipment values are prefilled from documentation or past answers.
 
 ### Owner look-only observations
 
@@ -50,15 +50,18 @@ These visible-settings observations follow the owner-check rule, without a separ
 - Samsung Auto Power Off: NOT OBSERVED
 - Samsung Auto Protection Time, actual choices/value without editing: NOT OBSERVED
 - Samsung Anynet+ (HDMI-CEC): NOT OBSERVED
+- Samsung software update/restart exposure: UNRESOLVED — separate reviewed tracked evidence method/reference and applicable evidence required; no additional menu/update check is instructed by this template
+- Applicable Samsung Auto update state, pending/in-progress state, installation timing, linked-power interaction and reviewed assessment: UNRESOLVED; missing evidence prevents readiness
 - Denon remote already known in MAIN mode, without changing it: NOT OBSERVED
 - Denon MAIN ZONE Auto Standby: NOT OBSERVED
 - Denon front-panel readability and SLEEP indicator; no SLEEP button press: NOT OBSERVED
 - Denon HDMI Control: NOT OBSERVED
 - Menus closed, original inputs/desktop still visible, values unchanged; any deviation: NOT OBSERVED
+- Any owner-initiated change outside look-only scope: original/current values, restoration preference if supplied and separate assessment status: NOT OBSERVED; no retrospective authority or restoration instruction
 
 ### Software-only registry preparation
 
-This is an owner-run software step, not a look-only owner check. It uses the written preflight and temporary console controls under AGENTS.md's software-only allowance; X-015's differing interpretation needs focused review before use. No registry, power, lock, policy or equipment setting is changed.
+This is an owner-run software step, not a look-only owner check. It uses the written preflight and temporary console controls under AGENTS.md's software-only allowance; X-015's focused classification review is complete, subject to the owner's rules and current scope. This amendment requests no registry work and makes no registry, power, lock, policy or equipment setting change.
 
 - Preparation date, owner and reviewed revision; classification review reference: NOT OBSERVED
 - Preparation console identity/host and verified session-only privacy controls; Windows System32 reg.exe private identity: NOT OBSERVED
@@ -70,6 +73,7 @@ This is an owner-run software step, not a look-only owner check. It uses the wri
 ### Combined preflight assessment
 
 - Any failed/unknown criterion, specific follow-up and independently reviewed alternative, if needed: UNRESOLVED
+- For any replacement criterion, tracked PR, cross-vendor review and owner-merge references before use: NONE; private collection/result review cannot waive the criterion
 - Assessment/reference: NOT READY — no observations supplied
 
 ## Session observations — fill only within authorised steps
