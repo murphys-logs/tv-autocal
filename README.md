@@ -2,7 +2,7 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 8 November 2026: PRs #21–#37 merged. The [ground-up audit](docs/reviews/2026-11-08-ground-up-audit.md) finds useful diagnostic software but no demonstrated calibration chain. External reviews and their current-head status are tracked in [PR #39](https://github.com/murphys-logs/tv-autocal/pull/39). Discovery preparation/session evidence and exact authority remain outstanding; D-021's retired Samsung questions stay retired.**
+> **Status, 8 November 2026: PRs #21–#37 merged. The [ground-up audit](docs/reviews/2026-11-08-ground-up-audit.md) finds useful diagnostic software but no demonstrated calibration chain. External reviews and their current-head status are tracked in [PR #39](https://github.com/murphys-logs/tv-autocal/pull/39). Wrapped readings are held under [C-136](docs/tests/component-execution.md#meter-attempt-and-closure). Discovery preparation/session evidence and exact authority remain outstanding; D-021's retired Samsung questions stay retired.**
 > The full calibration application is not built. Hardware-facing component paths now exist but have only offline checks; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 

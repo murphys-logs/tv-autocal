@@ -1,6 +1,7 @@
 # T-003 — Spyder5 recognition and diagnostic repeatability
 
 > **Status: reviewed planning documents, execution gates outstanding — NOT AUTHORISED. Do not carry out any step.**
+> **C-136 wrapped-reading hold: Steps 5–11 cannot be authorised until the reviewed amendment required by the [shared hold](component-execution.md#meter-attempt-and-closure) resolves it.**
 > No instrument, display, receiver or cable was operated while preparing this plan. The owner's request to prepare it is not permission to run it.
 > **Execution blockers:** remaining inputs for the chosen scope and explicit owner authorisation; D-021 review and merge completed in PR #35. Samsung clarification questions are no longer prerequisites under the amendment. PR #27's presenter and meter source remains untested on equipment.
 
@@ -180,6 +181,8 @@ Thus code 5 needs separation from code 0 as well as code 13; if 0→5 fails but 
 **Stop rules adopted:** [docs/plan.md stop rules](../plan.md#stop-rules-for-every-physical-stage) at full commit `ba099e0a182713945c247636042286e6f9dca626`. The user can stop at any time. A later plan revision requires review and explicit authorisation for its changed scope.
 
 ## 8. Owner's authorisation
+
+**C-136 remains in force:** Steps 5–11 cannot be authorised while the [shared wrapped-reading hold](component-execution.md#meter-attempt-and-closure) remains unresolved.
 
 *To be completed by the owner only, or copied word for word from the owner's written authorisation. The current preparation request explicitly excludes hardware operation.*
 

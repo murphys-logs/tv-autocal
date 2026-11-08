@@ -642,3 +642,10 @@ New `tests/audit_ground_up.py` (118 lines) was fully read by the author and a se
 | Both reviews' numeric additions | Independent Decimal/Fraction and standard-library recomputation | BT.1886, Rec.709, code-state and small-sample corrections; hypothetical calculations, not observations. |
 | All follow-up changed documents and new review response | Full diff/text, cross-link and ID review; hardware-free parser/environment/simulation probes | New holds are explicit and separate from direct discovery; unchanged operational boundaries retained. |
 | Existing application/tests and 34-file manifest | Exact baseline/Git/working-byte comparison | Source docstring restored; no existing runtime/test file differs. Archives untouched; audit fixture remains separate. |
+
+
+### Second-head review follow-up
+
+Both complete review bodies 5819081577/5818988506 on `52ab35586887e399a1653534f1409f26c6960035`, review metadata and comment collections were read. The [second response](2026-11-08-pr39-second-review-response.md) assesses every N1–N6 finding, B2 source note, optional O1/O3/O4/O7 proposal, reviewer correction and material new assertion; private execution claims remain attributed. Source branches, independent arithmetic, PyPI artifact/source bytes and the narrow Windows observation are separately identified there.
+
+The new [S-097 brief](../briefs/2026-11-08-audit-execution-and-review-requests.md) records the actual issued instruction and two follow-ups, with the AI drafting role explicit; its full text was checked against the conversation and pinned prompt body. It is a new archive, not an edit of a merged original. All changed maintained documents and the new response/brief were read in full and checked for links, source scopes, exact hold visibility and fairness. Existing application/test bytes and manifest are unchanged. Neither vendor's remaining coverage gaps are silently marked complete; final-head receipts belong in PR #39.
