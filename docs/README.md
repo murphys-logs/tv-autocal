@@ -22,6 +22,7 @@
 | [software/renderer-cycle.md](software/renderer-cycle.md) | Off-screen renderer, simulated change/exit/wait/read controller, technical choices and manual checks |
 | [software/integration.md](software/integration.md) | Offline presentation, meter transcript, command-audit and observation contracts, with technical choices and verification |
 | [software/component-tools.md](software/component-tools.md) | Bounded Windows component-test tools, explicit execution gates, dependencies, offline checks and remaining physical prerequisites |
+| [reviews/2026-11-08-ground-up-review-prompt.md](reviews/2026-11-08-ground-up-review-prompt.md) | Task prompt for a complete independent project audit, its findings PR and subsequent Claude/Antigravity reviews; no audit performed by preparing the prompt |
 | [reviews/](reviews/README.md) | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
 
 ## Two rules for this folder
