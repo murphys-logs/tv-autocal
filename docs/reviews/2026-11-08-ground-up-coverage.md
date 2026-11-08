@@ -649,3 +649,17 @@ New `tests/audit_ground_up.py` (118 lines) was fully read by the author and a se
 Both complete review bodies 5819081577/5818988506 on `52ab35586887e399a1653534f1409f26c6960035`, review metadata and comment collections were read. The [second response](2026-11-08-pr39-second-review-response.md) assesses every N1–N6 finding, B2 source note, optional O1/O3/O4/O7 proposal, reviewer correction and material new assertion; private execution claims remain attributed. Source branches, independent arithmetic, PyPI artifact/source bytes and the narrow Windows observation are separately identified there.
 
 The new [S-097 brief](../briefs/2026-11-08-audit-execution-and-review-requests.md) records the actual issued instruction and two follow-ups, with the AI drafting role explicit; its full text was checked against the conversation and pinned prompt body. It is a new archive, not an edit of a merged original. All changed maintained documents and the new response/brief were read in full and checked for links, source scopes, exact hold visibility and fairness. Existing application/test bytes and manifest are unchanged. Neither vendor's remaining coverage gaps are silently marked complete; final-head receipts belong in PR #39.
+
+### Antigravity P7 response and worksheet correction
+
+The complete review 5819625756 on d2c3b66c402958580d6fee8eb8db04ea21d2d754, live metadata, prior-body technical supersession and privacy state were inspected. Its 114-path inventory reconciles exactly; all 44 previously partial paths are now **reported fully read**. The [third response](2026-11-08-pr39-third-review-response.md) assesses each of those 44 outcomes, every P7 disposition, F-01/F-02, the nine-row source register and reproduction claims. It credits the corrected mathematics/counts while retaining provenance, source-completeness, native-behavior and privacy findings. This is not authentication of private reading or execution.
+
+| Follow-up area | Method and evidence | Outcome and limits |
+|---|---|---|
+| 44 formerly partial files | All 33 briefs, three historical review files and template reread end-to-end; targeted ledger/claim/research checks, with exact method limits in the response | 16 wrong brief source IDs and other coverage outcomes identified; no claim of another new full read of the seven large ledger/claim/research files |
+| S-006/S-015 identity and historical records | S-005/C-060/S-024/C-066 compared; both public PDFs freshly downloaded, hashed and directly compared | S-100 confirms 509,710 equal bytes; stale maintained cells and Codex's P7-06 criticism corrected; archives untouched |
+| Statistical model and six-file corpus | Independent Decimal derivation and text-only counts | New review's model and all per-file counts upheld; no equipment error-rate inference |
+| Software/source/experiment assertions | Actual Python/test code, retained previously verified Argyll source, fresh official Win32/ctypes documents | Exact symbol/test corrections and native-outcome limits; no new native run or broad suite |
+| Seven changed maintained documents, including new third response | Full text/diff, IDs, local links, privacy scan, unchanged manifest/source and archive checks | One new tracked response gives 115 head paths after this revision; original 108-file baseline table remains pinned and unchanged |
+
+Current-head receipts and both refreshed handoffs are in PR #39. Both vendors must review the changed head; no older recommendation closes that requirement.
