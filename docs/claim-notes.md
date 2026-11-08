@@ -519,7 +519,7 @@ Consulted 2026-11-08 throughout. Live undated documents are not silently assigne
 | ICC profile behavior with Advanced Color | Microsoft Learn, updated 2022-10-12; Legacy Windows color management, automatic system color management, ICC defaults and compatibility helper | Opened current original. Documents different colour-management behaviour when Advanced Color is active, including profile or EDID use. This does not establish the owner's active transforms or make a settings recipe bit-exact. |
 | DSD SH-U35B guide | DSD TECH/Dong Guan Deshide, revision unstated; pp2–5 | Opened current. FT232RL/someRNL, PC-perspective tipRX/ringTX/ground; no voltage swing or named transceiver |
 | FT232R datasheet | FTDI FT_000053,v2.15; p1 and §7.1/p24 | Official ftdichip.com v2.16 endpoint403; FTDI China copy v2.15 opened. Chip UART uses logic levels and RS232 example adds conversion. Does not prove completed SH-U35B lacks conversion |
-| Portrait archived2016 guide | Portrait Displays; page2019-05-31,snapshot2021-06-17; Display Connect/DDC/Dynamic Range sections | Current archive shell retrieval succeeded; web/live inaccessible. A-003. Wire bytes absent; defaults contradictory |
+| Portrait archived2016 guide | Portrait Displays; page2019-05-31,snapshot2021-06-17; Display Connect/DDC/Dynamic Range sections | Original audit shell retrieval succeeded; later fresh archive attempts were inaccessible. [Retained byte identity and access limits](#retained-portrait-source-identity). A-003; wire bytes absent, defaults contradictory |
 | Portrait2020–2024 guide | Portrait Displays,2024-12-20; supported models/connection sections | Opened current. Model-year scope excludes owner2016 set; network preference is not project authorization |
 | Denon Output Settings | AVC-X3800H EU/EN,live; Video Mode/Bypass | Opened exact-model current manual. A-004; describes behaviour, not empirical guarantee |
 | ITU-R BT.1886-0 | ITU,03/2011,Annex1 | Opened original PDF; formula independently recalculated above |
@@ -529,6 +529,12 @@ Consulted 2026-11-08 throughout. Live undated documents are not silently assigne
 | phillipsnick/samsung-tv | `221d0855aa9238ac74b1905ea27d46c4edf560f1`,lib/app.js30–38, picture controls | Opened via GitHub plugin. Positive checksum bug confirmed by code/arithmetic; no white-balance/CMS in this file. Code is not proof of TV behaviour |
 | mgoff/go-samsung-exlink | `3bed0c96a57034299cfb320589be59a1588bfd78`,exlink.go constants/Send | Opened via GitHub plugin. D6 power-on constant confirmed; Send ignores short successful byte count and contains no ACK proof. Not imported or run |
 | home-assistant-libs/samsung-exlink | `e2489b33c720c36d1995392b803f2336baf7b808`,README,protocol.py,const.py | Opened via GitHub plugin. Generic formula/query definitions and finite late-window policy; source comments about all TVs are broader than available owner evidence |
+
+#### Retained Portrait source identity
+
+S-093/A-003 inspected a retained HTML response, rehashed on 2026-11-08: **44,252 bytes**, SHA-256 **`1a772149c49ea02e6a8fdd468daa6724a9b797703a849d365cdf6170f82f8b4e`**. The requested [Wayback capture URL](https://web.archive.org/web/20210617090012id_/https://kb.portrait.com/help/samsung-2016-suhd-tvs-c67d5bca) identifies the 2021-06-17 snapshot of Portrait's *Samsung 2016 SUHD TVs* page. The resolved final HTTP URL and response headers were not recorded; the requested URL is not asserted to be the final redirect destination.
+
+The retained article's Display Connect instructions name manufacturer, model and COM-port selections; its later DDC controls section does not supply the formerly attributed `Control Method: Samsung DDC` selection. This identifies the bytes used for the correction, not a comparison with Antigravity's earlier unhashed retrieval or proof that every historical response was identical. Later failed retrievals neither confirm nor refute the retained text. No source HTML is committed and no equipment result follows.
 
 The detailed URL occurrence table below identifies every literal external link found in assigned files. It distinguishes new source reads from retained-source checks, failed access and displaced content. It is not a claim that every cited original has been independently revalidated.
 

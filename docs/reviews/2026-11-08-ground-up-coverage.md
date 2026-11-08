@@ -251,7 +251,7 @@ C-002: [40](https://github.com/murphys-logs/tv-autocal/blob/bcaf3d38ef03dca3b160
 
 ## Tests and implementation contract occurrences
 
-All **287 test definitions**, and all **102 docstrings and 134 source comments** across the 34 baseline Python files, are indexed below. Each test body/assertion was read; its named contract is assessed with the owning A-S group. Classes/helpers and public API entries are additionally indexed (567 AST entries, including test classes/methods). Exact source propositions remain at pinned links rather than being paraphrased into new guarantees. Constants, fixtures, commands and bounds in the intervening source are included in the full-file read and A-S groups. No statistical coverage percentage is claimed.
+All **287 test definitions**, and all **102 docstrings and 134 source comments** across the 34 baseline Python files, are indexed below. Each test body/assertion was read; its named contract is assessed with the owning A-S group. The additional **567 AST entries** are a filtered index, not a census of every definition: traversal follows module and class bodies, includes non-underscore classes/functions/methods and the `__init__`, `__call__`, `__enter__`, `__exit__` methods of public classes, and does not descend into function or control-flow bodies. Underscore-private classes and their members are excluded. Exact source propositions remain at pinned links rather than being paraphrased into new guarantees. Constants, fixtures, commands and bounds in the intervening source are included in the full-file read and A-S groups. No statistical coverage percentage is claimed.
 
 ### tests/test_component_containment.py
 
