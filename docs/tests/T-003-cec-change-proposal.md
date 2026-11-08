@@ -59,4 +59,4 @@ No measurement occurs, so D-013's change/exit/wait/read cycle is not exercised. 
 - Discovery authority: **NONE**, recorded only in the parent plan if later granted.
 - Settings changed or restored for this proposal: **NOT PERFORMED**.
 - Equipment results or continuity/restoration validation: **NONE**.
-- Independent planning review: requested from Claude Code (Anthropic) or Antigravity (Google); no approval claimed.
+- Independent planning review: both vendors reviewed PR #37 head `9018eb0f890961afdd502065459398eb4fd8ec42` before merge ([audit history](../reviews/2026-11-08-ground-up-coverage.md#history-and-branch-evidence)). This does not review the still-missing executable amendment or grant equipment authority.

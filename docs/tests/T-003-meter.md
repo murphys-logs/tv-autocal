@@ -1,12 +1,12 @@
 # T-003 — Spyder5 recognition and diagnostic repeatability
 
-> **Status: draft plan for independent review — NOT AUTHORISED. Do not carry out any step.**
+> **Status: reviewed planning documents, execution gates outstanding — NOT AUTHORISED. Do not carry out any step.**
 > No instrument, display, receiver or cable was operated while preparing this plan. The owner's request to prepare it is not permission to run it.
 > **Execution blockers:** remaining inputs for the chosen scope and explicit owner authorisation; D-021 review and merge completed in PR #35. Samsung clarification questions are no longer prerequisites under the amendment. PR #27's presenter and meter source remains untested on equipment.
 
 Author: Codex (OpenAI), 27 October 2026. Baseline: `ba099e0a182713945c247636042286e6f9dca626`. Section 7's numerical thresholds remain **AI: Codex diagnostic proposals**, not published accuracy guarantees or owner decisions. The owner accepted the generic diagnostic scope, fresh 2.0-second minimum wait and 60-second acceptance deadline as planning choices on 28 October 2026 ([S-053](../briefs/2026-10-28-owner-readiness-inputs.md), D-019); this authorises no execution.
 
-Execution amendment: Codex (OpenAI), 28 October 2026, reconciled with merged PR #27 at `e424d47171f236add2451129691fc88d855548c3`. The independently reviewed [readiness source](../software/component-readiness.md) is `e7122a0e510337583d0da2e2a22e9b22c40f812e`; the merge has the same tree. The [shared execution record and manifest](component-execution.md#reviewed-software-and-local-inputs) bind that software separately from this still-unreviewed plan revision and local execution identities. The older PR #25 tools do not implement these controls. No future reviewed plan SHA or physical authorisation is supplied here.
+Execution amendment: Codex (OpenAI), 28 October 2026, reconciled with merged PR #27 at `e424d47171f236add2451129691fc88d855548c3`. The independently reviewed [readiness source](../software/component-readiness.md) is `e7122a0e510337583d0da2e2a22e9b22c40f812e`; the merge has the same tree. The [shared execution record and manifest](component-execution.md#reviewed-software-and-local-inputs) bind that software separately from the later reviewed plan amendments and still-unfilled local execution identities (PRs #28–#37). The older PR #25 tools do not implement these controls. No future reviewed plan SHA or physical authorisation is supplied here.
 
 The [discovery-only execution package](T-003-discovery-execution.md) supplies candidate fingerprints, private records and the one-launch capture/completion procedure for **steps 1–4**. PRs #29–#34 merged the preceding methods and research; D-021 retires the Samsung evidence requirements. PR #35 merged this readiness amendment; the [remaining checklist](T-003-discovery-readiness.md) indexes preparation, authority and session checks. No Argyll program was run; its observed version and device/default listing remain unknown. The package does not resolve later presentation or wrapped-reading gates.
 
@@ -189,7 +189,7 @@ Thus code 5 needs separation from code 0 as well as code 13; if 0→5 fails but 
 - Conditions or limits: not yet recorded
 - Acceptance of section 7's proposed diagnostic thresholds: not granted
 - Discovery package/template reviewed at the same plan revision; private candidate/shell identity record accepted: not granted
-- Discovery-only limit/waiting policy (Q-020): accepted as planning choices in D-020; amended console-method review and physical authorisation remain absent
+- Discovery-only limit/waiting policy (Q-020): accepted as planning choices in D-020; console-method review completed in PR #30; physical authorisation remains absent
 - Component source revision/hash: identified above; local interpreter/Tk/Argyll identities and display/console record remain unresolved
 - Reviewed launch/close procedure accepted for steps 5–11: not granted
 - Date: not authorised

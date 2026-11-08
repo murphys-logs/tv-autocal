@@ -346,7 +346,9 @@ def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirme
     reviewed menu timing, owner presence, and all measurement/discovery programs
     closed. It is an attestation, not evidence that those prerequisites are true.
     Closing drains for a bounded interval; it cannot promise no bytes after OS
-    closure or prove reply attribution. No resets, flushes or recovery sends.
+    closure or prove reply attribution. No explicit buffer-reset or recovery
+    calls are issued here. pySerial 3.5 requests Windows queue clearing during open and
+    does not expose line-error flags through read(); this is not a wire log.
     """
     if type(permit) is not HardwarePermit:
         raise TypeError("An explicit HardwarePermit is required")

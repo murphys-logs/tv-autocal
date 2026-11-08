@@ -41,11 +41,11 @@ Plain-English explanations written by Claude Code, reconciled with D-013 by Code
 | Spectral correction (CCSS file) | A file describing the kind of light a type of screen gives out. A colour meter like the Spyder5 needs a suitable one to read a particular kind of screen accurately. What counts as validation and how to establish it remain Q-001; possible next steps if no practical validation route is found remain Q-016 |
 | Patch, test pattern | A known colour or grey shown on the screen for the meter to measure |
 | Rec.709, D65, BT.1886 | The three SDR targets: the standard red, green and blue; the standard white; and the standard brightness curve from black to white. See the [README](../README.md#goals) |
-| cd/m² ("nits") | The unit of screen brightness. The brightness to aim for is still to be chosen (Q-014) |
+| cd/m² ("nits") | The unit of screen brightness. The owner provisionally chose 140–160 cd/m²; final targets/pass marks remain Q-014 |
 | Black level | How dark the TV's black is. BT.1886's curve depends on it; whether the Spyder5 can measure it on this TV is not known (C-043) |
-| White balance (2-point, multi-point) | TV controls that adjust red, green and blue so that greys look neutral: 2-point at one dark and one bright level, multi-point at 10 or 20 levels (X-003) |
+| White balance (2-point, multi-point) | TV controls that adjust red, green and blue so that greys look neutral: 2-point at one dark and one bright level, multi-point at several levels; the owner's menu has ten selectable points (C-078), without verified optical response |
 | Colour management system (CMS) | TV controls that adjust where red, green, blue, cyan, magenta and yellow fall |
-| Picture mode | A set of picture settings the TV keeps separately, such as Movie or Standard. Settings belong to a picture mode on a particular input |
+| Picture mode | A set of picture settings the TV keeps separately, such as Movie or Standard. Input sharing depends on configured scope; the owner reports All Sources, and affected settings/restoration remain X-012 |
 | Ex-Link | Samsung's serial (RS-232) control socket, a 3.5 mm jack on some TVs. The project's only route for software to change TV settings (D-006); not yet tested on your TV |
 | Acknowledgement | The short "received" reply a TV may send after an Ex-Link command. It does not prove that the setting changed (C-010) |
 | Service menu | A hidden factory menu. Changes there can be hard or impossible to undo. No agent may open it, and the project avoids it |

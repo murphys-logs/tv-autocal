@@ -1,6 +1,6 @@
 # T-003 discovery-only remaining readiness checklist
 
-**Preparation only, for independent review. NOT READY / NOT AUTHORISED: no completed private readiness assessment or dated discovery permission is supplied here. Nothing is to be operated for this task.** Prepared by Codex (OpenAI), 29 October 2026, under [S-082](../briefs/2026-10-29-t003-readiness-checklist.md), revised under [S-084](../briefs/2026-10-29-t003-checklist-review-follow-up.md); checklist S-083/C-126.
+**Preparation only; planning review completed in PR #36. NOT READY / NOT AUTHORISED: no completed private readiness assessment or dated discovery permission is supplied here. Nothing is to be operated for this task.** Prepared by Codex (OpenAI), 29 October 2026, under [S-082](../briefs/2026-10-29-t003-readiness-checklist.md), revised under [S-084](../briefs/2026-10-29-t003-checklist-review-follow-up.md); checklist S-083/C-126.
 
 This is a checklist of the existing [discovery package](T-003-discovery-execution.md), [console guide](T-003-discovery-console.md) and [preflight](T-003-discovery-preflight.md), not a new operating procedure or acceptance rule. Their linked detail controls. Scope is **parent T-003 steps 1–4: at most one owner-initiated direct discovery invocation with the sole `-?` argument**, with no reading or presenter. No command is supplied here.
 
