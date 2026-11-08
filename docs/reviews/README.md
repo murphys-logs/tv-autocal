@@ -6,5 +6,7 @@ This folder is a log of reviews of this repository's pull requests: who reviewed
 - [2026-10-27-pr21-review-response.md](2026-10-27-pr21-review-response.md) — Claude Code and Antigravity findings, author assessment and revisions to the component plans/prototype
 - [2026-10-27-pr22-review-response.md](2026-10-27-pr22-review-response.md) — assessment, fixes and completed final-head reviews for the renderer/controller
 
-- [2026-11-08-ground-up-audit.md](2026-11-08-ground-up-audit.md) — entire-project audit, evidence-backed corrections and conditional feasibility; new Claude/Antigravity reviews pending
+- [2026-11-08-ground-up-audit.md](2026-11-08-ground-up-audit.md) — entire-project audit, evidence-backed corrections and conditional feasibility; external review state in [PR #39](https://github.com/murphys-logs/tv-autocal/pull/39)
 - [2026-11-08-ground-up-coverage.md](2026-11-08-ground-up-coverage.md) — pinned 108-file coverage, claim/test/API occurrences, history and explicit exclusions
+
+- [2026-11-08-pr39-review-response.md](2026-11-08-pr39-review-response.md) — evidence-based disposition of both first-head reviews and corrections requiring re-review

@@ -625,8 +625,20 @@ The live PR collection #1–#38, all 37 remote branch refs and relevant merge/re
 | Physical TV/meter/receiver/serial/display/home-network tests | Outside this task authority; exact remaining checks in audit route forward. Native GUI/console/driver behavior remains untested. |
 | All historical intermediate code trees / all third-party code | Relevant changes/PR discussions used for provenance; current entire implementation reviewed. Superseded intermediates and unrelated upstream code are not asserted to be audited or safe. |
 | Inaccessible or displaced external originals | All 133 literal external URLs in the scientific remit were directly attempted and are listed with precise access status; no failed access is treated as proof of absence. |
-| Real Claude and Antigravity audit reviews | Pending. Internal Codex checks, inherited reviews, generated prompts and silence do not count. |
+| Real Claude and Antigravity audit reviews | Both first-head reviews received; [response and coverage limits](2026-11-08-pr39-review-response.md) assessed. Current-head status is in [PR #39](https://github.com/murphys-logs/tv-autocal/pull/39); neither an old-head review nor internal checking completes the changed-head requirement. |
 
 ## Audit additions and verification
 
-New `tests/audit_ground_up.py` (118 lines) was fully read by the author and a second internal Codex reviewer before execution. It contains an inert console reproduction and independent arithmetic; it is intentionally outside unittest discovery. New report/coverage and appended claim analysis were internally checked for cross-links, ID coverage, source limits, archive preservation and runtime-equivalence of the sole source-docstring edit. The PR description records exact commands/head and review status. No claim of external independence follows.
+New `tests/audit_ground_up.py` (118 lines) was fully read by the author and a second internal Codex reviewer before execution. It contains an inert console reproduction and independent arithmetic; it is intentionally outside unittest discovery. New report/coverage and appended claim analysis were internally checked for cross-links, ID coverage, source limits and archive preservation. The first-head source-docstring edit was reverted after Claude B1; all 34 manifest entries and all baseline application/test source bytes match again. Full-file reading did not prevent the missed upstream error interaction (A-007); the first audit overestimated C-056. The PR description records exact commands/head and review status. No claim of external independence follows.
+
+
+### PR #39 follow-up coverage
+
+| Path or area | Method/evidence | Outcome and limitation |
+|---|---|---|
+| Both first-head review bodies, metadata and comment collections | GitHub reviews 5818858790/5818770229, both on 28e32400a83f1d8783b1eba3e8f1101585faa267; complete text read | Claude B1/B2/D1–D4/O1–O6 and AG material assertions individually assessed in the new response; no inline review comments returned. Private reviewer run provenance remains attributed. |
+| Argyll V3.5.0 error/input/conversion/discovery members and Microsoft input/process APIs | Rehashed official source archive; text-only branch tracing with exact loci in response | A-007/C-136, inherited environment and optional O1/O4 caveats; no native or instrument validation. |
+| pySerial v3.5 Windows backend; S-024; S-022; current owner task | Pinned source and original-text comparison | Correct dependency line references and unfair verdict attribution; current requested claim-note location retained, disagreement explicit. |
+| Both reviews' numeric additions | Independent Decimal/Fraction and standard-library recomputation | BT.1886, Rec.709, code-state and small-sample corrections; hypothetical calculations, not observations. |
+| All follow-up changed documents and new review response | Full diff/text, cross-link and ID review; hardware-free parser/environment/simulation probes | New holds are explicit and separate from direct discovery; unchanged operational boundaries retained. |
+| Existing application/tests and 34-file manifest | Exact baseline/Git/working-byte comparison | Source docstring restored; no existing runtime/test file differs. Archives untouched; audit fixture remains separate. |

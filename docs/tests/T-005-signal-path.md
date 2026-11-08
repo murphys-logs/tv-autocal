@@ -139,9 +139,9 @@ For part M, additionally record one row per attempt: unique ID, purpose **T-005 
 
 ## 7. How results will be judged
 
-The following are proposed screening thresholds to agree **before execution**. They do not certify absolute accuracy or derive from a manufacturer specification.
+The following are proposed screening thresholds to agree **before execution**. They do not certify absolute accuracy or derive from a manufacturer specification. Part M is also subject to the shared [wrapped-reading hold](component-execution.md#meter-attempt-and-closure), C-136.
 
-In the checks below, **mean Y** is average measured brightness and **sample standard deviation** describes the scatter of repeated readings. The step formula requires the increase between two patches to exceed both a noise allowance and two increments of the printed brightness precision. `max` chooses the larger allowance; `sqrt` means square root. This avoids counting a tiny printed difference as a clear improvement when the meter's variation or rounding could explain it.
+In the checks below, **mean Y** is average measured brightness and **sample standard deviation** describes the scatter of repeated readings. The step formula requires the increase between two patches to exceed both a noise allowance and two increments of the printed brightness precision. `max` chooses the larger allowance; `sqrt` means square root. This avoids counting a tiny printed difference as a clear improvement when the meter's variation or rounding could explain it. This plan uses the estimated standard error of a difference of means, whereas T-003 uses individual-reading spread. These are distinct unaccepted heuristics; neither supplies a universal 3-sigma confidence level. Their intended purposes and noise assumptions need review before threshold acceptance; the formulae are not silently made interchangeable.
 
 | Check | Proposed interpretation |
 |---|---|
