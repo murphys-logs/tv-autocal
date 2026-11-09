@@ -50,6 +50,7 @@ class Kernel:
 class Toolkit:
     def __init__(self):
         self.nodes, self.events = [], []
+        self.configurations = []
         self.turns = 0
         self.destroyed = False
 
@@ -77,6 +78,7 @@ class Toolkit:
 
             def configure(self, **kwargs):
                 self.options.update(kwargs)
+                owner.configurations.append((self, kwargs))
 
             def winfo_width(self):
                 return 200
@@ -126,6 +128,18 @@ class SerialInputTests(TestCase):
         toolkit = Toolkit()
         return MouseControls(toolkit, x=0, y=0), toolkit
 
+    def native_runtime(self, events=()):
+        # Bypass the real Windows constructor; every boundary stays inert.
+        runtime = object.__new__(_WindowsRuntime)
+        runtime.controls, toolkit = self.controls()
+        toolkit.events = list(events)
+        runtime.port = FakeRuntime().port
+        runtime._console = SimpleNamespace(poll=lambda: False)
+        clock = [0]
+        runtime._time = SimpleNamespace(monotonic_ns=lambda: clock[0] * 1_000_000,
+                                        sleep=lambda seconds: clock.__setitem__(0, clock[0] + 10))
+        return runtime, toolkit, clock
+
     def test_nowait_abi_fixed_layout_and_one_bounded_read(self):
         kernel = Kernel()
         console = self.console(kernel)
@@ -134,6 +148,16 @@ class SerialInputTests(TestCase):
         self.assertEqual(ctypes.sizeof(console._records[0].Event.KeyEvent), 16)
         self.assertFalse(console.poll())
         self.assertEqual(kernel.calls, [(123, 32, 2)])
+
+    def test_win32_layout_does_not_follow_host_wchar_or_long_widths(self):
+        from ctypes import wintypes
+        with patch.object(wintypes, "BOOL", ctypes.c_int64), \
+                patch.object(wintypes, "DWORD", ctypes.c_uint64), \
+                patch.object(wintypes, "WCHAR", ctypes.c_uint32):
+            console = self.console(Kernel([event("q")]))
+        self.assertEqual(ctypes.sizeof(console._records._type_), 20)
+        self.assertEqual(ctypes.sizeof(console._records[0].Event.KeyEvent), 16)
+        self.assertTrue(console.poll())
 
     def test_unicode_partial_special_surrogate_then_delayed_q_is_preserved(self):
         kernel = Kernel([event("\u00e0", vk=0), event("\x00", vk=0x27), event("\ud800", vk=0)])
@@ -224,6 +248,12 @@ class SerialInputTests(TestCase):
         controls.poll("exit ready")
         tk.click(controls, "e", release=False)
         self.assertIsNone(controls.poll("exit ready"))
+        for _ in range(4):
+            self.assertIsNone(controls.poll("exit ready"))
+        button = controls.buttons["e"]
+        tk.events.append(lambda: controls._up("e", SimpleNamespace(widget=button, x=1, y=1)))
+        self.assertIsNone(controls.poll("reply"))
+        self.assertIsNone(controls.poll("exit ready"))
 
     def test_queued_click_from_old_phase_is_discarded_before_enabling_new_phase(self):
         for previous, next_phase, key in (("initial quiet", "baseline", "b"),
@@ -234,12 +264,6 @@ class SerialInputTests(TestCase):
             tk.click(controls, key)
             self.assertIsNone(controls.poll(next_phase))
             self.assertIsNone(controls.poll(next_phase))
-        for _ in range(4):
-            self.assertIsNone(controls.poll("exit ready"))
-        button = controls.buttons["e"]
-        tk.events.append(lambda: controls._up("e", SimpleNamespace(widget=button, x=1, y=1)))
-        self.assertIsNone(controls.poll("reply"))
-        self.assertIsNone(controls.poll("exit ready"))
 
     def test_outside_release_and_multiple_queued_actions_cannot_dispatch(self):
         controls, tk = self.controls()
@@ -265,17 +289,137 @@ class SerialInputTests(TestCase):
             with self.assertRaises(RuntimeError):
                 controls.poll("exit ready")
 
-    def test_callback_failure_and_gui_event_overload_are_terminal(self):
+    def test_callback_failure_remains_terminal(self):
         controls, tk = self.controls()
         tk.events.append(lambda: controls._callback_error(RuntimeError, RuntimeError("fixture"), None))
         with self.assertRaisesRegex(RuntimeError, "fixture"):
             controls.poll("exit ready")
-        controls, tk = self.controls()
-        tk.events = [lambda: None] * 100
-        with self.assertRaisesRegex(RuntimeError, "budget exhausted"):
-            controls.poll("exit ready")
-        self.assertEqual(tk.turns, 32)
         self.assertEqual(controls.poll("exit ready"), "q")
+
+    def test_bursts_drain_across_polls_and_require_fresh_click_after_idle(self):
+        controls, tk = self.controls()
+        controls.poll("exit ready")
+        tk.events = [lambda: None] * 100
+        tk.click(controls, "e")
+        for _ in range(3):
+            before = tk.turns
+            self.assertIsNone(controls.poll("exit ready"))
+            self.assertEqual(tk.turns - before, 32)
+            self.assertFalse(controls.ready)
+            self.assertEqual(controls.buttons["e"].options["state"], "disabled")
+            self.assertEqual(controls.buttons["q"].options["state"], "normal")
+        self.assertIsNone(controls.poll("exit ready"))
+        self.assertTrue(controls.ready)
+        self.assertIsNone(controls.poll("exit ready"))
+        tk.click(controls, "e")
+        self.assertEqual(controls.poll("exit ready"), "e")
+
+    def test_full_turn_discards_candidate_action_instead_of_retaining_it(self):
+        controls, tk = self.controls()
+        controls.poll("exit ready")
+        tk.click(controls, "e")
+        tk.events += [lambda: None] * 30
+        self.assertIsNone(controls.poll("exit ready"))
+        self.assertFalse(controls.ready)
+        self.assertIsNone(controls.poll("exit ready"))
+        self.assertTrue(controls.ready)
+        self.assertIsNone(controls.poll("exit ready"))
+
+    def test_latest_phase_wins_while_stale_input_drains_disabled(self):
+        controls, tk = self.controls()
+        controls.poll("initial quiet")
+        tk.events = [lambda: None] * 80
+        tk.click(controls, "b")
+        self.assertIsNone(controls.poll("baseline"))
+        self.assertIsNone(controls.poll("menu preparation"))
+        self.assertIsNone(controls.poll("menu preparation"))
+        self.assertTrue(controls.ready)
+        tk.click(controls, "b")
+        self.assertIsNone(controls.poll("menu preparation"))
+        tk.click(controls, "m")
+        self.assertEqual(controls.poll("menu preparation"), "m")
+
+    def test_quit_and_stop_remain_active_during_backlog_and_phase_change(self):
+        for action in (lambda c: c._key(SimpleNamespace(char="q")),
+                       lambda c: c._down("q"),
+                       lambda c: c.root.protocols["WM_DELETE_WINDOW"]()):
+            controls, tk = self.controls()
+            tk.events = [lambda: None] * 40 + [lambda: action(controls)]
+            self.assertIsNone(controls.poll("baseline"))
+            self.assertEqual(controls.poll("menu preparation"), "q")
+            self.assertFalse(controls.ready)
+
+    def test_widget_states_change_only_when_enabled_action_changes(self):
+        controls, tk = self.controls()
+        controls.poll("baseline")
+        first = len(tk.configurations)
+        self.assertEqual(first, 1)
+        for _ in range(100):
+            self.assertIsNone(controls.poll("baseline"))
+        self.assertEqual(len(tk.configurations), first)
+        controls.poll("menu preparation")
+        self.assertEqual(len(tk.configurations), first + 2)
+        for _ in range(100):
+            self.assertIsNone(controls.poll("menu preparation"))
+        self.assertEqual(len(tk.configurations), first + 2)
+
+    def test_startup_reaches_idle_before_any_port_open(self):
+        runtime, tk, clock = self.native_runtime([lambda: None] * 80)
+        opened = runtime.port.open
+        observations = []
+        runtime.port.open = lambda: (observations.append((len(tk.events), runtime.controls.ready)), opened())[1]
+        runtime.open()
+        self.assertEqual(observations, [(0, True)])
+        self.assertEqual(clock[0], 20)
+        self.assertTrue(runtime.port.opened)
+        self.assertEqual(runtime.now(), 0)  # Initial quiet starts after open.
+
+    def test_unsettled_startup_and_owner_quit_never_open_port(self):
+        runtime, tk, clock = self.native_runtime([lambda: None] * 4000)
+        with self.assertRaisesRegex(RuntimeError, "did not become idle"):
+            runtime.open()
+        self.assertFalse(runtime.port.opened)
+        self.assertEqual(tk.turns, 3200)
+        self.assertEqual(clock[0], 1000)
+        runtime, tk, _ = self.native_runtime()
+        runtime._console.poll = lambda: True
+        log = Recorder()
+        with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log,
+                                prerequisites_confirmed=True, menu_window_ms=10000)
+        self.assertFalse(runtime.port.opened)
+        self.assertTrue(result.closed)
+        self.assertTrue(tk.destroyed)
+        self.assertIn("owner stopped before serial open", result.reason)
+
+    def test_receive_and_deadline_checks_continue_while_gui_never_quiesces(self):
+        controls, tk = self.controls()
+        tk.events = [lambda: None] * 10000
+        runtime, log = FakeRuntime(), Recorder()
+        runtime.key = controls.poll
+        read, polls = runtime.port.read, []
+        runtime.port.read = lambda count: (polls.append(runtime.time), read(count))[1]
+        with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log,
+                                prerequisites_confirmed=True, menu_window_ms=10000, session_ms=100)
+        self.assertEqual(polls[:11], list(range(0, 110, 10)))
+        self.assertIn("session deadline", result.reason)
+        self.assertEqual(runtime.port.writes, [])
+        self.assertTrue(result.closed)
+
+    def test_input_exception_detail_is_bounded_and_kept_in_private_journal(self):
+        runtime, log = FakeRuntime(), Recorder()
+        detail = "synthetic callback failure " * 100
+        runtime.key = lambda phase: (_ for _ in ()).throw(RuntimeError(detail))
+        with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log,
+                                prerequisites_confirmed=True, menu_window_ms=10000)
+        failure = next(fields for kind, fields in log.events if kind == "serial_failure")
+        self.assertEqual(failure, {"elapsed_ms": 0, "stage": "operation", "error_type": "RuntimeError",
+                                   "detail": detail[:256]})
+        self.assertIn(detail[:256], result.reason)
+        self.assertEqual(runtime.port.writes, [])
+        self.assertTrue(result.closed)
 
     def test_console_q_takes_priority_over_pending_mouse_action(self):
         controls = SimpleNamespace(poll=lambda phase: self.fail("GUI must not consume q"))

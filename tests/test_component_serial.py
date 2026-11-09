@@ -96,7 +96,7 @@ class FakeRuntime:
 def event(char, vk=0x51, down=True, modifiers=0, kind=1):
     return SimpleNamespace(EventType=kind, Event=SimpleNamespace(KeyEvent=SimpleNamespace(
         bKeyDown=down, wRepeatCount=1, wVirtualKeyCode=vk,
-        uChar=SimpleNamespace(UnicodeChar=char), dwControlKeyState=modifiers)))
+        uChar=SimpleNamespace(UnicodeChar=ord(char)), dwControlKeyState=modifiers)))
 
 
 class ComponentSerialTests(TestCase):

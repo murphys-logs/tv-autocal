@@ -1,6 +1,6 @@
 {
   "baseline": "d5469297ed7cf8a41ff11585d84e1f0e44575364",
-  "scope": "Serial input branch only; every Python source and test, including historical audit fixture",
+  "scope": "PR42 review-follow-up source; every Python source and test, including historical audit fixture; prior cfa8e6b manifest retained in Git",
   "files": {
     "tests/audit_ground_up.py": "b45de1818bc9b705ece2c8952aaf6443edab2aca7d20812d2bd140fba7830729",
     "tests/test_component_containment.py": "d49ba807604d4726b1fd4adbb4b4d4ca93293de9240a3ec6b07e0c08f65d5ff9",
@@ -8,8 +8,8 @@
     "tests/test_component_meter.py": "a3811ae32cda1ece1cd42e46fffd5ff6eceec0e4a688182881535ec851cdcfd7",
     "tests/test_component_presenter.py": "c48f642495cf87f66b63cd2d14e8a920cea03c305b5ab33f29a914b872575195",
     "tests/test_component_receipt.py": "29a8d5684cfd8d0ae8110fbc277d922257ff991e5a9744d6d047d7760070bf85",
-    "tests/test_component_serial.py": "a3bc499af2c0a2b8f82cb3fc41af8b46fdb796db44ad988198ff329eed945f9d",
-    "tests/test_component_serial_input.py": "e8b190ffccb4fedad60f50bee42f3a9da3aee46aacd2158319d7985cc6e49793",
+    "tests/test_component_serial.py": "5026ee38c7a28473d7a6c2842b06ddca9bd7b8eb93b9c7b76cb88220b4e5f3e7",
+    "tests/test_component_serial_input.py": "5f51572fd10e9ea61316d81f3909e0f041e961c99940cabe97652a7930ea4bad",
     "tests/test_cycle.py": "2afb23d1268e82f77a4546b1a82d784f8762c87f65e7401accaf8bfdef5d2f30",
     "tests/test_integration.py": "8afda185be5736d14196793263ffe9f626066322241f0def188269b83c65531f",
     "tests/test_meter_output.py": "14308754d93164f13d7779a829171c778f4fbddaa825c5326185041af63600ac",
@@ -37,7 +37,7 @@
     "tv_autocal_tools/permission.py": "ecabf7bc25ce444d407323d949f34b5def0c1c309fd64c7c6316967d6d928ddc",
     "tv_autocal_tools/presenter.py": "7070154654b6ad600be4ab5d0168be660ab4a31c15a71bfa644cfe72fc1ac281",
     "tv_autocal_tools/receipt.py": "e05fbae85ff166b529961e9c2d008346b64c346b0b58758e5ea329b305972c61",
-    "tv_autocal_tools/serial_input.py": "1d317ce92e82decccf50dc9692e6d0cf926226c5cb81694f255351b24e55237c",
-    "tv_autocal_tools/serial_tool.py": "fbb7e45ea755757b34e5bccfff9cd83634f5420540021b0878740ded597edd8f"
+    "tv_autocal_tools/serial_input.py": "da2783d25001d59c5c4c49ce486c7ce53340a057509cd7cc6dfbbd5cd04e6f28",
+    "tv_autocal_tools/serial_tool.py": "fcb8997f75518b78880ebc08c6dd2ac42dbeac7b8dc4186bc767d7b4e9de53dc"
   }
 }

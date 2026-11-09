@@ -323,6 +323,16 @@ class _WindowsRuntime:
         return (self._time.monotonic_ns() - self._origin) // 1_000_000
 
     def open(self) -> None:
+        # Service mapping/redraw events before any port open. This is a fixed
+        # software work allowance, not a claim about native startup duration.
+        for _ in range(100):
+            if self.key("initial quiet") == "q":
+                raise RuntimeError("owner stopped before serial open")
+            if self.controls.ready:
+                break
+            self.pause()
+        else:
+            raise RuntimeError("serial controls did not become idle before open")
         self.port.open()
         # Initial silence is measured after the OS open has completed.
         self._origin = self._time.monotonic_ns()
@@ -430,7 +440,11 @@ def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirme
     except KeyboardInterrupt:
         session.stop("owner interrupted; no recovery send")
     except Exception as error:
-        session.stop("serial operation failed: " + type(error).__name__)
+        detail = str(error)[:256]
+        session._emit("serial_failure", stage="operation", error_type=type(error).__name__,
+                      detail=detail)
+        session.stop("serial operation failed: " + type(error).__name__
+                     + (": " + detail if detail else ""))
     finally:
         try:
             if opened:
