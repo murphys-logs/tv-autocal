@@ -26,6 +26,8 @@ The separate [temporary CEC change/restoration proposal](T-003-cec-change-propos
 
 The [owner-preparation handoff](T-003-owner-preparation-handoff.md) indexes the remaining console/privacy, registry, Windows evidence and conditional permission stages. D-020's software choices are historical: the [stacked replacement-software proposal in PR #44](https://github.com/murphys-logs/tv-autocal/pull/44) requires review, owner merge and the owner's explicit selection updating that software choice. Preparation or a merge alone is not selection or physical authority.
 
+The [software identity amendment](T-003-software-identity-amendment.md) owns the proposed win64/7.6.9 bindings, future selection-record method and bounded file preparation. It supplies no accepted extracted launch path, completed owner procedure or physical authority.
+
 ## Ground rules
 
 - **No physical test without the owner's explicit authorisation of that specific plan** ([AGENTS.md section 7](../../AGENTS.md#7-equipment-safety-rule-6)). If the owner authorises in conversation, their words are copied into the plan before any step is carried out.

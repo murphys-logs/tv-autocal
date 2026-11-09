@@ -11,7 +11,7 @@ This is the execution addendum for **[T-003 steps 1–4](T-003-meter.md#5-steps)
 
 ## Executable identity and what is actually known
 
-**Current proposal:** the [software identity amendment](T-003-software-identity-amendment.md) supplies the proposed **ArgyllCMS 3.5.0 win64 / PowerShell 7.6.9 Core** binding and source comparison, requested by the owner on 9 November. It requires independent review and owner merge; an actual extracted Argyll path and the remaining preparation/session records are still unfilled. Its private specification remains non-executable. The identities and failed checks below are retained with their original dates rather than silently replacing D-020's history.
+**Current proposal:** the [software identity amendment](T-003-software-identity-amendment.md) supplies the proposed **ArgyllCMS 3.5.0 win64 / PowerShell 7.6.9 Core** binding and source comparison, requested by the owner on 9 November. It requires independent review, owner merge **and the owner's explicit selection updating D-020's software choice**, recorded by the [amendment's selection method](T-003-software-identity-amendment.md#recording-a-future-owner-software-selection); an actual extracted Argyll path and the remaining preparation/session records are still unfilled. Its private specification remains non-executable. The identities and failed checks below are retained with their original dates rather than silently replacing D-020's history.
 
 ### Historical 28 October identities and 9 November preparation evidence
 
@@ -61,7 +61,7 @@ The procedure is proposed below; these are the remaining choices/records, not in
 
 | Gate | Current state | Needed before the relevant action |
 |---|---|---|
-| One candidate and console | D-020's old copies failed recheck; the [new amendment](T-003-software-identity-amendment.md) proposes exact win64/7.6.9 identities | Complete amendment review/owner merge, the specified file/path checks and actual console access/version checks; no other copy or PATH fallback |
+| One candidate and console | D-020's old copies failed recheck; the [new amendment](T-003-software-identity-amendment.md) proposes exact win64/7.6.9 identities | Complete independent amendment review, owner merge **and the owner's explicit selection updating D-020's software choice**, then the specified file/path checks and actual console access/version checks; no other copy or PATH fallback |
 | Discovery workflow limit | **60 seconds accepted** in S-059/D-020 (Q-020 answered) | Keep this separate from D-019's later-reading deadline; neither grants execution authority |
 | Stopping policy | **Waiting without forced recovery accepted** in S-059/D-020 | Owner presence and unconditional right to end activity remain; no safe technical abort is established |
 | Console, timing and presence | Samsung ordinary desktop and phone stopwatch chosen; owner presence accepted. Console method reviewed in PR #30; actual host/access unknown | Complete private console preparation and later session rechecks under the [reviewed method](T-003-discovery-console.md); no host/layout change or installation |
