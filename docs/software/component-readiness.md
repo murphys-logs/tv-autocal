@@ -26,7 +26,7 @@ The planned-close rules in the [shared execution procedure](../tests/component-e
 
 ## Meter-process choice
 
-The meter keeps its existing no-kill policy because the consulted Argyll driver warning C-069 does not establish that aborting a stalled driver is safe. It still launches only the reviewed fixed argument list, with a separate process group, no window, no interactive stdin and two prestarted readers. The Python wrapper never sends an interrupt, termination request, reset, retry or second reading to the child. Argyll can nevertheless retry internally after an error; see the current [wrapped-reading hold](../tests/component-execution.md#meter-attempt-and-closure), C-136/A-007.
+The meter keeps its existing no-kill policy because C-069 does not establish safe forced abort. It launches the fixed argument list, separate process group, no window and two prestarted readers. The [9 November meter amendment](meter-error-policy.md) adds explicit noninteractive regular-file stdin containing one give-up response, and a strict whole-output contract. It sends no interrupt, termination, reset, retry or second reading. The source-supported first-prompt policy does not bound lower-level retries, generic nonprompting continuations or cleanup; the [wrapped-reading hold](../tests/component-execution.md#meter-attempt-and-closure) remains pending review/native prerequisites.
 
 A main-thread SIGINT handler now latches cancellation throughout the attached-child lifetime: launch/attachment, supervision, reader completion and pipe cleanup. It performs no logging or locking inside the signal handler. Normal supervision rejects the attempt and continues retaining bounded late output until actual child exit and reader completion. Repeated cancellation cannot deliberately turn into a force-kill. A cancellation observed during cleanup still invalidates the result; handler registration failure occurs before any child launch. The previous handler is restored after supervision finishes.
 
@@ -36,7 +36,7 @@ An indefinitely outstanding child still has no guaranteed finish time. Closing t
 
 ## Offline verification
 
-The complete suite was run manually on 28 October 2026 using each interpreter with `-B -m unittest discover -s tests`, against the [current 34-file SHA-256 manifest](component-tools.md#offline-verification).
+The following historical suite was run manually on 28 October 2026 using each interpreter with `-B -m unittest discover -s tests`, against the [historical 34-file manifest](component-tools.md#offline-verification). It is not validation of the later meter amendment; use its [new verification record and source identity](meter-error-policy.md#offline-verification).
 
 | Interpreter | Passed | Failures | Errors | Skipped | Unrun |
 |---|---:|---:|---:|---:|---:|

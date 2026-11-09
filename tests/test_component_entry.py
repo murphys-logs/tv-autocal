@@ -106,7 +106,7 @@ class ComponentEntryTests(unittest.TestCase):
 
     def test_meter_cli_compares_presentation_evidence_and_retains_rejected_raw_result(self):
         capture = meter.TranscriptCapture(0, timeout_ms=100)
-        raw = b"Result is XYZ: 1 2 3, Yxy: 2 .1 .2\n"
+        raw = meter._MEASUREMENT_PROMPT + b"\nResult is XYZ: 1 2 3, Yxy: 2 .1 .2\n"
         capture.feed("stdout", raw, 1)
         capture.end_stream("stdout", 2)
         capture.end_stream("stderr", 2)
