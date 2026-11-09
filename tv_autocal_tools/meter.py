@@ -258,8 +258,14 @@ def _spawn(argv: list[str], env: dict[str, str]):
         process = Popen(argv, shell=False, stdin=response, stdout=PIPE, stderr=PIPE,
                         env=env, bufsize=0,
                         creationflags=CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW)
-    except BaseException:
-        response.close()
+    except BaseException as error:
+        try:
+            response.close()
+        except BaseException as cleanup_error:
+            # No process was returned to supervise. Retain the primary launch
+            # or preparation failure, plus the distinct resource-close failure.
+            error.add_note("Closing prepared meter input also failed: "
+                           + type(cleanup_error).__name__)
         raise
     process._component_response_input = response
     return process

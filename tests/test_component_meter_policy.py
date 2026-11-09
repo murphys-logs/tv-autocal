@@ -77,6 +77,16 @@ def complete(output):
 
 
 class MeterPolicyTests(unittest.TestCase):
+    def setUp(self):
+        # These names are absent in non-Windows subprocess. Every _spawn call,
+        # including prelaunch-failure cases, uses inert Windows flag values;
+        # the host OS never supplies a native process boundary to these tests.
+        for name, value in (("CREATE_NEW_PROCESS_GROUP", 0x00000200),
+                            ("CREATE_NO_WINDOW", 0x08000000)):
+            substitute = patch("subprocess." + name, value, create=True)
+            substitute.start()
+            self.addCleanup(substitute.stop)
+
     def spawn(self, outcome, response=None):
         response = response if response is not None else BytesIO()
         with patch.object(meter, "TemporaryFile", return_value=response) as temporary, \
@@ -86,6 +96,7 @@ class MeterPolicyTests(unittest.TestCase):
         self.assertFalse(popen.call_args.kwargs["shell"])
         self.assertIs(popen.call_args.kwargs["stdin"], response)
         self.assertEqual(popen.call_args.kwargs["env"]["ARGYLL_NOT_INTERACTIVE"], "1")
+        self.assertEqual(popen.call_args.kwargs["creationflags"], 0x08000200)
         return process, response
 
     def test_success_does_not_consume_give_up_response(self):
@@ -149,6 +160,16 @@ class MeterPolicyTests(unittest.TestCase):
                        PROMPT[:-1] + READING, PROMPT + READING[:-1]):
             self.assertFalse(complete(output).accepted)
 
+    def test_result_grammar_allows_whitespace_and_finite_signed_notation(self):
+        # The prompt is exact; the inherited numeric parser is intentionally
+        # broader than Argyll's %f formatter. This is diagnostic grammar only.
+        for reading in (READING.replace(b"\n Result", b"\nResult"),
+                        b"\n\tResult is XYZ: -1 +2e1 .0, Yxy: 2E1 .1 .2\n\t \n",
+                        b"\n \n" + READING + b"\t\n"):
+            with self.subTest(reading=reading):
+                self.assertTrue(complete(PROMPT + reading).accepted)
+                self.assertFalse(complete(PROMPT + reading + b"retry\n").accepted)
+
     def test_partial_diagnostic_chunks_never_escape_strict_final_grammar(self):
         for boundary in range(len(b"Spot read stopped at user request!")):
             capture = meter.TranscriptCapture(0)
@@ -194,6 +215,44 @@ class MeterPolicyTests(unittest.TestCase):
                 patch("subprocess.Popen", side_effect=OSError("no process")), self.assertRaises(OSError):
             meter._spawn([], {})
         self.assertTrue(response.closed)
+
+    def test_failed_input_close_preserves_original_launch_or_preparation_error(self):
+        for failed_launch in (False, True):
+            original = OSError("synthetic original failure")
+            response = MagicMock()
+            response.write.return_value, response.seek.return_value = 2, 0
+            response.close.side_effect = OSError("synthetic cleanup failure")
+            if not failed_launch:
+                response.flush.side_effect = original
+            with self.subTest(failed_launch=failed_launch), \
+                    patch.object(meter, "TemporaryFile", return_value=response), \
+                    patch("subprocess.Popen", side_effect=original) as popen, \
+                    self.assertRaises(OSError) as raised:
+                meter._spawn([], {})
+            self.assertIs(raised.exception, original)
+            self.assertTrue(any("Closing prepared meter input" in note
+                                for note in raised.exception.__notes__))
+            self.assertEqual(popen.call_count, int(failed_launch))
+            response.close.assert_called_once()
+
+    def test_input_close_keyboard_interrupt_retries_cleanup_and_rejects(self):
+        capture = meter.TranscriptCapture(0)
+        capture.feed("stdout", PROMPT + READING, 1)
+        capture.end_stream("stdout", 1)
+        capture.end_stream("stderr", 1)
+        readers = MagicMock()
+        readers.done = {"stdout": True, "stderr": True}
+        response = MagicMock()
+        response.close.side_effect = [KeyboardInterrupt, None]
+        process = SimpleNamespace(stdout=BytesIO(), stderr=BytesIO(), poll=lambda: 0,
+                                  _component_response_input=response)
+        with patch.object(meter, "_now_ms", return_value=2):
+            result = meter._supervise(process, capture, lambda text: None, readers=readers)
+        self.assertEqual(response.close.call_count, 2)
+        self.assertTrue(result.cancelled)
+        self.assertTrue(result.child_exit_confirmed)
+        self.assertTrue(result.readers_complete)
+        self.assertFalse(result.accepted)
 
     def test_input_closes_after_child_and_readers_and_close_failure_rejects(self):
         for failed in (False, True):

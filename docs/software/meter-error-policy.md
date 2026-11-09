@@ -1,6 +1,6 @@
 # Meter error and input policy
 
-**The wrapper now supplies an explicit give-up response and rejects every transcript outside its one supported success form. This is a software fix for A-007/C-136, not proof of driver shutdown or permission to use equipment.** Native Argyll, instrument and cleanup behaviour remain untested. The [shared wrapped-reading hold](../tests/component-execution.md#meter-attempt-and-closure), exact-source review and remaining physical prerequisites still apply.
+**The wrapper now supplies an explicit give-up response and requires the exact supported placement prompt, one parser-supported Yxy result line, and only whitespace around that result. This is a software fix for A-007/C-136, not proof of driver shutdown or permission to use equipment.** Native Argyll, instrument and cleanup behaviour remain untested. The [shared wrapped-reading hold](../tests/component-execution.md#meter-attempt-and-closure), exact-source review and remaining physical prerequisites still apply.
 
 Codex (OpenAI) prepared this policy on 9 November 2026 from current main `d5469297ed7cf8a41ff11585d84e1f0e44575364`, the implementation, latest audit/review responses and exact Argyll source. No Argyll executable was launched, including help/discovery; no port/device was opened or enumerated, equipment contacted or pattern displayed. The prior [audit](../reviews/2026-11-08-ground-up-audit.md#a-007--wrapped-meter-readings-do-not-control-argyll-error-retries) and its historical verification remain unchanged.
 
@@ -30,7 +30,7 @@ The supported success branch is selected USB Spyder5, absolute emissive `-e`, Yx
 
 Before launch, the wrapper removes both correction-default variables and every case variant of `ARGYLL_NOT_INTERACTIVE`, then supplies one canonical `ARGYLL_NOT_INTERACTIVE=1`. An inherited empty value or `0` cannot silently choose the policy: V3.5.0 tests presence, not truthiness (`numsup.c:225–258`). Other environment settings, including serial-scan exclusions, are retained. This is not complete environment sanitisation and does not replace physical serial isolation.
 
-The wrapper creates a binary temporary regular file, writes exactly the two bytes `q` and LF in one operation, checks the write, flushes and rewinds it **before** calling `Popen`. Allocation/write/flush/rewind failure therefore prevents launch. The file is stdin; neither operator keys nor retry/continue text are forwarded. The parent retains its file through confirmed child exit and reader completion, then attempts closure. A close failure rejects the result; cancellation during closure is latched while cleanup continues.
+The wrapper creates a binary temporary regular file, writes exactly the two bytes `q` and LF in one operation, checks the write, flushes and rewinds it **before** calling `Popen`. Allocation/write/flush/rewind failure therefore prevents launch. The file is stdin; neither operator keys nor retry/continue text are forwarded. The parent retains its file through confirmed child exit and reader completion, then attempts closure. A close failure rejects the result; cancellation during closure is latched while cleanup continues. If closing the prepared input also fails after a preparation/launch exception, the original exception is preserved with a separate cleanup-failure note.
 
 This choice follows the exact Windows source rather than assuming DEVNULL or an empty pipe is safe:
 
@@ -51,10 +51,10 @@ The regular-file branch does not need the LF to delimit its read; it returns q a
 The wrapper requires complete capture, complete logging, confirmed zero child exit, no cancellation/deadline failure, and this whole-stdout contract:
 
 1. Exactly the selected ordinary placement/command prompt from `spotread.c:2189,2193–2196,2200,2207`.
-2. Exactly one complete Yxy result using the supported numeric grammar, with no other non-whitespace suffix.
+2. One complete Yxy result line using the inherited parser's finite signed-decimal/scientific numeric grammar, with only whitespace besides that line after the prompt. Blank lines and indentation around the result are allowed.
 3. Empty stderr. CRLF is normalised to LF for grammar checking; original raw bytes remain unchanged.
 
-`-O` does **not** suppress the ordinary prompt. Its final colon-space has no newline: `fl_end` remains empty (`numsup.c:208,223`), and the result formatter supplies the separating newline (`spotread.c:2969–2970`). Bare results, missing/truncated/repeated/alternative prompts, unknown preludes/trailers and other output modes fail closed. The legacy synthetic parser keeps its broader contract; the fixed wrapper applies this narrower rule.
+`-O` does **not** suppress the ordinary prompt. Its final colon-space has no newline: `fl_end` remains empty (`numsup.c:208,223`), and the result formatter supplies the separating newline (`spotread.c:2969–2970`). The result check is a grammar check, not a byte-exact match of Argyll's `%f` formatter: signed/scientific values, a missing leading result-space and additional whitespace can pass. Bare results, missing/truncated/repeated/alternative prompts, unknown non-whitespace preludes/trailers and other output modes fail closed. No diagnostic/error/retry text is allowed. Numeric acceptance alone is not physical validity or accuracy. The legacy synthetic parser keeps its broader contract; the fixed wrapper applies this narrower rule.
 
 CCT defaults off (`spotread.c:601`); ambient toggling at `1170–1176` does not apply to fixed `-e`, and `-T` is absent. No CCT/CRI extras are allowed. No reference, density or spectrum output is selected. The normal `-O` exit follows the result/log writes (`3171–3172`), then common cleanup (`3187–3201`).
 
@@ -81,7 +81,24 @@ If a stronger requirement demands exactly one `read_sample` call across all inst
 
 ## Offline verification
 
-The [complete 36-file source/test manifest](meter-error-policy-manifest.sha256) identifies this amendment's software bytes, including the new regression module and manual audit probe. The old 34-file manifest and October/November audit results remain historical; they do not validate these changes. The separate serial amendment is not included: combining changes requires reviewed source/manifest reconciliation.
+The [complete 36-file source/test manifest](meter-error-policy-manifest.sha256) identifies the current review amendment's software bytes, including the regression module and manual audit probe. The old 34-file manifest and October/November audit results remain historical. The separate serial amendment is not included: combining changes requires reviewed source/manifest reconciliation.
+
+### Review follow-up verification
+
+The [review response](../reviews/2026-11-09-pr41-review-response.md) records Claude F1–F4, Antigravity's endorsement and its limits, and the same-vendor bot finding. Final follow-up runs on the same Windows 10 build 19045 AMD64/Python 3.15.0 build identified below:
+
+| Command from repository root | New result, 9 November 2026 |
+|---|---|
+| `py -3.15 -B -m unittest discover -s tests` | 301 passed, 0 failures/errors/skips; 13.328 seconds |
+| `py -3.15 -B -m unittest discover -s tests -p 'test_component_meter*.py'` | 50 passed, 0 failures/errors/skips |
+| `py -3.15 -B -m unittest discover -s tests -p test_component_containment.py` | 2 passed, including guarded component rerun |
+| `py -3.15 -B -m unittest discover -s tests -p test_software_containment.py` | 1 passed |
+
+The test fixture now creates inert Windows subprocess constants on every host instead of depending on their existence. Three added cases define allowed whitespace/numeric grammar, directly interrupt input-file closure, and retain the primary preparation/launch exception when cleanup also fails. No test is skipped. The full suite used normal temporary permissions for the unchanged inert T-009 fixture. Windows missing-constant emulation also reproduced the former ImportErrors and passed the corrected policy/containment checks; it is not a native Linux run. Claude's Linux results remain separately attributed in the response. Argyll/native/equipment operation remains unrun.
+
+### Initial policy verification at 11afa53
+
+The following table is the initial result at `11afa53192f615b48dd40f0eb08bc57bae27b84a`, tied to its [historical 36-file manifest](https://github.com/murphys-logs/tv-autocal/blob/11afa53192f615b48dd40f0eb08bc57bae27b84a/docs/software/meter-error-policy-manifest.sha256). It is preserved as history, not validation of the newer source.
 
 All 16 existing test entry files were inspected before the first run, including the manual audit probe and the existing temporary inert-text fixture. New tests were also read before execution. On Windows 10 build 19045 AMD64, the installed interpreter reported `3.15.0 (tags/v3.15.0:d220409, Oct 9 2026, 11:55:56) [MSC v.1951 64 bit (AMD64)]`. No Python 3.12 run is claimed for this source.
 
