@@ -17,6 +17,7 @@ This folder is a log of reviews of this repository's pull requests: who reviewed
 
 - [2026-11-09-pr41-review-response.md](2026-11-09-pr41-review-response.md) — meter-policy review findings, portability/grammar/cleanup changes and current verification; original vendor reviews remain attributed
 - [2026-11-09-pr42-review-response.md](2026-11-09-pr42-review-response.md) — Claude/Google first-head assessment, GUI quiescence/ABI fixes, actual follow-up verification and native stop limits
+- [2026-11-09-pr43-preparation-follow-up.md](2026-11-09-pr43-preparation-follow-up.md) — vendor-review dispositions, archived owner provenance, focused CEC source limits, owner-preparation handoff and conditional permission boundary
 
 ## Review task prompts
 

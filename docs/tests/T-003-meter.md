@@ -15,6 +15,8 @@ The [discovery-only execution package](T-003-discovery-execution.md) supplies ca
 
 The later [software identity amendment](T-003-software-identity-amendment.md), requested by the owner, proposes binding the downloaded **3.5.0 win64** package and the existing **PowerShell 7.6.9** files. It changes the proposed discovery software identities only; review, the specified file/path preparation and every other discovery gate remain necessary. No Argyll program, console preparation or equipment step was executed for the amendment.
 
+The later [steps 2–4 preparation handoff](T-003-owner-preparation-handoff.md) and [CEC source follow-up](T-003-cec-change-proposal.md#focused-source-follow-up--9-november-2026) record what remains. The owner supplied a partial new Windows Update report; no console/registry result or executable reset method is supplied. Readiness remains incomplete, so the handoff's future permission-request draft is not submitted for approval and this plan's section 8 remains unfilled.
+
 ## 1. Purpose
 
 Establish whether the installed ArgyllCMS can identify the owner's Spyder5Pro and produce actual XYZ measurements, then measure repeatability, warm-up drift and a provisional usable low-light range under one fixed setup. XYZ are the three reported colour-measurement components; Y represents luminance. A successful process exit alone is not a measurement.
