@@ -4,6 +4,8 @@ This folder holds the plans, authorisations and results of every test that invol
 
 Software-only simulations do not belong here and need no authorisation, because they never touch the equipment. Their results must always be labelled as simulations.
 
+The [first-release specification](../software/first-release-specification.md) proposes the complete application's requirements and separates software checks from equipment acceptance. Component diagnostics and T-013's one-control experiment are intermediate evidence; they do not establish validated calibration accuracy or complete T-008. The specification does not change the plans' authority or execution gates.
+
 <a id="plans-awaiting-independent-review"></a>
 
 ## Reviewed plans with outstanding execution gates

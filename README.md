@@ -2,7 +2,7 @@
 
 A free, open-source Windows application, written in Python, intended to calibrate a Samsung TV's **own picture settings** automatically. It will show a test colour, measure it with a colour meter, adjust the TV, and measure again — until the picture is as close to the video standards as the TV allows.
 
-> **Status, 8 November 2026: PRs #21–#37 merged. The [ground-up audit](docs/reviews/2026-11-08-ground-up-audit.md) finds useful diagnostic software but no demonstrated calibration chain. External reviews and their current-head status are tracked in [PR #39](https://github.com/murphys-logs/tv-autocal/pull/39). Wrapped readings are held under [C-136](docs/tests/component-execution.md#meter-attempt-and-closure). Discovery preparation/session evidence and exact authority remain outstanding; D-021's retired Samsung questions stay retired.**
+> **Status, 9 November 2026: PRs #21–#39 merged. The [ground-up audit](docs/reviews/2026-11-08-ground-up-audit.md) finds useful diagnostic software but no demonstrated calibration chain. Its review history and coverage qualifications are tracked in [PR #39](https://github.com/murphys-logs/tv-autocal/pull/39). The [first-release specification](docs/software/first-release-specification.md) proposes the complete owner journey, essential requirements and acceptance evidence; it does not resolve open decisions or authorise operation. Wrapped readings remain held under [C-136](docs/tests/component-execution.md#meter-attempt-and-closure). Discovery preparation/session evidence and exact authority remain outstanding; D-021's retired Samsung questions stay retired.**
 > The full calibration application is not built. Hardware-facing component paths now exist but have only offline checks; **no operational equipment tests have been run**.
 > [LEDGER.md](LEDGER.md) records what is known, where each claim came from, and what still needs testing.
 
@@ -12,6 +12,8 @@ Your owner checks T-001/T-002 are complete. PR #21's [component plans](docs/test
 
 | ID | Question | Options | Agents' recommendation | Holds up |
 |---|---|---|---|---|
+| [Q-001](LEDGER.md#6-open-questions) | How will correction and accuracy be independently validated? | Agree a validation route after research; if none is practical, consider Q-016 explicitly | No route established; do not replace validated accuracy with relative improvement | T-004 and functioning-release acceptance |
+| [Q-003](LEDGER.md#6-open-questions) | Which production Python version and Windows installation/packaging approach? | Decide on a later reviewed proposal | Component-test choices do not select production support | Reproducible installation and distribution |
 | [Q-021](LEDGER.md#6-open-questions) | Consolidate discovery preparation around concrete risks and necessary evidence? | Retain current process / commission a focused, risk-ranked amendment | Codex: review a consolidated proposal, including whether CEC changes are necessary; current gates remain in force | Future process simplification only |
 | [Q-004](LEDGER.md#6-open-questions) | Protect `main` so it changes only through pull requests? | Pull request only / also an approval / none | Claude Code: settle Q-011 first, then pull request only | Nothing yet |
 | [Q-008](LEDGER.md#6-open-questions) | What production delay is justified after leaving the menu? | Evaluate later timing evidence | Draft diagnostics: owner accepts 2.0-second minimum and 60-second acceptance deadline (D-019); neither is tested | Production timing; physical permissions remain separate |
@@ -92,6 +94,7 @@ Read more:
 
 - [docs/workflow.md](docs/workflow.md) — the same process, step by step, for a non-programmer
 - [docs/plan.md](docs/plan.md) — a proposed order of work, from the information you need to give to a first calibration (a proposal, not a decision)
+- [First-release specification](docs/software/first-release-specification.md) — proposed owner journey, 20 essential requirements, unresolved dependencies and evidence needed for a functioning release
 - [docs/equipment.md](docs/equipment.md) — equipment record and completed owner checks
 - [AGENTS.md](AGENTS.md) — the rules all agents follow
 - [LEDGER.md](LEDGER.md) — evidence, decisions, disagreements and outstanding tests
