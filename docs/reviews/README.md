@@ -14,3 +14,7 @@ This folder is a log of reviews of this repository's pull requests: who reviewed
 - [2026-11-08-pr39-second-review-response.md](2026-11-08-pr39-second-review-response.md) — second-head reviews, authority/hold visibility, signal-mapping fairness and source follow-up
 
 - [2026-11-08-pr39-third-review-response.md](2026-11-08-pr39-third-review-response.md) — P7 response, all 44 coverage rows, source/reproduction limits and correction of Codex's worksheet-identity criticism
+
+## Review task prompts
+
+- [2026-11-08-ground-up-review-prompt.md](2026-11-08-ground-up-review-prompt.md) — complete project-audit instructions and requirements for subsequent independent Claude and Antigravity reviews; a prompt, not completed findings

@@ -663,3 +663,19 @@ The complete review 5819625756 on d2c3b66c402958580d6fee8eb8db04ea21d2d754, live
 | Seven changed maintained documents, including new third response | Full text/diff, IDs, local links, privacy scan, unchanged manifest/source and archive checks | One new tracked response gives 115 head paths after this revision; original 108-file baseline table remains pinned and unchanged |
 
 Current-head receipts and both refreshed handoffs are in PR #39. Both vendors must review the changed head; no older recommendation closes that requirement.
+
+### PR #38 main integration after final reviews
+
+PR #38 merged into main at `2a825446748c4e01bbade85776b95ec492906e1e` on 2026-11-08 23:56:52 UTC, after both vendors had reviewed audit head `363e228214b8c9e64743c16b48a36904b28032d1`. GitHub then reported PR #39's documentation conflicts. The author incorporated this main commit into the audit branch, preserving both bodies of work; this is not a merge of PR #39. Current head and refreshed review receipts are recorded in [PR #39](https://github.com/murphys-logs/tv-autocal/pull/39).
+
+The original 108-file/128-claim baseline and earlier 115-path/135-row review snapshots above remain historical, not current counts. Main adds two files to the original baseline (110 paths); the integrated audit tree has 117 tracked paths and 136 retained claim rows, including six withdrawn rows. The two incoming files and all integration changes were read in full. No software, dependency, physical procedure or equipment authority changed.
+
+| Path or area | Method and evidence | Outcome and limitation |
+|---|---|---|
+| `docs/briefs/2026-11-08-independent-review-request.md` | Full 10-line read; 903 Git-blob bytes; SHA-256 `21642455785b75bfa71c210e48cb6cc9f6a6b6b0e34aeeab5c8e0b19afebcf90` | S-089's prompt-preparation request, distinct from S-097's issued audit instruction. Preserved byte-for-byte from merged main; no reconstruction or new authority. |
+| `docs/reviews/2026-11-08-ground-up-review-prompt.md` | Full 116-line read; 15,240 Git-blob bytes; SHA-256 `5236513097de31b84185b4c247b875958ef15bbd9efe61f0e0790a848dc44e7d`; compared with S-097's issued prompt | S-090/C-129 specification, not a completed audit. Preserved byte-for-byte; no new scientific claim or equipment instruction beyond the already issued task. |
+| `LEDGER.md`, `docs/README.md`, `docs/reviews/README.md` | Every conflict hunk read against both parents; S-089/S-090/C-129, audit records and both index sections retained | No ID collision: these IDs had been reserved. C-129's stale pending-review note now links to current PR status; audit corrections to historical review status remain intact. |
+| Claim register, audit baseline table and this appendix | Full integration diff and baseline/current-count distinction checked | Historical baseline is not rewritten; PR #38's later merge and the two added files are explicitly accounted for. |
+| Application, tests, dependencies and merged archives | Compare against both parents and the original baseline; new incoming brief/prompt also compared to main Git blobs | Existing bytes preserved. No new execution or native/equipment validation follows from a documentation integration. |
+
+Both vendor recommendations on 363e remain evidence about that reviewed tree. They do not automatically review the integration head: the bounded follow-up is to check this integration diff while retaining completed unchanged-file work and explicitly recording the existing source/coverage limitations. No blanket ground-up restart is required.
