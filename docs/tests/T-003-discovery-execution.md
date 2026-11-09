@@ -15,6 +15,8 @@ This is the execution addendum for **[T-003 steps 1–4](T-003-meter.md#5-steps)
 
 ### Historical 28 October identities and 9 November preparation evidence
 
+**Selection update, 9 November:** the owner now explicitly selects the reviewed PR #44 win64/7.6.9 bindings ([S-123](../briefs/2026-11-09-t003-software-selection.md)/D-022). The source/decision recording PR needs independent review and owner merge before affected preparation uses them. No further selection answer is required; actual extracted identity, private specification, owner preparation and physical authority remain unresolved. The dated identity history below stays intact.
+
 The owner reported ArgyllCMS in Downloads and also installed on the PC, with past Spyder5 use through DisplayCAL ([S-053](../briefs/2026-10-28-owner-readiness-inputs.md), C-102). Those words do not identify DisplayCAL's executable or prove that there is a second copy.
 
 Codex performed a file-only lookup limited to the reported Downloads Argyll package on 28 October 2026. One `spotread.exe` was found there and selected as the **proposed** candidate `T003-ARGYLL-A`. Other installation locations were not searched. Exact absolute paths and the complete identity record are in ignored `local/T-003/discovery-identity.local.json`; they are not published. This record is preparation evidence, not permission or a completed session record.
@@ -61,7 +63,7 @@ The procedure is proposed below; these are the remaining choices/records, not in
 
 | Gate | Current state | Needed before the relevant action |
 |---|---|---|
-| One candidate and console | D-020's old copies failed recheck; the [new amendment](T-003-software-identity-amendment.md) proposes exact win64/7.6.9 identities | Complete independent amendment review, owner merge **and the owner's explicit selection updating D-020's software choice**, then the specified file/path checks and actual console access/version checks; no other copy or PATH fallback |
+| One candidate and console | D-020's old copies failed recheck; PR #44's reviewed win64/7.6.9 bindings are selected in S-123/D-022 | Complete independent review and owner merge of the received S-123/D-022 selection record, then the specified file/path checks and actual console access/version checks; no other copy or PATH fallback |
 | Discovery workflow limit | **60 seconds accepted** in S-059/D-020 (Q-020 answered) | Keep this separate from D-019's later-reading deadline; neither grants execution authority |
 | Stopping policy | **Waiting without forced recovery accepted** in S-059/D-020 | Owner presence and unconditional right to end activity remain; no safe technical abort is established |
 | Console, timing and presence | Samsung ordinary desktop and phone stopwatch chosen; owner presence accepted. Console method reviewed in PR #30; actual host/access unknown | Complete private console preparation and later session rechecks under the [reviewed method](T-003-discovery-console.md); no host/layout change or installation |
