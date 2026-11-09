@@ -13,6 +13,8 @@ The [discovery-only execution package](T-003-discovery-execution.md) supplies ca
 
 **9 November 2026 preparation assessment:** the [dated readiness table](T-003-discovery-readiness.md#preparation-assessment--9-november-2026) retains historical private observations and identifies missing console/registry/current-applicability evidence. File reads found the selected Argyll path unavailable and changed PowerShell bytes/version metadata; no substitute was selected. The command specification is non-executable, the CEC method remains unresolved, and section 8 still records no permission. C-136 does not apply to direct discovery; its separate hold on steps 5–11 remains.
 
+The later [software identity amendment](T-003-software-identity-amendment.md), requested by the owner, proposes binding the downloaded **3.5.0 win64** package and the existing **PowerShell 7.6.9** files. It changes the proposed discovery software identities only; review, the specified file/path preparation and every other discovery gate remain necessary. No Argyll program, console preparation or equipment step was executed for the amendment.
+
 ## 1. Purpose
 
 Establish whether the installed ArgyllCMS can identify the owner's Spyder5Pro and produce actual XYZ measurements, then measure repeatability, warm-up drift and a provisional usable low-light range under one fixed setup. XYZ are the three reported colour-measurement components; Y represents luminance. A successful process exit alone is not a measurement.

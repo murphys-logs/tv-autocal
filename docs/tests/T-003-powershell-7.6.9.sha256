@@ -1,0 +1,12 @@
+# Proposed bounded PowerShell 7.6.9 win-x64 identity; paths relative to the privately pinned distribution root.
+# Ten files only, not a complete distribution/runtime attestation; source/package limits in T-003-software-identity-amendment.md.
+2a6769a3330dc1084d0154bfde7d164ab750ca7f700f313f9d417c1be78b2233  pwsh.exe
+682c403fd13e667ff9c67f28750c8fedec8ad60f962662d83642b48a6c3f2154  pwsh.dll
+e767f5c26347b254dd06fa0b65e18424cc4eb93fc3102c5a8fdd9dd88355db97  System.Management.Automation.dll
+dd8766bd4db0c1d17111b81d145d32448f61f48451d51c780a79be9ca98d837e  Modules/PSReadLine/PSReadLine.psd1
+9bc0252f616067ca5ef1d0328ec0b97c7d31c757f9fc80adee234ea6132a9c7e  Modules/PSReadLine/PSReadLine.psm1
+f8e3a5b7e3e8cad2130ce10647564a2a0ea15d98db8a0cc8d589f80154c108e2  Modules/PSReadLine/Microsoft.PowerShell.PSReadLine.dll
+6d33ea289b405c64bf5daa9c59e459596cac59ece399d0d215ee9f3d46afd675  Modules/PSReadLine/net6plus/Microsoft.PowerShell.PSReadLine.Polyfiller.dll
+2e63dc86d9240243ccfb07da5d0b4fce2bc5ce5f9952658a7ce68c26bcd3e14c  Modules/PSReadLine/netstd/Microsoft.PowerShell.PSReadLine.Polyfiller.dll
+e19382339515417833c15ce346a6f5f3b4ec97257cb25f01769b466b8f61f556  pwsh.runtimeconfig.json
+adf3baa4d6e98e38a2dcfe50c398e3b790b9444e282223f4068ebf5aabdc7ae7  pwsh.deps.json

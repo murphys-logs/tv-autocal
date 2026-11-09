@@ -14,9 +14,10 @@ For a preparation assessment, separate **observed file facts**, **dated historic
 - Exact steps/maximum one invocation covered: NOT AUTHORISED
 - Candidate ID; selected absolute executable path: UNRESOLVED
 - Expected SHA-256/size copied from the reviewed package: UNRESOLVED
-- HTTPS-published win32 package match and signature/source-build limitations acknowledged: UNRESOLVED
+- Reviewed architecture/package identity (proposed V3.5.0 win64), archive/member match and signature/source-build limitations acknowledged: UNRESOLVED
+- Proposed software-identity amendment/review; reserved extraction destination, actual extracted executable path and post-unpack file hash/size: UNRESOLVED; no extraction or launch implied
 - Other-copy/previous DisplayCAL identity: UNKNOWN; no alternative launch
-- Selected absolute Codex-bundled console executable path, hash, version and startup options: UNRESOLVED
+- Selected absolute Codex-bundled console path and identity record (proposed 7.6.9 Core; file version 7.6.9.500), required package-file fingerprints and startup options: UNRESOLVED
 - Reviewed host, manual-entry, GUI-copy and session-only history/prediction method: UNRESOLVED
 - Owner can open/access the selected console: UNRESOLVED
 - Elapsed-time method, visibility and timing uncertainty handling: UNRESOLVED
@@ -92,7 +93,7 @@ This is an owner-run software step, not a look-only owner check. It uses the wri
 - Selected executable actual path/hash/size immediately before launch: NOT OBSERVED
 - Console actual path/hash/version, `-NoLogo -NoProfile`: NOT OBSERVED
 - Actual host, ordinary/non-elevated access, classic Mark/Copy check, menus dismissed/no selection/idle prompt: NOT OBSERVED
-- Already-loaded PSReadLine version (require 2.4.5): NOT OBSERVED
+- Already-loaded PSReadLine Version and ModuleBase (one 2.4.5 module from the pinned distribution directory): NOT OBSERVED
 - Original HistorySaveStyle and PredictionSource; both verified as session-only SaveNothing and None before private commands: NOT OBSERVED
 - All process `ARGYLL_*` variable names (or none); additional-setting assessment and needed private values: NOT OBSERVED
 - Original process correction variables (presence/value, private): NOT OBSERVED
