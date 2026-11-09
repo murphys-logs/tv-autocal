@@ -48,3 +48,7 @@ The revised [software record](../software/t009-prototype.md) records 39 passed, 
 The source archive was read only; its SHA-256 matched the value in Claude's review. No downloaded tools or source were committed. Local links/anchors, ledger IDs, plan template sections and recorded software hashes were checked; the two pre-existing broken relative links in the archived claim-notes-review brief remain untouched. No existing archive or workflow was changed.
 
 All three physical plans remain **NOT AUTHORISED** and unrun. Renderer, electrical, scope/restoration, menu-timing and physical-sender gates remain as specified; the Stage 4 range-interpretation gap and concurrent meter/serial design also remain open. A merge of this PR would accept reviewed plans and software work only. The owner still decides whether to merge after independent re-review.
+
+## Review completion checked 8 November 2026
+
+Both [Claude Code](https://github.com/murphys-logs/tv-autocal/pull/21#pullrequestreview-5672369650) and [Antigravity](https://github.com/murphys-logs/tv-autocal/pull/21#pullrequestreview-5672350396) reviewed final head `1cc88e1946a254637fbed1924dc29642eca279c5` before the owner merged PR #21. The preceding text records the revision stage, not a still-pending review. No physical authority or equipment result follows from that completion.

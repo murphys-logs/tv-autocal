@@ -1,6 +1,7 @@
 # T-005 — SDR signal-path and clipping checks
 
 > **Status: reviewed plan — NOT AUTHORISED. Do not carry out any step.**
+> **C-136 wrapped-reading hold: Part M cannot be authorised until the reviewed amendment required by the [shared hold](component-execution.md#meter-attempt-and-closure) resolves it.**
 > **Equipment not tested. Execution blocked:** PR #27's software source and PR #28's reconciled amendment were independently reviewed and merged; local/display inputs and the owner's permission remain open. Part M also needs T-003 evidence. A screening pass still cannot close the black/white range-interpretation gate.
 
 Prepared by Codex (OpenAI), 27 October 2026. Section 7's numerical thresholds remain **AI design proposals**, not measurements, manufacturer tolerances or accepted owner decisions. The owner accepted generic diagnostic readings, a fresh 2.0-second minimum wait and a 60-second acceptance deadline as planning choices on 28 October 2026 ([S-053](../briefs/2026-10-28-owner-readiness-inputs.md), D-019). T-003 discovery-only is the chosen first scope to prepare; T-005 requires separate later authorisation.
@@ -139,9 +140,9 @@ For part M, additionally record one row per attempt: unique ID, purpose **T-005 
 
 ## 7. How results will be judged
 
-The following are proposed screening thresholds to agree **before execution**. They do not certify absolute accuracy or derive from a manufacturer specification.
+The following are proposed screening thresholds to agree **before execution**. They do not certify absolute accuracy or derive from a manufacturer specification. Part M is also subject to the shared [wrapped-reading hold](component-execution.md#meter-attempt-and-closure), C-136.
 
-In the checks below, **mean Y** is average measured brightness and **sample standard deviation** describes the scatter of repeated readings. The step formula requires the increase between two patches to exceed both a noise allowance and two increments of the printed brightness precision. `max` chooses the larger allowance; `sqrt` means square root. This avoids counting a tiny printed difference as a clear improvement when the meter's variation or rounding could explain it.
+In the checks below, **mean Y** is average measured brightness and **sample standard deviation** describes the scatter of repeated readings. The step formula requires the increase between two patches to exceed both a noise allowance and two increments of the printed brightness precision. `max` chooses the larger allowance; `sqrt` means square root. This avoids counting a tiny printed difference as a clear improvement when the meter's variation or rounding could explain it. This plan uses the estimated standard error of a difference of means, whereas T-003 uses individual-reading spread. These are distinct unaccepted heuristics; neither supplies a universal 3-sigma confidence level. Their intended purposes and noise assumptions need review before threshold acceptance; the formulae are not silently made interchangeable.
 
 | Check | Proposed interpretation |
 |---|---|
@@ -163,6 +164,8 @@ C-004's stronger exact-code claim and X-008 are not established by this method, 
 **Stop rules adopted:** [docs/plan.md stop rules](../plan.md#stop-rules-for-every-physical-stage) at commit `ba099e0a182713945c247636042286e6f9dca626`. Changing these rules or the allowed settings/steps requires a reviewed plan revision and new authorisation for the affected work.
 
 ## 8. Owner's authorisation
+
+**C-136 remains in force:** Part M cannot be authorised while the [shared wrapped-reading hold](component-execution.md#meter-attempt-and-closure) remains unresolved.
 
 *To be completed by the owner only, or copied word for word from explicit written authorisation. The request to prepare plans is not authorisation to execute them.*
 

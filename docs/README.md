@@ -6,6 +6,7 @@
 | [workflow.md](workflow.md) | How the project runs, in plain English — roles, pull requests, reviews, approvals and physical tests — with a glossary |
 | [equipment.md](equipment.md) | The owner's equipment: what is known and what still needs confirming |
 | [plan.md](plan.md) | Claude Code's proposed order of work, reconciled by Codex with D-013: pass and stop conditions towards a first SDR calibration — a proposal, not a decision |
+| [briefs/2026-11-08-audit-execution-and-review-requests.md](briefs/2026-11-08-audit-execution-and-review-requests.md) | Issued audit and follow-up instructions; Owner-issued audit wording drafted by Codex (S-097) |
 | [briefs/](briefs/) | The owner's instructions to the agents, archived word for word |
 | [research/](research/README.md) | Research material — reports, critiques and references — archived with its provenance |
 | [tests/](tests/README.md) | Plans, authorisations and results of tests on the owner's equipment |
@@ -15,7 +16,7 @@
 | [tests/T-003-discovery-preflight.md](tests/T-003-discovery-preflight.md) | PRs #31/#32 reviewed the preflight and update gate; visual observations and software-only registry preparation remain separate, with Windows update gates and private evidence still required |
 | [tests/T-003-samsung-update-evidence.md](tests/T-003-samsung-update-evidence.md) | Retired readiness method under D-021; retained source limits and former requirements are historical, with no collection requested |
 | [tests/T-003-discovery-readiness.md](tests/T-003-discovery-readiness.md) | Remaining discovery-only preparation, owner authority and later session checks after PR #35; no hardware actions or completed observations |
-| [tests/T-003-cec-change-proposal.md](tests/T-003-cec-change-proposal.md) | Document-only temporary CEC Off/restoration proposal; power-reset method, independent review and exact authority still required |
+| [tests/T-003-cec-change-proposal.md](tests/T-003-cec-change-proposal.md) | Document-only temporary CEC Off/restoration proposal; power-reset method, review of the future executable amendment and exact authority still required; planning reviewed in PR #37 |
 | [tests/T-003-discovery-record.example.md](tests/T-003-discovery-record.example.md) | Blank template for private preparation/session records; no authorisation or results |
 | [software/component-readiness.md](software/component-readiness.md) | Software-only presenter controls, interruption handling, meter supervision and offline verification |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
@@ -23,7 +24,8 @@
 | [software/integration.md](software/integration.md) | Offline presentation, meter transcript, command-audit and observation contracts, with technical choices and verification |
 | [software/component-tools.md](software/component-tools.md) | Bounded Windows component-test tools, explicit execution gates, dependencies, offline checks and remaining physical prerequisites |
 | [reviews/2026-11-08-ground-up-review-prompt.md](reviews/2026-11-08-ground-up-review-prompt.md) | Task prompt for a complete independent project audit, its findings PR and subsequent Claude/Antigravity reviews; no audit performed by preparing the prompt |
-| [reviews/](reviews/README.md) | A log of reviews of pull requests — not evidence about the equipment, and not an archive |
+| [reviews/](reviews/README.md) | Pull-request reviews and the [8 November ground-up audit/coverage](reviews/2026-11-08-ground-up-audit.md); no equipment validation |
+| [reviews/2026-11-08-pr39-third-review-response.md](reviews/2026-11-08-pr39-third-review-response.md) | Antigravity P7 response assessment, 44-file coverage reconciliation and corrected worksheet identity/provenance |
 
 ## Two rules for this folder
 

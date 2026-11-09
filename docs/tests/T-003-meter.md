@@ -1,12 +1,13 @@
 # T-003 — Spyder5 recognition and diagnostic repeatability
 
-> **Status: draft plan for independent review — NOT AUTHORISED. Do not carry out any step.**
+> **Status: reviewed planning documents, execution gates outstanding — NOT AUTHORISED. Do not carry out any step.**
+> **C-136 wrapped-reading hold: Steps 5–11 cannot be authorised until the reviewed amendment required by the [shared hold](component-execution.md#meter-attempt-and-closure) resolves it.**
 > No instrument, display, receiver or cable was operated while preparing this plan. The owner's request to prepare it is not permission to run it.
 > **Execution blockers:** remaining inputs for the chosen scope and explicit owner authorisation; D-021 review and merge completed in PR #35. Samsung clarification questions are no longer prerequisites under the amendment. PR #27's presenter and meter source remains untested on equipment.
 
 Author: Codex (OpenAI), 27 October 2026. Baseline: `ba099e0a182713945c247636042286e6f9dca626`. Section 7's numerical thresholds remain **AI: Codex diagnostic proposals**, not published accuracy guarantees or owner decisions. The owner accepted the generic diagnostic scope, fresh 2.0-second minimum wait and 60-second acceptance deadline as planning choices on 28 October 2026 ([S-053](../briefs/2026-10-28-owner-readiness-inputs.md), D-019); this authorises no execution.
 
-Execution amendment: Codex (OpenAI), 28 October 2026, reconciled with merged PR #27 at `e424d47171f236add2451129691fc88d855548c3`. The independently reviewed [readiness source](../software/component-readiness.md) is `e7122a0e510337583d0da2e2a22e9b22c40f812e`; the merge has the same tree. The [shared execution record and manifest](component-execution.md#reviewed-software-and-local-inputs) bind that software separately from this still-unreviewed plan revision and local execution identities. The older PR #25 tools do not implement these controls. No future reviewed plan SHA or physical authorisation is supplied here.
+Execution amendment: Codex (OpenAI), 28 October 2026, reconciled with merged PR #27 at `e424d47171f236add2451129691fc88d855548c3`. The independently reviewed [readiness source](../software/component-readiness.md) is `e7122a0e510337583d0da2e2a22e9b22c40f812e`; the merge has the same tree. The [shared execution record and manifest](component-execution.md#reviewed-software-and-local-inputs) bind that software separately from the later reviewed plan amendments and still-unfilled local execution identities (PRs #28–#37). The older PR #25 tools do not implement these controls. No future reviewed plan SHA or physical authorisation is supplied here.
 
 The [discovery-only execution package](T-003-discovery-execution.md) supplies candidate fingerprints, private records and the one-launch capture/completion procedure for **steps 1–4**. PRs #29–#34 merged the preceding methods and research; D-021 retires the Samsung evidence requirements. PR #35 merged this readiness amendment; the [remaining checklist](T-003-discovery-readiness.md) indexes preparation, authority and session checks. No Argyll program was run; its observed version and device/default listing remain unknown. The package does not resolve later presentation or wrapped-reading gates.
 
@@ -54,7 +55,7 @@ The ordinary controls in Movie mode can differ from the values recorded during t
 
 **No service menu is used.** Do not change white balance, brightness, backlight, gamma or colour controls. Repeated static patches, meter pressure or an unsecured cable are avoided by the fixed duration, supported counterweight and the owner's ability to stop. Stop if mounting cannot be done without strain.
 
-The meter may be unavailable because its driver is missing or another program holds it. Close ordinary measurement programs before starting, but do not uninstall software or stop system services. C-069 warns that aborting the driver may leave pending meter data; the same source attempts to flush stale data on startup (`spyd2.c` lines 2973–2989). This is not evidence of permanent damage or a validated recovery method. There is no automatic kill, retry, USB reset or replug recovery in this plan. The owner retains the right to stop; the [stop procedure](#stopping-and-an-outstanding-reading) explains an unfinished reading.
+The meter may be unavailable because its driver is missing or another program holds it. Close ordinary measurement programs before starting, but do not uninstall software or stop system services. C-069 warns that aborting the driver may leave pending meter data; the same source attempts to flush stale data on startup (`spyd2.c` lines 2973–2989). This is not evidence of permanent damage or a validated recovery method. This plan authorises no automatic kill, retry, USB reset or replug recovery. Argyll child-internal retries remain possible in the current implementation, which is why the shared wrapped-reading hold applies. The owner retains the right to stop; the [stop procedure](#stopping-and-an-outstanding-reading) explains an unfinished reading.
 
 Original session values must be recorded before changes; all cells below are deliberately blank observations:
 
@@ -134,7 +135,7 @@ This describes the runner's fixed child argument list; it is **not an alternativ
 
 ### Stopping and an outstanding reading
 
-`-O` can perform one calibration or measurement and exit; require an actual XYZ result. Do not answer an unexpected calibration prompt or send keys as an improvised workaround. A normal stop means launch no more readings and let an in-flight reading finish before closing its console. The owner may request an immediate stop at any time.
+`-O` exits after a successful reading or relevant calibration handling, but some error branches prompt/retry. **Steps 5–11 remain held under the shared [wrapped-reading hold](component-execution.md#meter-attempt-and-closure), C-136.** Require an actual XYZ result and completed process; neither a single wrapper launch nor -O guarantees one instrument attempt. Do not answer an unexpected calibration prompt or send keys as an improvised workaround. A normal stop means launch no more readings and let an in-flight reading finish before closing its console. The owner may request an immediate stop at any time.
 
 **Two distinct 60-second policies:** D-019 accepts the **wrapped-reading** acceptance deadline for the draft, measured at launch intent after the fresh wait and before child startup; completion at or after the deadline is rejected. Direct discovery's limit, completion conditions and owner-stop branches have one home in the [discovery package](T-003-discovery-execution.md#completion-stopping-and-outstanding-process-procedure). D-020 separately accepts discovery's limit and waiting policy; PR #30 reviewed its console method, while applicable remaining preflight evidence and exact authority remain outstanding. Neither policy automatically kills, restarts or replugs the meter or promises termination by 60 seconds. The owner's unconditional right to stop remains intact; interruption is not validated recovery.
 
@@ -181,6 +182,8 @@ Thus code 5 needs separation from code 0 as well as code 13; if 0→5 fails but 
 
 ## 8. Owner's authorisation
 
+**C-136 remains in force:** Steps 5–11 cannot be authorised while the [shared wrapped-reading hold](component-execution.md#meter-attempt-and-closure) remains unresolved.
+
 *To be completed by the owner only, or copied word for word from the owner's written authorisation. The current preparation request explicitly excludes hardware operation.*
 
 - Authorised: **No — not requested or granted**
@@ -189,7 +192,7 @@ Thus code 5 needs separation from code 0 as well as code 13; if 0→5 fails but 
 - Conditions or limits: not yet recorded
 - Acceptance of section 7's proposed diagnostic thresholds: not granted
 - Discovery package/template reviewed at the same plan revision; private candidate/shell identity record accepted: not granted
-- Discovery-only limit/waiting policy (Q-020): accepted as planning choices in D-020; amended console-method review and physical authorisation remain absent
+- Discovery-only limit/waiting policy (Q-020): accepted as planning choices in D-020; console-method review completed in PR #30; physical authorisation remains absent
 - Component source revision/hash: identified above; local interpreter/Tk/Argyll identities and display/console record remain unresolved
 - Reviewed launch/close procedure accepted for steps 5–11: not granted
 - Date: not authorised
