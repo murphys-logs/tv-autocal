@@ -1,0 +1,104 @@
+# T-003 CEC ordinary-control method candidate
+
+**DRAFT FOR INDEPENDENT REVIEW ONLY — NOT ADOPTED, NOT READY / NOT AUTHORISED FOR EXECUTION. Do not perform these steps now.** Codex (OpenAI), 9 November 2026. Proposed under S-124/S-125/C-150, based on merged main `a545dc5171581ce3c322223c75e53e21d6229e7c` and its retained CEC proposal. No setting, power, connection, console or equipment operation was performed to write this candidate.
+
+This is a concrete proposed amendment, not a claim that a manufacturer supplied the combined sequence or that the owner's equipment has passed it. The linked preflight/checklist updates distinguish this proposed, separately authorised change phase from their unchanged look-only scope. The [current CEC holds](T-003-cec-change-proposal.md#4-candidate-lifecycle-and-holds-for-the-executable-amendment) remain binding until a complete tracked amendment receives independent cross-vendor review and owner merge. Exact dated owner authority would then be required separately for the changes, ordinary power operations and restoration. Discovery would still require its own later authority in parent T-003 section 8.
+
+## 1. Specific amendment being proposed
+
+Retain the existing Anynet+ Off / Denon HDMI Control Off criterion. Replace only the project-created demand for manufacturer-prescribed three-device ordering, an off interval and a particular PC electrical/kernel state with the following reviewed interpretation:
+
+> Denon instructs an off/on cycle after each HDMI Control change. For this bounded proposal, use the devices' documented ordinary controls, with normal Windows shutdown, observable completion and explicit failure handling. The component order below is an **AI: Codex operator-workflow choice**, intended to preserve visible PC shutdown and restore the display path before PC startup. It is not a manufacturer-prescribed HDMI reset order. No fixed off interval or forced/mains-reset method is introduced. Ordinary-control compliance does not prove complete electrical discharge, HDMI circuitry reset, uninterrupted visibility or successful restoration.
+
+This is an explicit proposed change to the specificity hold, not permission to ignore it privately. If reviewers cannot support that interpretation, retain the current hold and the existing manufacturer-clarification route. Do not claim that an unspecified manufacturer order or duration has been discovered. Q-021 remains optional; changing Off/Off is outside this candidate.
+
+## 2. Source facts and interpretation limits
+
+Primary pages re-read on 9 November 2026:
+
+- Exact-model Denon [HDMI Setup](https://manuals.denon.com/AVCX3800H/EU/EN/GFNFSYkabkahie.php) requires resetting connected-device power after an HDMI Control change. Restoring On is also a change. Its [German edition](https://manuals.denon.com/AVCX3800H/EU/DE/GFNFSYkabkahie.php) specifies switching devices off and on again. Neither page prescribes the component order, an off interval or mains removal.
+- Denon [HDMI troubleshooting](https://manuals.denon.com/AVCX3800H/EU/EN/DRDZSYiewxqonr.php) also describes receiver-plus-connected-device off/on after connection-related changes. That is a different trigger and is supporting context, not a substitute setting-change instruction.
+- Denon [front panel](https://manuals.denon.com/AVCX3800H/EU/EN/GFNFSYpztnjoik.php) and [power controls](https://manuals.denon.com/AVCX3800H/EU/EN/GFNFSYcfpllnaf.php) identify ordinary MAIN ZONE off as standby and provide ordinary power-on. The front-panel indicator can remain red in standby with HDMI Control, pass-through or network control enabled; a red light alone is not proof that MAIN ZONE remains on.
+- Denon [menu operations](https://manuals.denon.com/AVCX3800H/EU/EN/GFNFSYwahcrdvi.php) distinguishes menu navigation, Left/Right value editing, ENTER confirmation, BACK and SETUP closure.
+- The existing S-087/S-116 assessment retains Samsung's ENG-JZDVBEUK-1.1.3 e-Manual, hash `816e1c6f563aac973b676f68f73e623dead66163141c5a74f53357150422a3bc`, printed pp. 62/84, supplies the Anynet+ route, On/Off meaning and configuration-message remote limits. The existing assessment records page-image inspection; this follow-up claims no fresh PDF inspection/retrieval or current menu verification. Retain the existing navigation/edit and model/remote applicability limits; the candidate uses visible controls, never blind key counts. The [governing proposal](T-003-cec-change-proposal.md#2-sources-and-their-limits) retains the public manual locator and limitations.
+- Microsoft [Windows 10 shutdown guidance](https://support.microsoft.com/en-gb/windows/experience/power-battery/shut-down-sleep-or-hibernate-your-pc) supplies Start → Power → Shut down. Its [power-state documentation](https://learn.microsoft.com/en-us/windows/win32/power/system-power-states) distinguishes normal hybrid shutdown, full shutdown and mechanical off. This candidate adopts the ordinary shutdown route as an interpretation of off/on, not as proof of S5/G3 or GPU discharge. No Fast Startup inspection or change, shutdown utility or OS-change prerequisite is added.
+
+The manufacturer's instruction and the author-designed component order must remain separately attributed if this candidate is promoted. The unverified ARC search snippet in the current proposal supplies no instruction or new gate here.
+
+## 3. Scope, starting assumptions and original records
+
+The planned set is the **Windows PC, Denon AVC-X3800H and Samsung UE49KS7000UXXU**, using the owner's empty-other-connections planning assumption. No fresh inventory is claimed. No cables are connected or removed under this candidate. The Spyder5 is not required for any CEC phase; do not connect it to perform this work. Any initial connection/setup needed to make the TV desktop available belongs to a separately reviewed and authorised physical scope, not this preconnection draft.
+
+The complete normal route below assumes fresh recorded originals of **On/On**, matching the owner's intended restoration target. Existing dated observations remain history. Before any changes, privately record:
+
+- Samsung Anynet+, Denon HDMI Control, and all dependent values while HDMI Control is still On: **Power Off Control, TV Audio Switching, Power Saving and ARC**. Do not change a subordinate value or enable another setting just to expose it.
+- Original Samsung HDMI/input indication, Denon input indication, visible ordinary PC desktop, menu closure, relevant power states and the owner-known ordinary power controls to be used. A renamed input label is not proof of connector assignment.
+- Any unresolved field or difference from intended On/On, and the future change/reset/restoration authority and reviewed plan revision.
+
+These records remain the existing original-state requirement, not a new inventory. A missing/ambiguous original or different original combination stops this On/On route before changes for assessment. If fresh existing values are already Off/Off, no CEC change/reset is needed merely to pass the current criterion; do not turn them On to use this candidate, or assume permission to restore them to a different state.
+
+Use the existing look-only rule to record accessible originals where applicable. A menu change and the power cycle are distinct, later authorised actions. The proposed preflight/readiness updates provide the explicit tracked exception for this exact separately authorised change route, effective only after method review and owner merge; all other look-only limits remain.
+
+Use one fresh ignored private CEC record, separate from the discovery record, with these fields completed before their relevant actions:
+
+| Field | Current status / required record |
+|---|---|
+| Independently reviewed method and owner merge | Full method revision and merge reference; no adoption inferred from this draft |
+| Owner change/power/restoration authority | **NONE**; copy exact dated owner words covering sections 4–8, both off/on directions and normal restoration before physical actions |
+| Originals and actual ordinary controls | Fresh private references for the fields above, reconciled with the On/On route; no value supplied by this proposal |
+| Change, power-cycle and post-change evidence | **NOT PERFORMED**; actual state, completion/deviation and original-input/desktop checks |
+| Restoration/no-discovery closure | **NOT PERFORMED**; actual final/dependent values and any deferred/unknown state |
+| Discovery authority | Separate parent T-003 section 8, **NONE**; this CEC record does not grant it |
+
+## 4. Proposed normal Off route — later owner operation only
+
+No Argyll or hardware-facing project process may be outstanding. This candidate never provides recovery from such a process. Complete the existing applicable owner preparation and record the separately granted change/reset/restoration authority before starting.
+
+1. **Record originals, then close the observation menus.** Require the same ordinary desktop and original inputs. The owner must be able to identify each control and value clearly; this is not a blind key-count sequence.
+2. **Samsung normal-menu change:** Home → Settings → System → Expert Settings → Anynet+ (HDMI-CEC). Select the clearly identified Off choice using the ordinary focus/value/Select controls. Read back Off. Use short Return, observing each navigation step, to close the menus. Do not hold Return or apply repeated blind keypresses. A configuration message is not a completed value/closure observation: supply no clearing/recovery keys; continue only after the TV itself visibly completes the configuration and normal controls/desktop return. If completion is uncertain or the owner stops waiting, use section 8.
+3. **Denon normal-menu change:** use the remote already known to be in MAIN mode; SETUP → Video → HDMI Setup → HDMI Control. Navigate only clearly identified menu lists; use Left/Right for the displayed Off choice and ENTER to confirm, following the documented editing roles. Read back Off and close the menu with SETUP. BACK returns one menu level if needed while the state remains clear. Do not change ARC, other HDMI options, input, remote zone or device mode. Unknown focus, mode or editing behaviour stops this route.
+4. **Prepare the PC for an intentional shutdown.** Save the complete private records, the current phase and any needed instructions before shutdown. The live Codex conversation will be unavailable while this same PC is off; do not depend on a live agent to control or resume the sequence. Save unrelated work normally. Preserve completed preparation output and close only idle preparation consoles normally, with history saving still disabled until closure. An occupied, uncertain or hardware-facing process prevents this normal route; do not terminate it. This is not an instruction to close a discovery console.
+5. **Off phase, author-chosen order:** while the desktop is visible, use Windows Start → Power → **Shut down**. Do not choose an update, restart, sleep or hibernate option in its place; if the expected ordinary route is unavailable or a shutdown/update/error prompt is unresolved, stop rather than force it. Observe normal shutdown completion by the owner's known PC power-state indication. Before each subsequent Off action, observe the device’s actual state. If a documented linked action already put it in the intended Off/standby state, record that observed transition and skip the unnecessary power toggle. Otherwise use the Denon’s ordinary MAIN ZONE power control only while it is clearly On, then the TV’s existing ordinary power control only while it is clearly On; observe completion for each without assuming the Denon LED must be dark. An unexplained Off event, ambiguous state or uncertain earlier shutdown stops the phase instead of triggering another toggle. The same guard applies when this Off phase is reused after restoring On/On. No hold-to-force-off, unplugging, reset button, service control or fixed wait is included.
+6. **On phase, author-chosen order:** after every Off-phase completion is established, turn the TV on with its ordinary control, turn Denon MAIN ZONE on with its ordinary power control, then start the PC using its owner-known normal power-on control. Observe the actual state before a toggle; never press Power merely because it is the next listed item if that device has already powered on through a linked action. Record a documented linked power-on separately and skip an unnecessary toggle; any other unexpected or ambiguous power event stops the route. Do not change source/settings, unplug, force restart or retry to repair a failed return.
+7. **Record the post-cycle result.** Require normal Windows return, the same ordinary desktop/original inputs, closed menus and no unresolved event. Re-read only the two CEC values under the already reviewed ordinary-menu observation method, close the menus and confirm Off/Off. No manufactured “reset success” result follows from a power-button press or correct values alone. Record ordinary cycle completed / failed / unknown separately from the actual Off/Off criterion and source-based interpretation.
+
+The observable completion of each intended transition replaces an invented fixed delay. It is not an unlimited unattended-wait rule, a guaranteed completion time or a new timed test. If the owner cannot establish completion, normal progress stops. Do not introduce a timed forced-off response.
+
+## 5. Fresh assessment before separate discovery authority
+
+The planned shutdown/blackout is an intentional part of this future authorised change phase, not discovery or evidence of uninterrupted discovery. Unexpected loss of visibility during menu editing or before PC shutdown completion remains a deviation. No discovery is outstanding during any ordinary power operation in this candidate.
+
+The power cycle ends the old PC/Codex/console session. Discard affected session-applicability assumptions: freshly assess the existing console identities/host/privacy, bounded registry evidence and Windows conditions as required by the governing preflight, using the adopted methods. Do not reuse pre-restart loaded-module, environment, Windows Update or status/hour evidence as fresh. Complete fresh applicable menu/desktop closure evidence after the planned cycle; D-021's retired Samsung questions stay excluded.
+
+Only after supported post-change Off/Off evidence and every remaining pre-authorisation requirement are assessed may exact separate discovery permission be requested. Parent T-003 steps 1–4 remain at most one owner-initiated direct `-?` invocation, no presenter/readings, with unchanged 60-second/waiting/stopping rules. This candidate grants no connection permission, driver action or Argyll launch.
+
+
+The owner has directed that the requested Windows Update fields not be pursued in this preparation run (S-124). They remain unverified, not passed. This CEC proposal neither collects them nor silently removes a retained readiness criterion; the readiness assessment must disclose that limit.
+
+## 6. Proposed restoration to recorded On/On
+
+Use this route only with complete known state, no outstanding or completion-unconfirmed hardware process, and the separately granted restoration/power authority. It applies after eligible normal discovery closure **or when the owner decides not to launch after a normally completed Off phase**. No-launch is not itself proof that a failure/driver/process state is safe.
+
+1. Record the current known state and the reason for normal closure. Preserve completed evidence and original/dependent values. Use the same clear normal-menu controls in section 4, restoring **Denon HDMI Control On**, then **Samsung Anynet+ On**. Read back each value, allow only visibly self-completing configuration, and close each menu before the next phase. This restoration setting order is an author-designed workflow choice, not a prescribed manufacturer sequence.
+2. With Denon HDMI Control On, compare Power Off Control, TV Audio Switching, Power Saving and ARC against the original record. Missing, inaccessible, automatically changed or ambiguous values are not silently corrected. Stop with restoration incomplete and record the discrepancy. Do not use the unverified ARC snippet to predict or excuse a change.
+3. Save records and close idle preparation consoles normally as in section 4. Perform the **same complete ordinary Off phase and On phase** from section 4, including PC shutdown and return, because restoring HDMI Control On is another change. The documented possibility of linked power-on is recorded, not a reason for blind Power toggling. No extra cycle or repair is allowed for a failed/uncertain result.
+4. Privately record actual restored Anynet+/HDMI Control values, all four dependent values, original inputs/desktop and closed menus after return. “Restored” requires actual matching evidence. A changed input, unresolved message, missing evidence or subordinate discrepancy is **restoration incomplete/unknown**; do not assert success, switch inputs or alter another setting under an assumed recovery mandate.
+
+This route returns to the recorded On/On baseline only if the observed outcomes support it; it does not guarantee restoration. No new reading is performed after restoration. The separate Windows display-off reminder remains a reminder, with no PC setting change added.
+
+## 7. Normal closure when no discovery is launched
+
+If Off/Off and the normal cycle are complete and known, but the owner elects not to request/perform discovery, record **not launched** and use section 6 under its separate restoration authority. Keep the no-launch and restoration outcomes separate. If the Off phase was partial, a menu/power transition failed or any state is uncertain, section 8 applies instead; do not represent normal restoration as a validated partial-change recovery recipe.
+
+## 8. Failure, uncertainty and owner stopping
+
+- Stop scheduling on an ambiguous control, value, menu, power indication, shutdown/boot outcome, input/desktop return, unexpected dependent-setting change or incomplete evidence. Record the last completed step, actual current/unknown states and any owner action. Do not repeat the change/cycle to improve its result.
+- Do not infer that “stop” authorises interrupting an active shutdown, configuration or boot. No safe forced-interruption method is established. Do not improvise power removal, reset/replug, held-power shutdown, service-menu action, process kill or recovery keys.
+- Preserve known partial changes and mark restoration **not completed / deferred / unknown** as appropriate. Further recovery requires a specific assessment/review and authority; do not claim that this candidate solves every partial-change failure.
+- Any outstanding, late, interrupted or completion-unconfirmed discovery invokes its unchanged governing waiting/recovery rules. Neither the restoration reminder nor this candidate permits a menu, power or PC operation during that state. The owner's unconditional right to end activity remains.
+
+## 9. Review decision and remaining limits
+
+This candidate makes the author-designed normal path concrete, including both reset directions and normal no-discovery closure. It does **not** prove that ordinary standby/Windows shutdown implements a complete HDMI-state reset on this equipment. Review must decide whether the documented ordinary-control interpretation is adequate for this bounded plan; if not, retain the manufacturer's clarification question and the existing hold. Do not call that interpretation adopted or the equipment ready merely because this draft exists.
+
+This tracked amendment supplies that normal operating proposal and the explicit narrow exceptions in the owning preflight/readiness texts. If independently reviewed and owner-merged, it resolves only the earlier project's prescribed-order/interval/electrical-state specificity hold and the missing normal change/reset/restoration/sequencing description for this route. No additional documentation PR is required merely to promote this same method. Exact separate CEC authority and actual successful observations remain required. Parent T-003 section 8 and the discovery private-record template keep their unchanged discovery-only role; section 3 above owns the separate CEC record. Original/dependent-state evidence and all future actions remain unfilled. The affected device set remains an owner-directed planning assumption, not current topology or firmware verification. Actual menu/controller match, ordinary power completion, Off/Off, restoration and session applicability are future observations, not findings.
