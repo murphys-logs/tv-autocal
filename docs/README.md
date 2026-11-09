@@ -20,7 +20,9 @@
 | [tests/T-003-cec-change-proposal.md](tests/T-003-cec-change-proposal.md) | Document-only temporary CEC Off/restoration proposal; power-reset method, review of the future executable amendment and exact authority still required; planning reviewed in PR #37 |
 | [tests/T-003-discovery-record.example.md](tests/T-003-discovery-record.example.md) | Blank template for private preparation/session records; no authorisation or results |
 | [software/serial-console-input.md](software/serial-console-input.md) | A-001/L-4 input repair, mouse-only serial actions, nonwaiting q, current branch verification and manifest; native/physical gates remain |
+| [software/task2-integration.md](software/task2-integration.md) | PR #42 reconciliation with merged PR #41, combined source identity and new hardware-free verification; earlier results and physical holds remain separate |
 | [software/component-readiness.md](software/component-readiness.md) | Software-only presenter controls, interruption handling, meter supervision and offline verification |
+| [software/meter-error-policy.md](software/meter-error-policy.md) | Source-supported first-error give-up input, strict accepted-output policy, new software verification and remaining native/physical limits |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
 | [software/renderer-cycle.md](software/renderer-cycle.md) | Off-screen renderer, simulated change/exit/wait/read controller, technical choices and manual checks |
 | [software/integration.md](software/integration.md) | Offline presentation, meter transcript, command-audit and observation contracts, with technical choices and verification |

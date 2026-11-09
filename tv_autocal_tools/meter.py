@@ -11,6 +11,7 @@ from os import getpid
 from pathlib import Path, PureWindowsPath
 from re import fullmatch
 from sys import platform
+from tempfile import TemporaryFile
 from time import monotonic, sleep
 
 from tv_autocal.meter_output import MAX_OUTPUT_BYTES, parse_meter_output
@@ -19,6 +20,19 @@ from .permission import HardwarePermit
 
 CHUNK_BYTES = 2048
 _CORRECTION_KEYS = {"ARGYLL_COLMTER_CAL_SPEC_SET", "ARGYLL_COLMTER_COR_MATRIX"}
+_INPUT_KEY = "ARGYLL_NOT_INTERACTIVE"
+_ABORT_RESPONSE = b"q\n"
+# V3.5.0 spotread.c:2189-2207, manual/no-reference/no-target/no-switch
+# branch, SALONEINSTLIB unset. This is a supported grammar, not a recording.
+_MEASUREMENT_PROMPT = (
+    b"\nPlace instrument on spot to be measured,\n"
+    b"and hit [A-Z] to read white and setup FWA compensation (keyed to letter)\n"
+    b"[a-z] to read and make FWA compensated reading from keyed reference\n"
+    b"'r' to set reference, 's' to save spectrum,\n"
+    b"'f' to report cal. refresh rate, 'F' to measure refresh rate\n"
+    b"'h' to toggle high res., 'k' to do a calibration\n"
+    b"Hit ESC or Q to exit, any other key to take a reading: "
+)
 
 
 @dataclass(frozen=True)
@@ -133,12 +147,25 @@ class TranscriptCapture:
         complete = all(self.eof.values()) and not self.read_errors and not any(self.dropped.values())
         parsed = parse_meter_output(raw["stdout"], raw["stderr"], exit_code,
                                     timed_out=self.timed_out, cancelled=self.cancelled)
-        accepted = (parsed.accepted and complete and self.log_complete
+        # The legacy parser deliberately tolerates arbitrary ordinary prompt
+        # text. The fixed -O adapter has a narrower contract: no unexplained
+        # stdout before or after its one Yxy result. Even an error followed by
+        # a successful internal retry must remain rejected.
+        normalized = raw["stdout"].replace(b"\r\n", b"\n")
+        suffix = normalized[len(_MEASUREMENT_PROMPT):]
+        unexpected = (parsed.accepted and
+                      (not normalized.startswith(_MEASUREMENT_PROMPT)
+                       or suffix.strip() != next(
+                           (line.strip() for line in suffix.splitlines()
+                            if line.strip().startswith(b"Result is XYZ:")), b"")))
+        accepted = (parsed.accepted and not unexpected and complete and self.log_complete
                     and parsed.output_format == "Yxy")
         if not complete:
             reason = "incomplete stream capture; diagnostic attempt rejected"
         elif not self.log_complete:
             reason = "incomplete audit log; diagnostic attempt rejected"
+        elif unexpected:
+            reason = "unexpected prompt or diagnostic in fixed one-result output"
         elif parsed.accepted and parsed.output_format != "Yxy":
             reason = "output format does not match the fixed -x invocation"
         elif accepted:
@@ -157,8 +184,15 @@ class TranscriptCapture:
 
 
 def isolated_environment(environ: dict[str, str]) -> dict[str, str]:
-    """Copy the supplied environment without either correction default."""
-    return {key: value for key, value in environ.items() if key.upper() not in _CORRECTION_KEYS}
+    """Remove correction defaults and replace inherited input mode explicitly.
+
+    Argyll checks presence, not truthiness; even an inherited '0' changes its
+    input path. Only the canonical noninteractive setting is passed through.
+    """
+    result = {key: value for key, value in environ.items()
+              if key.upper() not in _CORRECTION_KEYS | {_INPUT_KEY}}
+    result[_INPUT_KEY] = "1"
+    return result
 
 
 def _verified_executable(executable: str, expected: str) -> str:
@@ -206,9 +240,35 @@ def _reserve_attempt_log(attempt_log: str, plan: str) -> str:
 
 
 def _spawn(argv: list[str], env: dict[str, str]):
-    from subprocess import CREATE_NEW_PROCESS_GROUP, CREATE_NO_WINDOW, DEVNULL, PIPE, Popen
-    return Popen(argv, shell=False, stdin=DEVNULL, stdout=PIPE, stderr=PIPE,
-                 env=env, bufsize=0, creationflags=CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW)
+    """Prepare exactly one give-up response before any child can exist.
+
+    V3.5.0's noninteractive regular-file input is read only by a waiting prompt.
+    Unlike its pipe path, it does not depend on an unchecked NOWAIT request or
+    newline accumulation at EOF. Keep the parent's file until supervision ends
+    so no post-launch write/close failure can lose ownership of the child.
+    """
+    from subprocess import CREATE_NEW_PROCESS_GROUP, CREATE_NO_WINDOW, PIPE, Popen
+    response = TemporaryFile(mode="w+b")
+    try:
+        if response.write(_ABORT_RESPONSE) != len(_ABORT_RESPONSE):
+            raise OSError("Incomplete meter give-up response; no child launched")
+        response.flush()
+        if response.seek(0) != 0:
+            raise OSError("Meter give-up response could not be rewound")
+        process = Popen(argv, shell=False, stdin=response, stdout=PIPE, stderr=PIPE,
+                        env=env, bufsize=0,
+                        creationflags=CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW)
+    except BaseException as error:
+        try:
+            response.close()
+        except BaseException as cleanup_error:
+            # No process was returned to supervise. Retain the primary launch
+            # or preparation failure, plus the distinct resource-close failure.
+            error.add_note("Closing prepared meter input also failed: "
+                           + type(cleanup_error).__name__)
+        raise
+    process._component_response_input = response
+    return process
 
 
 class _DeferredStop:
@@ -386,6 +446,21 @@ def _supervise(process, capture: TranscriptCapture, notify, *, readers, stop=Non
                 capture._emit("meter_pipe_close_error", stream=name)
                 break
         stop.apply(capture)
+    response = getattr(process, "_component_response_input", None)
+    if response is not None:
+        while True:
+            try:
+                response.close()
+                break
+            except KeyboardInterrupt:
+                stop.request()
+            except Exception:
+                capture.read_errors.add("response-input-close")
+                capture._emit("meter_input_close_error")
+                break
+        stop.apply(capture)
+    capture._emit("meter_wrapper_complete", child_exit_confirmed=True,
+                  readers_complete=True, time_ms=_now_ms())
     capture._emit("meter_exit", exit_code=exit_code, time_ms=_now_ms(),
                   wrapper_pid=capture.wrapper_pid, child_pid=capture.child_pid,
                   child_exit_confirmed=capture.child_exit_confirmed,
@@ -430,7 +505,8 @@ def run_meter(permit: HardwarePermit, *, executable: str, sha256: str, attempt_l
     argv = [checked, "-O", "-e", "-x", "-Y", "n", destination]
     log("meter_preflight", simulated=False, executable=checked, sha256=sha256,
         argv=argv, isolated=True, discovery_confirmed=True, exit_confirmed=True,
-        correction_defaults_removed=sorted(_CORRECTION_KEYS), wait_ms=wait_ms)
+        correction_defaults_removed=sorted(_CORRECTION_KEYS), wait_ms=wait_ms,
+        input_mode={_INPUT_KEY: "1"}, input_policy="prewritten regular file; q-newline once; no retry")
     wait_start = _now_ms()
     while _now_ms() - wait_start < wait_ms:
         sleep(0.05)

@@ -11,7 +11,8 @@ from tv_autocal_tools import meter
 from tv_autocal_tools.permission import HardwarePermit
 
 
-VALID = b"\n Result is XYZ: 10.000000 20.000000 30.000000, Yxy: 20.000000 0.166667 0.333333\n"
+VALID = (meter._MEASUREMENT_PROMPT
+         + b"\n Result is XYZ: 10.000000 20.000000 30.000000, Yxy: 20.000000 0.166667 0.333333\n")
 
 
 def permit(plan="T-003", hardware=True):
@@ -191,7 +192,7 @@ class ComponentMeterTests(unittest.TestCase):
         before = {"Path": "fixture", "ARGYLL_COLMTER_CAL_SPEC_SET": "private",
                   "argyll_colmter_cor_matrix": "private2", "OTHER": "retained"}
         after = meter.isolated_environment(before)
-        self.assertEqual(after, {"Path": "fixture", "OTHER": "retained"})
+        self.assertEqual(after, {"Path": "fixture", "OTHER": "retained", "ARGYLL_NOT_INTERACTIVE": "1"})
         self.assertEqual(len(before), 4)
 
     def test_missing_permit_cannot_read_files_or_spawn(self):
@@ -457,6 +458,7 @@ class ComponentMeterTests(unittest.TestCase):
 
         process = FakeProcess()
         process.stdout, process.stderr = SignalPipe(VALID, "stdout"), SignalPipe(b"", "stderr")
+        process._component_response_input = SignalPipe(b"q\n", "input")
         process.kill, process.terminate, process.send_signal = MagicMock(), MagicMock(), MagicMock()
 
         def poll():
@@ -521,11 +523,12 @@ class ComponentMeterTests(unittest.TestCase):
         process.send_signal.assert_not_called()
         self.assertTrue(process.stdout.closed)
         self.assertTrue(process.stderr.closed)
+        self.assertTrue(process._component_response_input.closed)
         return result, events, notices
 
     def test_repeated_sigint_is_latched_through_launch_supervision_and_cleanup(self):
         for phase in ("spawn", "attach", "poll", "cancel-log", "join",
-                      "stdout-close", "stderr-close", "exit-log", "result", "restore"):
+                      "stdout-close", "stderr-close", "input-close", "exit-log", "result", "restore"):
             with self.subTest(phase=phase):
                 result, events, _ = self.signal_fixture(phase)
                 self.assertFalse(result.accepted)
