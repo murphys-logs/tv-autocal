@@ -1,0 +1,46 @@
+# T-003 owner preparation and readiness handoff
+
+**PREPARATION ONLY — NOT READY / NOT AUTHORISED. No operator action is requested by this draft.** Codex (OpenAI), 9 November 2026; owner instruction S-114, handoff S-118/C-148. This indexes the existing procedures for the project's remaining preparation and assessment work; it is not permission for parent T-003 discovery steps 1–4. No agent runs an owner procedure, opens settings or operates equipment on the owner's behalf.
+
+## Adoption before console or registry preparation
+
+The proposed PowerShell 7.6.9 method is in [PR #44](https://github.com/murphys-logs/tv-autocal/pull/44), checked open/unmerged at `b4fc641b72092d99da9d208dd12183cfd3fca899`; no cross-vendor review was located at this check. It depends on [PR #43](https://github.com/murphys-logs/tv-autocal/pull/43). Resolve applicable findings, final reviewed revisions and owner adoption before using the revised identities. File fingerprints and an automated same-vendor review do not establish adoption or owner-console access. There is no fallback to the superseded shell or a different copy.
+
+The sequence below is a **conditional handoff for later use after adoption**, not instructions to open a console now. The [console guide](T-003-discovery-console.md#proposed-future-preparation--no-steps-to-carry-out-now) and [preflight](T-003-discovery-preflight.md#bounded-policy-read-proposed-for-review) own the operating details and commands. Use their final adopted versions together; this index supplies no alternative command.
+
+| Stage | Evidence to record privately when the owner later performs the adopted procedure | Governing detail |
+|---|---|---|
+| Identity and revision | Reviewed/adopted plan and identity references; existing file-only record of the pinned shell/distribution; preparation date and owner | [Identity gate](T-003-discovery-execution.md#executable-identity-and-what-is-actually-known), PR #44's proposed amendment; owner-typed private file checks follow privacy verification |
+| Console access and host | Actual version/edition, ordinary non-elevated access, actual classic host, required idle Mark/Copy controls, menus dismissed and no selection | Console steps 2–3; wrong/missing/unclear evidence stops preparation |
+| Loaded module and privacy | Already-loaded module version/origin required by the adopted amendment; original history/prediction options, both verified session-only SaveNothing/None | Console step 4; no import/substitution. Only after verification may private paths be typed at the shell prompt; keep metadata output private |
+| Registry program identity | Private absolute identity of the existing Windows System32 registry program, unambiguous under the reviewed method | Preflight's separate software-only read; no PATH lookup, elevation or replacement |
+| Policy evidence and closure | Complete output and immediate exit code from each permitted query, assessed branch and recent/pending-change uncertainty; complete private preservation and normal closure of the idle preparation console | Preflight's bounded read and reviewed GUI-copy method; keep history saving disabled until closure |
+
+The registry evidence is separate from look-only observations. Retain complete private output and each immediate native exit code, then apply only the [owning preflight's zero or conditional readable-parent/value-absent branches](T-003-discovery-preflight.md#bounded-policy-read-proposed-for-review). Failure is not absence, and recent/pending-change uncertainty needs assessment. This handoff neither duplicates that procedure nor adds a query, edit, refresh, reboot or trial.
+
+This console is preparation only. A later discovery session needs its own fresh console and required rechecks. An absent extracted Argyll file does not turn the registry procedure into a discovery attempt; actual Argyll identity still remains an overall readiness gate.
+
+## Windows Update evidence is a separate look-only record
+
+Owner look-only Windows observations under the [existing Windows table](T-003-discovery-preflight.md#windows-checks) do not depend on adopting PR #44 or on physical-test permission. Agents do not obtain them through UI or update queries. Record the observation date/time, displayed status, restart/deadline/progress indications, active-hours endpoints and automatic-adjustment state privately, without any update action or settings change.
+
+**Evidence received, 9 November at 21:10 (Europe/London):** the owner supplied a current status report and active-hours endpoints privately. The bundled follow-up reply was interpreted as reporting none of the listed restart/deadline/progress indications; it is owner-reported evidence, not an agent observation. The automatic-adjustment On/Off value was not specified and remains **UNKNOWN**. No launch time was proposed, so the full 60-second fit remains **NOT ASSESSED**. Do not infer either missing field from the other answers.
+
+The [record template](T-003-discovery-record.example.md#preflight-records--before-discovery-authorisation) supplies individual fields. Pending/scheduled restarts, deadlines, update progress or unclear status retain the existing NOT READY response. Fresh status/hour observations and the complete interval check are still required before a later authorised launch; active hours do not guarantee an uninterrupted open-ended wait. Earlier no-change answers reflect owner knowledge, not verified absence of automatic changes.
+
+## Readiness stages and remaining holds
+
+1. **Handoff prepared:** links, prospective private fields and missing evidence are reviewable; no owner procedure is thereby completed. Preserve earlier records and keep new observations, proposals and unfilled fields separate.
+2. **Owner preparation assessed:** after applicable adoption and owner performance, assess the actual console/privacy, bounded registry and Windows evidence against the existing criteria. Failed/unknown applicable criteria remain NOT READY; do not fill them from file metadata, old reports or defaults.
+3. **Eligible for a permission request:** only after every required pre-authorisation row in the [readiness table](T-003-discovery-readiness.md#preparation-assessment--9-november-2026) is supported, the actual executable/private specification and final revision are reviewed, and remaining CEC/preflight holds are resolved. The [CEC method](T-003-cec-change-proposal.md#4-candidate-lifecycle-and-holds-for-the-executable-amendment) is still unresolved, so this stage has not been reached.
+4. **Later authorised session:** exact owner permission precedes its physical steps. Connections/isolation, meter/driver baseline, process environment and immediate pre-launch checks remain inside the authorised [package steps 1–2](T-003-discovery-execution.md#future-steps--parent-t-003-steps-14-only); preparation supplies no fabricated session evidence.
+
+D-021's retired Samsung questions stay excluded, Q-021 stays optional, and C-136 concerns later wrapped readings. No OS upgrade, later-reading prerequisite, additional inventory or new acceptance rule is added here.
+
+## Future permission-request draft
+
+**NOT REQUESTED FOR APPROVAL NOW — NOT AUTHORITY.** Complete and review every placeholder only after stage 3 is reached; do not use this draft to bypass a hold.
+
+> On **[SESSION DATE]**, with **[OWNER] present throughout, including any outstanding wait**, please provide exact permission for **parent T-003 steps 1–4** at reviewed plan commit **[FULL REVIEWED SHA]**, using **[REVIEWED PRIVATE SOFTWARE-IDENTITY RECORD]**. The limit is **at most one owner-initiated direct discovery invocation with the sole argument `-?`**, with **no presenter, patterns or readings**. The exact connection/check/normal-closure scope is **[BOUNDED SCOPE FROM THE REVIEWED PACKAGE, INCLUDING ANY NEEDED CONNECTION CHANGES]**. D-020's accepted 60-second limit and the completion/stopping/waiting response at **[PINNED PACKAGE/CONSOLE REFERENCES]** apply. Any planned pre-launch look-only rechecks are **[EXACT LIST OR NONE]**; their existing exemption is preserved. CEC changes, their associated power/resets and their restoration are excluded and require separate reviewed scope and authority.
+
+If later granted, copy the owner's dated exact words verbatim into [parent section 8](T-003-meter.md#8-owners-authorisation) before physical steps; record the authorisation-record commit separately from the reviewed plan commit under the [shared record rule](component-execution.md#authorisation-and-launch-record). A review, merge, completed preparation record or this draft alone never authorises discovery.

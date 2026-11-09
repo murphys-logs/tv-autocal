@@ -13,6 +13,8 @@ The [discovery-only execution package](T-003-discovery-execution.md) supplies ca
 
 **9 November 2026 preparation assessment:** the [dated readiness table](T-003-discovery-readiness.md#preparation-assessment--9-november-2026) retains historical private observations and identifies missing console/registry/current-applicability evidence. File reads found the selected Argyll path unavailable and changed PowerShell bytes/version metadata; no substitute was selected. The command specification is non-executable, the CEC method remains unresolved, and section 8 still records no permission. C-136 does not apply to direct discovery; its separate hold on steps 5–11 remains.
 
+The later [steps 2–4 preparation handoff](T-003-owner-preparation-handoff.md) and [CEC source follow-up](T-003-cec-change-proposal.md#focused-source-follow-up--9-november-2026) record what remains. The owner supplied a partial new Windows Update report; no console/registry result or executable reset method is supplied. Readiness remains incomplete, so the handoff's future permission-request draft is not submitted for approval and this plan's section 8 remains unfilled.
+
 ## 1. Purpose
 
 Establish whether the installed ArgyllCMS can identify the owner's Spyder5Pro and produce actual XYZ measurements, then measure repeatability, warm-up drift and a provisional usable low-light range under one fixed setup. XYZ are the three reported colour-measurement components; Y represents luminance. A successful process exit alone is not a measurement.

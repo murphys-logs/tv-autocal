@@ -10,6 +10,8 @@ PRs #29–#34 merged the preceding discovery documents and Samsung research. D-0
 
 Private paths stay in ignored `local/` records. A public guide uses only placeholders. Check links relative to each guide's actual folder: the existing private guide is three directory levels below the repository root, so its `../../../docs/` links are correct. Do not move it to a different depth without updating and checking them.
 
+These console history/prediction controls concern the owner's interactive session. They do not erase Codex/tool transcripts or establish that agent/app logs retain no paths read during programmatic file checks. Keep those records private too; no such logging system was inspected or erased, and no broader erasure guarantee is claimed.
+
 **9 November 2026 preparation hold:** the [file-only identity recheck](T-003-discovery-execution.md#executable-identity-and-what-is-actually-known) found the pinned Argyll path unavailable and different PowerShell bytes/7.6.9 metadata at the pinned shell path. Do not open that changed shell as the accepted 7.6.5 copy or infer its loaded PSReadLine version. Resolve the identity amendment first. No interactive preparation below was performed for this assessment. Reading the stored private paths programmatically for the permitted file check did not enter them into an interactive console; owner-typed private checks still require steps 2–4 in order.
 
 ## Proposed future preparation — no steps to carry out now
