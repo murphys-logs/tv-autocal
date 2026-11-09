@@ -53,6 +53,8 @@ def parser() -> argparse.ArgumentParser:
             command.add_argument("--timeout-ms", type=int, default=60000)
         else:
             command.add_argument("--port")
+            command.add_argument("--control-x", type=int, help="reviewed serial control-window desktop origin")
+            command.add_argument("--control-y", type=int, help="reviewed serial control-window desktop origin")
             command.add_argument("--prerequisites-confirmed", action="store_true", help="owner attests electrical/scope/restoration/menu gates and measurement software closed")
             command.add_argument("--menu-window-ms", type=int, help="reviewed non-overlapping menu observation interval; no default")
     return result
@@ -186,6 +188,7 @@ def main(argv=None) -> int:
             from .serial_tool import run_serial
             result = run_serial(permit, port=options.port, log=journal,
                                 prerequisites_confirmed=options.prerequisites_confirmed,
+                                control_x=options.control_x, control_y=options.control_y,
                                 menu_window_ms=options.menu_window_ms)
             summary = {**asdict(result), "accepted": result.accepted}
             journal("serial_result", **summary)

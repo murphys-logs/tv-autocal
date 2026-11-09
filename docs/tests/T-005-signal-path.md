@@ -9,7 +9,7 @@ The [proposed meter amendment](../software/meter-error-policy.md) now defines th
 
 Prepared by Codex (OpenAI), 27 October 2026. Section 7's numerical thresholds remain **AI design proposals**, not measurements, manufacturer tolerances or accepted owner decisions. The owner accepted generic diagnostic readings, a fresh 2.0-second minimum wait and a 60-second acceptance deadline as planning choices on 28 October 2026 ([S-053](../briefs/2026-10-28-owner-readiness-inputs.md), D-019). T-003 discovery-only is the chosen first scope to prepare; T-005 requires separate later authorisation.
 
-Historical execution amendment: Codex (OpenAI), 28 October 2026, reconciled with PR #27 at `e424d47171f236add2451129691fc88d855548c3` (same tree as reviewed `e7122a0e510337583d0da2e2a22e9b22c40f812e`) and reviewed in PR #28. That review does not cover the later meter-policy source. This proposed amendment uses the [new full manifest](../software/meter-error-policy-manifest.sha256) and [shared execution record](component-execution.md#reviewed-software-and-local-inputs); independent amendment review, exact final plan revision and local execution identities remain required. The old manifest is retained as history. No physical authorisation is supplied here.
+Historical execution amendment: Codex (OpenAI), 28 October 2026, reconciled with PR #27 at `e424d47171f236add2451129691fc88d855548c3` (same tree as reviewed `e7122a0e510337583d0da2e2a22e9b22c40f812e`) and reviewed in PR #28. That review does not cover the later meter-policy source. This proposed amendment uses the [new full manifest](../software/component-source-sha256.json) and [shared execution record](component-execution.md#reviewed-software-and-local-inputs); independent amendment review, exact final plan revision and local execution identities remain required. The old manifest is retained as history. No physical authorisation is supplied here.
 
 ## 1. Purpose
 
@@ -174,7 +174,7 @@ C-004's stronger exact-code claim and X-008 are not established by this method, 
 
 - Authorised: **No**
 - Exact plan commit/revision:
-- Reviewed source commit and complete [meter-policy manifest](../software/meter-error-policy-manifest.sha256): **not yet recorded; amendment review pending**. Historical `e7122a0e510337583d0da2e2a22e9b22c40f812e` does not cover changed meter source; local identities/display record still required
+- Reviewed source commit and complete [combined component manifest](../software/component-source-sha256.json): **not yet recorded; amendment review pending**. Historical `e7122a0e510337583d0da2e2a22e9b22c40f812e` does not cover changed meter source; local identities/display record still required
 - Accepted launch/exit instructions and completed display/console record:
 - T-003 result and exact accepted meter command/configuration (part M only):
 - Steps authorised (V, M, R1; specify exact steps):

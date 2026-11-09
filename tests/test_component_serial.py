@@ -9,6 +9,7 @@ from unittest.mock import patch
 from tv_autocal.sender_audit import CandidateCommand
 from tv_autocal_tools.permission import HardwarePermit
 from tv_autocal_tools.serial_tool import SerialSession, _WindowsRuntime, run_serial
+from tv_autocal_tools.serial_input import ConsoleStop
 
 
 ACK = b"\x03\x0c\xf1"
@@ -78,8 +79,11 @@ class FakeRuntime:
     def now(self):
         return self.time
 
-    def key(self):
+    def key(self, phase):
         return self.keys.pop(self.time, None)
+
+    def close_controls(self):
+        self.controls_closed = True
 
     def pause(self):
         self.time += 10
@@ -89,20 +93,10 @@ class FakeRuntime:
             raise AssertionError("fake loop did not terminate")
 
 
-class FakeConsole:
-    def __init__(self, keys):
-        self.keys = list(keys)
-        self.reads = 0
-
-    def kbhit(self):
-        return bool(self.keys)
-
-    def getwch(self):
-        self.reads += 1
-        key = self.keys.pop(0)
-        if isinstance(key, BaseException):
-            raise key
-        return key
+def event(char, vk=0x51, down=True, modifiers=0, kind=1):
+    return SimpleNamespace(EventType=kind, Event=SimpleNamespace(KeyEvent=SimpleNamespace(
+        bKeyDown=down, wRepeatCount=1, wVirtualKeyCode=vk,
+        uChar=SimpleNamespace(UnicodeChar=ord(char)), dwControlKeyState=modifiers)))
 
 
 class ComponentSerialTests(TestCase):
@@ -179,80 +173,38 @@ class ComponentSerialTests(TestCase):
         save()
         return fixtures
 
-    def test_special_console_keys_never_dispatch_in_any_session_phase(self):
-        sequences = {"Right": "\xe0m", "End": "\xe0o", "Insert": "\xe0r", "PgDn": "\xe0q",
-                     "F8": "\x00b", "F9": "\x00c", "F10": "\x00d"}
+    def test_console_events_never_dispatch_commands_in_any_session_phase(self):
         fixtures = self.console_phase_fixtures()
-        self.assertEqual({session.phase for session, _ in fixtures}, {
-            "initial quiet", "baseline", "menu preparation", "observe setting", "exit ready",
-            "writing", "reply", "ack quiet", "confirm exit", "settling", "set ready",
-            "restore ready", "complete", "stopped",
-        })
-        for name, sequence in sequences.items():
-            for fixture in fixtures:
-                session, log = deepcopy(fixture)
-                with self.subTest(key=name, phase=session.phase, writes=session.writes, closed=session.closed):
-                    console = FakeConsole(sequence)
-                    # Invoke only the decoder, never the Windows constructor.
-                    runtime = SimpleNamespace(_console=console)
-                    before = deepcopy((session.__dict__, log.events))
-                    frames, decoded = [], []
-                    while console.kbhit():
-                        key = _WindowsRuntime.key(runtime)
-                        decoded.append(key)
-                        # Match run_serial's dispatch, including q outside
-                        # SerialSession.operator and its wrong-phase handling.
-                        if key == "q":
-                            session.stop("unexpected console stop")
-                        elif key is not None:
-                            try:
-                                frame = session.operator(key, session._now)
-                            except (ValueError, RuntimeError):
-                                continue
-                            if frame is not None:
-                                frames.append(frame)
-                    self.assertEqual(decoded, [None])
-                    self.assertEqual(console.reads, 2)
-                    self.assertIsNone(_WindowsRuntime.key(runtime))
-                    self.assertEqual(frames, [])
-                    self.assertEqual(log.events, before[1])
-                    # Compare all state except callback/parser object identity.
-                    for field, value in before[0].items():
-                        if field not in {"log", "_parser"}:
-                            self.assertEqual(getattr(session, field), value, field)
+        for fixture in fixtures:
+            session, log = deepcopy(fixture)
+            before = deepcopy((session.__dict__, log.events))
+            for char in "bmoecdr" + "\u00e0\x00\ud800\x1b":
+                self.assertFalse(ConsoleStop.is_quit(event(char, vk=ord(char.upper()) if char.isascii() else 0)))
+            self.assertEqual(log.events, before[1])
+            for field, value in before[0].items():
+                if field not in {"log", "_parser"}:
+                    self.assertEqual(getattr(session, field), value, field)
 
-    def test_console_accepts_only_exact_command_keys(self):
-        for key in "bmoecdrq":
-            with self.subTest(key=key):
-                console = FakeConsole(key)
-                self.assertEqual(_WindowsRuntime.key(SimpleNamespace(_console=console)), key)
-                self.assertFalse(console.kbhit())
-        for key in ("B", "M", "O", "E", "C", "D", "R", "Q", "x", "1", "\x03", "\x1b", "\r", "\n", " ", "\t"):
-            with self.subTest(ignored=repr(key)):
-                console = FakeConsole(key)
-                self.assertIsNone(_WindowsRuntime.key(SimpleNamespace(_console=console)))
-                self.assertFalse(console.kbhit())
-        console = FakeConsole("\xe0mq")
-        runtime = SimpleNamespace(_console=console)
-        self.assertIsNone(_WindowsRuntime.key(runtime))
-        self.assertEqual(_WindowsRuntime.key(runtime), "q")
-        self.assertIsNone(_WindowsRuntime.key(runtime))
+    def test_console_q_has_its_own_identity_and_never_consumes_a_suffix(self):
+        self.assertFalse(ConsoleStop.is_quit(event("\u00e0", vk=0)))
+        self.assertFalse(ConsoleStop.is_quit(event("\x00", vk=0x27)))
+        self.assertFalse(ConsoleStop.is_quit(event("q", vk=0x22)))  # Page Down, old suffix q.
+        self.assertTrue(ConsoleStop.is_quit(event("q")))
+        for value in (event("Q"), event("q", down=False), event("q", modifiers=8),
+                      event("q", kind=4), event("q", modifiers=0x100)):
+            self.assertFalse(ConsoleStop.is_quit(value))
 
     def test_console_keyboard_interrupt_still_stops_and_closes_fake_session(self):
         runtime, log = FakeRuntime(), Recorder()
-        runtime._console = FakeConsole([KeyboardInterrupt()])
-        # Keep the actual decoder callable when replacing the constructor.
-        decode = _WindowsRuntime.key
-        runtime.key = lambda: decode(runtime)
+        runtime.key = lambda phase: (_ for _ in ()).throw(KeyboardInterrupt())
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-            result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
-                                menu_window_ms=10000)
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log,
+                                prerequisites_confirmed=True, menu_window_ms=10000)
         self.assertEqual(result.reason, "owner interrupted; no recovery send")
         self.assertFalse(result.accepted)
         self.assertEqual(runtime.port.writes, [])
         self.assertTrue(runtime.port.closed)
-        self.assertTrue(any(kind == "serial_stop" and "owner interrupted" in fields["reason"]
-                            for kind, fields in log.events))
+        self.assertTrue(runtime.controls_closed)
 
     def test_exact_five_frame_sequence_requires_observations_and_exit_waits(self):
         session, log = self.session()
@@ -437,10 +389,10 @@ class ComponentSerialTests(TestCase):
     def test_permission_and_prerequisites_reject_before_backend_factory(self):
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", side_effect=AssertionError("I/O")):
             with self.assertRaises(PermissionError):
-                run_serial(permit(False), port="COM999", log=Recorder(), prerequisites_confirmed=True,
+                run_serial(permit(False), port="COM999", control_x=0, control_y=0, log=Recorder(), prerequisites_confirmed=True,
                            menu_window_ms=10000)
             with self.assertRaises(PermissionError):
-                run_serial(permit(), port="COM999", log=Recorder(), prerequisites_confirmed=False,
+                run_serial(permit(), port="COM999", control_x=0, control_y=0, log=Recorder(), prerequisites_confirmed=False,
                            menu_window_ms=10000)
             for port in ("COM0", "COM01", "COM1 ", "com1", "loop://", "\\\\.\\COM1"):
                 with self.subTest(port=port), self.assertRaises(ValueError):
@@ -449,12 +401,12 @@ class ComponentSerialTests(TestCase):
 
     def test_log_failure_prevents_backend_creation_or_command_write(self):
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", side_effect=AssertionError("I/O")):
-            result = run_serial(permit(), port="COM999", log=Recorder("serial_open_intent"),
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=Recorder("serial_open_intent"),
                                 prerequisites_confirmed=True, menu_window_ms=10000)
             self.assertFalse(result.completed)
         runtime = FakeRuntime({5000: "b", 5010: "m", 5020: "o", 5030: "e"})
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-            result = run_serial(permit(), port="COM999", log=Recorder("serial_write_intent"),
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=Recorder("serial_write_intent"),
                                 prerequisites_confirmed=True, menu_window_ms=10000)
         self.assertEqual(runtime.port.writes, [])
         self.assertTrue(runtime.port.closed)
@@ -466,7 +418,7 @@ class ComponentSerialTests(TestCase):
                 10610: "r", 11130: "m", 11140: "o", 11150: "e", 11670: "c", 13680: "q"}
         runtime, log = FakeRuntime(keys), Recorder()
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-            result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log, prerequisites_confirmed=True,
                                 menu_window_ms=10000)
         self.assertTrue(result.completed)
         self.assertEqual(runtime.port.writes, [CandidateCommand.EXIT.value, CandidateCommand.CONTRAST94.value,
@@ -480,7 +432,7 @@ class ComponentSerialTests(TestCase):
         runtime, log = FakeRuntime({5000: "q"}), Recorder()
         runtime.after_pause = lambda rt: rt.port.traffic.append(ACK) if rt.time == 5200 else None
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-            result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log, prerequisites_confirmed=True,
                                 menu_window_ms=10000)
         self.assertFalse(result.completed)
         self.assertEqual(result.received_bytes, 3)
@@ -503,7 +455,7 @@ class ComponentSerialTests(TestCase):
 
                 runtime.port.read = delayed_read
                 with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-                    result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
+                    result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log, prerequisites_confirmed=True,
                                         menu_window_ms=10000)
                 self.assertEqual(any(kind == "serial_provisional_ack" for kind, _ in log.events), provisional)
                 received = [fields for kind, fields in log.events if kind == "serial_receive"]
@@ -521,7 +473,7 @@ class ComponentSerialTests(TestCase):
             runtime.port.write_error = True
             runtime.port.close_error = close_error
             with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-                result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
+                result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log, prerequisites_confirmed=True,
                                     menu_window_ms=10000)
             self.assertFalse(result.completed)
             self.assertEqual(result.closed, not close_error)
@@ -532,15 +484,15 @@ class ComponentSerialTests(TestCase):
         runtime, log = FakeRuntime({5000: "b", 5010: "m", 5020: "o", 5030: "e"}), Recorder()
         original_key = runtime.key
 
-        def key_with_new_traffic():
-            key = original_key()
+        def key_with_new_traffic(phase):
+            key = original_key(phase)
             if key == "e":
                 runtime.port.traffic.append(ACK)
             return key
 
         runtime.key = key_with_new_traffic
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-            result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log, prerequisites_confirmed=True,
                                 menu_window_ms=10000)
         self.assertEqual(runtime.port.writes, [])
         self.assertFalse(result.accepted)
@@ -555,7 +507,7 @@ class ComponentSerialTests(TestCase):
                 runtime.time = 15010
 
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", return_value=runtime), patch("builtins.print"):
-            result = run_serial(permit(), port="COM999", log=slow_log, prerequisites_confirmed=True,
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=slow_log, prerequisites_confirmed=True,
                                 menu_window_ms=10000)
         self.assertEqual(runtime.port.writes, [])
         self.assertFalse(result.accepted)
@@ -564,7 +516,7 @@ class ComponentSerialTests(TestCase):
     def test_backend_creation_failure_is_recorded_before_any_open(self):
         log = Recorder()
         with patch("tv_autocal_tools.serial_tool._WindowsRuntime", side_effect=RuntimeError("missing dependency")):
-            result = run_serial(permit(), port="COM999", log=log, prerequisites_confirmed=True,
+            result = run_serial(permit(), port="COM999", control_x=0, control_y=0, log=log, prerequisites_confirmed=True,
                                 menu_window_ms=10000)
         self.assertFalse(result.accepted)
         self.assertTrue(result.closed)
@@ -585,8 +537,9 @@ class ComponentSerialTests(TestCase):
                 calls.append((name, value))
 
         serial.Serial = UnopenedPort
-        with patch.object(sys, "platform", "win32"), patch.dict(sys.modules, {"serial": serial, "msvcrt": object()}):
-            _WindowsRuntime("COM999")
+        with patch.object(sys, "platform", "win32"), patch.dict(sys.modules, {"serial": serial, "tkinter": object()}), \
+                patch("tv_autocal_tools.serial_input.ConsoleStop"), patch("tv_autocal_tools.serial_input.MouseControls"):
+            _WindowsRuntime("COM999", control_x=0, control_y=0)
         self.assertEqual(calls[0][1], dict(port=None, baudrate=9600, bytesize=8, parity="N", stopbits=1,
                                           timeout=0, write_timeout=1, xonxoff=False, rtscts=False, dsrdtr=False))
         self.assertEqual(calls[1:], [("dtr", False), ("rts", False), ("port", "COM999")])
@@ -595,6 +548,7 @@ class ComponentSerialTests(TestCase):
         from types import SimpleNamespace
         import sys
         serial = SimpleNamespace(VERSION="wrong", Serial=lambda **kwargs: self.fail("port created"))
-        with patch.object(sys, "platform", "win32"), patch.dict(sys.modules, {"serial": serial, "msvcrt": object()}):
+        with patch.object(sys, "platform", "win32"), patch.dict(sys.modules, {"serial": serial, "tkinter": object()}), \
+                patch("tv_autocal_tools.serial_input.ConsoleStop"), patch("tv_autocal_tools.serial_input.MouseControls"):
             with self.assertRaises(RuntimeError):
-                _WindowsRuntime("COM999")
+                _WindowsRuntime("COM999", control_x=0, control_y=0)
