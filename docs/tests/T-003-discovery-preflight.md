@@ -101,18 +101,18 @@ The separate Samsung timer/protection and Anynet+ / Denon HDMI Control criteria,
 
 ## Unresolved owner inputs and readiness decision
 
-Session evidence entries below are deliberately unfilled. The companion private template contains individual fields; a manual default, merged document or AI agreement cannot fill them.
+The table below records evidence supplied by this public procedure, not an inventory of all private owner reports. **9 November 2026 assessment:** completed private owner observations dated 29 October are available, including Windows power/saver/locking/update, TV/receiver values and menu closure; the separate registry record remains deferred. Those reports retain their dates and limitations, including the owner-initiated display-off deviation and failure of the retained CEC criterion. They are not fresh observations or readiness clearance. Use the [dated readiness assessment](T-003-discovery-readiness.md) for available evidence, remaining gaps and suppliers. The companion private template remains blank; a manual default, merged document or AI agreement cannot fill it.
 
 | Input | Current state | How it closes |
 |---|---|---|
-| Windows power and screen saver | UNKNOWN | Owner's current values satisfy the console guide's Never/None gate, or a specific inapplicability explanation is reviewed |
-| Dynamic lock, sign-in wording, management and known lock mechanisms | UNKNOWN | Owner's look-only records meet the Windows table; any flagged item receives targeted assessment |
-| Windows update/restart state and active hours | UNKNOWN | Look-only status/hours meet the Windows table and are rechecked before launch; active hours do not guarantee an uninterrupted open-ended wait |
-| Machine inactivity location and recent-change uncertainty | UNKNOWN | Complete zero/absence evidence under the separate software-only read, with no unresolved application-of-policy concern; X-015's classification review is complete, not execution evidence |
-| Samsung timers, protection and Anynet+ | UNKNOWN | Each actual value meets the TV table, or a replacement criterion is adopted by tracked PR, cross-vendor review and owner merge as specified above |
+| Windows power and screen saver | Dated reports available; attributed readiness/C-146 assessment, not a fresh observation | Owner's current values satisfy the console guide's Never/None gate, or a specific inapplicability explanation is reviewed |
+| Dynamic lock, sign-in wording, management and known lock mechanisms | Dated owner-knowledge reports; automatic/unnoticed changes not ruled out | Owner's look-only records meet the Windows table; any flagged item receives targeted assessment |
+| Windows update/restart state and active hours | New 9 November owner report; automatic-adjustment state and future full-interval fit unresolved | Look-only status/hours meet the Windows table and are rechecked before launch; active hours do not guarantee an uninterrupted open-ended wait |
+| Machine inactivity location and recent-change uncertainty | DEFERRED; no owner-run query result | Complete zero/absence evidence under the separate software-only read, with no unresolved application-of-policy concern; X-015's classification review is complete, not execution evidence |
+| Samsung timers, protection and Anynet+ | Dated reports available; retained CEC criterion unmet | Each actual value meets the TV table, or a replacement criterion is adopted by tracked PR, cross-vendor review and owner merge as specified above |
 | Samsung clarification questions | NOT REQUIRED under D-021 | No collection or Samsung response required; source uncertainties remain recorded. Actually encountered interruptions follow the existing stop rules above |
-| Denon MAIN ZONE standby, sleep indication and HDMI Control | UNKNOWN | Each actual value/indication meets the receiver table, or a replacement criterion is adopted by tracked PR, cross-vendor review and owner merge as specified above |
-| Read-only navigation, unchanged inputs and desktop, menus closed | NOT OBSERVED | Owner records completed look-only checks and any deviation; settings remain unchanged |
+| Denon MAIN ZONE standby, sleep indication and HDMI Control | Dated reports available; retained CEC criterion unmet | Each actual value/indication meets the receiver table, or a replacement criterion is adopted by tracked PR, cross-vendor review and owner merge as specified above |
+| Read-only navigation, unchanged inputs and desktop, menus closed | Historical owner closure report, not fresh agent evidence | Owner records completed look-only checks and any deviation; settings remain unchanged |
 | D-021 readiness amendment review/merge | COMPLETE | PR #35 merged reviewed head `7bae8580e914f82faf32396348b5b0b551f27d6f`; this supplies no session evidence or discovery authority |
 | Discovery authority | NONE | After review and assessed preparation, owner separately authorises dated parent steps 1–4 at the new reviewed revision |
 
