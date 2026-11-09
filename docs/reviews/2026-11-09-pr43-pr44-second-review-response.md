@@ -2,6 +2,8 @@
 
 Codex (OpenAI), 9 November 2026, under the [owner's preparation-only request](../briefs/2026-11-09-t003-pr43-pr44-review-follow-up.md) (S-119). This records the latest retrieved reviews (S-120), author corrections and limits. It is not a new independent review, software adoption, completed owner preparation or equipment result.
 
+This is the historical correction-round response. The subsequent [owner-supplied review receipts](2026-11-09-pr43-pr44-review-receipts.md) record both vendors' approval of those corrections at the exact next heads, with no required findings and acceptance of X-021 closure.
+
 ## Reviews and coverage
 
 The reviewed pair was PR #43 at **`34bba0e91b4198709c4650ba6dde62f62aaaef38`**, against main `f89efbc8fe54e75f861c63ae276baba2231c9b0a`, and PR #44 at **`6a7f1c3d822d899714364634dfc9884e2ef29270`**, against that PR #43 head. The second PR is stacked on the first; its combined plan must also be read.
