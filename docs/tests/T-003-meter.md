@@ -11,6 +11,8 @@ Historical execution amendment: Codex (OpenAI), 28 October 2026, reconciled with
 
 The [discovery-only execution package](T-003-discovery-execution.md) supplies candidate fingerprints, private records and the one-launch capture/completion procedure for **steps 1–4**. PRs #29–#34 merged the preceding methods and research; D-021 retires the Samsung evidence requirements. PR #35 merged this readiness amendment; the [remaining checklist](T-003-discovery-readiness.md) indexes preparation, authority and session checks. No Argyll program was run; its observed version and device/default listing remain unknown. The package does not resolve later presentation or wrapped-reading gates.
 
+**9 November 2026 preparation assessment:** the [dated readiness table](T-003-discovery-readiness.md#preparation-assessment--9-november-2026) retains historical private observations and identifies missing console/registry/current-applicability evidence. File reads found the selected Argyll path unavailable and changed PowerShell bytes/version metadata; no substitute was selected. The command specification is non-executable, the CEC method remains unresolved, and section 8 still records no permission. C-136 does not apply to direct discovery; its separate hold on steps 5–11 remains.
+
 ## 1. Purpose
 
 Establish whether the installed ArgyllCMS can identify the owner's Spyder5Pro and produce actual XYZ measurements, then measure repeatability, warm-up drift and a provisional usable low-light range under one fixed setup. XYZ are the three reported colour-measurement components; Y represents luminance. A successful process exit alone is not a measurement.

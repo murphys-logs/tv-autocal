@@ -2,6 +2,8 @@
 
 **Blank session template, not permission or an equipment result.** Copy to a fresh ignored `local/T-003/` session directory only for the [reviewed discovery package](T-003-discovery-execution.md). Keep per-session fields blank here; actual paths, identifiers, captures and observations stay private. Fixed references to D-020's accepted choices are planning history, not session observations.
 
+For a preparation assessment, separate **observed file facts**, **dated historical owner reports**, **proposed values** and **unfilled future fields**. Reference earlier private records without overwriting them or relabelling their evidence as fresh. If a selected path is unavailable or its fingerprint changes, leave the proposed executable/command identity unresolved and mark the specification **NON-EXECUTABLE**; never fill a replacement by PATH lookup or assume updated bytes inherit the old review. Reserve fresh capture names without creating/overwriting the stdout/stderr files. A preparation record is not a consumed discovery session or an authority record.
+
 ## Preparation fields — complete privately before authorisation
 
 - Session identifier and private directory: UNRESOLVED

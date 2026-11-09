@@ -54,6 +54,26 @@ No measurement occurs, so D-013's change/exit/wait/read cycle is not exercised. 
 
 ## 6. Authorisation and results
 
+### Preparation assessment — 9 November 2026
+
+**The executable method is still blocked.** The retained private 29 October bounded observation/result records and both vendors' result confirmations are available and were read for this assessment. The frozen assessment/result files match their recorded review hashes. They contain the dependent-setting and unchanged-menu/input closure reports, but fail the retained Off/Off criterion. This is historical owner evidence, not today's state, a successful setting change or readiness clearance. Input-device recall was already supplied; do not re-ask it as missing. D-021 supersedes the old records' Samsung update holds.
+
+Codex reconsulted the three Denon pages linked in section 2 on 9 November: HDMI Setup still calls for resetting power to connected devices after an HDMI Control change, and its setting procedure does not supply a complete reset order, duration or PC/session method. The Samsung exact-model support listing was checked; the live PDF retrieval failed, so no fresh PDF-content verification is claimed. The previously inspected retained manual remains the cited Samsung evidence. These source limits do not justify omitting the reset or inventing its details (S-087/C-127).
+
+| Part of the proposed method | Supported planning detail | Exact unresolved evidence / consequence |
+|---|---|---|
+| Affected devices | PC, Denon and Samsung in the recorded path; input recall is dated and limited; 9 November owner assumption discussed below | Other endpoint absence is assumed, not observed. Assess that assumption's limits in the executable amendment; no survey or connection change is requested |
+| Originals and ordinary-menu edits | Section 3 owns original Anynet+/HDMI Control, Power Off Control, Power Saving, TV Audio Switching, ARC and input/power-state records; section 2 owns documented menu routes and navigation/edit distinctions | Historical values must be reassessed after changes. Exact supported selection/confirmation/exit on this setup and discrepancies from intended On/On restoration remain part of the executable amendment; no guessed key sequence |
+| Off transition and connected-device reset | Denon reset requirement applies; Samsung configuration messages can affect remote availability | Device-specific ordinary power controls, order/duration, PC shutdown or session loss, interruption limits and post-reset state cannot be established from these pages or the private observations |
+| Closure after change, with or without discovery | Close all menus, preserve deviations and reassess affected preflight evidence; discovery is a separate decision | No supported normal closure/restoration sequence exists yet if a change is made and discovery never starts. Failure, unexpected input/overlay or uncertain state must prevent launch, without improvised recovery |
+| Restore-On transition | Also an HDMI Control change requiring reset treatment; compare all recorded dependent values afterwards | The same missing reset/PC method applies in this direction. No successful restoration is assumed; if discovery is outstanding, late or completion-unconfirmed, its existing no-input/no-forced-recovery rules take precedence over a reminder |
+
+**Owner follow-up, 9 November (S-107):** the owner reports no intervening changes and directs us to assume the other connections are empty. Carry this as an owner-directed **planning assumption**, rather than an observed absence or a completed device inventory. For that assumed PC/Denon/Samsung-only set, the reset order/duration, safe interruption/PC-session consequences and full restoration method are still unestablished. The executable amendment must explicitly assess the assumption and its limits; no new survey or trial is authorised, and no repeat topology question is requested here.
+
+**Remaining concrete evidence request:** supply applicable manufacturer/supplier instructions or an already documented ordinary power method for that affected set, including the PC, if available. This requests records, not a reset trial; no such method was supplied by the follow-up. If the method cannot be established, retain NOT READY and propose a specific source-grounded amendment for independent review; do not treat general owner willingness to toggle the settings as the missing reset method. Q-021 is an optional route to proposing a different criterion, not a prerequisite or a waiver.
+
+Sections 1–5 remain a non-executable planning lifecycle. A later executable amendment must resolve the table, reconcile the look-only/change sequencing hold in section 4, receive cross-vendor review and owner merge, and then obtain exact dated authority for changes, both reset directions and restoration. Fresh assessed post-change evidence must precede separate discovery authority. None of these actions or authorities is supplied by this preparation task.
+
 - Change/restoration authority: **NONE**.
 - Exact executable reset/change sequence: **UNRESOLVED**.
 - Discovery authority: **NONE**, recorded only in the parent plan if later granted.

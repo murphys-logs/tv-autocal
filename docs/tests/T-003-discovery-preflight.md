@@ -101,7 +101,7 @@ The separate Samsung timer/protection and Anynet+ / Denon HDMI Control criteria,
 
 ## Unresolved owner inputs and readiness decision
 
-Session evidence entries below are deliberately unfilled. The companion private template contains individual fields; a manual default, merged document or AI agreement cannot fill them.
+The table below records evidence supplied by this public procedure, not an inventory of all private owner reports. **9 November 2026 assessment:** completed private owner observations dated 29 October are available, including Windows power/saver/locking/update, TV/receiver values and menu closure; the separate registry record remains deferred. Those reports retain their dates and limitations, including the owner-initiated display-off deviation and failure of the retained CEC criterion. They are not fresh observations or readiness clearance. Use the [dated readiness assessment](T-003-discovery-readiness.md) for available evidence, remaining gaps and suppliers. The companion private template remains blank; a manual default, merged document or AI agreement cannot fill it.
 
 | Input | Current state | How it closes |
 |---|---|---|

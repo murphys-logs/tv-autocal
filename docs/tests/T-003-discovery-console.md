@@ -4,11 +4,13 @@
 
 ## Accepted choices and remaining observations
 
-[S-059](../briefs/2026-10-28-discovery-owner-decisions.md)/D-020 records the owner's acceptance of the separate discovery 60-second limit and waiting response, existing phone stopwatch, selected Downloads Argyll candidate and **Codex-bundled PowerShell 7.6.5**, and ordinary Samsung desktop with the LG deferred. Current power settings are unknown. These are choices, not observed console access or permission to launch.
+[S-059](../briefs/2026-10-28-discovery-owner-decisions.md)/D-020 records the owner's acceptance of the separate discovery 60-second limit and waiting response, existing phone stopwatch, selected Downloads Argyll candidate and **Codex-bundled PowerShell 7.6.5**, and ordinary Samsung desktop with the LG deferred. Power settings were unknown at that decision; the [dated readiness assessment](T-003-discovery-readiness.md#preparation-assessment--9-november-2026) now assesses later owner reports. These choices are not observed console access or permission to launch.
 
 PRs #29–#34 merged the preceding discovery documents and Samsung research. D-021 removes the Samsung clarification requirements and retires the former evidence method. PR #35 merged the D-021 amendment. **The eventual authorisation must identify the new reviewed revision**, not rely on an earlier review alone.
 
 Private paths stay in ignored `local/` records. A public guide uses only placeholders. Check links relative to each guide's actual folder: the existing private guide is three directory levels below the repository root, so its `../../../docs/` links are correct. Do not move it to a different depth without updating and checking them.
+
+**9 November 2026 preparation hold:** the [file-only identity recheck](T-003-discovery-execution.md#executable-identity-and-what-is-actually-known) found the pinned Argyll path unavailable and different PowerShell bytes/7.6.9 metadata at the pinned shell path. Do not open that changed shell as the accepted 7.6.5 copy or infer its loaded PSReadLine version. Resolve the identity amendment first. No interactive preparation below was performed for this assessment. Reading the stored private paths programmatically for the permitted file check did not enter them into an interactive console; owner-typed private checks still require steps 2–4 in order.
 
 ## Proposed future preparation — no steps to carry out now
 
