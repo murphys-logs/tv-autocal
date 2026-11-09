@@ -2,6 +2,8 @@
 
 Codex (OpenAI), 9 November 2026. This records author dispositions and document/source work, not equipment results or independent review of the changed head. The owner's [clarified instruction](../briefs/2026-11-09-t003-steps-2-4-preparation.md) means project steps 2–4, preparation only.
 
+This is the first-cycle response. The subsequent [changed-head response](2026-11-09-pr43-pr44-second-review-response.md) records both vendors' reviews of the updated pair, Claude's withdrawal of the additional-confirmation recommendation, and the remaining software-selection wording fix.
+
 ## Reviews actually retrieved
 
 Both located independent reviews cover **`8b9f4a685f0f32d2e477ffa0d96d1e82792c7332`**, against main `f89efbc8fe54e75f861c63ae276baba2231c9b0a`:

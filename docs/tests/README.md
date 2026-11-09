@@ -24,6 +24,8 @@ The [T-009 prototype](../software/t009-prototype.md) is separate software-only w
 
 The separate [temporary CEC change/restoration proposal](T-003-cec-change-proposal.md) records the owner's preferred route and outstanding reset/method/authority holds. It is not executable and supplies no completed readiness or settings result.
 
+The [owner-preparation handoff](T-003-owner-preparation-handoff.md) indexes the remaining console/privacy, registry, Windows evidence and conditional permission stages. D-020's software choices are historical: the [stacked replacement-software proposal in PR #44](https://github.com/murphys-logs/tv-autocal/pull/44) requires review, owner merge and the owner's explicit selection updating that software choice. Preparation or a merge alone is not selection or physical authority.
+
 ## Ground rules
 
 - **No physical test without the owner's explicit authorisation of that specific plan** ([AGENTS.md section 7](../../AGENTS.md#7-equipment-safety-rule-6)). If the owner authorises in conversation, their words are copied into the plan before any step is carried out.
