@@ -295,49 +295,65 @@ class SerialSession:
 class _WindowsRuntime:
     """Lazy boundary; no constructor is reached by simulation or default CLI."""
 
-    def __init__(self, port: str) -> None:
+    def __init__(self, port: str, *, control_x: int, control_y: int) -> None:
         import sys
         if sys.platform != "win32":
             raise RuntimeError("The physical sender supports Windows only")
         import serial
-        import msvcrt
         import time
+        import tkinter as tk
+        from .serial_input import ConsoleStop, MouseControls
         if getattr(serial, "VERSION", None) != "3.5":
             raise RuntimeError("Reviewed dependency pySerial 3.5 is required")
-        self._console, self._time = msvcrt, time
-        self.port = serial.Serial(port=None, baudrate=9600, bytesize=8, parity="N", stopbits=1,
-                                  timeout=0, write_timeout=1, xonxoff=False,
-                                  rtscts=False, dsrdtr=False)
-        self.port.dtr = False
-        self.port.rts = False
-        self.port.port = port
+        self._console, self._time = ConsoleStop(), time
+        self.controls = MouseControls(tk, x=control_x, y=control_y)
+        try:
+            self.port = serial.Serial(port=None, baudrate=9600, bytesize=8, parity="N", stopbits=1,
+                                      timeout=0, write_timeout=1, xonxoff=False,
+                                      rtscts=False, dsrdtr=False)
+            self.port.dtr = False
+            self.port.rts = False
+            self.port.port = port
+        except BaseException:
+            self.controls.close()
+            raise
         self._origin = time.monotonic_ns()
 
     def now(self) -> int:
         return (self._time.monotonic_ns() - self._origin) // 1_000_000
 
     def open(self) -> None:
+        # Service mapping/redraw events before any port open. This is a fixed
+        # software work allowance, not a claim about native startup duration.
+        for _ in range(100):
+            if self.key("initial quiet") == "q":
+                raise RuntimeError("owner stopped before serial open")
+            if self.controls.ready:
+                break
+            self.pause()
+        else:
+            raise RuntimeError("serial controls did not become idle before open")
         self.port.open()
         # Initial silence is measured after the OS open has completed.
         self._origin = self._time.monotonic_ns()
 
-    def key(self) -> str | None:
-        if not self._console.kbhit():
-            return None
-        key = self._console.getwch()
-        if key in ("\x00", "\xe0"):
-            # msvcrt returns special keys as a prefix followed by a keycode.
-            # The code may spell a command, but it is not an owner action.
-            self._console.getwch()
-            return None
-        return key if key in {"b", "m", "o", "e", "c", "d", "r", "q"} else None
+    def key(self, phase: str) -> str | None:
+        # Always poll console stop before any queued mouse intent. A q never
+        # becomes a suffix to a previous Unicode or special-key event.
+        if self._console.poll():
+            return "q"
+        return self.controls.poll(phase)
+
+    def close_controls(self) -> None:
+        self.controls.close()
 
     def pause(self) -> None:
         self._time.sleep(0.01)
 
 
 def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirmed: bool,
-               menu_window_ms: int, reply_ms: int = 2000, quiet_ms: int = 500,
+               menu_window_ms: int, control_x: int | None = None, control_y: int | None = None,
+               reply_ms: int = 2000, quiet_ms: int = 500,
                settle_ms: int = 2000, close_ms: int = 500,
                session_ms: int = 120000) -> SerialResult:
     """Future owner-run T-006 session. Never call during software-only work.
@@ -355,6 +371,8 @@ def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirme
         raise PermissionError("T-006 electrical, scope, timing and isolation prerequisites are required")
     if type(port) is not str or fullmatch(r"COM[1-9][0-9]{0,3}", port) is None:
         raise ValueError("Use one explicitly identified COM name; URLs/scans are forbidden")
+    for name, value in (("control x", control_x), ("control y", control_y)):
+        _integer(value, 0, 32767, name)
     _integer(close_ms, 1, 5000, "close drain interval")
     session = SerialSession(log, menu_window_ms=menu_window_ms, reply_ms=reply_ms,
                             quiet_ms=quiet_ms, settle_ms=settle_ms, session_ms=session_ms)
@@ -365,7 +383,7 @@ def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirme
                          rts=False, plan=permit.plan, revision=permit.revision):
         return session.finish_close(closed=True)
     try:
-        runtime = _WindowsRuntime(port)
+        runtime = _WindowsRuntime(port, control_x=control_x, control_y=control_y)
     except Exception as error:
         session.stop("serial backend unavailable: " + type(error).__name__)
         return session.finish_close(closed=True)
@@ -376,9 +394,8 @@ def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirme
         runtime.open()
         opened = True
         session._emit("serial_opened", dependency="pySerial 3.5")
-        print("T-006 manual sender: b=baseline95; m=before opening ordinary menu; "
-              "o=observed expected value; e=EXIT; c=confirmed exit; "
-              "d=Contrast94; r=restore95; q=close. "
+        print("T-006 manual sender: click the labelled mouse controls for observations and sends. "
+              "Typing/paste never sends commands; lowercase q in either window or Stop closes. "
               "No recovery sends after a stop. Watch the logged phase.")
         last_phase = ""
         while True:
@@ -393,7 +410,10 @@ def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirme
             if session.phase == "stopped" and closing_at is None:
                 closing_at = now
             if closing_at is None:
-                key = runtime.key()
+                key = runtime.key(session.phase)
+                # Native input delivery can be delayed despite nonwaiting API
+                # flags. Even final q must not accept a run after its deadline.
+                session.tick(runtime.now())
                 if key == "q":
                     if session.phase != "complete":
                         session.stop("owner stopped; manual restoration only under the plan")
@@ -420,22 +440,35 @@ def run_serial(permit: HardwarePermit, *, port: str, log, prerequisites_confirme
     except KeyboardInterrupt:
         session.stop("owner interrupted; no recovery send")
     except Exception as error:
-        session.stop("serial operation failed: " + type(error).__name__)
+        detail = str(error)[:256]
+        session._emit("serial_failure", stage="operation", error_type=type(error).__name__,
+                      detail=detail)
+        session.stop("serial operation failed: " + type(error).__name__
+                     + (": " + detail if detail else ""))
     finally:
-        if opened:
-            # A bounded final drain also covers exceptional/cancelled paths.
-            # No reset_input_buffer/flush call discards evidence before close.
-            start = runtime.now()
-            try:
-                while runtime.now() - start < close_ms:
-                    session.receive(runtime.port.read(ReplyParser.MAX_CHUNK), runtime.now())
-                    runtime.pause()
-                session.receive(runtime.port.read(ReplyParser.MAX_CHUNK), runtime.now())
-            except (Exception, KeyboardInterrupt):
-                session.stop("final receive drain failed or was interrupted")
         try:
-            runtime.port.close()
-            closed = True
-        except Exception:
-            session.stop("port closure failed; owner must inspect before further work")
+            if opened:
+                # No buffer reset discards evidence before close. Even an
+                # interrupt obtaining the drain clock must attempt both closes.
+                try:
+                    start = runtime.now()
+                    while runtime.now() - start < close_ms:
+                        session.receive(runtime.port.read(ReplyParser.MAX_CHUNK), runtime.now())
+                        runtime.pause()
+                    session.receive(runtime.port.read(ReplyParser.MAX_CHUNK), runtime.now())
+                except (Exception, KeyboardInterrupt):
+                    session.stop("final receive drain failed or was interrupted")
+        finally:
+            try:
+                runtime.port.close()
+                closed = True
+            except (Exception, KeyboardInterrupt):
+                session.stop("port closure failed or interrupted; owner must inspect before further work")
+            finally:
+                try:
+                    runtime.close_controls()
+                    session._emit("serial_controls_closed", closed=True)
+                except (Exception, KeyboardInterrupt):
+                    session.stop("serial controls closure failed")
+                    session._emit("serial_controls_closed", closed=False)
     return session.finish_close(closed=closed)

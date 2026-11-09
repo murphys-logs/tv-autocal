@@ -2,7 +2,7 @@
 
 **The wrapper now supplies an explicit give-up response and requires the exact supported placement prompt, one parser-supported Yxy result line, and only whitespace around that result. This is a software fix for A-007/C-136, not proof of driver shutdown or permission to use equipment.** Native Argyll, instrument and cleanup behaviour remain untested. The [shared wrapped-reading hold](../tests/component-execution.md#meter-attempt-and-closure), exact-source review and remaining physical prerequisites still apply.
 
-Codex (OpenAI) prepared this policy on 9 November 2026 from current main `d5469297ed7cf8a41ff11585d84e1f0e44575364`, the implementation, latest audit/review responses and exact Argyll source. No Argyll executable was launched, including help/discovery; no port/device was opened or enumerated, equipment contacted or pattern displayed. The prior [audit](../reviews/2026-11-08-ground-up-audit.md#a-007--wrapped-meter-readings-do-not-control-argyll-error-retries) and its historical verification remain unchanged.
+Codex (OpenAI) initially prepared this policy on 9 November 2026 from baseline main `d5469297ed7cf8a41ff11585d84e1f0e44575364`, the implementation, audit/review responses and exact Argyll source. PR #41's reviewed `b5c4806` is now in main `58fcfb7`; the [combined PR #42 source](task2-integration.md) uses a new [active 38-file manifest](component-source-sha256.json). The meter-only results below remain historical. No Argyll executable was launched, including help/discovery; no port/device was opened or enumerated, equipment contacted or pattern displayed. The prior [audit](../reviews/2026-11-08-ground-up-audit.md#a-007--wrapped-meter-readings-do-not-control-argyll-error-retries) remains historical evidence.
 
 ## What the defect was
 
@@ -81,9 +81,9 @@ If a stronger requirement demands exactly one `read_sample` call across all inst
 
 ## Offline verification
 
-The [complete 36-file source/test manifest](meter-error-policy-manifest.sha256) identifies the current review amendment's software bytes, including the regression module and manual audit probe. The old 34-file manifest and October/November audit results remain historical. The separate serial amendment is not included: combining changes requires reviewed source/manifest reconciliation.
+Current combined-source results and identity are in the [integration record](task2-integration.md#combined-offline-verification) and [active 38-file manifest](component-source-sha256.json). The unchanged [36-file meter manifest](meter-error-policy-manifest.sha256) identifies only reviewed meter head `b5c48060ed1abf3e4b256399d4589ae63e074834`; it does not match this combined source. Its results below and the older 34-file/audit results remain historical, not new validation.
 
-### Review follow-up verification
+### Historical review follow-up verification at b5c4806
 
 The [review response](../reviews/2026-11-09-pr41-review-response.md) records Claude F1–F4, Antigravity's endorsement and its limits, and the same-vendor bot finding. Final follow-up runs on the same Windows 10 build 19045 AMD64/Python 3.15.0 build identified below:
 
