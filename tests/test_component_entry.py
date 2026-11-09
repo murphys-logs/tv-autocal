@@ -130,10 +130,13 @@ class ComponentEntryTests(unittest.TestCase):
 
     def test_serial_cli_uses_closed_complete_result_and_records_outcome(self):
         code, events, window, measurement, serial = self.armed_run(
-            "serial", ["--port", "COM_TEST", "--menu-window-ms", "5000", "--prerequisites-confirmed"])
+            "serial", ["--port", "COM_TEST", "--menu-window-ms", "5000", "--prerequisites-confirmed",
+                       "--control-x", "4000", "--control-y", "100"])
         self.assertEqual(code, 0)
         serial.assert_called_once()
         self.assertEqual(serial.call_args.kwargs["menu_window_ms"], 5000)
+        self.assertEqual(serial.call_args.kwargs["control_x"], 4000)
+        self.assertEqual(serial.call_args.kwargs["control_y"], 100)
         window.assert_not_called()
         measurement.assert_not_called()
         self.assertTrue(next(fields for name, fields in events if name == "serial_result")["accepted"])

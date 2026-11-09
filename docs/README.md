@@ -19,6 +19,7 @@
 | [tests/T-003-discovery-readiness.md](tests/T-003-discovery-readiness.md) | Remaining discovery-only preparation, owner authority and later session checks after PR #35; no hardware actions or completed observations |
 | [tests/T-003-cec-change-proposal.md](tests/T-003-cec-change-proposal.md) | Document-only temporary CEC Off/restoration proposal; power-reset method, review of the future executable amendment and exact authority still required; planning reviewed in PR #37 |
 | [tests/T-003-discovery-record.example.md](tests/T-003-discovery-record.example.md) | Blank template for private preparation/session records; no authorisation or results |
+| [software/serial-console-input.md](software/serial-console-input.md) | A-001/L-4 input repair, mouse-only serial actions, nonwaiting q, current branch verification and manifest; native/physical gates remain |
 | [software/component-readiness.md](software/component-readiness.md) | Software-only presenter controls, interruption handling, meter supervision and offline verification |
 | [software/t009-prototype.md](software/t009-prototype.md) | Hardware-free T-009 prototype, source fixtures, manual checks and their limits |
 | [software/renderer-cycle.md](software/renderer-cycle.md) | Off-screen renderer, simulated change/exit/wait/read controller, technical choices and manual checks |

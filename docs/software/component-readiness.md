@@ -2,7 +2,9 @@
 
 **Software-only implementation and fake-boundary verification; no equipment has been operated. All physical plans remain NOT AUTHORISED.** The implementation was independently reviewed and merged in PR #27 at `e424d47171f236add2451129691fc88d855548c3`, with the same tree as reviewed head `e7122a0e510337583d0da2e2a22e9b22c40f812e`. S-053's owner-input reconciliation was independently reviewed and merged in PR #28; neither record establishes physical display readiness or a safe way to force-stop an instrument driver.
 
-Prepared by Codex (OpenAI), 28 October 2026, from merged PR #26 (`dc552c737ec61d5b323ceda844fd198785170c61`), under [S-050's request](../briefs/2026-10-28-component-readiness.md). Design and checks are S-051/C-101/T-018; consulted APIs are S-052. The existing [component-tool contracts and current source hashes](component-tools.md) still apply except for the explicit changes below. The renderer, serial sender, allowlists, patch geometry and diagnostic reading limits are unchanged.
+Prepared by Codex (OpenAI), 28 October 2026, from merged PR #26 (`dc552c737ec61d5b323ceda844fd198785170c61`), under [S-050's request](../briefs/2026-10-28-component-readiness.md). Design and checks are S-051/C-101/T-018; consulted APIs are S-052. The existing [component-tool contracts and then-current source hashes](component-tools.md) still apply except for the explicit changes below. The renderer, serial sender, allowlists, patch geometry and diagnostic reading limits are unchanged.
+
+**Later serial source:** this page retains the historical PR #27 verification. The [9 November serial input amendment](serial-console-input.md) replaces the old serial/CLI bytes and supplies its own complete manifest and results. Do not validate the new source with the historical 287-test results or old manifest.
 
 ## Presenter control choice
 
@@ -36,7 +38,7 @@ An indefinitely outstanding child still has no guaranteed finish time. Closing t
 
 ## Offline verification
 
-The complete suite was run manually on 28 October 2026 using each interpreter with `-B -m unittest discover -s tests`, against the [current 34-file SHA-256 manifest](component-tools.md#offline-verification).
+The complete suite was run manually on 28 October 2026 using each interpreter with `-B -m unittest discover -s tests`, against the [historical 34-file SHA-256 manifest](component-tools.md#offline-verification).
 
 | Interpreter | Passed | Failures | Errors | Skipped | Unrun |
 |---|---:|---:|---:|---:|---:|

@@ -1,5 +1,7 @@
 # Tests on the owner's equipment
 
+**9 November serial amendment:** [A-001/L-4 repair and new source manifest](../software/serial-console-input.md) replace the old keyboard-command source for proposed T-006 execution. Mouse controls/Tk/native console checks, every physical prerequisite, independent review and exact authority remain outstanding. Historical offline results do not validate changed bytes.
+
 This folder holds the plans, authorisations and results of every test that involves the owner's real equipment: the TV, the Spyder5, the Denon receiver, the Ex-Link cable, or the PC when it is driving any of them. It answers *"what actually happened on the owner's equipment?"*.
 
 Software-only simulations do not belong here and need no authorisation, because they never touch the equipment. Their results must always be labelled as simulations.

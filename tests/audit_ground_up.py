@@ -1,7 +1,7 @@
 """Hardware-free audit reproductions, deliberately outside unittest discovery.
 
 Run from the repository root: py -3.15 -B tests/audit_ground_up.py
-Only imports an inert project module; never constructs its Windows runtime.
+Reproduces the historical decoder locally; never constructs a Windows runtime.
 This records a KNOWN defect, not a passing regression test for correct behavior.
 Independent arithmetic uses ITU-R BT.1886-0 Annex 1 and BT.709-6 Part 1.
 No downloaded source, device I/O, GUI, subprocess, network or file writes.
@@ -11,11 +11,9 @@ import json
 import math
 from pathlib import Path
 import sys
-from types import SimpleNamespace
 
 # Direct script execution puts tests/ first; select this checkout explicitly.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from tv_autocal_tools.serial_tool import _WindowsRuntime
 
 
 class WouldBlock(Exception):
@@ -37,21 +35,32 @@ class Console:
         return self.keys.pop(0)
 
 
+def historical_decoder(console):
+    """Frozen pre-fix behavior; current regressions live in unittest tests."""
+    if not console.kbhit():
+        return None
+    key = console.getwch()
+    if key in ("\x00", "\xe0"):
+        console.getwch()
+        return None
+    return key if key in {"b", "m", "o", "e", "c", "d", "r", "q"} else None
+
+
 def console_reproduction():
     alone = Console(["\u00e0"])
     blocked = False
     try:
-        _WindowsRuntime.key(SimpleNamespace(_console=alone))
+        historical_decoder(alone)
     except WouldBlock:
         blocked = True
     assert blocked and alone.reads == 2
     followed = Console(["\u00e0", "q"])
-    decoded = _WindowsRuntime.key(SimpleNamespace(_console=followed))
+    decoded = historical_decoder(followed)
     assert decoded is None and followed.reads == 2 and not followed.keys
     ordinary = Console(["q"])
-    assert _WindowsRuntime.key(SimpleNamespace(_console=ordinary)) == "q"
+    assert historical_decoder(ordinary) == "q"
     return {"unavailable_second_read": blocked, "next_q_swallowed": True,
-            "ordinary_q_returned": True, "native_console_tested": False}
+            "ordinary_q_returned": True, "native_console_tested": False, "historical_decoder_only": True}
 
 
 def bt1886(v, black, white):
