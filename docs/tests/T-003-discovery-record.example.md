@@ -37,6 +37,8 @@ Complete only after applicable review of the [preflight method](T-003-discovery-
 
 These visible-settings observations follow the owner-check rule, without a separate physical-test authorisation. No setting changes or native-program commands belong in this subsection.
 
+For the [D-023 first-discovery exception](T-003-discovery-readiness.md#first-discovery-windows-update-exception--d-023), pending this amendment's independent review/owner merge, the Windows Update/active-hours fields and freshness below become **NOT REQUIRED / UNVERIFIED**, not passed. The default collection/assessment fields remain applicable outside that first-ever direct sole-`-?` attempt. Other fields and actually encountered interruption/deviation records remain required as applicable; this template requests no collection or execution.
+
 - Observation date, owner and reviewed preflight revision: NOT OBSERVED
 - Existing Samsung ordinary desktop, TV/Denon input indications; LG deferred: NOT OBSERVED
 - Plugged-in display-off, sleep and hibernate values, separately; screen saver, Wait and resume checkbox: NOT OBSERVED
@@ -45,9 +47,9 @@ These visible-settings observations follow the owner-check rule, without a separ
 - Require sign-in exact wording and any timed-away/policy restriction: NOT OBSERVED
 - Access work or school connection/management indication (identifiers private): NOT OBSERVED
 - Owner report of known locking utility/task, remote-control arrangement, recent policy change, pending application or unexplained locks: NOT OBSERVED
-- Windows Update displayed status and any pending/scheduled/required restart, deadline or update in progress: NOT OBSERVED
-- Current active-hours start/end and automatic-adjustment state; proposed launch plus full 60-second interval fit: NOT OBSERVED
-- Update gate result, flagged uncertainty and targeted assessment; longer-wait/restart limits considered: UNRESOLVED
+- Windows Update displayed status and any pending/scheduled/required restart, deadline or update in progress: NOT OBSERVED; NOT REQUIRED / UNVERIFIED within adopted D-023 scope
+- Current active-hours start/end and automatic-adjustment state; proposed launch plus full 60-second interval fit: NOT OBSERVED; NOT REQUIRED / UNVERIFIED within adopted D-023 scope
+- Update gate result, flagged uncertainty and targeted assessment; longer-wait/restart limits considered: UNRESOLVED; apply D-023 only within its adopted first-attempt scope, never record missing evidence as a pass
 - Samsung Sleep Timer: NOT OBSERVED
 - Samsung Off Timer, every schedule actually displayed: NOT OBSERVED
 - Samsung Auto Power Off: NOT OBSERVED
@@ -101,7 +103,7 @@ This is an owner-run software step, not a look-only owner check. It uses the wri
 - Original/current error preference (`Stop`) and native exit-code preference (`false`); other capture settings: NOT OBSERVED
 - Assessed preflight record reference; owner confirms no relevant settings, management, input or connection changes, unexplained restart or new lock since that record: NOT OBSERVED
 - Preflight conditions still apply; original ordinary desktop/inputs visible and all menus closed before launch: NOT OBSERVED
-- Fresh look-only Windows Update status/restart/hour observations before launch, observation time and full 60-second interval check; views then closed: NOT OBSERVED
+- Fresh look-only Windows Update status/restart/hour observations before launch, observation time and full 60-second interval check; views then closed: NOT OBSERVED; freshness NOT REQUIRED / UNVERIFIED within the adopted [D-023 first-attempt exception](T-003-discovery-readiness.md#first-discovery-windows-update-exception--d-023), default requirement outside it
 - Any actually encountered update prompt/progress, restart, reset or visibility loss; existing stop/deviation response: NOT OBSERVED; no Samsung inspection required
 - Any new power/saver/locking/standby/Windows update uncertainty in a remaining criterion; launch gate (failed/unknown means no launch): NOT OBSERVED
 - Capture paths confirmed fresh and distinct: NOT OBSERVED

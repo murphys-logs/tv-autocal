@@ -21,6 +21,8 @@ This folder is a log of reviews of this repository's pull requests: who reviewed
 - [2026-11-09-pr43-pr44-second-review-response.md](2026-11-09-pr43-pr44-second-review-response.md) — latest changed-head reviews, explicit software-selection correction, X-021 withdrawal and optional documentation improvements
 - [2026-11-09-pr43-pr44-review-receipts.md](2026-11-09-pr43-pr44-review-receipts.md) — owner-supplied approvals at the next exact heads, X-021 closure, optional timing/status clarifications and reviewer-summary correction
 
+- [2026-11-09-pr47-review-response.md](2026-11-09-pr47-review-response.md) — first-head review receipts, connection/authority corrections and explicit first-discovery Windows Update decision; changed-head review remains required
+
 ## Review task prompts
 
 - [2026-11-08-ground-up-review-prompt.md](2026-11-08-ground-up-review-prompt.md) — complete project-audit instructions and requirements for subsequent independent Claude and Antigravity reviews; a prompt, not completed findings

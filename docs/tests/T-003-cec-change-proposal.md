@@ -35,6 +35,8 @@ An original value differing from the intended On restoration target is a plannin
 
 ## 4. Candidate lifecycle and holds for the executable amendment
 
+**Proposed ordinary-control resolution, 9 November (S-125/C-150):** the [complete method candidate](T-003-cec-ordinary-control-method.md) supplies an explicitly author-chosen sequence, PC/session closure, both off/on directions and restoration/failure branches. It proposes replacing the demand for a manufacturer-prescribed order, interval and particular PC electrical state with a bounded interpretation of the documented ordinary controls; the cited pages do not prescribe those details. This is not a discovered manufacturer sequence or validated reset outcome. It retains Off/Off and separately dated change/power/restoration authority, then fresh assessment before separate discovery authority. The method and its narrow preflight/checklist sequencing exception require independent review and owner merge before adoption; no physical action is authorised by this proposal.
+
 This is the order to complete in documentation and review, not instructions to perform now:
 
 1. **Resolve the connected-device power-reset method.** Identify the finite affected device set from existing owner knowledge, including relevant HDMI inputs and outputs, and the exact ordinary power controls, order, PC/session consequences and restoration. An input-only account is insufficient to cover other outputs. Do not infer that a Denon-only standby cycle, an unplug, a factory reset or an ignored reset note is sufficient. No survey or power trial is requested by this proposal. Both Off and On transitions need this treatment. As source input for assessing the restore-On direction, the cited Denon setting procedure turns connected devices on, sets their HDMI Control functions, and repeats its steps 2–3 if devices were unplugged. This supplies no complete reset order, wait duration or PC method and is not adopted as a reset instruction here.
@@ -44,7 +46,7 @@ This is the order to complete in documentation and review, not instructions to p
 5. **Keep discovery separate.** A favourable change result alone never starts Argyll. A fresh console, hashes, identity/environment/isolation/driver checks, Windows Update/active-hours fit and every other remaining gate stay required under the discovery package. No menu/power/restoration action is added during an outstanding invocation.
 6. **At the appropriate completed-session boundary:** remind the owner to restore the two settings to the agreed recorded originals (intended On/On), using the reviewed restoration and power-reset method, and record actual outcomes. If no discovery is launched after a setting change, that changed state also needs the reviewed closure/restoration path. If discovery is outstanding, late, interrupted or completion-unconfirmed, its unchanged waiting/recovery rules control; do not act on the reminder as automatic normal cleanup. The owner's unconditional right to end activity remains.
 
-**Current hold:** stages 1–3 are incomplete. This document can be reviewed as a source-grounded planning proposal, but cannot be used to authorise or carry out the setting changes. A later tracked amendment must resolve the method and receive independent cross-vendor review and owner merge before execution authority is sought. This hold does not require reopening D-021 questions or collecting later-reading/component prerequisites.
+**Current adoption hold:** the [ordinary-control amendment](T-003-cec-ordinary-control-method.md) supplies the proposed stage 1/2 normal method and sequencing resolution. It must receive independent cross-vendor review and owner merge before stage 3’s exact separate authority is sought; actual operation/evidence remain unperformed. It is the proposed tracked operating amendment, not a requirement to write another one. This does not reopen D-021 or add later-reading/component prerequisites.
 
 ## 5. Reminder and recordkeeping
 
@@ -62,7 +64,7 @@ Codex reconsulted the three Denon pages linked in section 2 on 9 November: HDMI 
 
 ### Focused source follow-up — 9 November 2026
 
-**The request to resolve the CEC change/reset/restoration method remains incomplete; no executable operating sequence is established.** Codex (OpenAI) consulted the following primary material read-only on 9 November (S-116/C-147). The affected planning set is **PC, AVC-X3800H and UE49KS7000UXXU**, using the owner's empty-other-connections assumption below, not a fresh inventory. No repeat topology question, device inspection or trial is requested.
+**Dated source follow-up:** these sources did not supply a complete manufacturer-prescribed sequence. The later [ordinary-control amendment](T-003-cec-ordinary-control-method.md) proposes an explicitly attributed interpretation and normal sequence for review, not a new manufacturer instruction or equipment result. Codex (OpenAI) consulted the following primary material read-only on 9 November (S-116/C-147). The affected planning set is **PC, AVC-X3800H and UE49KS7000UXXU**, using the owner's empty-other-connections assumption below, not a fresh inventory. No repeat topology question, device inspection or trial is requested.
 
 | Source | Supported clarification | Limit for this proposal |
 |---|---|---|
@@ -92,10 +94,10 @@ This asks for the residual method evidence, not a reset experiment, a claim that
 
 **Remaining concrete evidence request:** supply applicable manufacturer/supplier instructions or an already documented ordinary power method for that affected set, including the PC, if available. This requests records, not a reset trial; no such method was supplied by the follow-up. If the method cannot be established, retain NOT READY and propose a specific source-grounded amendment for independent review; do not treat general owner willingness to toggle the settings as the missing reset method. Q-021 is an optional route to proposing a different criterion, not a prerequisite or a waiver.
 
-Sections 1–5 remain a non-executable planning lifecycle. A later executable amendment must resolve the table, reconcile the look-only/change sequencing hold in section 4, receive cross-vendor review and owner merge, and then obtain exact dated authority for changes, both reset directions and restoration. Fresh assessed post-change evidence must precede separate discovery authority. None of these actions or authorities is supplied by this preparation task.
+Sections 1–5 remain the planning history. The ordinary-control amendment proposes the table’s normal method and sequencing resolution; it needs cross-vendor review and owner merge, then exact dated authority for changes, both reset directions and restoration. Fresh assessed post-change evidence must precede separate discovery authority. None of these actions or authorities is supplied by this preparation task.
 
 - Change/restoration authority: **NONE**.
-- Exact executable reset/change sequence: **UNRESOLVED**.
+- Normal reset/change/restoration sequence: [ordinary-control amendment](T-003-cec-ordinary-control-method.md) proposed for independent review/owner merge; no action or validated reset result inferred.
 - Discovery authority: **NONE**, recorded only in the parent plan if later granted.
 - Settings changed or restored for this proposal: **NOT PERFORMED**.
 - Equipment results or continuity/restoration validation: **NONE**.
